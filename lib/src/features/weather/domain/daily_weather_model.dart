@@ -16,7 +16,7 @@ class DailyWeatherModel {
   final double dewPoint; // Dew point temperature
   final double windSpeed; // Wind speed
   final int windDegree; // Wind degree
-  final SubCurrentWeather weather; // Detailed weather information
+  final SubWeather weather; // Detailed weather information
 
   // Constructor for the DailyWeatherModel class
   DailyWeatherModel({
@@ -60,8 +60,8 @@ class DailyWeatherModel {
     final feelsLike_ = data["feels_like"] as Map<String, dynamic>;
     final feelsLike = FeelsLike.fromJson(feelsLike_);
 
-    // Use the first element of the weatherData list to create SubCurrentWeather
-    final weather = SubCurrentWeather.fromJson(weatherData);
+    // Use the first element of the weatherData list to create SubWeather
+    final weather = SubWeather.fromJson(weatherData);
 
     // Returning a new instance of DailyWeatherModel with extracted data
     return DailyWeatherModel(

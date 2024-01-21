@@ -9,7 +9,7 @@ class HourlyWeatherModel {
   final int dewPoint;
   final double windSpeed;
   final int windDegree;
-  final SubCurrentWeather weather;
+  final SubWeather weather;
 
   // Constructor for HourlyWeatherModel
   HourlyWeatherModel(
@@ -35,8 +35,8 @@ class HourlyWeatherModel {
     final windDegree = data["wind_deg"] as int;
     final weatherData = data["weather"] as List<Map<String, dynamic>>;
 
-    // Use the first element of the weatherData list to create SubCurrentWeather
-    final weather = SubCurrentWeather.fromJson(weatherData);
+    // Use the first element of the weatherData list to create SubWeather
+    final weather = SubWeather.fromJson(weatherData);
 
     return HourlyWeatherModel(
         dateTime: dateTime,

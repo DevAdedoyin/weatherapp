@@ -38,7 +38,7 @@ class CurrentWeatherModel {
   final double dewPoint;
   final double windSpeed;
   final int windDegree;
-  final SubCurrentWeather weather;
+  final SubWeather weather;
 
   // Constructor for CurrentWeatherModel
   CurrentWeatherModel(
@@ -68,8 +68,8 @@ class CurrentWeatherModel {
     final windDegree = data["wind_deg"] as int;
     final weatherData = data["weather"] as List<Map<String, dynamic>>;
 
-    // Use the first element of the weatherData list to create SubCurrentWeather
-    final weather = SubCurrentWeather.fromJson(weatherData);
+    // Use the first element of the weatherData list to create SubWeather
+    final weather = SubWeather.fromJson(weatherData);
 
     return CurrentWeatherModel(
         dateTime: dateTime,
@@ -87,21 +87,21 @@ class CurrentWeatherModel {
 }
 
 // Sub-Model for current weather using type checks and none pattern matching
-class SubCurrentWeather {
+class SubWeather {
   final String main;
   final String description;
   final String icon;
 
-  // Constructor for SubCurrentWeather
-  SubCurrentWeather(
+  // Constructor for SubWeather
+  SubWeather(
       {required this.main, required this.description, required this.icon});
 
-  // Factory method to create SubCurrentWeather from JSON data
-  factory SubCurrentWeather.fromJson(List<Map<String, dynamic>> data) {
+  // Factory method to create SubWeather from JSON data
+  factory SubWeather.fromJson(List<Map<String, dynamic>> data) {
     final main = data[0]['main'] as String;
     final description = data[0]['description'] as String;
     final icon = data[0]['icon'] as String;
 
-    return SubCurrentWeather(main: main, description: description, icon: icon);
+    return SubWeather(main: main, description: description, icon: icon);
   }
 }
