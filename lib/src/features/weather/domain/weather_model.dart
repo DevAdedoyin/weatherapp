@@ -1,16 +1,27 @@
+import 'package:weatherapp/src/features/weather/domain/daily_weather_model.dart';
+
 class WeatherModel {
   final double lat;
   final double lon;
+  final List<DailyWeatherModel> dailyWeather;
   final String? timezone;
 
   // Constructor for WeatherModel
-  WeatherModel({required this.lat, required this.lon, this.timezone});
+  WeatherModel({
+    required this.lat,
+    required this.lon,
+    required this.dailyWeather,
+    this.timezone,
+  });
 
   // Factory method to create WeatherModel from JSON data
   factory WeatherModel.fromJson(Map<String, dynamic> data) {
     final lat = data['lat'] as double;
     final lon = data['lon'] as double;
-    return WeatherModel(lat: lat, lon: lon);
+    final dailyWeather = data['hourly'] as List<Map<String, dynamic>>;
+    final dailyWeatherList =
+        dailyWeather.map((e) => DailyWeatherModel.fromJson(e)).toList();
+    return WeatherModel(lat: lat, lon: lon, dailyWeather: dailyWeatherList);
   }
 }
 
