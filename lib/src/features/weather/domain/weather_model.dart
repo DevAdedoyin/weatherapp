@@ -24,7 +24,7 @@ class CurrentWeatherModel {
   final double feelsLike;
   final int pressure;
   final int humidity;
-  final int dewPoint;
+  final double dewPoint;
   final double windSpeed;
   final int windDegree;
   final SubCurrentWeather weather;
@@ -52,7 +52,7 @@ class CurrentWeatherModel {
     final feelsLike = data["feels_like"] as double;
     final pressure = data["pressure"] as int;
     final humidity = data["humidity"] as int;
-    final dewPoint = data["dew_point"] as int;
+    final dewPoint = data["dew_point"] as double;
     final windSpeed = data["wind_speed"] as double;
     final windDegree = data["wind_deg"] as int;
     final weatherData = data["weather"] as List<Map<String, dynamic>>;
