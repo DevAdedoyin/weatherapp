@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 Future<bool> signOutFromGoogle() async {
   try {
@@ -8,3 +9,5 @@ Future<bool> signOutFromGoogle() async {
     return false;
   }
 }
+
+final googleSignOutProvider_ = Provider((ref) => signOutFromGoogle());
