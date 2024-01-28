@@ -24,7 +24,7 @@ class _WeatherAppState extends ConsumerState<WeatherApp> {
       routeInformationParser: router.routeInformationParser,
       routeInformationProvider: router.routeInformationProvider,
       routerDelegate: router.routerDelegate,
-      title: 'Flutter Demo',
+      title: 'Weather Monitor',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
