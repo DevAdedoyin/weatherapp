@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:weatherapp/src/routing/go_router_provider.dart';
+import 'package:weatherapp/src/themes/theme_constants.dart';
+import 'package:weatherapp/src/themes/theme_manager.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
@@ -18,6 +20,7 @@ class WeatherApp extends ConsumerStatefulWidget {
 class _WeatherAppState extends ConsumerState<WeatherApp> {
   @override
   Widget build(BuildContext context) {
+    ThemeManager themeManager = ThemeManager();
     final router = ref.watch(goRouterProvider);
 
     return MaterialApp.router(
@@ -25,10 +28,9 @@ class _WeatherAppState extends ConsumerState<WeatherApp> {
       routeInformationProvider: router.routeInformationProvider,
       routerDelegate: router.routerDelegate,
       title: 'Weather Monitor',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: themeManager.themeMode,
     );
   }
 }
