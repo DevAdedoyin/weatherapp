@@ -6,9 +6,6 @@ class SplashScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-        body: Container(
-      child: SizedBox(),
-    ));
+    return const Scaffold(body: SizedBox());
   }
 }
