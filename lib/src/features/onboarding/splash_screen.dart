@@ -6,6 +6,25 @@ class SplashScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(body: SizedBox());
+    TextTheme textTheme = Theme.of(context).textTheme;
+    return SizedBox(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 110,
+            width: 110,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(70),
+              child: Image.asset("assets/images/weather.gif", fit: BoxFit.fill),
+            ),
+          ),
+          Text(
+            "Weather Monitor",
+            style: textTheme.bodyMedium,
+          )
+        ],
+      ),
+    );
   }
 }

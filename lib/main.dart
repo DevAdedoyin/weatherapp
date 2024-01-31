@@ -28,8 +28,8 @@ class _WeatherAppState extends ConsumerState<WeatherApp> {
       routeInformationProvider: router.routeInformationProvider,
       routerDelegate: router.routerDelegate,
       title: 'Weather Monitor',
-      theme: lightTheme,
-      darkTheme: darkTheme,
+      theme: darkTheme,
+      darkTheme: lightTheme,
       themeMode: themeManager.themeMode,
     );
   }
