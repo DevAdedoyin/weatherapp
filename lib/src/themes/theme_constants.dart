@@ -33,6 +33,7 @@ ThemeData lightTheme = ThemeData(
       fillColor: AppColors.inputFieldBG),
 );
 
+// Dark Theme
 ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
   elevatedButtonTheme: ElevatedButtonThemeData(
@@ -57,7 +58,7 @@ ThemeData darkTheme = ThemeData(
       ),
       titleMedium: GoogleFonts.cuteFont(
         fontWeight: FontWeight.bold,
-        fontSize: 25,
+        fontSize: 26,
         // fontStyle: FontStyle.italic
       )),
   inputDecorationTheme: InputDecorationTheme(
