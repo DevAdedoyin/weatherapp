@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weatherapp/src/constants/app_colors.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
@@ -32,4 +33,37 @@ ThemeData lightTheme = ThemeData(
       fillColor: AppColors.inputFieldBG),
 );
 
-ThemeData darkTheme = ThemeData(brightness: Brightness.dark);
+ThemeData darkTheme = ThemeData(
+  brightness: Brightness.dark,
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ButtonStyle(
+      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+        const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
+      ),
+      shape: MaterialStateProperty.all<OutlinedBorder>(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+      ),
+      backgroundColor:
+          MaterialStateProperty.all<Color>(AppColors.secondaryColor),
+    ),
+  ),
+  textTheme: TextTheme(
+      headlineMedium: const TextStyle(
+          color: AppColors.fontColor, fontWeight: FontWeight.bold),
+      bodySmall: const TextStyle(
+        color: AppColors.fontColor,
+      ),
+      titleMedium: GoogleFonts.cuteFont(
+        fontWeight: FontWeight.bold,
+        fontSize: 25,
+        // fontStyle: FontStyle.italic
+      )),
+  inputDecorationTheme: InputDecorationTheme(
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      filled: true,
+      fillColor: AppColors.inputFieldBG),
+);

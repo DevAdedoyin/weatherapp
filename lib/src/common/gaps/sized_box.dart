@@ -8,6 +8,6 @@ Widget horizontalGap(double width) {
 
 Widget verticalGap(double height) {
   return SizedBox(
-    width: height,
+    height: height,
   );
 }
