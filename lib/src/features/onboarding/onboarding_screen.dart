@@ -6,6 +6,6 @@ class OnboardingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(body: SizedBox());
+    return Scaffold(body: SizedBox(child: Pageview()));
   }
 }
