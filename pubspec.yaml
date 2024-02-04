@@ -47,6 +47,7 @@ dependencies:
   flutter_login_facebook: ^1.9.0
   flutter_facebook_auth: ^6.0.4
   google_fonts: ^6.1.0
+  introduction_screen: ^3.1.12
 
 dev_dependencies:
   flutter_test:
