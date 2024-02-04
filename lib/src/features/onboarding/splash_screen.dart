@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:weatherapp/src/common/gaps/sized_box.dart';
+import 'package:weatherapp/src/routing/app_routes.dart';
+import 'package:weatherapp/src/routing/go_router_provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -19,6 +22,10 @@ class _SplashScreenState extends State<SplashScreen> {
       setState(() {
         _visible = true;
       });
+      Future.delayed(
+        const Duration(milliseconds: 7000),
+        () => context.go(AppRoutes.onboarding),
+      );
     });
 
     super.initState();
@@ -46,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
             verticalGap(5.0),
             AnimatedOpacity(
               opacity: _visible ? 1.0 : 0.0,
-              duration: const Duration(milliseconds: 2000),
+              duration: const Duration(milliseconds: 5000),
               child: Text(
                 "Weather Monitor",
                 style: textTheme.titleMedium,

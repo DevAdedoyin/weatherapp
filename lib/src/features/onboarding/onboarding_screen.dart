@@ -41,7 +41,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         onDone: () {},
         skip: const Text("Skip"),
         showSkipButton: true,
-        showBackButton: true,
+        showBackButton: false,
+        showNextButton: true,
+        next: const Text("Next"),
         back: const Icon(Icons.arrow_back),
         dotsDecorator: DotsDecorator(
           size: const Size.square(10.0),
