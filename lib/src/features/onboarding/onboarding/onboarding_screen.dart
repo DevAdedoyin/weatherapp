@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:weatherapp/src/constants/app_colors.dart';
 import 'package:weatherapp/src/features/onboarding/onboarding/onboarding_items.dart';
+import 'package:weatherapp/src/routing/app_routes.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -25,7 +27,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       body: IntroductionScreen(
         pages: pages,
         done: const Text("Done"),
-        onDone: () {},
+        onDone: () => context.go(AppRoutes.login),
+        onSkip: () => context.go(AppRoutes.login),
         skip: const Text("Skip"),
         showSkipButton: true,
         showBackButton: false,
@@ -42,9 +45,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             borderRadius: BorderRadius.circular(25.0),
           ),
         ),
-        // baseBtnStyle: ElevatedButton.styleFrom(
-        //   backgroundColor: Colors.grey.shade200,
-        // ),
         skipStyle: TextButton.styleFrom(
             backgroundColor: AppColors.accentColor,
             elevation: 10,
