@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:weatherapp/src/features/onboarding/onboarding_screen.dart';
+import 'package:weatherapp/src/features/onboarding/onboarding/onboarding_screen.dart';
 import 'package:weatherapp/src/features/onboarding/splash_screen.dart';
 import 'package:weatherapp/src/routing/app_routes.dart';
 import 'package:weatherapp/src/routing/route_error_screen.dart';
