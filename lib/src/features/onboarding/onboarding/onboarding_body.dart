@@ -14,7 +14,7 @@ class OnboardingBodyWidget extends StatelessWidget {
     TextTheme textTheme = Theme.of(context).textTheme;
     return SizedBox(
         // color: Colors.white,
-        height: size.height * 0.9,
+        height: size.height * 0.92,
         child: Column(children: [
           SizedBox(
               height: size.height * 0.6,

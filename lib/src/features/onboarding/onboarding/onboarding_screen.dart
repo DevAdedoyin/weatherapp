@@ -35,19 +35,38 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         dotsDecorator: DotsDecorator(
           size: const Size.square(10.0),
           activeSize: const Size(20.0, 10.0),
-          activeColor: AppColors.secondaryColor,
+          activeColor: AppColors.indicatorColor,
           color: AppColors.fontColor,
           spacing: const EdgeInsets.symmetric(horizontal: 3.0),
           activeShape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25.0),
           ),
         ),
-        baseBtnStyle: TextButton.styleFrom(
-          backgroundColor: Colors.grey.shade200,
-        ),
-        skipStyle: TextButton.styleFrom(foregroundColor: Colors.red),
-        doneStyle: TextButton.styleFrom(foregroundColor: Colors.green),
-        nextStyle: TextButton.styleFrom(foregroundColor: Colors.blue),
+        // baseBtnStyle: ElevatedButton.styleFrom(
+        //   backgroundColor: Colors.grey.shade200,
+        // ),
+        skipStyle: TextButton.styleFrom(
+            backgroundColor: AppColors.accentColor,
+            elevation: 10,
+            textStyle: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            )),
+        doneStyle: TextButton.styleFrom(
+            backgroundColor: AppColors.inputFieldBG,
+            elevation: 10,
+            textStyle: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14.5,
+            )),
+        nextStyle: TextButton.styleFrom(
+            foregroundColor: Colors.black,
+            backgroundColor: AppColors.secondaryColor,
+            elevation: 10,
+            textStyle: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            )),
       ),
     );
   }
