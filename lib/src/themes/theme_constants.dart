@@ -56,9 +56,12 @@ ThemeData darkTheme = ThemeData(
       bodySmall: const TextStyle(
         color: AppColors.fontColor,
       ),
+      bodyMedium: GoogleFonts.roboto(
+        fontSize: 14,
+      ),
       titleMedium: GoogleFonts.cuteFont(
         fontWeight: FontWeight.bold,
-        fontSize: 26,
+        fontSize: 27,
         // fontStyle: FontStyle.italic
       )),
   inputDecorationTheme: InputDecorationTheme(
