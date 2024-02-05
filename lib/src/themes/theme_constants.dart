@@ -63,7 +63,16 @@ ThemeData darkTheme = ThemeData(
         fontWeight: FontWeight.bold,
         fontSize: 27,
         // fontStyle: FontStyle.italic
-      )),
+      ),
+      displayMedium: GoogleFonts.robotoSlab(
+        fontWeight: FontWeight.bold,
+        fontSize: 25,
+        // color: AppColors.primaryColor
+      ),
+      displayLarge: GoogleFonts.robotoSlab(
+          fontWeight: FontWeight.bold,
+          fontSize: 35,
+          color: AppColors.primaryColor)),
   inputDecorationTheme: InputDecorationTheme(
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),

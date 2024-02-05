@@ -11,4 +11,6 @@ class AppColors {
       Color.fromARGB(255, 185, 169, 22).withOpacity(0.9);
 
   // DARK THEME
+  static const inputBackGroundDT = Color.fromRGBO(74, 74, 77, 1);
+  
 }
