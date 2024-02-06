@@ -78,7 +78,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                 ),
               ),
             ),
-            verticalGap(20),
+            verticalGap(40),
             SizedBox(
               child: Row(
                 children: [

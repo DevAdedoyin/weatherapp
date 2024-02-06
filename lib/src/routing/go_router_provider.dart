@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:weatherapp/src/features/authentication/presentation/login.dart';
+import 'package:weatherapp/src/features/authentication/presentation/register.dart';
 import 'package:weatherapp/src/features/onboarding/onboarding/onboarding_screen.dart';
 import 'package:weatherapp/src/features/onboarding/splash_screen.dart';
 import 'package:weatherapp/src/routing/app_routes.dart';
@@ -24,7 +25,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         ),
         GoRoute(
           path: AppRoutes.register,
-          builder: (context, state) => const OnboardingScreen(),
+          builder: (context, state) => const RegisterScreen(),
         )
       ],
       errorBuilder: (context, state) =>
