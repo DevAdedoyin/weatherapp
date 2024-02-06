@@ -66,7 +66,7 @@ ThemeData darkTheme = ThemeData(
     ),
     titleSmall: GoogleFonts.robotoSlab(
       fontWeight: FontWeight.bold,
-      fontSize: 11,
+      fontSize: 12,
       color: AppColors.smallTitleColor,
     ),
     displayMedium: GoogleFonts.robotoSlab(
