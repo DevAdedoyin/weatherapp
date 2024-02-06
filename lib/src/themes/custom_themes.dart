@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:weatherapp/src/constants/app_colors.dart';
 
 // INPUT DECORATION DARK THEME
@@ -17,5 +16,4 @@ InputDecoration darkThemeInputDecoration(String textHint, Widget icon) =>
           ),
           borderSide: BorderSide.none),
       contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
-      // isCollapsed: true,
     );

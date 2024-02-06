@@ -51,28 +51,30 @@ ThemeData darkTheme = ThemeData(
     ),
   ),
   textTheme: TextTheme(
-      headlineMedium: const TextStyle(
-          color: AppColors.fontColor, fontWeight: FontWeight.bold),
-      bodySmall: const TextStyle(
-        color: AppColors.fontColor,
-      ),
-      bodyMedium: GoogleFonts.roboto(
-        fontSize: 14,
-      ),
-      titleMedium: GoogleFonts.cuteFont(
-        fontWeight: FontWeight.bold,
-        fontSize: 27,
-        // fontStyle: FontStyle.italic
-      ),
-      displayMedium: GoogleFonts.robotoSlab(
-        fontWeight: FontWeight.bold,
-        fontSize: 25,
-        // color: AppColors.primaryColor
-      ),
-      displayLarge: GoogleFonts.robotoSlab(
-          fontWeight: FontWeight.bold,
-          fontSize: 35,
-          color: AppColors.primaryColor)),
+    headlineMedium: const TextStyle(
+        color: AppColors.fontColor, fontWeight: FontWeight.bold),
+    bodySmall: const TextStyle(
+      color: AppColors.fontColor,
+    ),
+    bodyMedium: GoogleFonts.roboto(
+      fontSize: 14,
+    ),
+    titleMedium: GoogleFonts.cuteFont(
+      fontWeight: FontWeight.bold,
+      fontSize: 27,
+      // fontStyle: FontStyle.italic
+    ),
+    displayMedium: GoogleFonts.robotoSlab(
+      fontWeight: FontWeight.bold,
+      fontSize: 25,
+      // color: AppColors.primaryColor
+    ),
+    displayLarge: GoogleFonts.robotoSlab(
+      fontWeight: FontWeight.bold,
+      fontSize: 30,
+      // color: AppColors.primaryColor
+    ),
+  ),
   inputDecorationTheme: InputDecorationTheme(
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
