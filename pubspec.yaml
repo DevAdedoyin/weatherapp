@@ -42,7 +42,7 @@ dependencies:
   riverpod: ^2.4.9
   go_router: ^13.0.1
   location_geocoder: ^1.0.5
-  firebase_auth: ^4.16.0
+  firebase_auth: ^4.17.4
   google_sign_in: ^6.2.1
   flutter_login_facebook: ^1.9.0
   flutter_facebook_auth: ^6.0.4
@@ -50,6 +50,7 @@ dependencies:
   introduction_screen: ^3.1.12
   email_validator: ^2.1.17
   font_awesome_flutter: ^10.7.0
+  firebase_core: ^2.25.4
 
 dev_dependencies:
   flutter_test:

@@ -21,7 +21,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
   final _confirmPasswordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
     return Container(
       child: Form(

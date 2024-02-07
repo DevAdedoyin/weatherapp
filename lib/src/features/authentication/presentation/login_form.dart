@@ -20,9 +20,9 @@ class _LoginFormState extends ConsumerState<LoginForm> {
   final _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
-    return Container(
+    return SizedBox(
       child: Form(
         key: _formKey,
         child: Column(
