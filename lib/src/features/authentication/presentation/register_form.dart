@@ -1,7 +1,9 @@
 import 'package:email_validator/email_validator.dart';
+import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 import "package:weatherapp/src/common/gaps/sized_box.dart";
 import "package:weatherapp/src/constants/app_colors.dart";
+import "package:weatherapp/src/features/authentication/data/datasources/auth_datasource.dart";
 import "package:weatherapp/src/themes/custom_themes.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:google_fonts/google_fonts.dart";
@@ -24,7 +26,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
-    // Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
     final isPasswordVisible = ref.watch(iconButtonProvider);
     final isConfirmPasswordVisible = ref.watch(iconButtonProviderCP);
     TextTheme textTheme = Theme.of(context).textTheme;
@@ -46,7 +48,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                     'Username', const Icon(Icons.person)),
               ),
             ),
-            verticalGap(25),
+            verticalGap(size.height * 0.019),
             SizedBox(
               child: TextFormField(
                 style: GoogleFonts.roboto(
@@ -60,7 +62,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                     darkThemeInputDecoration('Email', const Icon(Icons.email)),
               ),
             ),
-            verticalGap(25),
+            verticalGap(size.height * 0.019),
             SizedBox(
               child: TextFormField(
                 style: GoogleFonts.roboto(
@@ -89,7 +91,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                 ),
               ),
             ),
-            verticalGap(25),
+            verticalGap(size.height * 0.019),
             SizedBox(
               child: TextFormField(
                 style: GoogleFonts.roboto(
@@ -98,13 +100,9 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                 textInputAction: TextInputAction.done,
                 obscureText: isConfirmPasswordVisible ? false : true,
                 autofocus: false,
-                validator: (email) {
-                  if (EmailValidator.validate(email!)) {
-                    return null;
-                  } else {
-                    return 'Please enter a valid email address';
-                  }
-                },
+                validator: (password) => Validator.validateConfirmPassword(
+                    password: password,
+                    confirmPassword: _confirmPasswordController.text),
                 decoration: darkThemeInputDecoration(
                   'Confirm Password',
                   const Icon(Icons.lock),
@@ -139,7 +137,16 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                       color: AppColors.accentColor,
                     ),
                     child: IconButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            User? user =
+                                await FireAuth.registerUsingEmailPassword(
+                              name: _usernameController.text,
+                              email: _emailController.text,
+                              password: _passwordController.text,
+                            );
+                          }
+                        },
                         icon: const Icon(Icons.arrow_forward)),
                   )
                 ],

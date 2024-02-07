@@ -24,12 +24,12 @@ class RegisterScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: SizedBox(
-              height: size.height * 0.9,
+              height: size.height * 0.95,
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    verticalGap(50.0),
+                    verticalGap(size.height * 0.07),
                     Text(
                       "Create an",
                       style: textTheme.displayLarge,
@@ -40,7 +40,7 @@ class RegisterScreen extends StatelessWidget {
                     ),
                     verticalGap(30),
                     const RegisterForm(),
-                    verticalGap(50),
+                    verticalGap(size.height * 0.06),
                     SizedBox(
                       width: double.maxFinite,
                       child: Text(
