@@ -29,7 +29,7 @@ class FireAuth {
       const messageHeader = "REGISTRATION SUCCESSFUL";
       successAuthAlertWidget(context!, message, messageHeader);
       Future.delayed(
-          const Duration(seconds: 3), () => context.go(AppRoutes.login));
+          const Duration(seconds: 4), () => context.go(AppRoutes.login));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         failedAuthAlertWidget(context!, e.message!, "REGISTRATION FAILED");
@@ -56,11 +56,18 @@ class FireAuth {
         password: password,
       );
       user = userCredential.user;
+
+      final message =
+          "Hi ${user!.displayName}, Your login is sucessful. Enjoy top notch weather forecast! Thank you";
+      const messageHeader = "LOGIN SUCCESSFUL";
+      successAuthAlertWidget(context!, message, messageHeader);
+      Future.delayed(
+          const Duration(seconds: 4), () => context.go(AppRoutes.login));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        print('No user found for that email.');
+        failedAuthAlertWidget(context!, e.message!, "LOGIN FAILED");
       } else if (e.code == 'wrong-password') {
-        print('Wrong password provided.');
+        failedAuthAlertWidget(context!, e.message!, "LOGIN FAILED");
       }
     }
 

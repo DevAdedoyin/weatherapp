@@ -1,4 +1,3 @@
-import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 import "package:weatherapp/src/common/gaps/sized_box.dart";
 import "package:weatherapp/src/common/loading_indicator.dart";
@@ -145,17 +144,15 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                           child: IconButton(
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
-                                  ref.read(isAuthLoading.notifier).state =
-                                      ref.read(isAuthLoading.notifier).state
-                                          ? false
-                                          : true;
-                                  User? user =
-                                      await FireAuth.registerUsingEmailPassword(
+                                  ref.read(isAuthLoading.notifier).state = true;
+                                  await FireAuth.registerUsingEmailPassword(
                                     context: context,
                                     name: _usernameController.text,
                                     email: _emailController.text,
                                     password: _passwordController.text,
                                   );
+                                  ref.read(isAuthLoading.notifier).state =
+                                      false;
                                 }
                               },
                               icon: const Icon(Icons.arrow_forward)),

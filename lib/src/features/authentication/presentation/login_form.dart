@@ -1,10 +1,14 @@
-import 'package:email_validator/email_validator.dart';
 import "package:flutter/material.dart";
 import "package:weatherapp/src/common/gaps/sized_box.dart";
+import "package:weatherapp/src/common/loading_indicator.dart";
 import "package:weatherapp/src/constants/app_colors.dart";
+import "package:weatherapp/src/features/authentication/data/datasources/auth_datasource.dart";
 import "package:weatherapp/src/themes/custom_themes.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:google_fonts/google_fonts.dart";
+import "package:weatherapp/src/utils/auth_validators.dart";
+import "package:weatherapp/src/utils/iconbutton_provider.dart";
+import "package:weatherapp/src/utils/is_loading_provider.dart";
 
 class LoginForm extends ConsumerStatefulWidget {
   const LoginForm({super.key});
@@ -22,12 +26,15 @@ class _LoginFormState extends ConsumerState<LoginForm> {
   Widget build(BuildContext context) {
     // Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
+    final isPasswordVisible = ref.watch(iconButtonProvider);
+    final isLoading = ref.watch(isAuthLoading);
+
     return SizedBox(
       child: Form(
         key: _formKey,
         child: Column(
           children: [
-            Container(
+            SizedBox(
               child: TextFormField(
                 style: GoogleFonts.roboto(
                     fontSize: 16, fontWeight: FontWeight.normal),
@@ -35,34 +42,38 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                 keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.next,
                 autofocus: false,
-                validator: (email) {
-                  if (EmailValidator.validate(email!)) {
-                    return null;
-                  } else {
-                    return 'Please enter a valid email address';
-                  }
-                },
+                validator: (email) => Validator.validateEmail(email: email),
                 decoration:
-                    darkThemeInputDecoration('Email', const Icon(Icons.person)),
+                    darkThemeInputDecoration('Email', const Icon(Icons.email)),
               ),
             ),
             verticalGap(25),
-            Container(
+            SizedBox(
               child: TextFormField(
                 style: GoogleFonts.roboto(
                     fontSize: 16, fontWeight: FontWeight.normal),
                 controller: _passwordController,
-                textInputAction: TextInputAction.done,
+                textInputAction: TextInputAction.next,
                 autofocus: false,
-                validator: (email) {
-                  if (EmailValidator.validate(email!)) {
-                    return null;
-                  } else {
-                    return 'Please enter a valid email address';
-                  }
-                },
+                obscureText: isPasswordVisible ? false : true,
+                validator: (password) =>
+                    Validator.validatePassword(password: password),
                 decoration: darkThemeInputDecoration(
-                    'Password', const Icon(Icons.lock)),
+                  'Password',
+                  const Icon(Icons.lock),
+                  isPassword: true,
+                  passwordIcon: IconButton(
+                    onPressed: () {
+                      ref.read(iconButtonProvider.notifier).state =
+                          ref.read(iconButtonProvider.notifier).state
+                              ? false
+                              : true;
+                    },
+                    icon: Icon(isPasswordVisible
+                        ? Icons.visibility_off
+                        : Icons.visibility),
+                  ),
+                ),
               ),
             ),
             verticalGap(5),
@@ -87,15 +98,29 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                     style: textTheme.displayMedium,
                   ),
                   const Spacer(),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-                      color: AppColors.accentColor,
-                    ),
-                    child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.arrow_forward)),
-                  )
+                  isLoading
+                      ? const SizedBox(
+                          height: 17, width: 17, child: LoadingIndicator())
+                      : Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            color: AppColors.accentColor,
+                          ),
+                          child: IconButton(
+                              onPressed: () async {
+                                if (_formKey.currentState!.validate()) {
+                                  ref.read(isAuthLoading.notifier).state = true;
+                                  await FireAuth.signInUsingEmailPassword(
+                                    context: context,
+                                    email: _emailController.text,
+                                    password: _passwordController.text,
+                                  );
+                                  ref.read(isAuthLoading.notifier).state =
+                                      false;
+                                }
+                              },
+                              icon: const Icon(Icons.arrow_forward)),
+                        )
                 ],
               ),
             )
