@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:weatherapp/src/common/widgets/auth_widgets/failed_alert.dart';
 import 'package:weatherapp/src/common/widgets/auth_widgets/success_alert.dart';
+import 'package:weatherapp/src/routing/app_routes.dart';
 
 class FireAuth {
   static Future<User?> registerUsingEmailPassword(
@@ -21,15 +24,17 @@ class FireAuth {
       await user.reload();
       user = auth.currentUser;
 
+      final message =
+          "Hi ${user!.displayName}, Your registration is almost complete. Please, kindly check your email for a verification link. Thank you";
+      const messageHeader = "REGISTRATION SUCCESSFUL";
+      successAuthAlertWidget(context!, message, messageHeader);
       Future.delayed(
-          const Duration(seconds: 2),
-          () =>
-              successAuthAlertWidget(context!, user!.displayName, user.email));
+          const Duration(seconds: 3), () => context.go(AppRoutes.login));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
+        failedAuthAlertWidget(context!, e.message!, "REGISTRATION FAILED");
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        failedAuthAlertWidget(context!, e.message!, "REGISTRATION FAILED");
       }
     } catch (e) {
       print(e);
