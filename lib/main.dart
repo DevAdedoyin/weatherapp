@@ -1,14 +1,18 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:weatherapp/src/features/authentication/data/datasources/firebase_initialization.dart';
 import 'package:weatherapp/src/routing/go_router_provider.dart';
 import 'package:weatherapp/src/themes/theme_constants.dart';
 import 'package:weatherapp/src/themes/theme_manager.dart';
+// import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() async {
+Future<void> main() async {
   await dotenv.load(fileName: ".env");
-  FirebaseInitialization.initializeFirebase();
+  // FirebaseInitialization.initializeFirebase();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const ProviderScope(child: WeatherApp()));
 }
 

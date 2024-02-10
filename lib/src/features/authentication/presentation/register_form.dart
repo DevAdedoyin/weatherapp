@@ -1,7 +1,7 @@
-import 'package:email_validator/email_validator.dart';
 import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 import "package:weatherapp/src/common/gaps/sized_box.dart";
+import "package:weatherapp/src/common/loading_indicator.dart";
 import "package:weatherapp/src/constants/app_colors.dart";
 import "package:weatherapp/src/features/authentication/data/datasources/auth_datasource.dart";
 import "package:weatherapp/src/themes/custom_themes.dart";
@@ -9,6 +9,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:weatherapp/src/utils/auth_validators.dart";
 import "package:weatherapp/src/utils/iconbutton_provider.dart";
+import "package:weatherapp/src/utils/is_loading_provider.dart";
 
 class RegisterForm extends ConsumerStatefulWidget {
   const RegisterForm({super.key});
@@ -29,6 +30,8 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
     Size size = MediaQuery.of(context).size;
     final isPasswordVisible = ref.watch(iconButtonProvider);
     final isConfirmPasswordVisible = ref.watch(iconButtonProviderCP);
+    final isLoading = ref.watch(isAuthLoading);
+
     TextTheme textTheme = Theme.of(context).textTheme;
     return SizedBox(
       child: Form(
@@ -131,24 +134,32 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                     style: textTheme.displayMedium,
                   ),
                   const Spacer(),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-                      color: AppColors.accentColor,
-                    ),
-                    child: IconButton(
-                        onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            User? user =
-                                await FireAuth.registerUsingEmailPassword(
-                              name: _usernameController.text,
-                              email: _emailController.text,
-                              password: _passwordController.text,
-                            );
-                          }
-                        },
-                        icon: const Icon(Icons.arrow_forward)),
-                  )
+                  isLoading
+                      ? const SizedBox(
+                          height: 17, width: 17, child: LoadingIndicator())
+                      : Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            color: AppColors.accentColor,
+                          ),
+                          child: IconButton(
+                              onPressed: () async {
+                                if (_formKey.currentState!.validate()) {
+                                  ref.read(isAuthLoading.notifier).state =
+                                      ref.read(isAuthLoading.notifier).state
+                                          ? false
+                                          : true;
+                                  User? user =
+                                      await FireAuth.registerUsingEmailPassword(
+                                    context: context,
+                                    name: _usernameController.text,
+                                    email: _emailController.text,
+                                    password: _passwordController.text,
+                                  );
+                                }
+                              },
+                              icon: const Icon(Icons.arrow_forward)),
+                        )
                 ],
               ),
             )

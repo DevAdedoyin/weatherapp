@@ -1,12 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:weatherapp/src/routing/go_router_provider.dart';
 
 class FireAuth {
-  static Future<User?> registerUsingEmailPassword({
-    required String name,
-    required String email,
-    required String password,
-  }) async {
+  
+
+  static Future<User?> registerUsingEmailPassword(
+      {required String name,
+      required String email,
+      required String password,
+      BuildContext? context}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user;
     try {
@@ -16,9 +21,12 @@ class FireAuth {
       );
       user = userCredential.user;
       await user!.updateDisplayName(name);
+      await user.sendEmailVerification();
       await user.reload();
-      user.sendEmailVerification();
       user = auth.currentUser;
+
+      Future.delayed(const Duration(seconds: 2),
+          () => alertWidget(context!, user!.displayName, user.email));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
@@ -56,3 +64,13 @@ class FireAuth {
     return user;
   }
 }
+
+void alertWidget(BuildContext context, String? username, email) => Alert(
+      context: context,
+      type: AlertType.success,
+      style:
+          const AlertStyle(descStyle: TextStyle(fontWeight: FontWeight.bold)),
+      title: "REGISTRATION SUCCESSFUL",
+      desc:
+          "Hi $username, Your registration is almost complete. Kindly check your email address for a verification link.",
+    ).show();

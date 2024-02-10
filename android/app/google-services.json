@@ -29,6 +29,13 @@
             {
               "client_id": "161410344201-250cb2fbfafk8umrb7lni50o4ed1svau.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "161410344201-11cd6g1gj3vhijjmiik7s6hdv0at74pe.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.weathermonitor.weatherapp"
+              }
             }
           ]
         }
