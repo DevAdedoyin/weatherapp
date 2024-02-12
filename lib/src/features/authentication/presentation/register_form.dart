@@ -102,9 +102,10 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                 textInputAction: TextInputAction.done,
                 obscureText: isConfirmPasswordVisible ? false : true,
                 autofocus: false,
-                validator: (password) => Validator.validateConfirmPassword(
-                    password: password,
-                    confirmPassword: _confirmPasswordController.text),
+                validator: (confirmPassword) =>
+                    Validator.validateConfirmPassword(
+                        password: _passwordController.text,
+                        confirmPassword: confirmPassword),
                 decoration: darkThemeInputDecoration(
                   'Confirm Password',
                   const Icon(Icons.lock),
