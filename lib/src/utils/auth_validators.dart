@@ -32,15 +32,15 @@ class Validator {
     if (password == null) {
       return null;
     }
-    if (!regex.hasMatch(password)) {
-      return 'must have atleast 1 uppercase, 1 digit & 1 special character';
-    }
+
     if (password.isEmpty) {
       return 'Password can\'t be empty';
     } else if (password.length < 6) {
       return 'Enter a password with length at least 6';
     }
-
+    if (!regex.hasMatch(password)) {
+      return 'must have atleast 1 uppercase, 1 digit & 1 special character';
+    }
     return null;
   }
 

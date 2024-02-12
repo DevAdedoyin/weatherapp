@@ -68,6 +68,27 @@ class LoginScreen extends StatelessWidget {
                                 color: AppColors.accentColor,
                                 fontWeight: FontWeight.bold))
                       ])),
+                    ),
+                    verticalGap(20),
+                    SizedBox(
+                      // height: 30,
+                      width: double.maxFinite,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                AppColors.accentColor),
+                            padding: MaterialStateProperty.all(EdgeInsets.zero),
+                            shape: const MaterialStatePropertyAll(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(10))))),
+                        child: const Text(
+                          "Skip Sign In",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w700),
+                        ),
+                      ),
                     )
                   ]),
             ),
