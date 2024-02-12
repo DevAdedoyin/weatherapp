@@ -27,8 +27,13 @@ class Validator {
   }
 
   static String? validatePassword({required String? password}) {
+    RegExp regex =
+        RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
     if (password == null) {
       return null;
+    }
+    if (!regex.hasMatch(password)) {
+      return 'must have atleast 1 uppercase, 1 digit & 1 special character';
     }
     if (password.isEmpty) {
       return 'Password can\'t be empty';
