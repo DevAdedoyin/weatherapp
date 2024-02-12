@@ -120,7 +120,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                                 }
                               },
                               icon: const Icon(Icons.arrow_forward)),
-                        )
+                        ),
                 ],
               ),
             )

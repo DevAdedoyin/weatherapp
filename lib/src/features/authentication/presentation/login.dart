@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:weatherapp/src/common/gaps/sized_box.dart";
+import "package:weatherapp/src/common/widgets/auth_widgets/info_alert.dart";
 import "package:weatherapp/src/constants/app_colors.dart";
 import "package:weatherapp/src/features/authentication/presentation/login_form.dart";
 import "package:weatherapp/src/features/authentication/presentation/third_party_auth.dart";
@@ -74,15 +75,24 @@ class LoginScreen extends StatelessWidget {
                       // height: 30,
                       width: double.maxFinite,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          infoAuthAlertWidget(
+                              context,
+                              "It's recommeded you sign in to enjoy the app's full feature. Thank you.",
+                              "Recommendation");
+                        },
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                                AppColors.accentColor),
-                            padding: MaterialStateProperty.all(EdgeInsets.zero),
-                            shape: const MaterialStatePropertyAll(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(10))))),
+                          backgroundColor:
+                              MaterialStateProperty.all(AppColors.accentColor),
+                          padding: MaterialStateProperty.all(EdgeInsets.zero),
+                          shape: const MaterialStatePropertyAll(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                          ),
+                        ),
                         child: const Text(
                           "Skip Sign In",
                           style: TextStyle(
