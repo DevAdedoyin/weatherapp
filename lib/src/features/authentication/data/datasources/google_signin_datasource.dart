@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-Future<dynamic> _signInWithGoogle() async {
+Future<dynamic> signInWithGoogle() async {
   try {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
@@ -21,4 +21,4 @@ Future<dynamic> _signInWithGoogle() async {
   }
 }
 
-final googleSignInProvider_ = Provider((ref) => _signInWithGoogle());
+final googleSignInProvider_ = Provider((ref) => signInWithGoogle());

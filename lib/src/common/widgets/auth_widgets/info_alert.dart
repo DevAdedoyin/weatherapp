@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:weatherapp/src/common/gaps/sized_box.dart';
-import 'package:weatherapp/src/constants/app_colors.dart';
+
 
 void infoAuthAlertWidget(
         BuildContext context, String message, String messageHeader) =>
