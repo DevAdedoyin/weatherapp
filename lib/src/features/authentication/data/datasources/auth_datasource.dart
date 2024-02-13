@@ -58,7 +58,7 @@ class FireAuth {
       user = userCredential.user;
 
       final message =
-          "Hi ${user!.displayName}, Your login is sucessful. Enjoy top notch weather forecast! Thank you";
+          "Hi ${user!.displayName}, Your login is sucessful. Enjoy top notch weather forecast! Thank you.";
       const messageHeader = "LOGIN SUCCESSFUL";
       successAuthAlertWidget(context!, message, messageHeader);
       Future.delayed(

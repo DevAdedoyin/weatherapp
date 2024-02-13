@@ -1,9 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:weatherapp/src/common/widgets/auth_widgets/failed_alert.dart';
+import 'package:weatherapp/src/common/widgets/auth_widgets/success_alert.dart';
 
-Future<dynamic> signInWithGoogle() async {
+Future<dynamic> signInWithGoogle({BuildContext? context}) async {
   try {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user;
+
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
     final GoogleSignInAuthentication? googleAuth =
@@ -14,10 +20,20 @@ Future<dynamic> signInWithGoogle() async {
       idToken: googleAuth?.idToken,
     );
 
+    final UserCredential userCredential =
+        await auth.signInWithCredential(credential);
+
+    user = userCredential.user;
+
+    successAuthAlertWidget(
+        context!,
+        "Welcome ${user!.displayName}, Your Google signin is successful. Enjoy top notch weather forecast! Thank you.",
+        "Google Signin Successful");
+
     return await FirebaseAuth.instance.signInWithCredential(credential);
   } on Exception catch (e) {
     // TODO
-    print('exception->$e');
+    failedAuthAlertWidget(context!, e.toString(), "Authentication Failed");
   }
 }
 

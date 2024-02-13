@@ -18,7 +18,7 @@ class ThirdPartyAuthWidgets extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           InkWell(
-            onTap: signInWithGoogle,
+            onTap: () => signInWithGoogle(context: context),
             splashColor: Colors.transparent,
             child: Container(
               height: 40,
