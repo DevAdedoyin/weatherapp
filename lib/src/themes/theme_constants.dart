@@ -50,6 +50,10 @@ ThemeData darkTheme = ThemeData(
           MaterialStateProperty.all<Color>(AppColors.secondaryColor),
     ),
   ),
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      elevation: 10,
+      selectedIconTheme: const IconThemeData(color: AppColors.primaryColor),
+      unselectedIconTheme: IconThemeData(color: Colors.grey[500])),
   textTheme: TextTheme(
     headlineMedium: const TextStyle(
         color: AppColors.fontColor, fontWeight: FontWeight.bold),

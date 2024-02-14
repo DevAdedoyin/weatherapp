@@ -79,7 +79,8 @@ class LoginScreen extends StatelessWidget {
                           infoAuthAlertWidget(
                               context,
                               "It's recommeded you sign in to enjoy the app's full feature. Thank you.",
-                              "Recommendation");
+                              "Recommendation",
+                              onTap: () => context.go(AppRoutes.dashboard));
                         },
                         style: ButtonStyle(
                           backgroundColor:

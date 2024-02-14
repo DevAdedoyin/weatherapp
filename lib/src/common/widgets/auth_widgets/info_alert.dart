@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:weatherapp/src/common/gaps/sized_box.dart';
 
-
 void infoAuthAlertWidget(
-        BuildContext context, String message, String messageHeader) =>
+        BuildContext context, String message, String messageHeader,
+        {Function? onTap}) =>
     Alert(
       context: context,
       type: AlertType.info,
@@ -26,9 +26,7 @@ void infoAuthAlertWidget(
             ),
             verticalGap(10),
             ElevatedButton(
-              onPressed: () {
-                // context.pop();
-              },
+              onPressed: () => onTap!(),
               style: ButtonStyle(
                   padding: MaterialStateProperty.all(
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 2)),
