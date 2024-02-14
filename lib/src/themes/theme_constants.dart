@@ -53,7 +53,13 @@ ThemeData darkTheme = ThemeData(
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
       elevation: 10,
       selectedIconTheme: const IconThemeData(color: AppColors.primaryColor),
-      unselectedIconTheme: IconThemeData(color: Colors.grey[500])),
+      unselectedIconTheme: IconThemeData(color: Colors.grey[500]),
+      selectedLabelStyle: GoogleFonts.robotoFlex(fontWeight: FontWeight.w600),
+      unselectedLabelStyle: GoogleFonts.robotoFlex(fontStyle: FontStyle.italic),
+      selectedItemColor: AppColors.primaryColor,
+      unselectedItemColor: Colors.white.withOpacity(0.5),
+      showSelectedLabels: true,
+      showUnselectedLabels: true),
   textTheme: TextTheme(
     headlineMedium: const TextStyle(
         color: AppColors.fontColor, fontWeight: FontWeight.bold),
