@@ -60,14 +60,14 @@ class FireAuth {
       final message =
           "Hi ${user!.displayName}, Your login is sucessful. Enjoy top notch weather forecast! Thank you.";
       const messageHeader = "LOGIN SUCCESSFUL";
-      successAuthAlertWidget(context!, message, messageHeader);
+      successAuthAlertWidget(context, message, messageHeader);
       Future.delayed(
           const Duration(seconds: 4), () => context.go(AppRoutes.login));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        failedAuthAlertWidget(context!, e.message!, "LOGIN FAILED");
+        failedAuthAlertWidget(context, e.message!, "LOGIN FAILED");
       } else if (e.code == 'wrong-password') {
-        failedAuthAlertWidget(context!, e.message!, "LOGIN FAILED");
+        failedAuthAlertWidget(context, e.message!, "LOGIN FAILED");
       }
     }
 

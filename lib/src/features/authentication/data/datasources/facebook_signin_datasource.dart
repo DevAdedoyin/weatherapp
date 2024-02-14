@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:weatherapp/src/common/widgets/auth_widgets/failed_alert.dart';
 import 'package:weatherapp/src/common/widgets/auth_widgets/info_alert.dart';
 import 'package:weatherapp/src/common/widgets/auth_widgets/success_alert.dart';
@@ -13,7 +12,7 @@ Future<void> loginWithFacebook({BuildContext? context}) async {
 
   switch (result.status) {
     case FacebookLoginStatus.success:
-      final accessToken = result.accessToken;
+      // final accessToken = result.accessToken;
       final userInfo = await FacebookAuth.instance.getUserData();
       final userData = userInfo;
       final username = userData["name"];
