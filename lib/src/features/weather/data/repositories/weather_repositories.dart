@@ -3,6 +3,6 @@ import 'package:weatherapp/src/features/weather/data/datasources/weather_api_dat
 import 'package:weatherapp/src/features/weather/domain/weather_model.dart';
 
 // Create a provider for fetching weather data using the WeatherApiDataSource
-final weatherDataProvider = FutureProvider<WeatherModel>((ref) async {
-  return ref.watch(weatherProvider).fetchWeather();
-});
+// final weatherDataProvider = FutureProvider<WeatherModel>((ref) async {
+//   return ref.watch(weatherProvider).fetchWeather();
+// });

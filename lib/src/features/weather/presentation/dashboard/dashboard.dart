@@ -24,58 +24,63 @@ class _DashboardState extends ConsumerState<Dashboard> {
   @override
   Widget build(BuildContext context) {
     final currentIndex = ref.watch(bottomNavState);
-    return Scaffold(
-      body: _pages.elementAt(currentIndex),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: currentIndex == 0
-                ? Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white54.withOpacity(0.15),
-                        borderRadius: BorderRadius.circular(20)),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 7, vertical: 7),
-                    child: const Icon(Icons.home_filled))
-                : const Icon(Icons.home_filled),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-              icon: currentIndex == 1
+    return SafeArea(
+      child: Scaffold(
+        body: SizedBox(
+          width: double.maxFinite,
+          child: _pages.elementAt(currentIndex),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: [
+            BottomNavigationBarItem(
+              icon: currentIndex == 0
                   ? Container(
                       decoration: BoxDecoration(
                           color: Colors.white54.withOpacity(0.15),
                           borderRadius: BorderRadius.circular(20)),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 7, vertical: 7),
-                      child: const Icon(Icons.search))
-                  : const Icon(Icons.search),
-              label: "Search"),
-          BottomNavigationBarItem(
-              icon: currentIndex == 2
-                  ? Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white54.withOpacity(0.15),
-                          borderRadius: BorderRadius.circular(20)),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 7, vertical: 7),
-                      child: const Icon(Icons.wb_cloudy))
-                  : const Icon(Icons.wb_cloudy),
-              label: "Forecast"),
-          BottomNavigationBarItem(
-              icon: currentIndex == 3
-                  ? Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white54.withOpacity(0.15),
-                          borderRadius: BorderRadius.circular(20)),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 7, vertical: 7),
-                      child: const Icon(Icons.settings))
-                  : const Icon(Icons.settings),
-              label: "Settings"),
-        ],
-        currentIndex: currentIndex,
-        onTap: (index) => ref.read(bottomNavState.notifier).state = index,
+                      child: const Icon(Icons.home_filled))
+                  : const Icon(Icons.home_filled),
+              label: "Home",
+            ),
+            BottomNavigationBarItem(
+                icon: currentIndex == 1
+                    ? Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white54.withOpacity(0.15),
+                            borderRadius: BorderRadius.circular(20)),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 7, vertical: 7),
+                        child: const Icon(Icons.search))
+                    : const Icon(Icons.search),
+                label: "Search"),
+            BottomNavigationBarItem(
+                icon: currentIndex == 2
+                    ? Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white54.withOpacity(0.15),
+                            borderRadius: BorderRadius.circular(20)),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 7, vertical: 7),
+                        child: const Icon(Icons.wb_cloudy))
+                    : const Icon(Icons.wb_cloudy),
+                label: "Forecast"),
+            BottomNavigationBarItem(
+                icon: currentIndex == 3
+                    ? Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white54.withOpacity(0.15),
+                            borderRadius: BorderRadius.circular(20)),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 7, vertical: 7),
+                        child: const Icon(Icons.settings))
+                    : const Icon(Icons.settings),
+                label: "Settings"),
+          ],
+          currentIndex: currentIndex,
+          onTap: (index) => ref.read(bottomNavState.notifier).state = index,
+        ),
       ),
     );
   }
