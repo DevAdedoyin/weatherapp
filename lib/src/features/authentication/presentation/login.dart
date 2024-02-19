@@ -80,7 +80,8 @@ class LoginScreen extends StatelessWidget {
                               context,
                               "It's recommeded you sign in to enjoy the app's full feature. Thank you.",
                               "Recommendation",
-                              onTap: () => context.go(AppRoutes.dashboard));
+                              onTap: () =>
+                                  context.go(AppRoutes.userLocatorPage));
                         },
                         style: ButtonStyle(
                           backgroundColor:
