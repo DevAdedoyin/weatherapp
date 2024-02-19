@@ -13,40 +13,64 @@ class UserLocation extends ConsumerStatefulWidget {
 class _UserLocationState extends ConsumerState<UserLocation> {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
-      body: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-                "Let Weather Monitor access your location to give you real-time weather datails on your location."),
-            verticalGap(10),
-            Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                height: 200,
-                width: 200,
-                decoration: BoxDecoration(
-                    color: AppColors.accentColor,
-                    borderRadius: BorderRadius.circular(100)),
-                child: Container(
-                  height: 170,
-                  width: 170,
+      body: SizedBox(
+        width: double.maxFinite,
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              SizedBox(
+                width: size.width * 0.8,
+                child: Text(
+                  "Let Weather Monitor access your location to give you real-time weather datails on your location.",
+                  textAlign: TextAlign.center,
+                  style: textTheme.displaySmall,
+                ),
+              ),
+              Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  height: 200,
+                  width: 200,
                   decoration: BoxDecoration(
-                      color: AppColors.fontColor,
+                      color: AppColors.accentColor,
                       borderRadius: BorderRadius.circular(100)),
-                  child: Image.asset(
-                    "assets/images/location.png",
-                    fit: BoxFit.contain,
+                  child: Container(
+                    height: 170,
+                    width: 170,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
+                    decoration: BoxDecoration(
+                        color: AppColors.fontColor,
+                        borderRadius: BorderRadius.circular(100)),
+                    child: Image.asset(
+                      "assets/images/location.png",
+                      fit: BoxFit.contain,
+                    ),
+                  )),
+              SizedBox(
+                width: size.width * 0.7,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: const ButtonStyle(
+                      elevation: MaterialStatePropertyAll(10),
+                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)))),
+                      padding: MaterialStatePropertyAll(
+                          EdgeInsets.symmetric(vertical: 10)),
+                      backgroundColor:
+                          MaterialStatePropertyAll(AppColors.accentColor)),
+                  child: Text(
+                    "Enable Location",
+                    style: textTheme.bodyMedium,
                   ),
-                )),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text("Enable Location"),
-            )
-          ]),
+                ),
+              )
+            ]),
+      ),
     );
   }
 }
