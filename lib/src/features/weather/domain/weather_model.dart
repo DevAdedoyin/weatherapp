@@ -6,7 +6,7 @@ class WeatherModel {
   final double lon;
   // final List<DailyWeatherModel> dailyWeather;
   // final List<HourlyWeatherModel> hourlyWeather;
-  // final CurrentWeatherModel currentWeatherModel;
+  final CurrentWeatherModel currentWeatherModel;
   final String timezone;
 
   // Constructor for WeatherModel
@@ -15,7 +15,7 @@ class WeatherModel {
     required this.lon,
     // required this.dailyWeather,
     // required this.hourlyWeather,
-    // required this.currentWeatherModel,
+    required this.currentWeatherModel,
     required this.timezone,
   });
 
@@ -24,7 +24,8 @@ class WeatherModel {
     final lat = data['lat'] as double;
     final lon = data['lon'] as double;
     final timezone = data['timezone'] as String;
-    // final currentWeatherModel = data['current'] as CurrentWeatherModel;
+    final currentWeatherModel = data['current'] as Map<String, dynamic>;
+    final currentWeather = CurrentWeatherModel.fromJson(currentWeatherModel);
     // final dailyWeather = data['daily'] as List<Map<String, dynamic>>;
     // final dailyWeatherList =
     //     dailyWeather.map((e) => DailyWeatherModel.fromJson(e)).toList();
@@ -35,7 +36,7 @@ class WeatherModel {
       lat: lat,
       lon: lon,
       timezone: timezone,
-      // currentWeatherModel: currentWeatherModel,
+      currentWeatherModel: currentWeather,
       // dailyWeather: dailyWeatherList,
       // hourlyWeather: hourlyWeatherList
     );
@@ -83,7 +84,7 @@ class CurrentWeatherModel {
     final dewPoint = data["dew_point"] as double;
     final windSpeed = data["wind_speed"] as double;
     final windDegree = data["wind_deg"] as int;
-    final weatherData = data["weather"] as List<Map<String, dynamic>>;
+    final weatherData = data["weather"][0] as Map<String, dynamic>;
 
     // Use the first element of the weatherData list to create SubWeather
     final weather = SubWeather.fromJson(weatherData);
@@ -114,10 +115,10 @@ class SubWeather {
       {required this.main, required this.description, required this.icon});
 
   // Factory method to create SubWeather from JSON data
-  factory SubWeather.fromJson(List<Map<String, dynamic>> data) {
-    final main = data[0]['main'] as String;
-    final description = data[0]['description'] as String;
-    final icon = data[0]['icon'] as String;
+  factory SubWeather.fromJson(Map<String, dynamic> data) {
+    final main = data['main'] as String;
+    final description = data['description'] as String;
+    final icon = data['icon'] as String;
 
     return SubWeather(main: main, description: description, icon: icon);
   }

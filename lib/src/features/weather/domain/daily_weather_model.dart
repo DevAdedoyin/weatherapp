@@ -61,7 +61,7 @@ class DailyWeatherModel {
     final feelsLike = FeelsLike.fromJson(feelsLike_);
 
     // Use the first element of the weatherData list to create SubWeather
-    final weather = SubWeather.fromJson(weatherData);
+    final weather = SubWeather.fromJson(weatherData as Map<String, dynamic>);
 
     // Returning a new instance of DailyWeatherModel with extracted data
     return DailyWeatherModel(

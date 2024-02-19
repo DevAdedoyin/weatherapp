@@ -36,7 +36,7 @@ class HourlyWeatherModel {
     final weatherData = data["weather"] as List<Map<String, dynamic>>;
 
     // Use the first element of the weatherData list to create SubWeather
-    final weather = SubWeather.fromJson(weatherData);
+    final weather = SubWeather.fromJson(weatherData as Map<String, dynamic>);
 
     return HourlyWeatherModel(
         dateTime: dateTime,
