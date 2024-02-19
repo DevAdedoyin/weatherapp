@@ -27,12 +27,12 @@ class _WeatherAppState extends ConsumerState<WeatherApp> {
   @override
   Widget build(BuildContext context) {
     ThemeManager themeManager = ThemeManager();
-    final router = ref.watch(goRouterProvider);
+    // final router = ref.watch(goRouterProvider);
 
     return MaterialApp.router(
-      routeInformationParser: router.routeInformationParser,
-      routeInformationProvider: router.routeInformationProvider,
-      routerDelegate: router.routerDelegate,
+      routeInformationParser: goRouter.routeInformationParser,
+      routeInformationProvider: goRouter.routeInformationProvider,
+      routerDelegate: goRouter.routerDelegate,
       title: 'Weather Monitor',
       theme: darkTheme,
       darkTheme: lightTheme,
