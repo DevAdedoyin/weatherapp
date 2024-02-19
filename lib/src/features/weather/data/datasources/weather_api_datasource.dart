@@ -14,13 +14,16 @@ class WeatherApiDataSource {
     // Retrieve the API key from the environment variables
     final apiKey = dotenv.env['REACT_APP_WEATHER_API_KEY'];
 
-    final coord = await GenerateWeatherLocation.getLocation();
-    final lat = coord["lat"];
-    final lon = coord["lon"];
+    // final coord = await GenerateWeatherLocation.getLocation();
+    // // final lat = coord["lat"];
+    // // final lon = coord["lon"];
+
+    final double lati = 51.7634;
+    final double longi = 0.2231;
 
     // Construct the API endpoint URL with latitude, longitude, and API key
     String uri =
-        "https://api.openweathermap.org/data/3.0/onecall?lat=$lat&lon=$lon&appid=$apiKey";
+        "https://api.openweathermap.org/data/3.0/onecall?lat=$lati&lon=$longi&appid=$apiKey";
     // Perform an HTTP GET request to the API endpoint
     final response = await http.get(Uri.parse(uri));
 
@@ -28,7 +31,7 @@ class WeatherApiDataSource {
     final responseBody = jsonDecode(response.body);
 
     print(responseBody);
-
+    print(response.statusCode);
     // Check if the response status code is 200 (OK)
     if (response.statusCode == 200) {
       return WeatherModel.fromJson(responseBody as Map<String, dynamic>);

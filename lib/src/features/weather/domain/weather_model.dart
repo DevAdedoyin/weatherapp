@@ -4,34 +4,41 @@ import 'package:weatherapp/src/features/weather/domain/hourly_weather_model.dart
 class WeatherModel {
   final double lat;
   final double lon;
-  final List<DailyWeatherModel> dailyWeather;
-  final List<HourlyWeatherModel> hourlyWeather;
-  final String? timezone;
+  // final List<DailyWeatherModel> dailyWeather;
+  // final List<HourlyWeatherModel> hourlyWeather;
+  // final CurrentWeatherModel currentWeatherModel;
+  final String timezone;
 
   // Constructor for WeatherModel
   WeatherModel({
     required this.lat,
     required this.lon,
-    required this.dailyWeather,
-    required this.hourlyWeather,
-    this.timezone,
+    // required this.dailyWeather,
+    // required this.hourlyWeather,
+    // required this.currentWeatherModel,
+    required this.timezone,
   });
 
   // Factory method to create WeatherModel from JSON data
   factory WeatherModel.fromJson(Map<String, dynamic> data) {
     final lat = data['lat'] as double;
     final lon = data['lon'] as double;
-    final dailyWeather = data['daily'] as List<Map<String, dynamic>>;
-    final dailyWeatherList =
-        dailyWeather.map((e) => DailyWeatherModel.fromJson(e)).toList();
-    final hourlyWeather = data['daily'] as List<Map<String, dynamic>>;
-    final hourlyWeatherList =
-        hourlyWeather.map((e) => HourlyWeatherModel.fromJson(e)).toList();
+    final timezone = data['timezone'] as String;
+    // final currentWeatherModel = data['current'] as CurrentWeatherModel;
+    // final dailyWeather = data['daily'] as List<Map<String, dynamic>>;
+    // final dailyWeatherList =
+    //     dailyWeather.map((e) => DailyWeatherModel.fromJson(e)).toList();
+    // final hourlyWeather = data['daily'] as List<Map<String, dynamic>>;
+    // final hourlyWeatherList =
+    //     hourlyWeather.map((e) => HourlyWeatherModel.fromJson(e)).toList();
     return WeatherModel(
-        lat: lat,
-        lon: lon,
-        dailyWeather: dailyWeatherList,
-        hourlyWeather: hourlyWeatherList);
+      lat: lat,
+      lon: lon,
+      timezone: timezone,
+      // currentWeatherModel: currentWeatherModel,
+      // dailyWeather: dailyWeatherList,
+      // hourlyWeather: hourlyWeatherList
+    );
   }
 }
 
