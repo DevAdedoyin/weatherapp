@@ -44,4 +44,10 @@ class GenerateWeatherLocation {
 
     goRouter.go(AppRoutes.dashboard);
   }
+
+  static Future<String?> address() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    return prefs.getString("address");
+  }
 }

@@ -81,7 +81,7 @@ ThemeData darkTheme = ThemeData(
     ),
     displaySmall: GoogleFonts.robotoSlab(
       fontWeight: FontWeight.bold,
-      fontSize: 20,
+      fontSize: 18,
       // color: AppColors.primaryColor
     ),
     displayMedium: GoogleFonts.robotoSlab(
