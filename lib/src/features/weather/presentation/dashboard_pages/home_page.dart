@@ -32,7 +32,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   String getDateTime() {
     var now = DateTime.now();
 
-    String formattedDateTime = DateFormat('MMM d, yyyy HH:mm').format(now);
+    String formattedDateTime = DateFormat('d MMMM, EEEE HH:mm').format(now);
 
     return formattedDateTime;
   }
@@ -63,10 +63,27 @@ class _HomePageState extends ConsumerState<HomePage> {
               : CustomScrollView(
                   slivers: <Widget>[
                     SliverAppBar(
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "$address",
+                            // textAlign: TextAlign.center,
+                            style: textTheme.displaySmall,
+                          ),
+                          verticalGap(3),
+                          Text(
+                            getDateTime(),
+                            style: GoogleFonts.roboto(
+                                fontSize: 15, fontWeight: FontWeight.w600),
+                            // textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
                       snap: false,
                       floating: true,
                       pinned: true,
-                      centerTitle: true,
+                      // centerTitle: true,
                       // backgroundColor: AppColors.accentColor.withOpacity(0.05),
                       elevation: 20,
                       expandedHeight: size.height * 0.35,
@@ -84,37 +101,6 @@ class _HomePageState extends ConsumerState<HomePage> {
                           height: size.height * 0.20,
                           width: size.height * 0.20,
                           fit: BoxFit.contain,
-                        ),
-                        title: Container(
-                          width: double.maxFinite,
-                          alignment: Alignment.center,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              verticalGap(0.5),
-                              Text(
-                                "$address",
-                                textAlign: TextAlign.center,
-                                style: textTheme.displaySmall,
-                              ),
-                              verticalGap(3),
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(5),
-                                child: Container(
-                                  width: size.width * 0.3,
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 3),
-                                  // color:
-                                  //     AppColors.accentColor.withOpacity(0.75),
-                                  child: Text(
-                                    getDateTime(),
-                                    style: textTheme.displaySmall,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
                         ),
                       ),
                     ),
@@ -186,7 +172,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Pressure",
                                       style: TextStyle(color: Colors.grey),
                                     ),
@@ -197,17 +183,17 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Sunrise",
                                       style: TextStyle(color: Colors.grey),
                                     ),
-                                    Text("$formattedSunrise"),
+                                    Text(formattedSunrise),
                                   ],
                                 ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Humidity",
                                       style: TextStyle(color: Colors.grey),
                                     ),
@@ -224,7 +210,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Wind Speed",
                                       style: TextStyle(color: Colors.grey),
                                     ),
@@ -235,7 +221,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Sunset",
                                       style: TextStyle(color: Colors.grey),
                                     ),
@@ -245,7 +231,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Dew Point",
                                       style: TextStyle(color: Colors.grey),
                                     ),

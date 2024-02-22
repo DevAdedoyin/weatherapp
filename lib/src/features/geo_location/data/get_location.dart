@@ -39,8 +39,9 @@ class GenerateWeatherLocation {
 
     final address = await geocoder.findAddressesFromCoordinates(
         Coordinates(position.latitude, position.longitude));
-    print(address.first.addressLine!);
-    await prefs.setString('address', address.first.addressLine!);
+    // print("${address.first.thoroughfare} ${address.first.subAdminArea!}");
+    await prefs.setString('address',
+        "${address.first.thoroughfare} ${address.first.subAdminArea!}");
 
     goRouter.go(AppRoutes.dashboard);
   }
