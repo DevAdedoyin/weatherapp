@@ -81,7 +81,7 @@ class CurrentWeatherModel {
     final feelsLike = data["feels_like"] - 273.15 as double;
     final pressure = data["pressure"] as int;
     final humidity = data["humidity"] as int;
-    final dewPoint = data["dew_point"] as double;
+    final dewPoint = data["dew_point"] - 273.15 as double;
     final windSpeed = data["wind_speed"] as double;
     final windDegree = data["wind_deg"] as int;
     final weatherData = data["weather"][0] as Map<String, dynamic>;

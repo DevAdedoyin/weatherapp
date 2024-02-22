@@ -51,6 +51,13 @@ class _HomePageState extends ConsumerState<HomePage> {
         future: WeatherApiDataSource.fetchWeather(),
         builder: (context, snapshot) {
           final data = snapshot.data;
+          final sunrise = DateTime.fromMillisecondsSinceEpoch(
+              data!.currentWeatherModel.sunrise * 1000);
+          final sunset = DateTime.fromMillisecondsSinceEpoch(
+              data.currentWeatherModel.sunset * 1000);
+          String formattedSunrise = DateFormat('HH:mm a').format(sunrise);
+          String formattedSunset = DateFormat('HH:mm a').format(sunset);
+
           return snapshot.connectionState == ConnectionState.waiting
               ? LoadingIndicator()
               : CustomScrollView(
@@ -71,7 +78,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                         ),
                         background: Image.network(
                           WeatherIcon.weatherIcon(
-                            data!.currentWeatherModel.weather.icon,
+                            data.currentWeatherModel.weather.icon,
                           ),
                           alignment: Alignment.center,
                           height: size.height * 0.20,
@@ -112,8 +119,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                       ),
                     ),
                     SliverToBoxAdapter(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 20),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -123,7 +130,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   GradientText(
-                                    "${data.currentWeatherModel.temp.round()}°",
+                                    "${data.currentWeatherModel.temp.round()}°c",
                                     style: GoogleFonts.robotoCondensed(
                                       fontSize: 100.0,
                                       fontWeight: FontWeight.bold,
@@ -132,10 +139,11 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       Colors.white,
                                       Colors.grey,
                                       Colors.white,
+                                      Colors.grey,
                                     ],
                                   ),
                                   Text(
-                                    "Feel like: ${data.currentWeatherModel.feelsLike.round()}°",
+                                    "Feel like: ${data.currentWeatherModel.feelsLike.round()}°c",
                                     style: GoogleFonts.roboto(
                                         fontSize: 17,
                                         fontWeight: FontWeight.w800),
@@ -160,45 +168,91 @@ class _HomePageState extends ConsumerState<HomePage> {
                     ),
                     SliverToBoxAdapter(
                       child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 10),
                         // color: Colors.blue[200],
-                        height: 200, // Adjust height as needed
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color:
+                                AppColors.inputBackGroundDT.withOpacity(0.2)),
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 25),
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text("Pressure"),
-                                    Text("${data.currentWeatherModel.pressure}"),
+                                    Text(
+                                      "Pressure",
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
+                                    Text(
+                                        "${data.currentWeatherModel.pressure}"),
                                   ],
                                 ),
                                 Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text("Dew Point"),
                                     Text(
-                                        "${data.currentWeatherModel.dewPoint.round()}°c"),
+                                      "Sunrise",
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
+                                    Text("$formattedSunrise"),
                                   ],
                                 ),
-                                 Column(
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text("Humidity"),
                                     Text(
-                                        "${data.currentWeatherModel.humidity}°c"),
+                                      "Humidity",
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
+                                    Text(
+                                        "${data.currentWeatherModel.humidity}%"),
                                   ],
                                 )
                               ],
                             ),
+                            verticalGap(15),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Column(
-                                  children: [],
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Wind Speed",
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
+                                    Text(
+                                        "${data.currentWeatherModel.windSpeed}km/h"),
+                                  ],
                                 ),
                                 Column(
-                                  children: [],
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Sunset",
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
+                                    Text("$formattedSunset"),
+                                  ],
                                 ),
                                 Column(
-                                  children: [],
-                                )
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Dew Point",
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
+                                    Text(
+                                        "${data.currentWeatherModel.dewPoint.round()}°c"),
+                                  ],
+                                ),
                               ],
                             ),
                           ],
