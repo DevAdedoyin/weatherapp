@@ -77,8 +77,8 @@ class CurrentWeatherModel {
     final dateTime = data["dt"] as int;
     final sunrise = data["sunrise"] as int;
     final sunset = data["sunset"] as int;
-    final temp = data["temp"] as double;
-    final feelsLike = data["feels_like"] as double;
+    final temp = data["temp"] - 273.15 as double;
+    final feelsLike = data["feels_like"] - 273.15 as double;
     final pressure = data["pressure"] as int;
     final humidity = data["humidity"] as int;
     final dewPoint = data["dew_point"] as double;
