@@ -6,6 +6,7 @@ import "package:weatherapp/src/common/gaps/sized_box.dart";
 import "package:weatherapp/src/constants/app_colors.dart";
 // import "package:weatherapp/src/features/geo_location/data/get_location.dart";
 import "package:weatherapp/src/features/weather/data/datasources/weather_api_datasource.dart";
+import "package:weatherapp/src/features/weather/domain/hourly_weather_model.dart";
 import "package:weatherapp/src/features/weather/domain/weather_model.dart";
 import "package:weatherapp/src/common/loading_indicator.dart";
 import "package:weatherapp/src/utils/weather_icon_utils.dart";
@@ -242,6 +243,56 @@ class _HomePageState extends ConsumerState<HomePage> {
                               ],
                             ),
                           ],
+                        ),
+                      ),
+                    ),
+                    SliverToBoxAdapter(
+                      child: Container(
+                        child: Column(
+                          children: [
+                            Text('Custom Widget Here'),
+                            SizedBox(
+                              height: size.height * 0.2,
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: data.hourlyWeather.length,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder:
+                                      (BuildContext context, int position) {
+                                    print(position);
+                                    return ClipRRect(
+                                      child: SizedBox(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                                "${data.hourlyWeather[position]?.dewPoint}"),
+                                            // Image.network(data
+                                            //     .hourlyWeather[position]
+                                            //     .weather
+                                            //     .icon),
+                                            // Text(data
+                                            //     .hourlyWeather[position].temp
+                                            //     .toString())
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  }),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    SliverToBoxAdapter(
+                      child: Container(
+                        // color: Colors.blue[200],
+                        height: 200, // Adjust height as needed
+                        child: Center(
+                          child: Text('Custom Widget Here'),
                         ),
                       ),
                     ),

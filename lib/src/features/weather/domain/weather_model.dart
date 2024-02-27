@@ -5,7 +5,7 @@ class WeatherModel {
   final double lat;
   final double lon;
   // final List<DailyWeatherModel> dailyWeather;
-  // final List<HourlyWeatherModel> hourlyWeather;
+  final List<HourlyWeatherModel?> hourlyWeather;
   final CurrentWeatherModel currentWeatherModel;
   final String timezone;
 
@@ -14,7 +14,7 @@ class WeatherModel {
     required this.lat,
     required this.lon,
     // required this.dailyWeather,
-    // required this.hourlyWeather,
+    required this.hourlyWeather,
     required this.currentWeatherModel,
     required this.timezone,
   });
@@ -29,17 +29,21 @@ class WeatherModel {
     // final dailyWeather = data['daily'] as List<Map<String, dynamic>>;
     // final dailyWeatherList =
     //     dailyWeather.map((e) => DailyWeatherModel.fromJson(e)).toList();
-    // final hourlyWeather = data['daily'] as List<Map<String, dynamic>>;
-    // final hourlyWeatherList =
-    //     hourlyWeather.map((e) => HourlyWeatherModel.fromJson(e)).toList();
+    // final List<Map<String, dynamic>> hourlyWeather;
+    final hourlyWeather = data['hourly'] as List?;
+
+    // final hourList = hourlyWeather as List<Map<String, dynamic>>;
+    final hourlyWeatherList = hourlyWeather?.map((e) {
+      print("Weather $e");
+      HourlyWeatherModel.fromJson(e as Map<String, dynamic>);
+    }).toList();
     return WeatherModel(
-      lat: lat,
-      lon: lon,
-      timezone: timezone,
-      currentWeatherModel: currentWeather,
-      // dailyWeather: dailyWeatherList,
-      // hourlyWeather: hourlyWeatherList
-    );
+        lat: lat,
+        lon: lon,
+        timezone: timezone,
+        currentWeatherModel: currentWeather,
+        // dailyWeather: dailyWeatherList,
+        hourlyWeather: hourlyWeatherList ?? []);
   }
 }
 
