@@ -1,5 +1,5 @@
-import 'package:weatherapp/src/features/weather/domain/daily_weather_model.dart';
-import 'package:weatherapp/src/features/weather/domain/hourly_weather_model.dart';
+// import 'package:weatherapp/src/features/weather/domain/daily_weather_model.dart';
+// import 'package:weatherapp/src/features/weather/domain/hourly_weather_model.dart';
 
 class WeatherModel {
   final double lat;
@@ -30,12 +30,12 @@ class WeatherModel {
     // final dailyWeatherList =
     //     dailyWeather.map((e) => DailyWeatherModel.fromJson(e)).toList();
     // final List<Map<String, dynamic>> hourlyWeather;
-    final hourlyWeather = data['hourly'] as List?;
+    final hourlyWeather = data['hourly'] as List<Map<String, dynamic>>;
 
+    print("Hourly: ${hourlyWeather}");
     // final hourList = hourlyWeather as List<Map<String, dynamic>>;
-    final hourlyWeatherList = hourlyWeather?.map((e) {
-      print("Weather $e");
-      HourlyWeatherModel.fromJson(e as Map<String, dynamic>);
+    final hourlyWeatherList = hourlyWeather.map((e) {
+      return HourlyWeatherModel.fromJson(e);
     }).toList();
     return WeatherModel(
         lat: lat,
@@ -43,7 +43,7 @@ class WeatherModel {
         timezone: timezone,
         currentWeatherModel: currentWeather,
         // dailyWeather: dailyWeatherList,
-        hourlyWeather: hourlyWeatherList ?? []);
+        hourlyWeather: hourlyWeatherList);
   }
 }
 
@@ -125,5 +125,59 @@ class SubWeather {
     final icon = data['icon'] as String;
 
     return SubWeather(main: main, description: description, icon: icon);
+  }
+}
+
+class HourlyWeatherModel {
+  // final int dateTime;
+  // final double temp;
+  // final double feelsLike;
+  // final int pressure;
+  // final int humidity;
+  final double dewPoint;
+  // final double windSpeed;
+  // final int windDegree;
+  // final SubWeather weather;
+
+  // Constructor for HourlyWeatherModel
+  HourlyWeatherModel({
+    // required this.dateTime,
+    // required this.temp,
+    // required this.feelsLike,
+    // required this.pressure,
+    // required this.humidity,
+    required this.dewPoint,
+    // required this.windSpeed,
+    // required this.windDegree,
+    // required this.weather
+  });
+
+  // Factory method to create HourlyWeatherModel from JSON data
+  factory HourlyWeatherModel.fromJson(Map<String, dynamic> data) {
+    // final dateTime = data["dt"] as int;
+    // final temp = data["temp"] as double;
+    // final feelsLike = data["feels_like"] as double;
+    // final pressure = data["pressure"] as int;
+    // final humidity = data["humidity"] as int;
+    final dewPoint = data["dew_point"] as double;
+    print("DEW POINT $dewPoint");
+    // final windSpeed = data["wind_speed"] as double;
+    // final windDegree = data["wind_deg"] as int;
+    // final weatherData = data["weather"] as List<Map<String, dynamic>>;
+
+    // Use the first element of the weatherData list to create SubWeather
+    // final weather = SubWeather.fromJson(weatherData as Map<String, dynamic>);
+
+    return HourlyWeatherModel(
+      // dateTime: dateTime,
+      // temp: temp,
+      // feelsLike: feelsLike,
+      // pressure: pressure,
+      // humidity: humidity,
+      dewPoint: dewPoint,
+      // windSpeed: windSpeed,
+      // windDegree: windDegree,
+      // weather: weather
+    );
   }
 }

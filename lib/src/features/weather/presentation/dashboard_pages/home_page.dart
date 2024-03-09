@@ -122,7 +122,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       fontSize: 100.0,
                                       fontWeight: FontWeight.bold,
                                     ),
-                                    colors: [
+                                    colors: const [
                                       Colors.white,
                                       Colors.grey,
                                       Colors.white,
@@ -260,6 +260,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                   itemBuilder:
                                       (BuildContext context, int position) {
                                     print(position);
+                                    print("DATA ${data.hourlyWeather}");
                                     return ClipRRect(
                                       child: SizedBox(
                                         child: Column(
@@ -268,8 +269,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
-                                            Text(
-                                                "${data.hourlyWeather[position]?.dewPoint}"),
+                                            Text(" ${data}"),
                                             // Image.network(data
                                             //     .hourlyWeather[position]
                                             //     .weather
