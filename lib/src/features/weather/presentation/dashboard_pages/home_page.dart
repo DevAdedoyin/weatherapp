@@ -269,7 +269,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
-                                            Text(" ${data}"),
+                                            Text(
+                                                " ${data.hourlyWeather[position].dewPoint}"),
                                             // Image.network(data
                                             //     .hourlyWeather[position]
                                             //     .weather
