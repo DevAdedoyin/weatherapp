@@ -117,7 +117,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   GradientText(
-                                    "${data.currentWeatherModel.temp.round()}°c",
+                                    "${data.currentWeatherModel.temp.round()}°",
                                     style: GoogleFonts.robotoCondensed(
                                       fontSize: 100.0,
                                       fontWeight: FontWeight.bold,
@@ -126,7 +126,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       Colors.white,
                                       Colors.grey,
                                       Colors.white,
-                                      Colors.grey,
+                                      // Colors.grey,
                                     ],
                                   ),
                                   Text(
