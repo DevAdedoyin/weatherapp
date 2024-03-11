@@ -52,7 +52,8 @@ ThemeData darkTheme = ThemeData(
     ),
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      elevation: 10,
+      backgroundColor: AppColors.scaffoldBgColor,
+      // elevation: 2,
       selectedIconTheme: const IconThemeData(color: AppColors.primaryColor),
       unselectedIconTheme: IconThemeData(color: Colors.grey[500]),
       selectedLabelStyle: GoogleFonts.robotoFlex(fontWeight: FontWeight.w600),

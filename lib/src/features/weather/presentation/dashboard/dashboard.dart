@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:weatherapp/src/constants/app_colors.dart';
 import 'package:weatherapp/src/features/weather/data/repositories/bottom_nav_state.dart';
 import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/forecast_page.dart';
 import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/home_page.dart';
@@ -33,6 +34,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
         bottomNavigationBar: BottomNavigationBar(
           items: [
             BottomNavigationBarItem(
+              backgroundColor: AppColors.scaffoldBgColor,
               icon: currentIndex == 0
                   ? Container(
                       decoration: BoxDecoration(
@@ -45,6 +47,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
               label: "Home",
             ),
             BottomNavigationBarItem(
+                backgroundColor: AppColors.scaffoldBgColor,
                 icon: currentIndex == 1
                     ? Container(
                         decoration: BoxDecoration(
@@ -56,6 +59,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
                     : const Icon(Icons.search),
                 label: "Search"),
             BottomNavigationBarItem(
+                backgroundColor: AppColors.scaffoldBgColor,
                 icon: currentIndex == 2
                     ? Container(
                         decoration: BoxDecoration(
@@ -67,6 +71,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
                     : const Icon(Icons.wb_cloudy),
                 label: "Forecast"),
             BottomNavigationBarItem(
+                backgroundColor: AppColors.scaffoldBgColor,
                 icon: currentIndex == 3
                     ? Container(
                         decoration: BoxDecoration(

@@ -101,7 +101,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                       pinned: true,
                       // centerTitle: true,
                       // backgroundColor: AppColors.accentColor.withOpacity(0.05),
-                      elevation: 20,
+                      elevation: 5,
                       expandedHeight: size.height * 0.35,
                       collapsedHeight: size.height * 0.09,
                       toolbarHeight: size.height * 0.085,
@@ -177,7 +177,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                           color: AppColors.cardBgColor,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
-                          elevation: 5,
+                          elevation: 7,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
@@ -313,7 +313,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       ),
                                       child: Card(
                                         color: AppColors.cardBgColor,
-                                        elevation: 2,
+                                        elevation: 7,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(10),
