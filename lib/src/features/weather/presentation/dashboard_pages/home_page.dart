@@ -170,94 +170,110 @@ class _HomePageState extends ConsumerState<HomePage> {
                     ),
                     SliverToBoxAdapter(
                       child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 10),
-                        // color: Colors.blue[200],
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: AppColors.cardBgColor,
-                        ),
+                        width: double.maxFinite,
                         margin: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 25),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                            horizontal: 18, vertical: 25),
+                        child: Card(
+                          color: AppColors.cardBgColor,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          elevation: 5,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 10, left: 10, right: 10),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const Text(
-                                      "Pressure",
-                                      style: TextStyle(color: Colors.grey),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        const Text(
+                                          "Pressure",
+                                          style: TextStyle(color: Colors.grey),
+                                        ),
+                                        Text(
+                                            "${data.currentWeatherModel.pressure}"),
+                                      ],
                                     ),
-                                    Text(
-                                        "${data.currentWeatherModel.pressure}"),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        const Text(
+                                          "Sunrise",
+                                          style: TextStyle(color: Colors.grey),
+                                        ),
+                                        Text(formattedSunrise),
+                                      ],
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        const Text(
+                                          "Humidity",
+                                          style: TextStyle(color: Colors.grey),
+                                        ),
+                                        Text(
+                                            "${data.currentWeatherModel.humidity}%"),
+                                      ],
+                                    )
                                   ],
                                 ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                              ),
+                              verticalGap(15),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    bottom: 10, left: 10, right: 10),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const Text(
-                                      "Sunrise",
-                                      style: TextStyle(color: Colors.grey),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        const Text(
+                                          "Wind Speed",
+                                          style: TextStyle(color: Colors.grey),
+                                        ),
+                                        Text(
+                                            "${data.currentWeatherModel.windSpeed}km/h"),
+                                      ],
                                     ),
-                                    Text(formattedSunrise),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        const Text(
+                                          "Sunset",
+                                          style: TextStyle(color: Colors.grey),
+                                        ),
+                                        Text("$formattedSunset"),
+                                      ],
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        const Text(
+                                          "Dew Point",
+                                          style: TextStyle(color: Colors.grey),
+                                        ),
+                                        Text(
+                                            "${data.currentWeatherModel.dewPoint.round()}°c"),
+                                      ],
+                                    ),
                                   ],
                                 ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      "Humidity",
-                                      style: TextStyle(color: Colors.grey),
-                                    ),
-                                    Text(
-                                        "${data.currentWeatherModel.humidity}%"),
-                                  ],
-                                )
-                              ],
-                            ),
-                            verticalGap(15),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      "Wind Speed",
-                                      style: TextStyle(color: Colors.grey),
-                                    ),
-                                    Text(
-                                        "${data.currentWeatherModel.windSpeed}km/h"),
-                                  ],
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      "Sunset",
-                                      style: TextStyle(color: Colors.grey),
-                                    ),
-                                    Text("$formattedSunset"),
-                                  ],
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      "Dew Point",
-                                      style: TextStyle(color: Colors.grey),
-                                    ),
-                                    Text(
-                                        "${data.currentWeatherModel.dewPoint.round()}°c"),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
