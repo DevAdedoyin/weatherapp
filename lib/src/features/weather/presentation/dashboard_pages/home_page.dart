@@ -173,9 +173,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                             horizontal: 15, vertical: 10),
                         // color: Colors.blue[200],
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color:
-                                AppColors.inputBackGroundDT.withOpacity(0.2)),
+                          borderRadius: BorderRadius.circular(10),
+                          color: AppColors.cardBgColor,
+                        ),
                         margin: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 25),
                         child: Column(
@@ -287,9 +287,14 @@ class _HomePageState extends ConsumerState<HomePage> {
                                         DateTime.fromMillisecondsSinceEpoch(
                                             data_.dateTime * 1000));
                                     return ClipRRect(
-                                      borderRadius: BorderRadius.circular(15),
                                       child: Container(
-                                        color: AppColors.cardBgColor,
+                                        decoration: BoxDecoration(
+                                          color: AppColors.cardBgColor,
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        margin:
+                                            EdgeInsets.symmetric(horizontal: 7),
                                         width: size.width * 0.35,
                                         child: Column(
                                           mainAxisAlignment:

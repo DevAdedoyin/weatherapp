@@ -36,6 +36,7 @@ ThemeData lightTheme = ThemeData(
 // Dark Theme
 ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
+  scaffoldBackgroundColor: AppColors.scaffoldBgColor,
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(

@@ -13,6 +13,7 @@ class AppColors {
       Color.fromARGB(255, 185, 169, 22).withOpacity(0.9);
 
   static final cardBgColor = Color.fromRGBO(37, 43, 61, 1);
+  static final scaffoldBgColor = Color.fromRGBO(23, 27, 38, 1);
 
   // DARK THEME
   static const inputBackGroundDT = Color.fromRGBO(74, 74, 77, 1);
