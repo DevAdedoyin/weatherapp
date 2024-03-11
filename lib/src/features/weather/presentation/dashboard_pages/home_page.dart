@@ -275,7 +275,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                               ),
                             ),
                             SizedBox(
-                              height: size.height * 0.2,
+                              height: size.height * 0.25,
                               child: ListView.builder(
                                   shrinkWrap: true,
                                   itemCount: data.hourlyWeather.length,
@@ -287,7 +287,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                                         DateTime.fromMillisecondsSinceEpoch(
                                             data_.dateTime * 1000));
                                     return ClipRRect(
-                                      child: SizedBox(
+                                      borderRadius: BorderRadius.circular(15),
+                                      child: Container(
+                                        color: AppColors.cardBgColor,
+                                        width: size.width * 0.35,
                                         child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,
@@ -295,10 +298,20 @@ class _HomePageState extends ConsumerState<HomePage> {
                                               CrossAxisAlignment.center,
                                           children: [
                                             Text(date.toString()),
-                                            Text(""),
-                                            Divider(),
-                                            Image.asset(""),
-                                            Text("")
+                                            position == 0
+                                                ? Text(
+                                                    "Next ${position + 1} hr")
+                                                : Text(
+                                                    "Next ${position + 1} hrs"),
+                                            Divider(
+                                                thickness: 3,
+                                                color: AppColors.fontColor),
+                                            Image.network(
+                                              WeatherIcon.weatherIcon(
+                                                data_.weather.icon,
+                                              ),
+                                            ),
+                                            Text("${data_.temp.round()}°c")
                                           ],
                                         ),
                                       ),
