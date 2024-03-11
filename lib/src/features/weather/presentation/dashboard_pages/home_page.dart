@@ -44,6 +44,20 @@ class _HomePageState extends ConsumerState<HomePage> {
     address = prefs.getString("address");
   }
 
+  List<String> getNextTenHours() {
+    List<String> hours = [];
+    DateTime now = DateTime.now();
+
+    for (int i = 1; i <= 10; i++) {
+      DateTime nextHour = now.add(Duration(hours: i));
+      String hourString =
+          "${nextHour.hour.toString().padLeft(2, '0')}:${nextHour.minute.toString().padLeft(2, '0')}";
+      hours.add(hourString);
+    }
+
+    return hours;
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -248,9 +262,18 @@ class _HomePageState extends ConsumerState<HomePage> {
                     ),
                     SliverToBoxAdapter(
                       child: Container(
+                        margin: EdgeInsets.only(top: 5),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Custom Widget Here'),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20.0),
+                              child: Text(
+                                'Next 10 hours',
+                                style: textTheme.displaySmall,
+                              ),
+                            ),
                             SizedBox(
                               height: size.height * 0.2,
                               child: ListView.builder(
@@ -259,8 +282,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                                   scrollDirection: Axis.horizontal,
                                   itemBuilder:
                                       (BuildContext context, int position) {
-                                    print(position);
-                                    print("DATA ${data.hourlyWeather}");
+                                    final data_ = data.hourlyWeather[position];
+                                    var date = DateFormat.Hm().format(
+                                        DateTime.fromMillisecondsSinceEpoch(
+                                            data_.dateTime * 1000));
                                     return ClipRRect(
                                       child: SizedBox(
                                         child: Column(
@@ -269,15 +294,11 @@ class _HomePageState extends ConsumerState<HomePage> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
-                                            Text(
-                                                " ${data.hourlyWeather[position].dewPoint}"),
-                                            // Image.network(data
-                                            //     .hourlyWeather[position]
-                                            //     .weather
-                                            //     .icon),
-                                            // Text(data
-                                            //     .hourlyWeather[position].temp
-                                            //     .toString())
+                                            Text(date.toString()),
+                                            Text(""),
+                                            Divider(),
+                                            Image.asset(""),
+                                            Text("")
                                           ],
                                         ),
                                       ),
