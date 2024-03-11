@@ -78,6 +78,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               : CustomScrollView(
                   slivers: <Widget>[
                     SliverAppBar(
+                      backgroundColor: AppColors.scaffoldBgColor,
                       title: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -274,8 +275,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 style: textTheme.displaySmall,
                               ),
                             ),
+                            verticalGap(10),
                             SizedBox(
-                              height: size.height * 0.25,
+                              height: size.height * 0.30,
                               child: ListView.builder(
                                   shrinkWrap: true,
                                   itemCount: data.hourlyWeather.length,
@@ -286,37 +288,57 @@ class _HomePageState extends ConsumerState<HomePage> {
                                     var date = DateFormat.Hm().format(
                                         DateTime.fromMillisecondsSinceEpoch(
                                             data_.dateTime * 1000));
-                                    return ClipRRect(
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: AppColors.cardBgColor,
+                                    return Container(
+                                      width: size.width * 0.42,
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 7),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Card(
+                                        color: AppColors.cardBgColor,
+                                        elevation: 2,
+                                        shape: RoundedRectangleBorder(
                                           borderRadius:
-                                              BorderRadius.circular(15),
+                                              BorderRadius.circular(10),
                                         ),
-                                        margin:
-                                            EdgeInsets.symmetric(horizontal: 7),
-                                        width: size.width * 0.35,
                                         child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
-                                            Text(date.toString()),
+                                            verticalGap(5),
+                                            Text(
+                                              date.toString(),
+                                              style: GoogleFonts.roboto(
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                            verticalGap(3),
                                             position == 0
                                                 ? Text(
                                                     "Next ${position + 1} hr")
                                                 : Text(
                                                     "Next ${position + 1} hrs"),
+                                            verticalGap(2),
                                             Divider(
                                                 thickness: 3,
-                                                color: AppColors.fontColor),
+                                                indent: 10,
+                                                endIndent: 10,
+                                                color: AppColors.primaryColor),
                                             Image.network(
                                               WeatherIcon.weatherIcon(
                                                 data_.weather.icon,
                                               ),
                                             ),
-                                            Text("${data_.temp.round()}°c")
+                                            Text(
+                                              "${data_.temp.round()}°c",
+                                              style: GoogleFonts.roboto(
+                                                  fontSize: 27,
+                                                  fontWeight: FontWeight.w700),
+                                            ),
+                                            verticalGap(5),
                                           ],
                                         ),
                                       ),
