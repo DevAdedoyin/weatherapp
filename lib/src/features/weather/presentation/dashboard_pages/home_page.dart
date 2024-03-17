@@ -102,27 +102,32 @@ class _HomePageState extends ConsumerState<HomePage> {
                       // centerTitle: true,
                       // backgroundColor: AppColors.accentColor.withOpacity(0.05),
                       elevation: 5,
-                      expandedHeight: size.height * 0.35,
+                      expandedHeight: size.height * 0.3,
                       collapsedHeight: size.height * 0.09,
-                      toolbarHeight: size.height * 0.085,
+                      // toolbarHeight: size.height * 0.085,
                       flexibleSpace: FlexibleSpaceBar(
                         titlePadding: const EdgeInsets.symmetric(
                           horizontal: 5,
                         ),
-                        background: Image.network(
-                          WeatherIcon.weatherIcon(
-                            data.currentWeatherModel.weather.icon,
+                        background: SizedBox(
+                          child: Image.network(
+                            WeatherIcon.weatherIcon(
+                              data.currentWeatherModel.weather.icon,
+                            ),
+                            filterQuality: FilterQuality.high,
+                            // alignment: Alignment.bottomCenter,
+                            // height: size.width * 0.20,
+                            // width: size.width * 0.20,
+                            fit: BoxFit.cover,
                           ),
-                          alignment: Alignment.center,
-                          height: size.height * 0.20,
-                          width: size.height * 0.20,
-                          fit: BoxFit.contain,
                         ),
                       ),
                     ),
                     SliverToBoxAdapter(
                       child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: EdgeInsets.only(top: 0),
+                        margin:
+                            const EdgeInsets.only(left: 20, right: 20, top: 0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -304,82 +309,71 @@ class _HomePageState extends ConsumerState<HomePage> {
                                     var date = DateFormat.Hm().format(
                                         DateTime.fromMillisecondsSinceEpoch(
                                             data_.dateTime * 1000));
-                                    return Container(
-                                      width: size.width * 0.42,
-                                      margin: const EdgeInsets.symmetric(
-                                          horizontal: 7),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Card(
-                                        color: AppColors.cardBgColor,
-                                        elevation: 7,
-                                        shape: RoundedRectangleBorder(
+                                    return InkWell(
+                                      onTap: () {
+                                        
+                                      },
+                                      borderRadius: BorderRadius.circular(15),
+                                      radius: 0.5,
+                                      child: Container(
+                                        width: size.width * 0.42,
+                                        margin: const EdgeInsets.symmetric(
+                                            horizontal: 7),
+                                        decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(10),
                                         ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            verticalGap(5),
-                                            Text(
-                                              date.toString(),
-                                              style: GoogleFonts.roboto(
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.w600),
-                                            ),
-                                            verticalGap(3),
-                                            position == 0
-                                                ? Text(
-                                                    "Next ${position + 1} hr")
-                                                : Text(
-                                                    "Next ${position + 1} hrs"),
-                                            verticalGap(2),
-                                            Divider(
-                                                thickness: 3,
-                                                indent: 10,
-                                                endIndent: 10,
-                                                color: AppColors.primaryColor),
-                                            Image.network(
-                                              WeatherIcon.weatherIcon(
-                                                data_.weather.icon,
+                                        child: Card(
+                                          color: AppColors.cardBgColor,
+                                          elevation: 7,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              verticalGap(5),
+                                              Text(
+                                                date.toString(),
+                                                style: GoogleFonts.roboto(
+                                                    fontSize: 17,
+                                                    fontWeight:
+                                                        FontWeight.w600),
                                               ),
-                                            ),
-                                            Text(
-                                              "${data_.temp.round()}°c",
-                                              style: GoogleFonts.roboto(
-                                                  fontSize: 27,
-                                                  fontWeight: FontWeight.w700),
-                                            ),
-                                            verticalGap(5),
-                                          ],
+                                              verticalGap(3),
+                                              Text(data_.weather.description),
+                                              verticalGap(2),
+                                              const Divider(
+                                                  thickness: 1,
+                                                  indent: 10,
+                                                  endIndent: 10,
+                                                  color:
+                                                      AppColors.primaryColor),
+                                              Image.network(
+                                                WeatherIcon.weatherIcon(
+                                                  data_.weather.icon,
+                                                ),
+                                              ),
+                                              Text(
+                                                "${data_.temp.round()}°c",
+                                                style: GoogleFonts.roboto(
+                                                    fontSize: 27,
+                                                    fontWeight:
+                                                        FontWeight.w700),
+                                              ),
+                                              verticalGap(5),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     );
                                   }),
                             )
                           ],
-                        ),
-                      ),
-                    ),
-                    SliverToBoxAdapter(
-                      child: Container(
-                        // color: Colors.blue[200],
-                        height: 200, // Adjust height as needed
-                        child: Center(
-                          child: Text('Custom Widget Here'),
-                        ),
-                      ),
-                    ),
-                    SliverToBoxAdapter(
-                      child: Container(
-                        // color: Colors.blue[200],
-                        height: 200, // Adjust height as needed
-                        child: Center(
-                          child: Text('Custom Widget Here'),
                         ),
                       ),
                     ),
