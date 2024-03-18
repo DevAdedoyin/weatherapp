@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:weatherapp/src/constants/app_colors.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class WeatherDetailsHourly extends StatefulWidget {
+import '../../data/repositories/hourly_weather_detail.dart';
+
+class WeatherDetailsHourly extends ConsumerStatefulWidget {
   const WeatherDetailsHourly({super.key});
 
   @override
-  State<WeatherDetailsHourly> createState() => _WeatherDetailsHourlyState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _WeatherDetailsHourlyState();
 }
 
-class _WeatherDetailsHourlyState extends State<WeatherDetailsHourly> {
+class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
   List<String> weatherTitles = [
     "Pressure",
     "Humidity",
@@ -33,38 +38,74 @@ class _WeatherDetailsHourlyState extends State<WeatherDetailsHourly> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
-    return SizedBox(
-      child: Card(
-        color: AppColors.scaffoldBgColor,
-        child: AnimatedContainer(
-          duration: const Duration(seconds: 2),
-          curve: Curves.easeIn,
-          height: size.height * 0.17,
-          child: ListView.builder(
-              itemBuilder: (_, pos) {
-                return Card(
-                  elevation: 10,
-                  color: AppColors.scaffoldBgColor,
-                  child: ListTile(
-                    leading: SizedBox(
-                        height: size.height * 0.05,
-                        width: size.height * 0.05,
-                        child:
-                            Image.asset("assets/images/${weatherImages[pos]}")),
-                    title: Text(
-                      weatherTitles[pos],
-                      style: textTheme.displaySmall,
+    final isOpen = ref.watch(openWeatherDetails);
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Other details"),
+              SizedBox(
+                height: 20,
+                width: 20,
+                child: GestureDetector(
+                    onTap: () {
+                      ref.read(openWeatherDetails.notifier).state =
+                          ref.read(openWeatherDetails.notifier).state
+                              ? false
+                              : true;
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: AppColors.cardBgColor,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(20),
+                        ),
+                      ),
+                      child: const FaIcon(
+                        FontAwesomeIcons.chevronDown,
+                        size: 15,
+                      ),
+                    )),
+              )
+            ],
+          ),
+          AnimatedContainer(
+            duration: const Duration(seconds: 2),
+            curve: Curves.easeIn,
+            height: isOpen ? size.height * 0.60 : size.height * 0.17,
+            child: ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (_, pos) {
+                  return Card(
+                    elevation: 10,
+                    color: AppColors.scaffoldBgColor,
+                    child: ListTile(
+                      leading: SizedBox(
+                          height: size.height * 0.05,
+                          width: size.height * 0.05,
+                          child: Image.asset(
+                              "assets/images/${weatherImages[pos]}")),
+                      title: Text(
+                        weatherTitles[pos],
+                        style: textTheme.displaySmall,
+                      ),
+                      // subtitle: Text("data"),
+                      trailing: Text(
+                        "20",
+                        style: textTheme.displaySmall,
+                      ),
                     ),
-                    trailing: Text(
-                      "20",
-                      style: textTheme.displaySmall,
-                    ),
-                  ),
-                );
-              },
-              shrinkWrap: true,
-              itemCount: weatherTitles.length),
-        ),
+                  );
+                },
+                shrinkWrap: true,
+                itemCount: weatherTitles.length),
+          ),
+        ],
       ),
     );
   }

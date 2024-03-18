@@ -118,7 +118,7 @@ class _HourlyWeatherDetailsScreenState
                 ],
               ),
             ),
-            verticalGap(10),
+            verticalGap(20),
             const WeatherDetailsHourly()
           ],
         ),
