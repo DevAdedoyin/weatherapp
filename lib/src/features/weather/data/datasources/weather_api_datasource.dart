@@ -18,8 +18,8 @@ class WeatherApiDataSource {
     // // final lat = coord["lat"];
     // // final lon = coord["lon"];
 
-    final double lati = 51.7634;
-    final double longi = 0.2231;
+    const double lati = 51.7634;
+    const double longi = 0.2231;
 
     // Construct the API endpoint URL with latitude, longitude, and API key
     String uri =
@@ -30,11 +30,11 @@ class WeatherApiDataSource {
     // Decode the JSON response body
     final responseBody = jsonDecode(response.body);
 
-    print(responseBody);
-    print(response.statusCode);
+    // print(responseBody);
+    // print(response.statusCode);
     // Check if the response status code is 200 (OK)
     if (response.statusCode == 200) {
-      print("Hourly: ${responseBody["hourly"]}");
+      // print("Hourly: ${responseBody["hourly"]}");
       return WeatherModel.fromJson(responseBody as Map<String, dynamic>);
     } else {
       throw CustomException(

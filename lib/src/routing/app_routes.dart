@@ -6,4 +6,5 @@ class AppRoutes {
   static const String settings = '/settings';
   static const String dashboard = '/dashboard';
   static const String userLocatorPage = '/location';
+  static const String hourlyWeatherDetails = '/hourly';
 }

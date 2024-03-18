@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:go_router/go_router.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:shared_preferences/shared_preferences.dart";
 import "package:weatherapp/src/common/gaps/sized_box.dart";
@@ -9,6 +10,7 @@ import "package:weatherapp/src/features/weather/data/datasources/weather_api_dat
 import "package:weatherapp/src/features/weather/domain/hourly_weather_model.dart";
 import "package:weatherapp/src/features/weather/domain/weather_model.dart";
 import "package:weatherapp/src/common/loading_indicator.dart";
+import "package:weatherapp/src/routing/app_routes.dart";
 import "package:weatherapp/src/utils/weather_icon_utils.dart";
 import 'package:intl/intl.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
@@ -74,7 +76,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           String formattedSunset = DateFormat('HH:mm a').format(sunset);
 
           return snapshot.connectionState == ConnectionState.waiting
-              ? LoadingIndicator()
+              ? const LoadingIndicator()
               : CustomScrollView(
                   slivers: <Widget>[
                     SliverAppBar(
@@ -311,7 +313,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                             data_.dateTime * 1000));
                                     return InkWell(
                                       onTap: () {
-                                        
+                                        context
+                                            .go(AppRoutes.hourlyWeatherDetails);
                                       },
                                       borderRadius: BorderRadius.circular(15),
                                       radius: 0.5,

@@ -6,6 +6,7 @@ import 'package:weatherapp/src/features/geo_location/presentation/user_location.
 import 'package:weatherapp/src/features/onboarding/onboarding/onboarding_screen.dart';
 import 'package:weatherapp/src/features/onboarding/splash_screen.dart';
 import 'package:weatherapp/src/features/weather/presentation/dashboard/dashboard.dart';
+import 'package:weatherapp/src/features/weather/presentation/hourly_weather_detail.dart';
 import 'package:weatherapp/src/routing/app_routes.dart';
 import 'package:weatherapp/src/routing/route_error_screen.dart';
 
@@ -35,6 +36,10 @@ GoRouter goRouter = GoRouter(
       GoRoute(
         path: AppRoutes.userLocatorPage,
         builder: (context, state) => const UserLocation(),
+      ),
+      GoRoute(
+        path: AppRoutes.hourlyWeatherDetails,
+        builder: (context, state) => HourlyWeatherDetailsScreen(),
       ),
     ],
     errorBuilder: (context, state) =>
