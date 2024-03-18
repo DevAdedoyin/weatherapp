@@ -127,7 +127,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                     ),
                     SliverToBoxAdapter(
                       child: Container(
-                        padding: EdgeInsets.only(top: 0),
+                        padding: const EdgeInsets.only(top: 0),
                         margin:
                             const EdgeInsets.only(left: 20, right: 20, top: 0),
                         child: Row(
@@ -313,8 +313,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                             data_.dateTime * 1000));
                                     return InkWell(
                                       onTap: () {
-                                        context
-                                            .go(AppRoutes.hourlyWeatherDetails);
+                                        context.push(
+                                            AppRoutes.hourlyWeatherDetails);
                                       },
                                       borderRadius: BorderRadius.circular(15),
                                       radius: 0.5,
