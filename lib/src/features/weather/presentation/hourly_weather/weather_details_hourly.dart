@@ -50,7 +50,7 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Other details"),
+                const Text("Other details"),
                 SizedBox(
                   height: 25,
                   width: 25,
@@ -87,6 +87,15 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
             child: ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (_, pos) {
+                  List<String> details = [
+                    hourlyWeatherState.pressure!,
+                    hourlyWeatherState.humidity!,
+                    hourlyWeatherState.dewPoint!,
+                    hourlyWeatherState.visibility!,
+                    hourlyWeatherState.windSpeed!,
+                    hourlyWeatherState.windDegree!,
+                    hourlyWeatherState.windGust!,
+                  ];
                   return Card(
                     elevation: 10,
                     color: AppColors.scaffoldBgColor,
@@ -105,7 +114,7 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
                       ),
                       // subtitle: Text("data"),
                       trailing: Text(
-                        "20",
+                        details[pos],
                         style: textTheme.displaySmall,
                       ),
                     ),
