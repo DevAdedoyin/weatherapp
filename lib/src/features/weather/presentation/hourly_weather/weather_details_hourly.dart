@@ -39,6 +39,7 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
     final isOpen = ref.watch(openWeatherDetails);
+    final hourlyWeatherState = ref.watch(hourlyWeatherDetails);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -80,7 +81,7 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
             ),
           ),
           AnimatedContainer(
-            duration: const Duration(seconds: 2),
+            duration: const Duration(milliseconds: 1200),
             curve: Curves.easeIn,
             height: isOpen ? size.height * 0.60 : size.height * 0.17,
             child: ListView.builder(

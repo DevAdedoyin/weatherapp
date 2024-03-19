@@ -7,7 +7,8 @@ import "package:weatherapp/src/common/gaps/sized_box.dart";
 import "package:weatherapp/src/constants/app_colors.dart";
 // import "package:weatherapp/src/features/geo_location/data/get_location.dart";
 import "package:weatherapp/src/features/weather/data/datasources/weather_api_datasource.dart";
-// import "package:weatherapp/src/features/weather/domain/hourly_weather_model.dart";
+import "package:weatherapp/src/features/weather/data/repositories/hourly_weather_detail.dart";
+// import "package:weatherapp/src/features/weather/domain/ho_model.dart";
 import "package:weatherapp/src/features/weather/domain/weather_model.dart";
 import "package:weatherapp/src/common/loading_indicator.dart";
 import "package:weatherapp/src/routing/app_routes.dart";
@@ -64,6 +65,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
+    final hourlyWeatherState = ref.watch(hourlyWeatherDetails);
     return FutureBuilder<WeatherModel>(
         future: WeatherApiDataSource.fetchWeather(),
         builder: (context, snapshot) {
@@ -314,6 +316,40 @@ class _HomePageState extends ConsumerState<HomePage> {
                                             data_.dateTime * 1000));
                                     return InkWell(
                                       onTap: () {
+                                        final hourlyState = ref
+                                            .read(hourlyWeatherDetails.notifier)
+                                            .state;
+                                        hourlyState.date =
+                                            DateFormat('d MMMM, EEEE').format(
+                                                DateTime
+                                                    .fromMillisecondsSinceEpoch(
+                                                        data_.dateTime * 1000));
+                                        hourlyState.time = DateFormat('h a')
+                                            .format(DateTime
+                                                .fromMillisecondsSinceEpoch(
+                                                    data_.dateTime * 1000));
+                                        hourlyState.desctiption =
+                                            data_.weather.description;
+                                        hourlyState.dewPoint =
+                                            data_.dewPoint.round().toString();
+                                        hourlyState.feelsLike =
+                                            data_.feelsLike.round().toString();
+                                        hourlyState.humidity =
+                                            data_.humidity.toString();
+                                        hourlyState.image = data_.weather.icon;
+                                        hourlyState.location = address;
+                                        hourlyState.pressure =
+                                            data_.pressure.toString();
+                                        hourlyState.temp =
+                                            data_.temp.round().toString();
+                                        hourlyState.visibility =
+                                            data_.visibility.toString();
+                                        hourlyState.windDegree =
+                                            data_.windDegree.toString();
+                                        hourlyState.windGust =
+                                            data_.windGust.toString();
+                                        hourlyState.windSpeed =
+                                            data_.windSpeed.toString();
                                         context.push(
                                             AppRoutes.hourlyWeatherDetails);
                                       },

@@ -4,7 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:weatherapp/src/common/gaps/sized_box.dart';
 import 'package:weatherapp/src/constants/app_colors.dart';
+import 'package:weatherapp/src/features/weather/data/repositories/hourly_weather_detail.dart';
 import 'package:weatherapp/src/features/weather/presentation/hourly_weather/weather_details_hourly.dart';
+import 'package:weatherapp/src/utils/weather_icon_utils.dart';
 
 class HourlyWeatherDetailsScreen extends ConsumerStatefulWidget {
   const HourlyWeatherDetailsScreen({super.key});
@@ -20,6 +22,7 @@ class _HourlyWeatherDetailsScreenState
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     Size size = MediaQuery.of(context).size;
+    final hourlyWeatherState = ref.watch(hourlyWeatherDetails);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.scaffoldBgColor,
@@ -27,11 +30,11 @@ class _HourlyWeatherDetailsScreenState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Stuggart",
+              hourlyWeatherState.location!,
               style: textTheme.displaySmall,
             ),
             Text(
-              "18 March, Monday",
+              hourlyWeatherState.date!,
               style:
                   GoogleFonts.roboto(fontSize: 14, fontWeight: FontWeight.w600),
             )
@@ -43,7 +46,7 @@ class _HourlyWeatherDetailsScreenState
         child: Column(
           children: [
             GradientText(
-              "11 am",
+              hourlyWeatherState.time!,
               style: GoogleFonts.robotoCondensed(
                 height: 1,
                 fontSize: 70.0,
@@ -61,16 +64,17 @@ class _HourlyWeatherDetailsScreenState
               "Weather Report",
               style: textTheme.displaySmall,
             ),
-            verticalGap(15),
+            // verticalGap(2),
             SizedBox(
-              height: size.height * 0.3,
-              width: size.height * 0.3,
-              child: Image.asset(
-                "assets/images/onb4.png",
+              height: size.width * 0.5,
+              width: size.width * 0.5,
+              child: Image.network(
+                WeatherIcon.weatherIcon(hourlyWeatherState.image!),
                 fit: BoxFit.cover,
+                height: size.width * 0.5,
+                width: size.width * 0.5,
               ),
             ),
-            verticalGap(10),
             Container(
               padding: const EdgeInsets.only(top: 0),
               margin: const EdgeInsets.only(left: 20, right: 20, top: 0),
@@ -83,7 +87,7 @@ class _HourlyWeatherDetailsScreenState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         GradientText(
-                          "10°",
+                          "${hourlyWeatherState.temp!}°",
                           style: GoogleFonts.robotoCondensed(
                             height: 1,
                             fontSize: 100.0,
@@ -97,7 +101,7 @@ class _HourlyWeatherDetailsScreenState
                           ],
                         ),
                         Text(
-                          "Feel like: 9°c",
+                          "Feel like: ${hourlyWeatherState.feelsLike}°",
                           style: GoogleFonts.roboto(
                               fontSize: 17, fontWeight: FontWeight.w800),
                         )
@@ -109,7 +113,7 @@ class _HourlyWeatherDetailsScreenState
                     // color: Colors.blue[200],
                     // Adjust height as needed
                     child: Text(
-                      "Humid and Mostly Cloudy",
+                      hourlyWeatherState.desctiption!,
                       textAlign: TextAlign.center,
                       style: GoogleFonts.roboto(
                           fontSize: 30, fontWeight: FontWeight.w500),

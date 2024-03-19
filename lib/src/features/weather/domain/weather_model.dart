@@ -50,7 +50,7 @@ class WeatherModel {
       }
     }
 
-    print("TESTING $hourlyWeatherList");
+    // print("TESTING $hourlyWeatherList");
     final hourly = hourlyWeatherList.map((e) {
       print("eeeooo: $e");
       return HourlyWeatherModel.fromJson(e);
