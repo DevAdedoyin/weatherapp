@@ -41,38 +41,43 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
     final isOpen = ref.watch(openWeatherDetails);
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text("Other details"),
-              SizedBox(
-                height: 20,
-                width: 20,
-                child: GestureDetector(
-                    onTap: () {
-                      ref.read(openWeatherDetails.notifier).state =
-                          ref.read(openWeatherDetails.notifier).state
-                              ? false
-                              : true;
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: AppColors.cardBgColor,
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(20),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Other details"),
+                SizedBox(
+                  height: 25,
+                  width: 25,
+                  child: GestureDetector(
+                      onTap: () {
+                        ref.read(openWeatherDetails.notifier).state =
+                            ref.read(openWeatherDetails.notifier).state
+                                ? false
+                                : true;
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: AppColors.inputFieldBG,
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(20),
+                          ),
                         ),
-                      ),
-                      child: const FaIcon(
-                        FontAwesomeIcons.chevronDown,
-                        size: 15,
-                      ),
-                    )),
-              )
-            ],
+                        child: FaIcon(
+                          isOpen
+                              ? FontAwesomeIcons.chevronUp
+                              : FontAwesomeIcons.chevronDown,
+                          size: 15,
+                        ),
+                      )),
+                )
+              ],
+            ),
           ),
           AnimatedContainer(
             duration: const Duration(seconds: 2),
