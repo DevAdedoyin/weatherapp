@@ -7,7 +7,7 @@ import "package:weatherapp/src/common/gaps/sized_box.dart";
 import "package:weatherapp/src/constants/app_colors.dart";
 // import "package:weatherapp/src/features/geo_location/data/get_location.dart";
 import "package:weatherapp/src/features/weather/data/datasources/weather_api_datasource.dart";
-import "package:weatherapp/src/features/weather/domain/hourly_weather_model.dart";
+// import "package:weatherapp/src/features/weather/domain/hourly_weather_model.dart";
 import "package:weatherapp/src/features/weather/domain/weather_model.dart";
 import "package:weatherapp/src/common/loading_indicator.dart";
 import "package:weatherapp/src/routing/app_routes.dart";
@@ -68,6 +68,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         future: WeatherApiDataSource.fetchWeather(),
         builder: (context, snapshot) {
           final data = snapshot.data;
+          print("DATA: ${snapshot.data}");
           final sunrise = DateTime.fromMillisecondsSinceEpoch(
               data!.currentWeatherModel.sunrise * 1000);
           final sunset = DateTime.fromMillisecondsSinceEpoch(

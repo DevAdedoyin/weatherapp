@@ -91,10 +91,13 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
                     color: AppColors.scaffoldBgColor,
                     child: ListTile(
                       leading: SizedBox(
-                          height: size.height * 0.05,
-                          width: size.height * 0.05,
-                          child: Image.asset(
-                              "assets/images/${weatherImages[pos]}")),
+                        height: size.height * 0.04,
+                        width: size.height * 0.04,
+                        child: Image.asset(
+                          "assets/images/${weatherImages[pos]}",
+                          // fit: BoxFit.contain,
+                        ),
+                      ),
                       title: Text(
                         weatherTitles[pos],
                         style: textTheme.displaySmall,
