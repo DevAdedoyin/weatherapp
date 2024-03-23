@@ -68,11 +68,14 @@ class _HourlyWeatherDetailsScreenState
             SizedBox(
               height: size.width * 0.5,
               width: size.width * 0.5,
-              child: Image.network(
-                WeatherIcon.weatherIcon(hourlyWeatherState.image!),
-                fit: BoxFit.cover,
-                height: size.width * 0.5,
-                width: size.width * 0.5,
+              child: Hero(
+                tag: "weather image",
+                child: Image.network(
+                  WeatherIcon.weatherIcon(hourlyWeatherState.image!),
+                  fit: BoxFit.cover,
+                  height: size.width * 0.5,
+                  width: size.width * 0.5,
+                ),
               ),
             ),
             Container(

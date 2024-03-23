@@ -393,9 +393,12 @@ class _HomePageState extends ConsumerState<HomePage> {
                                                   endIndent: 10,
                                                   color:
                                                       AppColors.primaryColor),
-                                              Image.network(
-                                                WeatherIcon.weatherIcon(
-                                                  data_.weather.icon,
+                                              Hero(
+                                                tag: "weather image",
+                                                child: Image.network(
+                                                  WeatherIcon.weatherIcon(
+                                                    data_.weather.icon,
+                                                  ),
                                                 ),
                                               ),
                                               Text(

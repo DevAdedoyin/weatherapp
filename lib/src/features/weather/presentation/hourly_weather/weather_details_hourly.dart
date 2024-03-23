@@ -83,7 +83,7 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
           AnimatedContainer(
             duration: const Duration(milliseconds: 1200),
             curve: Curves.easeIn,
-            height: isOpen ? size.height * 0.60 : size.height * 0.17,
+            height: isOpen ? size.height * 0.60 : size.height * 0.25,
             child: ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (_, pos) {
