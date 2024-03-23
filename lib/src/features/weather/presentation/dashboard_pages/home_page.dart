@@ -65,12 +65,12 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
-    final hourlyWeatherState = ref.watch(hourlyWeatherDetails);
+    ref.watch(hourlyWeatherDetails);
     return FutureBuilder<WeatherModel>(
         future: WeatherApiDataSource.fetchWeather(),
         builder: (context, snapshot) {
           final data = snapshot.data;
-          print("DATA: ${snapshot.data}");
+          // print("DATA: ${snapshot.data}");
           final sunrise = DateTime.fromMillisecondsSinceEpoch(
               data!.currentWeatherModel.sunrise * 1000);
           final sunset = DateTime.fromMillisecondsSinceEpoch(
