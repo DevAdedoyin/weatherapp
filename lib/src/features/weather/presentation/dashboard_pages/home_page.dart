@@ -350,6 +350,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                             data_.windGust.toString();
                                         hourlyState.windSpeed =
                                             data_.windSpeed.toString();
+                                        hourlyState.position = position;
                                         context.push(
                                             AppRoutes.hourlyWeatherDetails);
                                       },
@@ -394,7 +395,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                                   color:
                                                       AppColors.primaryColor),
                                               Hero(
-                                                tag: "weather image",
+                                                tag: "weather-image-$position",
                                                 child: Image.network(
                                                   WeatherIcon.weatherIcon(
                                                     data_.weather.icon,

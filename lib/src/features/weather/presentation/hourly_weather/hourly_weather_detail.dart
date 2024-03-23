@@ -64,17 +64,26 @@ class _HourlyWeatherDetailsScreenState
               "Weather Report",
               style: textTheme.displaySmall,
             ),
-            // verticalGap(2),
-            SizedBox(
-              height: size.width * 0.5,
-              width: size.width * 0.5,
-              child: Hero(
-                tag: "weather image",
-                child: Image.network(
-                  WeatherIcon.weatherIcon(hourlyWeatherState.image!),
-                  fit: BoxFit.cover,
-                  height: size.width * 0.5,
-                  width: size.width * 0.5,
+            verticalGap(2),
+            Container(
+              // color: Colors.red,
+              height: size.width * 0.6,
+              width: size.width * 0.6,
+              child: Card(
+                color: AppColors.scaffoldBgColor,
+                elevation: 20,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100)),
+                child: Hero(
+                  tag: "weather-image-${hourlyWeatherState.position}",
+                  child: Image.network(
+                    WeatherIcon.weatherIcon(hourlyWeatherState.image!),
+                    fit: BoxFit.fitWidth,
+                    filterQuality: FilterQuality.high,
+                    // height: size.width * 0.7,
+                    // width: size.width * 0.7,
+                    alignment: Alignment.center,
+                  ),
                 ),
               ),
             ),

@@ -14,6 +14,7 @@ final hourlyWeatherDetails = StateProvider<SelectedHourlyWeather>((ref) =>
         location: "location",
         pressure: "pressure",
         temp: "temp",
+        position: 0,
         visibility: "visibility",
         windDegree: "windDegree",
         windGust: "windGust",
@@ -34,6 +35,7 @@ class SelectedHourlyWeather {
   String? windSpeed;
   String? windDegree;
   String? windGust;
+  int? position;
 
   SelectedHourlyWeather(
       {required this.date,
@@ -45,6 +47,7 @@ class SelectedHourlyWeather {
       required this.image,
       required this.location,
       required this.pressure,
+      required this.position,
       required this.temp,
       required this.visibility,
       required this.windDegree,
