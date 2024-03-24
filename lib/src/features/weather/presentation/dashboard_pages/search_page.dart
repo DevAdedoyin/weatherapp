@@ -4,6 +4,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:weatherapp/src/common/gaps/sized_box.dart";
+import "package:weatherapp/src/constants/app_colors.dart";
 import "package:weatherapp/src/features/weather/data/repositories/search_suggestion_data.dart";
 
 class SearchPage extends ConsumerStatefulWidget {
@@ -42,11 +43,15 @@ class _SearchPageState extends ConsumerState<SearchPage> {
             .toList(),
       );
 
+  final List<SearchSuggestionModel> listOfCityData =
+      SearchSuggestionModel.listOfCityData;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    listOfCityData.sort((a, b) => a.cityNames.compareTo(b.cityNames));
     return SingleChildScrollView(
-      child: Container(
+      child: SizedBox(
         // height: 30,
         child: Column(
           children: [
@@ -58,8 +63,8 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                   return GestureDetector(
                     onTap: () {
                       setState(() {
-                        textController.text = SearchSuggestionModel
-                            .listOfCityData[position].cityNames;
+                        textController.text =
+                            listOfCityData[position].cityNames;
                       });
 
                       textController.selection = TextSelection.fromPosition(
@@ -68,13 +73,11 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                     },
                     child: Card(
                       child: ListTile(
-                        title: Text(SearchSuggestionModel
-                            .listOfCityData[position].cityNames),
+                        title: Text(listOfCityData[position].cityNames),
                         trailing: IconButton(
                           icon: const Icon(Icons.clear),
                           onPressed: () {
-                            SearchSuggestionModel.listOfCityData
-                                .removeAt(position);
+                            listOfCityData.removeAt(position);
                             boxController.refresh?.call();
                           },
                         ),
@@ -93,7 +96,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                       color: Colors.grey[500],
                       fontStyle: FontStyle.italic,
                     ),
-                    suffixIcon: Container(
+                    suffixIcon: SizedBox(
                         width: 4,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -105,10 +108,10 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                               color: Colors.grey,
                             ),
                             // horizontalGap(2),
-                            Icon(Icons.arrow_forward),
+                            const Icon(Icons.arrow_forward),
                           ],
                         )),
-                    prefixIcon: SizedBox(
+                    prefixIcon: const SizedBox(
                         child: Icon(
                       Icons.search,
                     ))),
@@ -126,7 +129,17 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                       .contains(input.toLowerCase());
                 },
               ),
-            )
+            ),
+            verticalGap(10),
+            ...listOfCityData.map((e) => Card(
+                  margin:
+                      const EdgeInsets.only(bottom: 10, left: 15, right: 15),
+                  color: AppColors.scaffoldBgColor,
+                  child: ListTile(
+                    leading: const Icon(Icons.location_city_rounded),
+                    title: Text(e.cityNames),
+                  ),
+                ))
           ],
         ),
       ),
