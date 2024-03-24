@@ -49,7 +49,11 @@ class _SearchPageState extends ConsumerState<SearchPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    listOfCityData.sort((a, b) => a.cityNames.compareTo(b.cityNames));
+
+    List<SearchSuggestionModel> uniqueCityData =
+        listOfCityData.toSet().toList();
+
+    uniqueCityData.sort((a, b) => a.cityNames.compareTo(b.cityNames));
     return SingleChildScrollView(
       child: SizedBox(
         // height: 30,
@@ -64,7 +68,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                     onTap: () {
                       setState(() {
                         textController.text =
-                            listOfCityData[position].cityNames;
+                            uniqueCityData[position].cityNames;
                       });
 
                       textController.selection = TextSelection.fromPosition(
@@ -73,11 +77,11 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                     },
                     child: Card(
                       child: ListTile(
-                        title: Text(listOfCityData[position].cityNames),
+                        title: Text(uniqueCityData[position].cityNames),
                         trailing: IconButton(
                           icon: const Icon(Icons.clear),
                           onPressed: () {
-                            listOfCityData.removeAt(position);
+                            uniqueCityData.removeAt(position);
                             boxController.refresh?.call();
                           },
                         ),
@@ -116,7 +120,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                       Icons.search,
                     ))),
                 textController: textController,
-                suggestions: SearchSuggestionModel.listOfCityData,
+                suggestions: uniqueCityData,
                 boxController: boxController,
                 separatorBuilder: (_, __) => const Divider(),
                 search: (item, input) {
@@ -131,13 +135,23 @@ class _SearchPageState extends ConsumerState<SearchPage> {
               ),
             ),
             verticalGap(10),
-            ...listOfCityData.map((e) => Card(
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 15),
+              width: double.maxFinite,
+              child: Text(
+                "Popular places",
+                textAlign: TextAlign.start,
+              ),
+            ),
+            verticalGap(10),
+            ...uniqueCityData.map((e) => Card(
                   margin:
                       const EdgeInsets.only(bottom: 10, left: 15, right: 15),
                   color: AppColors.scaffoldBgColor,
                   child: ListTile(
                     leading: const Icon(Icons.location_city_rounded),
                     title: Text(e.cityNames),
+                    trailing: Text(e.continent),
                   ),
                 ))
           ],
