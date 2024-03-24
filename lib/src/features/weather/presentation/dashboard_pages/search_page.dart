@@ -112,7 +112,14 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                               color: Colors.grey,
                             ),
                             // horizontalGap(2),
-                            const Icon(Icons.arrow_forward),
+                            InkWell(
+                                onTap: () {
+                                  
+                                },
+                                splashColor: AppColors.thirdPartyIconBGColor,
+                                borderRadius: BorderRadius.circular(50),
+                                radius: 20,
+                                child: const Icon(Icons.arrow_forward)),
                           ],
                         )),
                     prefixIcon: const SizedBox(
@@ -141,6 +148,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
               child: Text(
                 "Popular places",
                 textAlign: TextAlign.start,
+                style: GoogleFonts.roboto(fontWeight: FontWeight.w600),
               ),
             ),
             verticalGap(10),

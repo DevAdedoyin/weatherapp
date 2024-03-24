@@ -114,7 +114,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                         titlePadding: const EdgeInsets.symmetric(
                           horizontal: 5,
                         ),
-                        background: SizedBox(
+                        background: Container(
+                          color: AppColors.scaffoldBgColor,
                           child: Image.network(
                             WeatherIcon.weatherIcon(
                               data.currentWeatherModel.weather.icon,
@@ -264,7 +265,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                           "Sunset",
                                           style: TextStyle(color: Colors.grey),
                                         ),
-                                        Text("$formattedSunset"),
+                                        Text(formattedSunset),
                                       ],
                                     ),
                                     Column(
