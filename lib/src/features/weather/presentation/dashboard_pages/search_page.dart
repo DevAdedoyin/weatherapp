@@ -168,10 +168,15 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                   margin:
                       const EdgeInsets.only(bottom: 10, left: 15, right: 15),
                   color: AppColors.scaffoldBgColor,
-                  child: ListTile(
-                    leading: const Icon(Icons.location_city_rounded),
-                    title: Text(e.cityNames),
-                    trailing: Text(e.continent),
+                  child: InkWell(
+                    onTap: (){
+                      
+                    },
+                    child: ListTile(
+                      leading: const Icon(Icons.location_city_rounded),
+                      title: Text(e.cityNames),
+                      trailing: Text(e.continent),
+                    ),
                   ),
                 ))
           ],
