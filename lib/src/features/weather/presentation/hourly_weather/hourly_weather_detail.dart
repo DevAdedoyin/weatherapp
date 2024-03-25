@@ -65,7 +65,7 @@ class _HourlyWeatherDetailsScreenState
               style: textTheme.displaySmall,
             ),
             verticalGap(2),
-            Container(
+            SizedBox(
               // color: Colors.red,
               height: size.width * 0.6,
               width: size.width * 0.6,

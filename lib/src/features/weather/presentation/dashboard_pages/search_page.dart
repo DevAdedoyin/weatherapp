@@ -43,17 +43,31 @@ class _SearchPageState extends ConsumerState<SearchPage> {
             .toList(),
       );
 
-  final List<SearchSuggestionModel> listOfCityData =
-      SearchSuggestionModel.listOfCityData;
+  List<SearchSuggestionModel> uniqueCityData = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    uniqueCityData = SearchSuggestionModel.listOfCityData;
+  }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    List<SearchSuggestionModel> uniqueCityData =
-        listOfCityData.toSet().toList();
+    // List<SearchSuggestionModel> uniqueCityData =
+    //     listOfCityData.toSet().toList();
 
     uniqueCityData.sort((a, b) => a.cityNames.compareTo(b.cityNames));
+
+    List<SearchSuggestionModel> topCityData = uniqueCityData;
+
+    topCityData.sort((a, b) => a.cityNames.compareTo(b.cityNames));
+
+    topCityData.shuffle();
+    List<SearchSuggestionModel> random50Cities = topCityData.take(50).toList();
+
     return SingleChildScrollView(
       child: SizedBox(
         // height: 30,
@@ -113,9 +127,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                             ),
                             // horizontalGap(2),
                             InkWell(
-                                onTap: () {
-                                  
-                                },
+                                onTap: () {},
                                 splashColor: AppColors.thirdPartyIconBGColor,
                                 borderRadius: BorderRadius.circular(50),
                                 radius: 20,
@@ -152,7 +164,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
               ),
             ),
             verticalGap(10),
-            ...uniqueCityData.map((e) => Card(
+            ...random50Cities.map((e) => Card(
                   margin:
                       const EdgeInsets.only(bottom: 10, left: 15, right: 15),
                   color: AppColors.scaffoldBgColor,

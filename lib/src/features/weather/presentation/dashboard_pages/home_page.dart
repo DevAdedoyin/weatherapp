@@ -185,10 +185,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                         margin: const EdgeInsets.symmetric(
                             horizontal: 18, vertical: 25),
                         child: Card(
-                          color: AppColors.cardBgColor,
+                          color: AppColors.scaffoldBgColor,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
-                          elevation: 7,
+                          elevation: 4,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
@@ -290,7 +290,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                     ),
                     SliverToBoxAdapter(
                       child: Container(
-                        margin: EdgeInsets.only(top: 5),
+                        margin: const EdgeInsets.only(top: 5),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -366,8 +366,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                               BorderRadius.circular(10),
                                         ),
                                         child: Card(
-                                          color: AppColors.cardBgColor,
-                                          elevation: 7,
+                                          color: AppColors.scaffoldBgColor,
+                                          elevation: 5,
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10),
