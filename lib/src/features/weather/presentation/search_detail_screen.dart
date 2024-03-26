@@ -16,8 +16,14 @@ class SearchDetailScreen extends ConsumerStatefulWidget {
 class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
 
   @override
+  void initState() {
+    super.initState();
+    
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
+    return Scaffold(
       // child: ,
     );
   }

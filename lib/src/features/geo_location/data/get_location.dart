@@ -32,8 +32,8 @@ class GenerateWeatherLocation {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
 
-    print(position.latitude);
-    print(position.longitude);
+    // print(position.latitude);
+    // print(position.longitude);
     await prefs.setDouble('lat', position.latitude);
     await prefs.setDouble('lon', position.longitude);
 
@@ -44,6 +44,50 @@ class GenerateWeatherLocation {
         "${address.first.thoroughfare} ${address.first.subAdminArea!}");
 
     goRouter.go(AppRoutes.dashboard);
+  }
+
+  static void getLocationBySearch({required String location}) async {
+    // Obtain shared preferences.
+    // final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    final apiKey = dotenv.env['REACT_APP_GOOGLE_API_KEY'];
+    final LocatitonGeocoder geocoder = LocatitonGeocoder(apiKey!);
+
+    LocationPermission permission = await Geolocator.checkPermission();
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permantly denied, we cannot request permissions.');
+    }
+
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission != LocationPermission.whileInUse &&
+          permission != LocationPermission.always) {
+        return Future.error(
+            'Location permissions are denied (actual value: $permission).');
+      }
+    }
+
+    final address = await geocoder.findAddressesFromQuery("$location");
+
+    print(address.first.coordinates);
+
+    // Position position = await Geolocator.getCurrentPosition(
+    //     desiredAccuracy: LocationAccuracy.high);
+
+    // print(position.latitude);
+    // print(position.longitude);
+    // await prefs.setDouble('lat', position.latitude);
+    // await prefs.setDouble('lon', position.longitude);
+
+    // final address = await geocoder.findAddressesFromCoordinates(
+    //     Coordinates(position.latitude, position.longitude));
+    // print("${address.first.thoroughfare} ${address.first.subAdminArea!}");
+    // await prefs.setString('address',
+    //     "${address.first.thoroughfare} ${address.first.subAdminArea!}");
+
+    // goRouter.go(AppRoutes.dashboard);
   }
 
   static Future<String?> address() async {
