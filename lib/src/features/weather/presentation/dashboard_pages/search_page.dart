@@ -2,11 +2,13 @@ import "package:field_suggestion/box_controller.dart";
 import "package:field_suggestion/field_suggestion.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:go_router/go_router.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:weatherapp/src/common/gaps/sized_box.dart";
 import "package:weatherapp/src/constants/app_colors.dart";
 import "package:weatherapp/src/features/weather/data/repositories/search_city_repo.dart";
 import "package:weatherapp/src/features/weather/data/repositories/search_suggestion_data.dart";
+import "package:weatherapp/src/routing/app_routes.dart";
 
 class SearchPage extends ConsumerStatefulWidget {
   const SearchPage({super.key});
@@ -69,7 +71,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
     topCityData.shuffle();
     List<SearchSuggestionModel> random50Cities = topCityData.take(50).toList();
 
-    final searchCityProvider = ref.watch(searchCity);
+    ref.watch(searchCity);
 
     return SingleChildScrollView(
       child: SizedBox(
@@ -172,12 +174,14 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                       const EdgeInsets.only(bottom: 10, left: 15, right: 15),
                   color: AppColors.scaffoldBgColor,
                   child: InkWell(
+                    splashColor: AppColors.cardBgColor,
+                    borderRadius: BorderRadius.circular(20),
                     onTap: () {
                       ref.read(searchCity.notifier).state = {
                         "city": e.cityNames,
                         "continent": e.continent
                       };
-                      
+                      context.push(AppRoutes.searchCityWeatherDetails);
                     },
                     child: ListTile(
                       leading: const Icon(Icons.location_city_rounded),

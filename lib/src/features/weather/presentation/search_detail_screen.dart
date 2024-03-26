@@ -17,6 +17,8 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      // child: ,
+    );
   }
 }

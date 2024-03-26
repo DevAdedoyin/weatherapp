@@ -7,6 +7,7 @@ import 'package:weatherapp/src/features/onboarding/onboarding/onboarding_screen.
 import 'package:weatherapp/src/features/onboarding/splash_screen.dart';
 import 'package:weatherapp/src/features/weather/presentation/dashboard/dashboard.dart';
 import 'package:weatherapp/src/features/weather/presentation/hourly_weather/hourly_weather_detail.dart';
+import 'package:weatherapp/src/features/weather/presentation/search_detail_screen.dart';
 import 'package:weatherapp/src/routing/app_routes.dart';
 import 'package:weatherapp/src/routing/route_error_screen.dart';
 
@@ -39,8 +40,12 @@ GoRouter goRouter = GoRouter(
       ),
       GoRoute(
         path: AppRoutes.hourlyWeatherDetails,
-        builder: (context, state) => HourlyWeatherDetailsScreen(),
+        builder: (context, state) => const HourlyWeatherDetailsScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.searchCityWeatherDetails,
+        builder: (context, state) => const SearchDetailScreen(),
       ),
     ],
     errorBuilder: (context, state) =>
-        RouteErrorScreen(errorMsg: state.error.toString()));
+        RouteErrorScreen(errorMsg: state.error.toString(),),);
