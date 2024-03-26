@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weatherapp/src/exceptions/custom_exception.dart';
 import 'package:weatherapp/src/features/geo_location/data/get_location.dart';
 import 'package:weatherapp/src/features/weather/domain/weather_model.dart';
@@ -14,12 +15,13 @@ class WeatherApiDataSource {
     // Retrieve the API key from the environment variables
     final apiKey = dotenv.env['REACT_APP_WEATHER_API_KEY'];
 
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
     // final coord = await GenerateWeatherLocation.getLocation();
     // // final lat = coord["lat"];
     // // final lon = coord["lon"];
-
-    const double lati = 51.7634;
-    const double longi = 0.2231;
+    double? lati = prefs.getDouble('lat');
+    double? longi = prefs.getDouble('lon');
 
     // Construct the API endpoint URL with latitude, longitude, and API key
     String uri =

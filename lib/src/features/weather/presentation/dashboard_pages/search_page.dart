@@ -6,6 +6,7 @@ import "package:go_router/go_router.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:weatherapp/src/common/gaps/sized_box.dart";
 import "package:weatherapp/src/constants/app_colors.dart";
+import "package:weatherapp/src/features/geo_location/data/get_location.dart";
 import "package:weatherapp/src/features/weather/data/repositories/search_city_repo.dart";
 import "package:weatherapp/src/features/weather/data/repositories/search_suggestion_data.dart";
 import "package:weatherapp/src/routing/app_routes.dart";
@@ -177,6 +178,8 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                     splashColor: AppColors.cardBgColor,
                     borderRadius: BorderRadius.circular(20),
                     onTap: () {
+                      GenerateWeatherLocation.getLocationBySearch(
+                          location: e.cityNames);
                       ref.read(searchCity.notifier).state = {
                         "city": e.cityNames,
                         "continent": e.continent

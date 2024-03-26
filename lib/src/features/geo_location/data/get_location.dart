@@ -34,8 +34,8 @@ class GenerateWeatherLocation {
 
     // print(position.latitude);
     // print(position.longitude);
-    await prefs.setDouble('lat', position.latitude);
-    await prefs.setDouble('lon', position.longitude);
+    await prefs.setDouble('currentLocationLatitude', position.latitude);
+    await prefs.setDouble('currentLocationLongitude', position.longitude);
 
     final address = await geocoder.findAddressesFromCoordinates(
         Coordinates(position.latitude, position.longitude));
