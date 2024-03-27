@@ -8,6 +8,7 @@ import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:weatherapp/src/common/gaps/sized_box.dart';
 import 'package:weatherapp/src/common/loading_indicator.dart';
 import 'package:weatherapp/src/constants/app_colors.dart';
+import 'package:weatherapp/src/features/geo_location/data/get_location.dart';
 import 'package:weatherapp/src/features/geo_location/repositories/address_repo.dart';
 import 'package:weatherapp/src/features/weather/data/datasources/weather_api_datasource.dart';
 import 'package:weatherapp/src/features/weather/data/repositories/hourly_weather_detail.dart';
@@ -35,11 +36,31 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
     return formattedDateTime;
   }
 
-  // void getAddress() async {
-  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
 
-  //   address = prefs.getString("searchedAddress");
-  // }
+    // Map<String, String> location = ref.read(searchCity.notifier).state;
+
+    // address = location["city"];
+
+    
+    print("CITY NAMES $address");
+
+    getAddress();
+    // ref.read(searchCity.notifier).state = {
+    //   "city": e.cityNames,
+    //   "continent": e.continent
+    // };
+  }
+
+  void getAddress() async {
+    // final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    // ref.read(searchedAddress.notifier).state =
+    //     prefs.getString("searchedAddress")!;
+  }
 
   List<String> getNextTenHours() {
     List<String> hours = [];
@@ -60,10 +81,11 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
     ref.watch(hourlyWeatherDetails);
-    final searchedLocation = ref.watch(searchedAddress);
+    final searchedCity = ref.watch(searchCity);
     return Scaffold(
       body: FutureBuilder<WeatherModel>(
-          future: WeatherApiDataSource.searchedWeather(),
+          future: WeatherApiDataSource.searchedWeather(
+              city: "${searchedCity["city"]}"),
           builder: (context, snapshot) {
             final data = snapshot.data;
             // print("DATA: ${snapshot.data}");
@@ -88,7 +110,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              searchedLocation,
+                              "${searchedCity["city"]}",
                               // textAlign: TextAlign.center,
                               style: textTheme.displaySmall,
                             ),

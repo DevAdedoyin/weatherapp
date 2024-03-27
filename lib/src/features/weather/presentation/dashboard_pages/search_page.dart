@@ -76,7 +76,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
 
     ref.watch(searchCity);
 
-    final searchedLocation = ref.watch(searchedAddress);
+    final searchedLocation = ref.watch(searchedALocation);
 
     return SingleChildScrollView(
       child: SizedBox(
@@ -182,20 +182,11 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                     splashColor: AppColors.cardBgColor,
                     borderRadius: BorderRadius.circular(20),
                     onTap: () async {
-                      GenerateWeatherLocation.getLocationBySearch(
-                          location: e.cityNames);
-                      print("CITY NAMES ${e.cityNames}");
-                      // ref.read(searchCity.notifier).state = {
-                      //   "city": e.cityNames,
-                      //   "continent": e.continent
-                      // };
-                      final SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
+                      ref.read(searchCity.notifier).state["city"] = e.cityNames;
 
-                      ref.read(searchedAddress.notifier).state =
-                          prefs.getString('searchedAddress')!;
-
-                      context.push(AppRoutes.searchCityWeatherDetails);
+                      Future.delayed(const Duration(milliseconds: 1000), () {
+                        context.push(AppRoutes.searchCityWeatherDetails);
+                      });
                     },
                     child: ListTile(
                       leading: const Icon(Icons.location_city_rounded),

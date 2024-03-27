@@ -46,21 +46,26 @@ class WeatherApiDataSource {
   }
 
   // Asynchronous method to fetch weather data based on latitude and longitude
-  static Future<WeatherModel> searchedWeather() async {
+  static Future<WeatherModel> searchedWeather({required String city}) async {
     // Retrieve the API key from the environment variables
     final apiKey = dotenv.env['REACT_APP_WEATHER_API_KEY'];
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
+    final latlng =
+        await GenerateWeatherLocation.getLocationBySearch(location: city);
+
+    print("CHECKING CITY: $city");
+
     // final coord = await GenerateWeatherLocation.getLocation();
-    // // final lat = coord["lat"];
-    // // final lon = coord["lon"];
-    double? lati = prefs.getDouble('searchedLat');
-    double? longi = prefs.getDouble('searchedLon');
+    final lat = latlng["lat"];
+    final lon = latlng["lon"];
+    // double? lati = prefs.getDouble('searchedLat');
+    // double? longi = prefs.getDouble('searchedLon');
 
     // Construct the API endpoint URL with latitude, longitude, and API key
     String uri =
-        "https://api.openweathermap.org/data/3.0/onecall?lat=$lati&lon=$longi&appid=$apiKey";
+        "https://api.openweathermap.org/data/3.0/onecall?lat=$lat&lon=$lon&appid=$apiKey";
     // Perform an HTTP GET request to the API endpoint
     final response = await http.get(Uri.parse(uri));
 
