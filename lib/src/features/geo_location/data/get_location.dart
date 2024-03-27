@@ -1,4 +1,5 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:location_geocoder/location_geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -34,8 +35,8 @@ class GenerateWeatherLocation {
 
     // print(position.latitude);
     // print(position.longitude);
-    await prefs.setDouble('currentLocationLatitude', position.latitude);
-    await prefs.setDouble('currentLocationLongitude', position.longitude);
+    await prefs.setDouble('lat', position.latitude);
+    await prefs.setDouble('lon', position.longitude);
 
     final address = await geocoder.findAddressesFromCoordinates(
         Coordinates(position.latitude, position.longitude));
@@ -48,7 +49,7 @@ class GenerateWeatherLocation {
 
   static void getLocationBySearch({required String location}) async {
     // Obtain shared preferences.
-    // final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final apiKey = dotenv.env['REACT_APP_GOOGLE_API_KEY'];
     final LocatitonGeocoder geocoder = LocatitonGeocoder(apiKey!);
@@ -69,23 +70,28 @@ class GenerateWeatherLocation {
       }
     }
 
-    final address = await geocoder.findAddressesFromQuery("$location");
+    final storedAddress = await geocoder.findAddressesFromQuery(location);
 
-    print(address.first.coordinates);
+    print(storedAddress.first.coordinates);
+    Coordinates coords = storedAddress.first.coordinates;
 
-    // Position position = await Geolocator.getCurrentPosition(
-    //     desiredAccuracy: LocationAccuracy.high);
+    final lat = coords.latitude;
+    final lon = coords.longitude;
 
-    // print(position.latitude);
-    // print(position.longitude);
-    // await prefs.setDouble('lat', position.latitude);
-    // await prefs.setDouble('lon', position.longitude);
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
 
-    // final address = await geocoder.findAddressesFromCoordinates(
-    //     Coordinates(position.latitude, position.longitude));
-    // print("${address.first.thoroughfare} ${address.first.subAdminArea!}");
-    // await prefs.setString('address',
-    //     "${address.first.thoroughfare} ${address.first.subAdminArea!}");
+    print("searchedLat $lat");
+    print("searchedLon $lon");
+    await prefs.setDouble('searchedLat', lat!);
+    await prefs.setDouble('searchedLon', lon!);
+
+    // final storedAddress =
+    await geocoder.findAddressesFromCoordinates(Coordinates(lat, lon));
+    print(
+        "${storedAddress.first.thoroughfare} ${storedAddress.first.subAdminArea!}");
+    await prefs.setString('searchedAddress',
+        "${storedAddress.first.thoroughfare} ${storedAddress.first.subAdminArea!}");
 
     // goRouter.go(AppRoutes.dashboard);
   }
@@ -94,5 +100,11 @@ class GenerateWeatherLocation {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     return prefs.getString("address");
+  }
+
+  static Future<String?> searchedAddress() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    return prefs.getString("searchedAddress");
   }
 }

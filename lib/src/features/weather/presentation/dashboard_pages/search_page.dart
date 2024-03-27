@@ -4,9 +4,11 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 import "package:google_fonts/google_fonts.dart";
+import "package:shared_preferences/shared_preferences.dart";
 import "package:weatherapp/src/common/gaps/sized_box.dart";
 import "package:weatherapp/src/constants/app_colors.dart";
 import "package:weatherapp/src/features/geo_location/data/get_location.dart";
+import "package:weatherapp/src/features/geo_location/repositories/address_repo.dart";
 import "package:weatherapp/src/features/weather/data/repositories/search_city_repo.dart";
 import "package:weatherapp/src/features/weather/data/repositories/search_suggestion_data.dart";
 import "package:weatherapp/src/routing/app_routes.dart";
@@ -73,6 +75,8 @@ class _SearchPageState extends ConsumerState<SearchPage> {
     List<SearchSuggestionModel> random50Cities = topCityData.take(50).toList();
 
     ref.watch(searchCity);
+
+    final searchedLocation = ref.watch(searchedAddress);
 
     return SingleChildScrollView(
       child: SizedBox(
@@ -177,13 +181,20 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                   child: InkWell(
                     splashColor: AppColors.cardBgColor,
                     borderRadius: BorderRadius.circular(20),
-                    onTap: () {
+                    onTap: () async {
                       GenerateWeatherLocation.getLocationBySearch(
                           location: e.cityNames);
-                      ref.read(searchCity.notifier).state = {
-                        "city": e.cityNames,
-                        "continent": e.continent
-                      };
+                      print("CITY NAMES ${e.cityNames}");
+                      // ref.read(searchCity.notifier).state = {
+                      //   "city": e.cityNames,
+                      //   "continent": e.continent
+                      // };
+                      final SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+
+                      ref.read(searchedAddress.notifier).state =
+                          prefs.getString('searchedAddress')!;
+
                       context.push(AppRoutes.searchCityWeatherDetails);
                     },
                     child: ListTile(
