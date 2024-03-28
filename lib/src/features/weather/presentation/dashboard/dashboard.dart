@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:weatherapp/src/constants/app_colors.dart';
 import 'package:weatherapp/src/features/weather/data/repositories/bottom_nav_state.dart';
-import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/forecast_page.dart';
+import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/daily_forecast_page.dart';
 import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/home_page.dart';
 import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/search_page.dart';
 import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/settings_page.dart';
@@ -18,7 +18,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
   static const List<Widget> _pages = [
     HomePage(),
     SearchPage(),
-    ForecastPage(),
+    DailyForecastPage(),
     SettingsPage()
   ];
 
