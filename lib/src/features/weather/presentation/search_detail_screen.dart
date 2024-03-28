@@ -74,18 +74,17 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
             final data = snapshot.data;
             // print("DATA: ${snapshot.data}");
             final currentDateTime = DateTime.fromMillisecondsSinceEpoch(
-                data!.currentWeatherModel.sunset * 1000);
+                data!.currentWeatherModel.dateTime * 1000);
+            final timeZoneAdded =
+                currentDateTime.add(Duration(seconds: data.timezoneOffset));
             String formattedDateTime =
-                DateFormat('d MMMM, EEEE HH:mm').format(currentDateTime);
+                DateFormat('d MMMM, EEEE HH:mm').format(timeZoneAdded);
             final sunrise = DateTime.fromMillisecondsSinceEpoch(
                 data.currentWeatherModel.sunrise * 1000);
             final sunset = DateTime.fromMillisecondsSinceEpoch(
                 data.currentWeatherModel.sunset * 1000);
             String formattedSunrise = DateFormat('HH:mm a').format(sunrise);
             String formattedSunset = DateFormat('HH:mm a').format(sunset);
-
-            final addressContainer = ProviderContainer();
-            final sAddress = addressContainer.read(searchedALocation);
 
             return snapshot.connectionState == ConnectionState.waiting
                 ? const LoadingIndicator()
@@ -116,7 +115,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                         // centerTitle: true,
                         // backgroundColor: AppColors.accentColor.withOpacity(0.05),
                         elevation: 5,
-                        expandedHeight: size.height * 0.3,
+                        expandedHeight: size.height * 0.32,
                         collapsedHeight: size.height * 0.09,
                         // toolbarHeight: size.height * 0.085,
                         flexibleSpace: FlexibleSpaceBar(
@@ -131,8 +130,8 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                               ),
                               filterQuality: FilterQuality.high,
                               // alignment: Alignment.bottomCenter,
-                              // height: size.width * 0.20,
-                              // width: size.width * 0.20,
+                              height: size.width * 0.30,
+                              width: size.width * 0.30,
                               fit: BoxFit.cover,
                             ),
                           ),

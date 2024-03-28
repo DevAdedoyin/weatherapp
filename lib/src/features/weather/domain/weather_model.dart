@@ -7,7 +7,7 @@ class WeatherModel {
   // final List<DailyWeatherModel> dailyWeather;
   final List<HourlyWeatherModel> hourlyWeather;
   final CurrentWeatherModel currentWeatherModel;
-  final String timezone;
+  final int timezoneOffset;
 
   // Constructor for WeatherModel
   WeatherModel({
@@ -16,14 +16,14 @@ class WeatherModel {
     // required this.dailyWeather,
     required this.hourlyWeather,
     required this.currentWeatherModel,
-    required this.timezone,
+    required this.timezoneOffset,
   });
 
   // Factory method to create WeatherModel from JSON data
   factory WeatherModel.fromJson(Map<String, dynamic> data) {
     final lat = data['lat'] as double;
     final lon = data['lon'] as double;
-    final timezone = data['timezone'] as String;
+    final timezone = data['timezone_offset'] as int;
     final currentWeatherModel = data['current'] as Map<String, dynamic>;
     final currentWeather = CurrentWeatherModel.fromJson(currentWeatherModel);
     // final dailyWeather = data['daily'] as List<Map<String, dynamic>>;
@@ -59,7 +59,7 @@ class WeatherModel {
     return WeatherModel(
         lat: lat,
         lon: lon,
-        timezone: timezone,
+        timezoneOffset: timezone,
         currentWeatherModel: currentWeather,
         // dailyWeather: dailyWeatherList,
         hourlyWeather: hourly);
