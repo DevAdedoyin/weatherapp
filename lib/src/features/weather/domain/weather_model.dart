@@ -4,7 +4,7 @@ import 'package:weatherapp/src/features/weather/domain/hourly_weather_model.dart
 class WeatherModel {
   final double lat;
   final double lon;
-  // final List<DailyWeatherModel> dailyWeather;
+  final List<DailyWeatherModel> dailyWeather;
   final List<HourlyWeatherModel> hourlyWeather;
   final CurrentWeatherModel currentWeatherModel;
   final int timezoneOffset;
@@ -13,7 +13,7 @@ class WeatherModel {
   WeatherModel({
     required this.lat,
     required this.lon,
-    // required this.dailyWeather,
+    required this.dailyWeather,
     required this.hourlyWeather,
     required this.currentWeatherModel,
     required this.timezoneOffset,
@@ -26,18 +26,32 @@ class WeatherModel {
     final timezone = data['timezone_offset'] as int;
     final currentWeatherModel = data['current'] as Map<String, dynamic>;
     final currentWeather = CurrentWeatherModel.fromJson(currentWeatherModel);
-    // final dailyWeather = data['daily'] as List<Map<String, dynamic>>;
-    // final dailyWeatherList =
-    //     dailyWeather.map((e) => DailyWeatherModel.fromJson(e)).toList();
-    // final List<Map<String, dynamic>> hourlyWeather;
+
+    // DAILY WEATHER DATA
+    print("Daily KORENT: ${data['daily']}");
+    List<Map<String, dynamic>> dailyWeatherList = [];
+    int currPos = 0;
+    final dailyWeather = data['daily'] as List;
+    for (var item in dailyWeather) {
+      if (item is Map<String, dynamic> && currPos <= 4) {
+        print("Dailysssss: $currPos");
+        if (currPos != 0) dailyWeatherList.add(item);
+        currPos++;
+      } else {
+        break;
+      }
+    }
+    final daily = dailyWeatherList.map((e) {
+      print("dddooo: $e");
+      return DailyWeatherModel.fromJson(e);
+    }).toList();
+
+    print("DAILYWEATHER $daily");
+
+    // HOURLY WEATHER DATA
     print("KORENT: ${data['hourly']}");
     final hourlyWeather = data['hourly'] as List;
 
-    // final hourList = hourlyWeather as List<Map<String, dynamic>>;
-    // final hourlyWeatherList = hourlyWeather.map((Map<String, dynamic> e) {
-    //   print("Hourlyyysss: ${e}");
-    //   return HourlyWeatherModel.fromJson(e);
-    // }).toList() as List<HourlyWeatherModel>;
     List<Map<String, dynamic>> hourlyWeatherList = [];
     int pos = 0;
     for (var item in hourlyWeather) {
@@ -61,7 +75,7 @@ class WeatherModel {
         lon: lon,
         timezoneOffset: timezone,
         currentWeatherModel: currentWeather,
-        // dailyWeather: dailyWeatherList,
+        dailyWeather: daily,
         hourlyWeather: hourly);
   }
 }

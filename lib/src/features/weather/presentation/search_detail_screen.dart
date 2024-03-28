@@ -443,6 +443,153 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                           ),
                         ),
                       ),
+
+                      // DAILY WEATHER
+                      SliverToBoxAdapter(
+                        child: Container(
+                          margin: const EdgeInsets.only(top: 25),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20.0),
+                                child: Text(
+                                  'Next 7 Days',
+                                  style: textTheme.displaySmall,
+                                ),
+                              ),
+                              verticalGap(7),
+                              SizedBox(
+                                height: size.height * 0.30,
+                                child: ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: data.dailyWeather.length,
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder:
+                                        (BuildContext context, int position) {
+                                      final data_ = data.dailyWeather[position];
+                                      var date =
+                                          DateTime.fromMillisecondsSinceEpoch(
+                                              data_.dateTime * 1000);
+                                      final formattedTime =
+                                          DateFormat.Hm().format(date);
+                                      final dayOfWeek =
+                                          DateFormat('EEEE').format(date);
+                                      return InkWell(
+                                        onTap: () {
+                                          // final hourlyState = ref
+                                          //     .read(
+                                          //         hourlyWeatherDetails.notifier)
+                                          //     .state;
+                                          // hourlyState.date = DateFormat(
+                                          //         'd MMMM, EEEE')
+                                          //     .format(DateTime
+                                          //         .fromMillisecondsSinceEpoch(
+                                          //             data_.dateTime * 1000));
+                                          // hourlyState.time = DateFormat('h a')
+                                          //     .format(DateTime
+                                          //         .fromMillisecondsSinceEpoch(
+                                          //             data_.dateTime * 1000));
+                                          // hourlyState.desctiption =
+                                          //     data_.weather.description;
+                                          // hourlyState.dewPoint =
+                                          //     data_.dewPoint.round().toString();
+                                          // hourlyState.feelsLike = data_
+                                          //     .feelsLike
+                                          //     .round()
+                                          //     .toString();
+                                          // hourlyState.humidity =
+                                          //     data_.humidity.toString();
+                                          // hourlyState.image =
+                                          //     data_.weather.icon;
+                                          // hourlyState.location = address;
+                                          // hourlyState.pressure =
+                                          //     data_.pressure.toString();
+                                          // hourlyState.temp =
+                                          //     data_.temp.round().toString();
+                                          // hourlyState.visibility =
+                                          //     data_.visibility.toString();
+                                          // hourlyState.windDegree =
+                                          //     data_.windDegree.toString();
+                                          // hourlyState.windGust =
+                                          //     data_.windGust.toString();
+                                          // hourlyState.windSpeed =
+                                          //     data_.windSpeed.toString();
+                                          // hourlyState.position = position;
+                                          // context.push(
+                                          //     AppRoutes.hourlyWeatherDetails);
+                                        },
+                                        borderRadius: BorderRadius.circular(15),
+                                        radius: 0.5,
+                                        child: Container(
+                                          width: size.width * 0.42,
+                                          margin: const EdgeInsets.symmetric(
+                                              horizontal: 7),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          child: Card(
+                                            color: AppColors.scaffoldBgColor,
+                                            elevation: 5,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                verticalGap(5),
+                                                Text(
+                                                  dayOfWeek,
+                                                  style: GoogleFonts.roboto(
+                                                      fontSize: 17,
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                ),
+                                                verticalGap(3),
+                                                Text(data_.weather.description),
+                                                verticalGap(2),
+                                                const Divider(
+                                                    thickness: 1,
+                                                    indent: 10,
+                                                    endIndent: 10,
+                                                    color:
+                                                        AppColors.primaryColor),
+                                                Hero(
+                                                  tag:
+                                                      "weather-image-$position",
+                                                  child: Image.network(
+                                                    WeatherIcon.weatherIcon(
+                                                      // "",
+                                                      data_.weather.icon,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  // "",
+                                                  "${data_.temp.day.round()}°c",
+                                                  style: GoogleFonts.roboto(
+                                                      fontSize: 27,
+                                                      fontWeight:
+                                                          FontWeight.w700),
+                                                ),
+                                                verticalGap(5),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    }),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   );
           }),

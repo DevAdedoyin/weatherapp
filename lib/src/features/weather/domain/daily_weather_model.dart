@@ -50,18 +50,21 @@ class DailyWeatherModel {
     final dewPoint = data["dew_point"] as double;
     final windSpeed = data["wind_speed"] as double;
     final windDegree = data["wind_deg"] as int;
-    final weatherData = data["weather"] as List<Map<String, dynamic>>;
+    // final weatherData = data["weather"] as List<Map<String, dynamic>>;
+    final weatherData = data["weather"][0] as Map<String, dynamic>;
 
     // Creating Temp object from the "temp" property in the JSON data
-    final temperature = data["temp"] as Map<String, dynamic>;
-    final temp = Temp.fromJson(temperature);
+    final temperature = data["temp"];
+    final temp = Temp.fromJson(temperature as Map<String, dynamic>);
+
+    print("TEMPERATURE ${temp.day}");
 
     // Creating FeelsLike object from the "feels_like" property in the JSON data
     final feelsLike_ = data["feels_like"] as Map<String, dynamic>;
     final feelsLike = FeelsLike.fromJson(feelsLike_);
 
     // Use the first element of the weatherData list to create SubWeather
-    final weather = SubWeather.fromJson(weatherData as Map<String, dynamic>);
+    final weather = SubWeather.fromJson(weatherData);
 
     // Returning a new instance of DailyWeatherModel with extracted data
     return DailyWeatherModel(
@@ -132,12 +135,12 @@ class Temp {
   // Factory method to create a Temp instance from JSON data
   factory Temp.fromJson(Map<String, dynamic> data) {
     // Extracting individual properties from the JSON data
-    final day = data["day"] as double;
-    final min = data["min"] as double;
-    final max = data["max"] as double;
-    final night = data["night"] as double;
-    final eve = data["eve"] as double;
-    final morn = data["morn"] as double;
+    final day = data["day"] - 273.15 as double;
+    final min = data["min"] - 273.15 as double;
+    final max = data["max"] - 273.15 as double;
+    final night = data["night"] - 273.15 as double;
+    final eve = data["eve"] - 273.15 as double;
+    final morn = data["morn"] - 273.15 as double;
     // Returning a new instance of Temp with extracted data
     return Temp(
         day: day, eve: eve, max: max, min: min, morn: morn, night: night);
