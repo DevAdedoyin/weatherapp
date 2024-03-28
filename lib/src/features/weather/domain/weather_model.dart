@@ -33,7 +33,7 @@ class WeatherModel {
     int currPos = 0;
     final dailyWeather = data['daily'] as List;
     for (var item in dailyWeather) {
-      if (item is Map<String, dynamic> && currPos <= 4) {
+      if (item is Map<String, dynamic> && currPos <= 7) {
         print("Dailysssss: $currPos");
         if (currPos != 0) dailyWeatherList.add(item);
         currPos++;
