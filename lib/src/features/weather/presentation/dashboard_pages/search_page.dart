@@ -96,6 +96,11 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                       textController.selection = TextSelection.fromPosition(
                         TextPosition(offset: textController.text.length),
                       );
+
+                      ref.read(searchCity.notifier).state["city"] =
+                          uniqueCityData[position].cityNames;
+
+                      context.push(AppRoutes.searchCityWeatherDetails);
                     },
                     child: Card(
                       child: ListTile(
@@ -135,7 +140,13 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                             ),
                             // horizontalGap(2),
                             InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  ref.read(searchCity.notifier).state["city"] =
+                                      textController.text;
+
+                                  context
+                                      .push(AppRoutes.searchCityWeatherDetails);
+                                },
                                 splashColor: AppColors.thirdPartyIconBGColor,
                                 borderRadius: BorderRadius.circular(50),
                                 radius: 20,
@@ -179,12 +190,10 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                   child: InkWell(
                     splashColor: AppColors.cardBgColor,
                     borderRadius: BorderRadius.circular(20),
-                    onTap: () async {
+                    onTap: () {
                       ref.read(searchCity.notifier).state["city"] = e.cityNames;
 
-                      Future.delayed(const Duration(milliseconds: 1000), () {
-                        context.push(AppRoutes.searchCityWeatherDetails);
-                      });
+                      context.push(AppRoutes.searchCityWeatherDetails);
                     },
                     child: ListTile(
                       leading: const Icon(Icons.location_city_rounded),
