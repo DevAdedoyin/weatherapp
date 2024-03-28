@@ -6,6 +6,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weatherapp/src/exceptions/custom_exception.dart';
 import 'package:weatherapp/src/features/geo_location/data/get_location.dart';
+import 'package:weatherapp/src/features/geo_location/repositories/address_repo.dart';
 import 'package:weatherapp/src/features/weather/domain/weather_model.dart';
 
 // Define a class for making API calls to retrieve weather data
@@ -57,7 +58,14 @@ class WeatherApiDataSource {
 
     print("CHECKING CITY: $city");
 
-    // final coord = await GenerateWeatherLocation.getLocation();
+    // final addressContainer = ProviderContainer();
+
+    // addressContainer.read(searchedALocation.notifier).state =
+    //     latlng["address"] as String;
+
+    userSearchedAddress = latlng["address"] as String;
+
+    print("SEARCHER ${latlng["address"]}");
     final lat = latlng["lat"];
     final lon = latlng["lon"];
     // double? lati = prefs.getDouble('searchedLat');

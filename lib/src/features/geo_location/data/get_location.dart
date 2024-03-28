@@ -48,7 +48,7 @@ class GenerateWeatherLocation {
     goRouter.go(AppRoutes.dashboard);
   }
 
-  static Future<Map<String, double>> getLocationBySearch(
+  static Future<Map<String, dynamic>> getLocationBySearch(
       {required String location}) async {
     // Obtain shared preferences.
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -101,13 +101,16 @@ class GenerateWeatherLocation {
     addressContainer.read(searchedALocation.notifier).state =
         "$location, ${storedAddress.first.countryName!}";
 
+    String searchALocation = "$location, ${storedAddress.first.countryName!}";
+
     // final storedAddress =
     // await geocoder.findAddressesFromCoordinates(Coordinates(lat, lon));
-    print("$location ${storedAddress.first.countryName!}");
+    print(
+        "USER SEARCHED LOCATION $location ${storedAddress.first.countryName!}");
     await prefs.setString(
         'searchedAddress', "$location, ${storedAddress.first.countryName!}");
 
-    return {"lat": lat, "lon": lon};
+    return {"lat": lat, "lon": lon, "address": searchALocation!};
     // goRouter.go(AppRoutes.dashboard);
   }
 

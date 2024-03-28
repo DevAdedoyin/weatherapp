@@ -36,25 +36,6 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
     return formattedDateTime;
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-    // Map<String, String> location = ref.read(searchCity.notifier).state;
-
-    // address = location["city"];
-
-    
-    print("CITY NAMES $address");
-
-    getAddress();
-    // ref.read(searchCity.notifier).state = {
-    //   "city": e.cityNames,
-    //   "continent": e.continent
-    // };
-  }
-
   void getAddress() async {
     // final SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -82,6 +63,9 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
     TextTheme textTheme = Theme.of(context).textTheme;
     ref.watch(hourlyWeatherDetails);
     final searchedCity = ref.watch(searchCity);
+    // final searchedLocationName = ref.watch(searchedALocation);
+
+    // print("SEARCHING ${ref.read(searchedALocation.notifier).state}");
     return Scaffold(
       body: FutureBuilder<WeatherModel>(
           future: WeatherApiDataSource.searchedWeather(
@@ -100,6 +84,9 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
             String formattedSunrise = DateFormat('HH:mm a').format(sunrise);
             String formattedSunset = DateFormat('HH:mm a').format(sunset);
 
+            final addressContainer = ProviderContainer();
+            final sAddress = addressContainer.read(searchedALocation);
+
             return snapshot.connectionState == ConnectionState.waiting
                 ? const LoadingIndicator()
                 : CustomScrollView(
@@ -110,7 +97,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "${searchedCity["city"]}",
+                              userSearchedAddress,
                               // textAlign: TextAlign.center,
                               style: textTheme.displaySmall,
                             ),

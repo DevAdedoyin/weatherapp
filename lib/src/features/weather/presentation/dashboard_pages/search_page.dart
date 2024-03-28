@@ -76,8 +76,6 @@ class _SearchPageState extends ConsumerState<SearchPage> {
 
     ref.watch(searchCity);
 
-    final searchedLocation = ref.watch(searchedALocation);
-
     return SingleChildScrollView(
       child: SizedBox(
         // height: 30,
