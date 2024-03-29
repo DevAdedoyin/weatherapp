@@ -1,10 +1,14 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:go_router/go_router.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:intl/intl.dart";
 import "package:weatherapp/src/common/loading_indicator.dart";
 import "package:weatherapp/src/constants/app_colors.dart";
 import "package:weatherapp/src/features/weather/data/datasources/weather_api_datasource.dart";
+import "package:weatherapp/src/features/weather/domain/daily_detail_model.dart";
+import "package:weatherapp/src/features/weather/domain/daily_weather_model.dart";
+import "package:weatherapp/src/routing/app_routes.dart";
 import "package:weatherapp/src/utils/weather_icon_utils.dart";
 
 class DailyForecastPage extends ConsumerStatefulWidget {
@@ -42,6 +46,7 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                       data![pos].dateTime * 1000);
                   final formattedDate =
                       DateFormat('EEEE, d MMMM').format(dateTime);
+                  final currData = data[pos];
 
                   return Container(
                     margin: const EdgeInsets.symmetric(
@@ -58,7 +63,25 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                           elevation: 5,
                           color: AppColors.scaffoldBgColor,
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              DailyDetailModel(
+                                  dateTime: formattedDate,
+                                  temp: currData.temp,
+                                  feelsLike: currData.feelsLike,
+                                  pressure: currData.pressure,
+                                  moonrise: currData.moonrise,
+                                  moonset: currData.moonset,
+                                  summary: currData.summary,
+                                  sunrise: currData.sunrise,
+                                  sunset: currData.sunset,
+                                  humidity: currData.humidity,
+                                  dewPoint: currData.dewPoint,
+                                  windSpeed: currData.windSpeed,
+                                  windDegree: currData.windDegree,
+                                  weather: currData.weather);
+
+                              context.push(AppRoutes.dailyDetails);
+                            },
                             radius: 0.5,
                             borderRadius: BorderRadius.circular(10),
                             child: ListTile(

@@ -2,7 +2,7 @@ import 'package:weatherapp/src/features/weather/domain/daily_weather_model.dart'
 import 'package:weatherapp/src/features/weather/domain/weather_model.dart';
 
 class DailyDetailModel {
-  final int dateTime; // Time of data forecasted
+  final String dateTime; // Time of data forecasted
   final int sunrise; // Sunrise time
   final int sunset; // Sunset time
   final int moonrise; // Moonrise time
