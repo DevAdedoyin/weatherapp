@@ -70,11 +70,11 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                               data[pos].weather.description,
                             ),
                             subtitle: Text(data[pos].summary,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 10,
                                 )),
                             trailing: Text("${data[pos].temp.day.round()}°c",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.w600)),
                           ),
                         ),
