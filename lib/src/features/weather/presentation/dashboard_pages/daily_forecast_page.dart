@@ -6,6 +6,7 @@ import "package:intl/intl.dart";
 import "package:weatherapp/src/common/loading_indicator.dart";
 import "package:weatherapp/src/constants/app_colors.dart";
 import "package:weatherapp/src/features/weather/data/datasources/weather_api_datasource.dart";
+import "package:weatherapp/src/features/weather/data/repositories/daily_detail_repo.dart";
 import "package:weatherapp/src/features/weather/domain/daily_detail_model.dart";
 import "package:weatherapp/src/features/weather/domain/daily_weather_model.dart";
 import "package:weatherapp/src/routing/app_routes.dart";
@@ -24,6 +25,8 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
+
+    final dailyWeather = ref.watch(dailyWeatherProvider);
     return Column(
       children: [
         Container(
@@ -64,7 +67,7 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                           color: AppColors.scaffoldBgColor,
                           child: InkWell(
                             onTap: () {
-                              DailyDetailModel(
+                              final dailyDetail = DailyDetailModel(
                                   dateTime: formattedDate,
                                   temp: currData.temp,
                                   feelsLike: currData.feelsLike,
@@ -79,6 +82,9 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                                   windSpeed: currData.windSpeed,
                                   windDegree: currData.windDegree,
                                   weather: currData.weather);
+
+                              ref.read(dailyWeatherProvider.notifier).state =
+                                  dailyDetail;
 
                               context.push(AppRoutes.dailyDetails);
                             },

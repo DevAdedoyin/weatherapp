@@ -3,7 +3,7 @@ import 'package:weatherapp/src/features/weather/domain/daily_detail_model.dart';
 import 'package:weatherapp/src/features/weather/domain/daily_weather_model.dart';
 import 'package:weatherapp/src/features/weather/domain/weather_model.dart';
 
-final dailyWeatherProvider = Provider<DailyDetailModel>((ref) {
+final dailyWeatherProvider = StateProvider<DailyDetailModel>((ref) {
   // Logic to fetch daily weather data would go here
   // For simplicity, I'm just returning some dummy data
   return DailyDetailModel(

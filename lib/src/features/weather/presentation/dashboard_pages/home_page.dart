@@ -5,6 +5,7 @@ import "package:google_fonts/google_fonts.dart";
 import "package:shared_preferences/shared_preferences.dart";
 import "package:weatherapp/src/common/gaps/sized_box.dart";
 import "package:weatherapp/src/constants/app_colors.dart";
+import "package:weatherapp/src/features/geo_location/repositories/address_repo.dart";
 // import "package:weatherapp/src/features/geo_location/data/get_location.dart";
 import "package:weatherapp/src/features/weather/data/datasources/weather_api_datasource.dart";
 import "package:weatherapp/src/features/weather/data/repositories/hourly_weather_detail.dart";
@@ -66,6 +67,8 @@ class _HomePageState extends ConsumerState<HomePage> {
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
     ref.watch(hourlyWeatherDetails);
+    ref.watch(currentAddress);
+    ref.read(currentAddress.notifier).state = address!;
     return FutureBuilder<WeatherModel>(
         future: WeatherApiDataSource.fetchWeather(),
         builder: (context, snapshot) {
@@ -79,6 +82,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 data.currentWeatherModel.sunset * 1000);
             String formattedSunrise = DateFormat('HH:mm a').format(sunrise);
             String formattedSunset = DateFormat('HH:mm a').format(sunset);
+
             return CustomScrollView(
               slivers: <Widget>[
                 SliverAppBar(

@@ -43,7 +43,7 @@ class GenerateWeatherLocation {
         Coordinates(position.latitude, position.longitude));
     // print("${address.first.thoroughfare} ${address.first.subAdminArea!}");
     await prefs.setString('address',
-        "${address.first.thoroughfare} ${address.first.subAdminArea!}");
+        "${address.first.thoroughfare}, ${address.first.subAdminArea!}");
 
     goRouter.go(AppRoutes.dashboard);
   }
