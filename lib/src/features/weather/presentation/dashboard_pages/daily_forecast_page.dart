@@ -23,7 +23,7 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
     return Column(
       children: [
         Container(
-            margin: EdgeInsets.only(top: 20, bottom: 5),
+            margin: const EdgeInsets.only(top: 20, bottom: 5),
             child: Text("7 Days Forecast", style: textTheme.displayMedium)),
         const Text("Accurate Weather Forecast",
             style: TextStyle(
@@ -57,25 +57,31 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                         Card(
                           elevation: 5,
                           color: AppColors.scaffoldBgColor,
-                          child: ListTile(
-                            leading: Card(
-                              elevation: 10,
-                              color: AppColors.scaffoldBgColor,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50)),
-                              child: Image.network(WeatherIcon.weatherIcon(
-                                  data[pos].weather.icon)),
+                          child: InkWell(
+                            onTap: () {},
+                            radius: 0.5,
+                            borderRadius: BorderRadius.circular(10),
+                            child: ListTile(
+                              leading: Card(
+                                elevation: 10,
+                                color: AppColors.scaffoldBgColor,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50)),
+                                child: Image.network(WeatherIcon.weatherIcon(
+                                    data[pos].weather.icon)),
+                              ),
+                              title: Text(
+                                data[pos].weather.description,
+                              ),
+                              subtitle: Text(data[pos].summary,
+                                  style: const TextStyle(
+                                    fontSize: 10,
+                                  )),
+                              trailing: Text("${data[pos].temp.day.round()}°c",
+                                  style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600)),
                             ),
-                            title: Text(
-                              data[pos].weather.description,
-                            ),
-                            subtitle: Text(data[pos].summary,
-                                style: const TextStyle(
-                                  fontSize: 10,
-                                )),
-                            trailing: Text("${data[pos].temp.day.round()}°c",
-                                style: const TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.w600)),
                           ),
                         ),
                       ],

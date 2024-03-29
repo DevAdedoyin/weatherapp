@@ -3,12 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:weatherapp/src/common/gaps/sized_box.dart';
 import 'package:weatherapp/src/common/loading_indicator.dart';
 import 'package:weatherapp/src/constants/app_colors.dart';
-import 'package:weatherapp/src/features/geo_location/data/get_location.dart';
+// import 'package:weatherapp/src/features/geo_location/data/get_location.dart';
 import 'package:weatherapp/src/features/geo_location/repositories/address_repo.dart';
 import 'package:weatherapp/src/features/weather/data/datasources/weather_api_datasource.dart';
 import 'package:weatherapp/src/features/weather/data/repositories/hourly_weather_detail.dart';
@@ -455,8 +455,6 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                   var date =
                                       DateTime.fromMillisecondsSinceEpoch(
                                           data_.dateTime * 1000);
-                                  final formattedTime =
-                                      DateFormat.Hm().format(date);
                                   final dayOfWeek =
                                       DateFormat('EEEE').format(date);
                                   return InkWell(
