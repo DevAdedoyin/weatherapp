@@ -23,3 +23,11 @@ final dailyWeatherProvider = StateProvider<DailyDetailModel>((ref) {
       weather:
           SubWeather(main: "main", description: "description", icon: "icon"));
 });
+
+final temperatureContainerTempHeight = StateProvider<int>((ref) {
+  return 0;
+});
+
+final isDailyContainerTempOpen = StateProvider<bool>((ref) {
+  return false;
+});

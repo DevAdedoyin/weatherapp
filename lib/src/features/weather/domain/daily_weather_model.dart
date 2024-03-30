@@ -40,10 +40,15 @@ class DailyWeatherModel {
   factory DailyWeatherModel.fromJson(Map<String, dynamic> data) {
     // Extracting individual properties from the JSON data
     final dateTime = data["dt"] as int;
+
+
+
     final sunrise = data["sunrise"] as int;
     final sunset = data["sunset"] as int;
     final moonrise = data["moonrise"] as int;
     final moonset = data["moonset"] as int;
+   
+
     final pressure = data["pressure"] as int;
     final summary = data["summary"] as String;
     final humidity = data["humidity"] as int;
@@ -104,10 +109,10 @@ class FeelsLike {
   // Factory method to create a FeelsLike instance from JSON data
   factory FeelsLike.fromJson(Map<String, dynamic> data) {
     // Extracting individual properties from the JSON data
-    final day = data["day"] as double;
-    final night = data["night"] as double;
-    final eve = data["eve"] as double;
-    final morn = data["morn"] as double;
+    final day = data["day"] - 273.15 as double;
+    final night = data["night"] - 273.15 as double;
+    final eve = data["eve"] - 273.15 as double;
+    final morn = data["morn"] - 273.15 as double;
     // Returning a new instance of FeelsLike with extracted data
     return FeelsLike(day: day, eve: eve, morn: morn, night: night);
   }

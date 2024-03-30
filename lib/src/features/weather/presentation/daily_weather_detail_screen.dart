@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:weatherapp/src/common/gaps/sized_box.dart';
 import 'package:weatherapp/src/constants/app_colors.dart';
 import 'package:weatherapp/src/features/geo_location/repositories/address_repo.dart';
@@ -23,6 +25,51 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
     final userCurrentAddress = ref.watch(currentAddress);
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
+
+    final daily = [
+      dailyWeather.temp.morn,
+      dailyWeather.temp.eve,
+      dailyWeather.temp.night,
+      dailyWeather.temp.min,
+      dailyWeather.temp.max
+    ];
+    final dayOfTheDay = ["Morning", "Evening", "Night", "Minimum", "Maximum"];
+
+    final feelsLike = [
+      dailyWeather.feelsLike.morn,
+      dailyWeather.feelsLike.eve,
+      dailyWeather.feelsLike.night,
+      dailyWeather.feelsLike.night,
+      dailyWeather.feelsLike.day,
+    ];
+
+    final sunrise =
+        DateTime.fromMillisecondsSinceEpoch(dailyWeather.sunrise * 1000);
+    final sunset =
+        DateTime.fromMillisecondsSinceEpoch(dailyWeather.sunset * 1000);
+    final moonrise =
+        DateTime.fromMillisecondsSinceEpoch(dailyWeather.moonrise * 1000);
+    final moonset =
+        DateTime.fromMillisecondsSinceEpoch(dailyWeather.moonset * 1000);
+    String formattedSunrise = DateFormat('HH:mm a').format(sunrise);
+    String formattedSunset = DateFormat('HH:mm a').format(sunset);
+    String formattedMoonrise = DateFormat('HH:mm a').format(moonrise);
+    String formattedMoonset = DateFormat('HH:mm a').format(moonset);
+
+    final Map<String, dynamic> otherWeatherDetails = {
+      "Pressure": dailyWeather.pressure,
+      "Sunrise": formattedSunrise,
+      "Humidity": dailyWeather.humidity,
+      "Wind Speed": dailyWeather.windSpeed,
+      "Sunset": formattedSunset,
+      "Dew Point": dailyWeather.dewPoint,
+      "Wind Degree": dailyWeather.windDegree,
+      "Moonrise": formattedMoonrise,
+      "Moonset": formattedMoonset,
+    };
+
+    // final tempContainer = ref.watch(temperatureContainerTempHeight);
+    final isTempContainerOpen = ref.watch(isDailyContainerTempOpen);
 
     return Scaffold(
       body: SafeArea(
@@ -99,7 +146,187 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                     ),
                   ),
                 ),
+                verticalGap(5),
+                Container(
+                  padding: const EdgeInsets.only(top: 0),
+                  margin: const EdgeInsets.only(left: 20, right: 20, top: 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: size.width * 0.40,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            GradientText(
+                              "${dailyWeather.temp.day.round()}°",
+                              style: GoogleFonts.robotoCondensed(
+                                fontSize: 100.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              colors: const [
+                                Colors.white,
+                                Colors.grey,
+                                Colors.white,
+                                // Colors.grey,
+                              ],
+                            ),
+                            Text(
+                              "Feel like: ${dailyWeather.feelsLike.day.round()}°c",
+                              style: GoogleFonts.roboto(
+                                  fontSize: 17, fontWeight: FontWeight.w800),
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        width: size.width * 0.40,
+                        // color: Colors.blue[200],
+                        // Adjust height as needed
+                        child: Text(
+                          dailyWeather.weather.description,
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.roboto(
+                              fontSize: 30, fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 verticalGap(15),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Temperature",
+                      style: GoogleFonts.roboto(
+                          fontSize: 15, fontWeight: FontWeight.w700),
+                    ),
+                    InkWell(
+                        onTap: () {
+                          ref.read(isDailyContainerTempOpen.notifier).state =
+                              ref.read(isDailyContainerTempOpen.notifier).state
+                                  ? false
+                                  : true;
+                        },
+                        borderRadius: BorderRadius.circular(20),
+                        child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(40),
+                                color: isTempContainerOpen
+                                    ? AppColors.secondaryColor
+                                    : AppColors.accentColor),
+                            child: Icon(isTempContainerOpen
+                                ? Icons.keyboard_arrow_up_sharp
+                                : Icons.keyboard_arrow_down_sharp)))
+                  ],
+                ),
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 500),
+                  height: isTempContainerOpen
+                      ? size.height * 0.53
+                      : size.height * 0.11,
+                  // color: AppColors.cardBgColor,
+                  child: ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: daily.length,
+                      itemBuilder: (context, pos) {
+                        return Card(
+                          elevation: 5,
+                          color: AppColors.scaffoldBgColor,
+                          child: ListTile(
+                            leading: Card(
+                              color: AppColors.scaffoldBgColor,
+                              elevation: 10,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50)),
+                              child: Image.network(WeatherIcon.weatherIcon(
+                                  dailyWeather.weather.icon)),
+                            ),
+                            dense: false,
+                            title: Text(
+                              dayOfTheDay[pos].toString(),
+                              style: GoogleFonts.roboto(
+                                  fontSize: 15, fontWeight: FontWeight.w700),
+                            ),
+                            subtitle: Text(
+                              "Feels like ${feelsLike[pos].round().toString()}°c",
+                              style: GoogleFonts.roboto(
+                                  fontSize: 12, fontWeight: FontWeight.w500),
+                            ),
+                            trailing: Text(
+                              "${daily[pos].round().toString()}°c",
+                              style: GoogleFonts.roboto(
+                                  fontSize: 17, fontWeight: FontWeight.w700),
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 0),
+                          ),
+                        );
+                      }),
+                ),
+                verticalGap(15),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Other details",
+                      style: GoogleFonts.roboto(
+                          fontSize: 15, fontWeight: FontWeight.w700),
+                    ),
+                    InkWell(
+                        onTap: () {
+                          ref.read(isDailyContainerTempOpen.notifier).state =
+                              ref.read(isDailyContainerTempOpen.notifier).state
+                                  ? false
+                                  : true;
+                        },
+                        borderRadius: BorderRadius.circular(20),
+                        child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(40),
+                                color: isTempContainerOpen
+                                    ? AppColors.secondaryColor
+                                    : AppColors.accentColor),
+                            child: Icon(isTempContainerOpen
+                                ? Icons.keyboard_arrow_up_sharp
+                                : Icons.keyboard_arrow_down_sharp)))
+                  ],
+                ),
+                AnimatedContainer(
+                  height: 200,
+                  duration: Duration(milliseconds: 200),
+                  child: GridView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3),
+                      itemBuilder: (_, pos) {
+                        return Card(
+                          elevation: 4,
+                          color: AppColors.scaffoldBgColor,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.network(
+                                WeatherIcon.weatherIcon(
+                                    dailyWeather.weather.icon),
+                                fit: BoxFit.fill,
+                                height: size.width * 0.09,
+                                width: size.width * 0.09,
+                              ),
+                              Text(
+                                otherWeatherDetails.entries.elementAt(pos).key,
+                                style: TextStyle(color: Colors.grey),
+                              ),
+                              Text(
+                                  "${otherWeatherDetails.entries.elementAt(pos).value}"),
+                            ],
+                          ),
+                        );
+                      },
+                      itemCount: 9),
+                ),
               ],
             ),
           ),
