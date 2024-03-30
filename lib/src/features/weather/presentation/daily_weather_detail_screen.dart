@@ -144,7 +144,8 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                     child: Padding(
                       padding: const EdgeInsets.only(
                           bottom: 7, left: 10, right: 10, top: 5),
-                      child: Text(dailyWeather.summary),
+                      child: Text(dailyWeather.summary,
+                          style: GoogleFonts.roboto(fontSize: 12)),
                     ),
                   ),
                 ),

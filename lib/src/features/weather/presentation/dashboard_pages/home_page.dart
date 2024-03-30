@@ -68,12 +68,14 @@ class _HomePageState extends ConsumerState<HomePage> {
     TextTheme textTheme = Theme.of(context).textTheme;
     ref.watch(hourlyWeatherDetails);
     ref.watch(currentAddress);
-    ref.read(currentAddress.notifier).state = address!;
+
     return FutureBuilder<WeatherModel>(
         future: WeatherApiDataSource.fetchWeather(),
         builder: (context, snapshot) {
           if (snapshot.hasData &&
               snapshot.connectionState != ConnectionState.waiting) {
+            ref.read(currentAddress.notifier).state = address!;
+            print("ADDRESS $address");
             final data = snapshot.data;
             print("DATA: ${snapshot.data}");
             final sunrise = DateTime.fromMillisecondsSinceEpoch(
