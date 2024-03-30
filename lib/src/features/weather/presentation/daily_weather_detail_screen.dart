@@ -70,6 +70,8 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
 
     // final tempContainer = ref.watch(temperatureContainerTempHeight);
     final isTempContainerOpen = ref.watch(isDailyContainerTempOpen);
+    final isDailyOtherContainerOpen =
+        ref.watch(isDailyOtherDetailContainerOpen);
 
     return Scaffold(
       body: SafeArea(
@@ -210,12 +212,11 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                                   : true;
                         },
                         borderRadius: BorderRadius.circular(20),
-                        child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(40),
-                                color: isTempContainerOpen
-                                    ? AppColors.secondaryColor
-                                    : AppColors.accentColor),
+                        child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(40),
+                            ),
+                            color: AppColors.scaffoldBgColor,
                             child: Icon(isTempContainerOpen
                                 ? Icons.keyboard_arrow_up_sharp
                                 : Icons.keyboard_arrow_down_sharp)))
@@ -276,30 +277,36 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                     ),
                     InkWell(
                         onTap: () {
-                          ref.read(isDailyContainerTempOpen.notifier).state =
-                              ref.read(isDailyContainerTempOpen.notifier).state
-                                  ? false
-                                  : true;
+                          ref
+                              .read(isDailyOtherDetailContainerOpen.notifier)
+                              .state = ref
+                                  .read(
+                                      isDailyOtherDetailContainerOpen.notifier)
+                                  .state
+                              ? false
+                              : true;
                         },
                         borderRadius: BorderRadius.circular(20),
-                        child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(40),
-                                color: isTempContainerOpen
-                                    ? AppColors.secondaryColor
-                                    : AppColors.accentColor),
-                            child: Icon(isTempContainerOpen
+                        child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(40),
+                            ),
+                            color: AppColors.scaffoldBgColor,
+                            child: Icon(isDailyOtherContainerOpen
                                 ? Icons.keyboard_arrow_up_sharp
                                 : Icons.keyboard_arrow_down_sharp)))
                   ],
                 ),
                 AnimatedContainer(
-                  height: 200,
-                  duration: Duration(milliseconds: 200),
+                  height: isDailyOtherContainerOpen
+                      ? size.height * 0.45
+                      : size.height * 0.15,
+                  duration: const Duration(milliseconds: 500),
                   child: GridView.builder(
                       physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3),
                       itemBuilder: (_, pos) {
                         return Card(
                           elevation: 4,
@@ -308,19 +315,30 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Image.network(
-                                WeatherIcon.weatherIcon(
-                                    dailyWeather.weather.icon),
-                                fit: BoxFit.fill,
-                                height: size.width * 0.09,
-                                width: size.width * 0.09,
+                              Card(
+                                color: AppColors.scaffoldBgColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                ),
+                                elevation: 5,
+                                child: Image.network(
+                                  WeatherIcon.weatherIcon(
+                                      dailyWeather.weather.icon),
+                                  fit: BoxFit.fill,
+                                  height: size.width * 0.09,
+                                  width: size.width * 0.09,
+                                ),
                               ),
+                              verticalGap(4),
                               Text(
                                 otherWeatherDetails.entries.elementAt(pos).key,
-                                style: TextStyle(color: Colors.grey),
+                                style: const TextStyle(
+                                    color: Colors.white70, fontSize: 12),
                               ),
+                              verticalGap(1),
                               Text(
-                                  "${otherWeatherDetails.entries.elementAt(pos).value}"),
+                                  "${otherWeatherDetails.entries.elementAt(pos).value}",
+                                  style: const TextStyle(fontSize: 10)),
                             ],
                           ),
                         );

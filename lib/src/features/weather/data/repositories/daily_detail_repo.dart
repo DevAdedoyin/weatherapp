@@ -31,3 +31,7 @@ final temperatureContainerTempHeight = StateProvider<int>((ref) {
 final isDailyContainerTempOpen = StateProvider<bool>((ref) {
   return false;
 });
+
+final isDailyOtherDetailContainerOpen = StateProvider<bool>((ref) {
+  return false;
+});
