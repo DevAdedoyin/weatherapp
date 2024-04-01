@@ -32,9 +32,24 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                         color: AppColors.cardBgColor),
                     width: size.width * 0.3,
                     height: size.width * 0.3,
-                    child: Icon(Icons.person),
+                    child: const Icon(Icons.person, size: 30),
                   )
-                : Image.network("${user?.photoURL}"),
+                : ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: AppColors.cardBgColor),
+                      width: size.width * 0.3,
+                      height: size.width * 0.3,
+                      padding: EdgeInsets.all(5),
+                      child: ClipOval(
+                          child: Image.network(
+                        "${user?.photoURL}",
+                        fit: BoxFit.cover,
+                      )),
+                    ),
+                  ),
           ),
           verticalGap(10),
           Text("${user?.displayName}"),
