@@ -73,4 +73,18 @@ class FireAuth {
 
     return user;
   }
+
+  static Future? signOut({required BuildContext context}) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    const message = "Hi, You have been successfully logged out. Thank you.";
+    const messageHeader = "LOGOUT SUCCESSFUL";
+
+    try {
+      auth.signOut();
+
+      successAuthAlertWidget(context, message, messageHeader);
+    } on FirebaseAuthException catch (e) {
+      failedAuthAlertWidget(context, e.message!, "LOGOUT FAILED");
+    }
+  }
 }
