@@ -62,12 +62,12 @@ class RegisterScreen extends StatelessWidget {
                         TextSpan(
                             text: "Sign In here",
                             recognizer: TapGestureRecognizer()
-                              ..onTap = () => context.go(AppRoutes.register),
+                              ..onTap = () => context.push(AppRoutes.login),
                             style: GoogleFonts.robotoSlab(
                                 fontSize: 12.5,
                                 color: AppColors.accentColor,
                                 fontWeight: FontWeight.bold))
-                      ])),
+                      ]),),
                     )
                   ]),
             ),

@@ -5,6 +5,7 @@ import 'package:weatherapp/src/features/authentication/presentation/register.dar
 import 'package:weatherapp/src/features/geo_location/presentation/user_location.dart';
 import 'package:weatherapp/src/features/onboarding/onboarding/onboarding_screen.dart';
 import 'package:weatherapp/src/features/onboarding/splash_screen.dart';
+import 'package:weatherapp/src/features/weather/presentation/change_pasword_screen.dart';
 import 'package:weatherapp/src/features/weather/presentation/daily_weather_detail_screen.dart';
 import 'package:weatherapp/src/features/weather/presentation/dashboard/dashboard.dart';
 import 'package:weatherapp/src/features/weather/presentation/hourly_weather/hourly_weather_detail.dart';
@@ -50,6 +51,10 @@ GoRouter goRouter = GoRouter(
     GoRoute(
       path: AppRoutes.dailyDetails,
       builder: (context, state) => const DailyWeatherDetail(),
+    ),
+    GoRoute(
+      path: AppRoutes.changePassword,
+      builder: (context, state) => const ChangePasswordScreen(),
     ),
   ],
   errorBuilder: (context, state) => RouteErrorScreen(

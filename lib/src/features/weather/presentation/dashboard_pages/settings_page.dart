@@ -1,8 +1,10 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:go_router/go_router.dart";
 import "package:weatherapp/src/common/gaps/sized_box.dart";
 import "package:weatherapp/src/constants/app_colors.dart";
 import "package:weatherapp/src/features/authentication/data/datasources/auth_datasource.dart";
+import "package:weatherapp/src/routing/app_routes.dart";
 
 class SettingsPage extends ConsumerStatefulWidget {
   const SettingsPage({super.key});
@@ -48,7 +50,9 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 leading: const Icon(Icons.lock),
                 title: const Text("Change password"),
                 trailing: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.push(AppRoutes.changePassword);
+                  },
                   icon: const Icon(Icons.arrow_forward_rounded),
                 ),
               ),
