@@ -91,7 +91,7 @@ class FireAuth {
     }
   }
 
-  Future<void> deleteUserAccount({required BuildContext context}) async {
+  static Future<void> deleteUserAccount({required BuildContext context}) async {
     const message =
         "Hi,\n\nyour account has been deleted successfully from our server.\n\nTo continue seeing more weather updates, you can create a new account\n\n.Thank You.";
     const messageHeader = "Account Removal Successful";
@@ -99,6 +99,9 @@ class FireAuth {
       await FirebaseAuth.instance.currentUser!.delete();
 
       successAuthAlertWidget(context, message, messageHeader);
+
+      Future.delayed(
+          const Duration(seconds: 4), () => context.go(AppRoutes.register));
     } on FirebaseAuthException catch (e) {
       failedAuthAlertWidget(context, e.message!, "ACCOUNT REMOVAL FAILED");
     } catch (e) {

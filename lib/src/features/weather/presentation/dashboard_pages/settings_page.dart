@@ -125,7 +125,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                                 style: TextStyle(color: Colors.white),
                               ),
                               onPressed: () {
-                                // Call the delete account function
+                                FireAuth.deleteUserAccount(context: context);
                               },
                             ),
                           ],
