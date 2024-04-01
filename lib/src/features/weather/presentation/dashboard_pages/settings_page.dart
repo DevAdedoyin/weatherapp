@@ -1,3 +1,4 @@
+import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
@@ -14,16 +15,29 @@ class SettingsPage extends ConsumerStatefulWidget {
 }
 
 class _SettingsPageState extends ConsumerState<SettingsPage> {
+  final user = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Column(
         children: [
           verticalGap(20),
-          const SizedBox(
-            child: Icon(Icons.person),
+          SizedBox(
+            child: user?.photoURL == null
+                ? Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        color: AppColors.cardBgColor),
+                    width: size.width * 0.3,
+                    height: size.width * 0.3,
+                    child: Icon(Icons.person),
+                  )
+                : Image.network("${user?.photoURL}"),
           ),
-          const Text("Adedoyin Oluwaleke"),
+          verticalGap(10),
+          Text("${user?.displayName}"),
           verticalGap(20),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 15),
