@@ -2,9 +2,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:weatherapp/src/common/gaps/sized_box.dart';
+import 'package:weatherapp/src/common/loading_indicator.dart';
+import 'package:weatherapp/src/common/widgets/auth_widgets/info_alert.dart';
 import 'package:weatherapp/src/constants/app_colors.dart';
+import 'package:weatherapp/src/features/authentication/data/datasources/auth_datasource.dart';
+import 'package:weatherapp/src/features/authentication/data/repositories/is_password_update.dart';
+import 'package:weatherapp/src/routing/app_routes.dart';
 import 'package:weatherapp/src/themes/custom_themes.dart';
 import 'package:weatherapp/src/utils/iconbutton_provider.dart';
 import 'package:weatherapp/src/utils/is_loading_provider.dart';
@@ -30,10 +36,10 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
     Size size = MediaQuery.of(context).size;
     final isPasswordVisible = ref.watch(iconButtonProvider);
     final isConfirmPasswordVisible = ref.watch(iconButtonProviderCP);
-    final isLoading = ref.watch(isAuthLoading);
+    final isLoading = ref.watch(isPasswordUpdating);
 
     TextTheme textTheme = Theme.of(context).textTheme;
-   final user = FirebaseAuth.instance.currentUser;
+    final user = FirebaseAuth.instance.currentUser;
 
     return Scaffold(
       appBar: AppBar(
@@ -51,12 +57,13 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
                   child: TextFormField(
                     style: GoogleFonts.roboto(
                         fontSize: 16, fontWeight: FontWeight.normal),
-                    controller: _emailController,
+                    // controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
+                    readOnly: true,
                     textInputAction: TextInputAction.next,
                     autofocus: false,
                     enabled: false,
-                    validator: (email) => Validator.validateEmail(email: email),
+                    // validator: (email) => Validator.validateEmail(email: email),
                     decoration: darkThemeInputDecoration(
                         '${user?.email}', const Icon(Icons.email)),
                   ),
@@ -121,6 +128,69 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
                     ),
                   ),
                 ),
+                verticalGap(40),
+                SizedBox(
+                  // height: 30,
+                  width: double.maxFinite,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        ref.read(isPasswordUpdating.notifier).state = true;
+
+                        await FireAuth.updatePasword(
+                            context: context,
+                            newPassword: _passwordController.text);
+                        ref.read(isAuthLoading.notifier).state = false;
+                      }
+
+                      ref.read(isPasswordUpdating.notifier).state = false;
+                      // final loadingState =
+
+                      // ref.read(isPasswordUpdating.notifier).state =
+                      //     (await loadingState)!;
+                    },
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(AppColors.accentColor),
+                      padding: MaterialStateProperty.all(EdgeInsets.zero),
+                      shape: const MaterialStatePropertyAll(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                        ),
+                      ),
+                    ),
+                    child: isLoading
+                        ? const SizedBox(
+                            height: 15,
+                            width: 15,
+                            child: LoadingIndicator(),
+                          )
+                        : const Text(
+                            "Update password",
+                            style: TextStyle(
+                              fontSize: 14,
+                            ),
+                          ),
+                  ),
+                ),
+                verticalGap(10),
+                TextButton.icon(
+                    onPressed: () {
+                      context.go(AppRoutes.login);
+                    },
+                    icon: const Icon(
+                      Icons.login_rounded,
+                      color: Colors.white,
+                    ),
+                    style: const ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(Colors.black),
+                    ),
+                    label: const Text(
+                      "Login",
+                      style: TextStyle(color: Colors.white),
+                    ))
               ],
             ),
           ),

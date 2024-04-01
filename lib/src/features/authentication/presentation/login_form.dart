@@ -81,7 +81,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
               alignment: Alignment.centerRight,
               child: InkWell(
                 onTap: () {},
-                child: const Text(
+                child: Text(
                   "Forgot Password?",
                   style: TextStyle(
                       fontWeight: FontWeight.w900,

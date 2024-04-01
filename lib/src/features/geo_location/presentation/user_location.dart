@@ -65,11 +65,13 @@ class _UserLocationState extends ConsumerState<UserLocation> {
                   onPressed: () {
                     GenerateWeatherLocation.getLocation();
                   },
-                  style: const ButtonStyle(
-                      elevation: MaterialStatePropertyAll(10),
-                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)))),
-                      padding: MaterialStatePropertyAll(
+                  style: ButtonStyle(
+                      elevation: const MaterialStatePropertyAll(10),
+                      shape: const MaterialStatePropertyAll(
+                          RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)))),
+                      padding: const MaterialStatePropertyAll(
                           EdgeInsets.symmetric(vertical: 10)),
                       backgroundColor:
                           MaterialStatePropertyAll(AppColors.accentColor)),

@@ -55,19 +55,21 @@ class RegisterScreen extends StatelessWidget {
                     Container(
                       alignment: Alignment.center,
                       child: RichText(
-                          text: TextSpan(children: [
-                        TextSpan(
-                            text: "Registered already? ",
-                            style: textTheme.titleSmall),
-                        TextSpan(
+                        text: TextSpan(children: [
+                          TextSpan(
+                              text: "Registered already? ",
+                              style: textTheme.titleSmall),
+                          TextSpan(
                             text: "Sign In here",
                             recognizer: TapGestureRecognizer()
                               ..onTap = () => context.push(AppRoutes.login),
                             style: GoogleFonts.robotoSlab(
                                 fontSize: 12.5,
                                 color: AppColors.accentColor,
-                                fontWeight: FontWeight.bold))
-                      ]),),
+                                fontWeight: FontWeight.bold),
+                          )
+                        ]),
+                      ),
                     )
                   ]),
             ),

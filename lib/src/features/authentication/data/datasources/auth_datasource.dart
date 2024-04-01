@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -62,7 +64,7 @@ class FireAuth {
       const messageHeader = "LOGIN SUCCESSFUL";
       successAuthAlertWidget(context, message, messageHeader);
       Future.delayed(
-          const Duration(seconds: 4), () => context.go(AppRoutes.login));
+          const Duration(seconds: 4), () => context.go(AppRoutes.dashboard));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         failedAuthAlertWidget(context, e.message!, "LOGIN FAILED");
@@ -74,7 +76,7 @@ class FireAuth {
     return user;
   }
 
-  static Future? signOut({required BuildContext context}) async {
+  static Future<dynamic> signOut({required BuildContext context}) async {
     FirebaseAuth auth = FirebaseAuth.instance;
     const message = "Hi, You have been successfully logged out. Thank you.";
     const messageHeader = "LOGOUT SUCCESSFUL";
@@ -112,5 +114,29 @@ class FireAuth {
 
       // Handle general exception
     }
+  }
+
+  static Future<bool?> updatePasword(
+      {required BuildContext context, required String newPassword}) async {
+    final user = FirebaseAuth.instance.currentUser;
+    final message =
+        "Hi ${user?.displayName}, your password has been updated successfully. To continue seeing more weather updates, please kindly log in. Thank You.";
+    const messageHeader = "Password Update Successful";
+    try {
+      await user?.updatePassword(newPassword);
+
+      successAuthAlertWidget(context, message, messageHeader);
+
+      Future.delayed(
+          const Duration(seconds: 2), () => context.go(AppRoutes.login));
+    } on FirebaseAuthException catch (e) {
+      failedAuthAlertWidget(context, e.message!, "PASSWORD UPDATE FAILED");
+    } catch (e) {
+      failedAuthAlertWidget(
+          context,
+          "Unable to update your password. Please try again.",
+          "PASSWORD UPDATE FAILED");
+    }
+    return false;
   }
 }
