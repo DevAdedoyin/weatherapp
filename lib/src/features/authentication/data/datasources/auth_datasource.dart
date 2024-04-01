@@ -90,4 +90,24 @@ class FireAuth {
       failedAuthAlertWidget(context, e.message!, "LOGOUT FAILED");
     }
   }
+
+  Future<void> deleteUserAccount({required BuildContext context}) async {
+    const message =
+        "Hi,\n\nyour account has been deleted successfully from our server.\n\nTo continue seeing more weather updates, you can create a new account\n\n.Thank You.";
+    const messageHeader = "Account Removal Successful";
+    try {
+      await FirebaseAuth.instance.currentUser!.delete();
+
+      successAuthAlertWidget(context, message, messageHeader);
+    } on FirebaseAuthException catch (e) {
+      failedAuthAlertWidget(context, e.message!, "ACCOUNT REMOVAL FAILED");
+    } catch (e) {
+      failedAuthAlertWidget(
+          context,
+          "Unable to delete your account. Please try again.",
+          "ACCOUNT REMOVAL FAILED");
+
+      // Handle general exception
+    }
+  }
 }
