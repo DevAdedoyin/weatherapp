@@ -76,6 +76,8 @@ class _SearchPageState extends ConsumerState<SearchPage> {
 
     ref.watch(searchCity);
 
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return SingleChildScrollView(
       child: SizedBox(
         // height: 30,
@@ -179,7 +181,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
               child: Text(
                 "Popular places",
                 textAlign: TextAlign.start,
-                style: GoogleFonts.roboto(fontWeight: FontWeight.w600),
+                style: textTheme.titleSmall,
               ),
             ),
             verticalGap(10),
@@ -197,8 +199,13 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                     },
                     child: ListTile(
                       leading: const Icon(Icons.location_city_rounded),
-                      title: Text(e.cityNames),
-                      trailing: Text(e.continent),
+                      title: Text(
+                        e.cityNames,
+                        style: textTheme.displaySmall,
+                      ),
+                      trailing: Text(
+                        e.continent,
+                      ),
                     ),
                   ),
                 ))
