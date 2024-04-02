@@ -20,6 +20,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    TextTheme textTheme = Theme.of(context).textTheme;
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -52,17 +53,19 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                   ),
           ),
           verticalGap(10),
-          Text("${user?.displayName}"),
+          Text("${user?.displayName}", style: textTheme.titleLarge),
           verticalGap(20),
-          verticalGap(10),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 15),
             child: Card(
-              elevation: 7,
+              elevation: 4,
               color: AppColors.scaffoldBgColor,
               child: ListTile(
                 leading: const Icon(Icons.lock),
-                title: const Text("Change password"),
+                title: Text(
+                  "Change password",
+                  style: textTheme.titleSmall,
+                ),
                 trailing: IconButton(
                   onPressed: () {
                     context.push(AppRoutes.changePassword);
@@ -76,11 +79,14 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 15),
             child: Card(
-              elevation: 7,
+              elevation: 4,
               color: AppColors.scaffoldBgColor,
               child: ListTile(
                 leading: const Icon(Icons.logout),
-                title: const Text("Logout"),
+                title: Text(
+                  "Logout",
+                  style: textTheme.titleSmall,
+                ),
                 trailing: IconButton(
                   onPressed: () {
                     FireAuth.signOut(context: context);
@@ -94,11 +100,14 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 15),
             child: Card(
-              elevation: 7,
+              elevation: 4,
               color: AppColors.scaffoldBgColor,
               child: ListTile(
                 leading: const Icon(Icons.delete),
-                title: const Text("Remove account"),
+                title: Text(
+                  "Remove account",
+                  style: textTheme.titleSmall,
+                ),
                 trailing: IconButton(
                   onPressed: () {
                     showDialog(
@@ -107,8 +116,11 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                         return AlertDialog(
                           backgroundColor: AppColors.scaffoldBgColor,
                           title: const Text('Delete your Account?'),
-                          content: const Text(
-                              'If you select Delete we will delete your account on our server.\n\nYour app data will also be deleted and you won\'t be able to retrieve it.'),
+                          content: const Text('''
+If you select Delete we will delete your account on our server.
+
+Your app data will also be deleted and you won\'t be able to retrieve it.
+'''),
                           actions: [
                             TextButton(
                               style: ButtonStyle(
