@@ -28,7 +28,7 @@ class OnboardingBodyWidget extends StatelessWidget {
           Text(
             description!,
             textAlign: TextAlign.center,
-            style: textTheme.bodyMedium,
+            style: textTheme.displaySmall,
           ),
         ]));
   }

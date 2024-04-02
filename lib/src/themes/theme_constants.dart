@@ -87,17 +87,17 @@ ThemeData darkTheme = ThemeData(
     ),
     displaySmall: GoogleFonts.roboto(
       // fontWeight: FontWeight.bold,
-      fontSize: 12,
+      fontSize: 14,
       // color: AppColors.primaryColor
     ),
     displayMedium: GoogleFonts.roboto(
       // fontWeight: FontWeight.bold,
-      fontSize: 14,
+      fontSize: 16,
       // color: AppColors.primaryColor
     ),
     displayLarge: GoogleFonts.roboto(
       // fontWeight: FontWeight.bold,
-      fontSize: 16,
+      fontSize: 18,
       // color: AppColors.primaryColor
     ),
   ),

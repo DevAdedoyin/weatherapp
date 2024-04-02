@@ -17,4 +17,6 @@ class AppColors {
 
   // DARK THEME
   static const inputBackGroundDT = Color.fromRGBO(74, 74, 77, 1);
+  static const black = Color.fromRGBO(40, 40, 43, 1.0);
+  static const deepBlack = Colors.black;
 }

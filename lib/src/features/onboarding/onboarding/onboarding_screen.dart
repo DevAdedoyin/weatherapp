@@ -23,23 +23,24 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
       body: IntroductionScreen(
         pages: pages,
-        done: const Text("Done"),
+        done: Text("Done", style: textTheme.displaySmall),
         onDone: () => context.go(AppRoutes.login),
         onSkip: () => context.go(AppRoutes.login),
-        skip: const Text("Skip"),
+        skip: Text("Skip", style: textTheme.displaySmall),
         showSkipButton: true,
         showBackButton: false,
         showNextButton: true,
-        next: const Text("Next"),
+        next: Text("Next", style: textTheme.displaySmall),
         back: const Icon(Icons.arrow_back),
         dotsDecorator: DotsDecorator(
-          size: const Size.square(10.0),
-          activeSize: const Size(20.0, 10.0),
-          activeColor: AppColors.indicatorColor,
-          color: AppColors.fontColor,
+          size: const Size.square(8.0),
+          activeSize: const Size(18.0, 8.0),
+          activeColor: AppColors.accentColor,
+          color: AppColors.deepBlack,
           spacing: const EdgeInsets.symmetric(horizontal: 3.0),
           activeShape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25.0),
@@ -50,22 +51,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             elevation: 10,
             textStyle: const TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 14,
+              // fontSize: 14,
             )),
         doneStyle: TextButton.styleFrom(
-            backgroundColor: AppColors.inputFieldBG,
+            backgroundColor: AppColors.black,
             elevation: 10,
             textStyle: const TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 14.5,
+              // fontSize: 14.5,
             )),
         nextStyle: TextButton.styleFrom(
             foregroundColor: Colors.black,
-            backgroundColor: AppColors.secondaryColor,
+            backgroundColor: AppColors.deepBlack,
             elevation: 10,
             textStyle: const TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 14,
+              // fontSize: 14,
             )),
       ),
     );
