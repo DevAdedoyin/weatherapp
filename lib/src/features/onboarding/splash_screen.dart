@@ -48,7 +48,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     Image.asset("assets/images/weather.gif", fit: BoxFit.fill),
               ),
             ),
-            verticalGap(5.0),
+            verticalGap(10),
             AnimatedOpacity(
               opacity: _visible ? 1.0 : 0.0,
               duration: const Duration(milliseconds: 5000),

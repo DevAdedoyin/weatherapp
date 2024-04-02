@@ -71,29 +71,33 @@ ThemeData darkTheme = ThemeData(
     bodyMedium: GoogleFonts.roboto(
       fontSize: 14,
     ),
-    titleMedium: GoogleFonts.cuteFont(
-      fontWeight: FontWeight.bold,
-      fontSize: 27,
-      // fontStyle: FontStyle.italic
-    ),
-    titleSmall: GoogleFonts.robotoSlab(
-      fontWeight: FontWeight.bold,
-      fontSize: 12,
-      color: AppColors.smallTitleColor,
-    ),
-    displaySmall: GoogleFonts.robotoSlab(
+    titleLarge: GoogleFonts.nunito(
       fontWeight: FontWeight.bold,
       fontSize: 18,
+      // fontStyle: FontStyle.italic
+    ),
+    titleMedium: GoogleFonts.nunito(
+      fontWeight: FontWeight.bold,
+      fontSize: 16,
+      // fontStyle: FontStyle.italic
+    ),
+    titleSmall: GoogleFonts.nunito(
+      fontWeight: FontWeight.bold,
+      fontSize: 14,
+    ),
+    displaySmall: GoogleFonts.roboto(
+      // fontWeight: FontWeight.bold,
+      fontSize: 12,
       // color: AppColors.primaryColor
     ),
-    displayMedium: GoogleFonts.robotoSlab(
-      fontWeight: FontWeight.bold,
-      fontSize: 25,
+    displayMedium: GoogleFonts.roboto(
+      // fontWeight: FontWeight.bold,
+      fontSize: 14,
       // color: AppColors.primaryColor
     ),
-    displayLarge: GoogleFonts.robotoSlab(
-      fontWeight: FontWeight.bold,
-      fontSize: 30,
+    displayLarge: GoogleFonts.roboto(
+      // fontWeight: FontWeight.bold,
+      fontSize: 16,
       // color: AppColors.primaryColor
     ),
   ),

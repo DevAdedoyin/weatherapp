@@ -42,7 +42,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                           color: AppColors.cardBgColor),
                       width: size.width * 0.3,
                       height: size.width * 0.3,
-                      padding: EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(5),
                       child: ClipOval(
                           child: Image.network(
                         "${user?.photoURL}",
@@ -54,21 +54,6 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
           verticalGap(10),
           Text("${user?.displayName}"),
           verticalGap(20),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 15),
-            child: Card(
-              elevation: 7,
-              color: AppColors.scaffoldBgColor,
-              child: ListTile(
-                leading: const Icon(Icons.info),
-                title: const Text("About app"),
-                trailing: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.arrow_forward_rounded),
-                ),
-              ),
-            ),
-          ),
           verticalGap(10),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 15),
