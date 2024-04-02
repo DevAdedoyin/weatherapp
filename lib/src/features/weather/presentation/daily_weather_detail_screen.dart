@@ -8,6 +8,7 @@ import 'package:weatherapp/src/common/gaps/sized_box.dart';
 import 'package:weatherapp/src/constants/app_colors.dart';
 import 'package:weatherapp/src/features/geo_location/repositories/address_repo.dart';
 import 'package:weatherapp/src/features/weather/data/repositories/daily_detail_repo.dart';
+import 'package:weatherapp/src/features/weather/data/repositories/search_city_repo.dart';
 import 'package:weatherapp/src/utils/weather_icon_utils.dart';
 
 class DailyWeatherDetail extends ConsumerStatefulWidget {
@@ -22,7 +23,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
   @override
   Widget build(BuildContext context) {
     final dailyWeather = ref.watch(dailyWeatherProvider);
-    final userCurrentAddress = ref.watch(currentAddress);
+    final userCurrentAddress_ = ref.watch(userCurrentAddress);
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
 
@@ -83,13 +84,14 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  userCurrentAddress,
-                  style: textTheme.displaySmall,
+                  userCurrentAddress_,
+                  style: textTheme.titleMedium,
                   textAlign: TextAlign.start,
                 ),
                 Text(
                   dailyWeather.dateTime,
                   textAlign: TextAlign.start,
+                  style: textTheme.titleSmall,
                 ),
                 verticalGap(10),
                 Align(
@@ -123,10 +125,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                   margin: const EdgeInsets.all(0),
                   child: Padding(
                     padding: const EdgeInsets.only(top: 7, left: 10, right: 10),
-                    child: Text(
-                      "Weather Summary",
-                      style: GoogleFonts.roboto(fontWeight: FontWeight.w700),
-                    ),
+                    child: Text("Weather Summary", style: textTheme.titleSmall),
                   ),
                 ),
                 SizedBox(
@@ -176,8 +175,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                             ),
                             Text(
                               "Feel like: ${dailyWeather.feelsLike.day.round()}°c",
-                              style: GoogleFonts.roboto(
-                                  fontSize: 17, fontWeight: FontWeight.w800),
+                              style: textTheme.titleSmall,
                             )
                           ],
                         ),
@@ -200,11 +198,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "Temperature",
-                      style: GoogleFonts.roboto(
-                          fontSize: 15, fontWeight: FontWeight.w700),
-                    ),
+                    Text("Temperature", style: textTheme.titleMedium),
                     InkWell(
                         onTap: () {
                           ref.read(isDailyContainerTempOpen.notifier).state =
@@ -248,19 +242,15 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                             dense: false,
                             title: Text(
                               dayOfTheDay[pos].toString(),
-                              style: GoogleFonts.roboto(
-                                  fontSize: 15, fontWeight: FontWeight.w700),
+                              style: textTheme.titleSmall,
                             ),
                             subtitle: Text(
                               "Feels like ${feelsLike[pos].round().toString()}°c",
                               style: GoogleFonts.roboto(
                                   fontSize: 12, fontWeight: FontWeight.w500),
                             ),
-                            trailing: Text(
-                              "${daily[pos].round().toString()}°c",
-                              style: GoogleFonts.roboto(
-                                  fontSize: 17, fontWeight: FontWeight.w700),
-                            ),
+                            trailing: Text("${daily[pos].round().toString()}°c",
+                                style: textTheme.titleMedium),
                             contentPadding: const EdgeInsets.symmetric(
                                 horizontal: 15, vertical: 0),
                           ),
@@ -271,11 +261,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "Other details",
-                      style: GoogleFonts.roboto(
-                          fontSize: 15, fontWeight: FontWeight.w700),
-                    ),
+                    Text("Other details", style: textTheme.titleMedium),
                     InkWell(
                         onTap: () {
                           ref
@@ -333,13 +319,12 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                               verticalGap(4),
                               Text(
                                 otherWeatherDetails.entries.elementAt(pos).key,
-                                style: const TextStyle(
-                                    color: Colors.white70, fontSize: 12),
+                                style: textTheme.titleSmall,
                               ),
                               verticalGap(1),
                               Text(
                                   "${otherWeatherDetails.entries.elementAt(pos).value}",
-                                  style: const TextStyle(fontSize: 10)),
+                                  style: const TextStyle(fontSize: 12)),
                             ],
                           ),
                         );

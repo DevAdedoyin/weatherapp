@@ -6,3 +6,5 @@ final searchCity =
 final fromSearchScreen = StateProvider<String>((ref) => "city");
 
 final isFromSearchScreen = StateProvider<bool>((ref) => false);
+
+final userCurrentAddress = StateProvider<String>((ref) => "city");

@@ -33,7 +33,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     super.initState();
 
     getAddress();
-    ref.read(currentAddress.notifier).state = address!;
+    // ref.read(userCurrentAddress.notifier).state = address!;
     // ref.read(isFromSearchScreen.notifier).state = false;
   }
 
@@ -49,6 +49,8 @@ class _HomePageState extends ConsumerState<HomePage> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     address = prefs.getString("address");
+
+    ref.read(userCurrentAddress.notifier).state = address!;
   }
 
   List<String> getNextTenHours() {
@@ -71,6 +73,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     TextTheme textTheme = Theme.of(context).textTheme;
     ref.watch(hourlyWeatherDetails);
     ref.watch(currentAddress);
+    ref.watch(userCurrentAddress);
     ref.watch(isFromSearchScreen);
     return FutureBuilder<WeatherModel>(
         future: WeatherApiDataSource.fetchWeather(),
@@ -414,7 +417,18 @@ class _HomePageState extends ConsumerState<HomePage> {
               ],
             );
           } else {
-            return const LoadingIndicator();
+            return SizedBox(
+              width: double.maxFinite,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const LoadingIndicator(),
+                  verticalGap(10),
+                  Text("Loading weather data for $address")
+                ],
+              ),
+            );
           }
         });
   }

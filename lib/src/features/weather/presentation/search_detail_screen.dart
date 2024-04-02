@@ -485,12 +485,13 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                             verticalGap(5),
                                             Text(
                                               dayOfWeek,
-                                              style: GoogleFonts.roboto(
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.w600),
+                                              style: textTheme.titleMedium,
                                             ),
                                             verticalGap(3),
-                                            Text(data_.weather.description),
+                                            Text(
+                                              data_.weather.description,
+                                              style: textTheme.titleSmall,
+                                            ),
                                             verticalGap(2),
                                             const Divider(
                                                 thickness: 1,
