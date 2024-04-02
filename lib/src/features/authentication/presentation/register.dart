@@ -32,11 +32,11 @@ class RegisterScreen extends StatelessWidget {
                     verticalGap(size.height * 0.07),
                     Text(
                       "Create an",
-                      style: textTheme.displayLarge,
+                      style: textTheme.titleLarge,
                     ),
                     Text(
                       "account",
-                      style: textTheme.displayLarge,
+                      style: textTheme.titleLarge,
                     ),
                     verticalGap(30),
                     const RegisterForm(),
@@ -46,7 +46,7 @@ class RegisterScreen extends StatelessWidget {
                       child: Text(
                         "Sign up with",
                         textAlign: TextAlign.center,
-                        style: textTheme.titleSmall,
+                        style: textTheme.titleMedium,
                       ),
                     ),
                     verticalGap(10),

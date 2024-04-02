@@ -35,22 +35,22 @@ class ThirdPartyAuthWidgets extends ConsumerWidget {
               ),
             ),
           ),
-          horizontalGap(30),
-          InkWell(
-            splashColor: Colors.transparent,
-            onTap: () {},
-            child: Container(
-                height: 40,
-                width: 40,
-                padding: const EdgeInsets.all(7),
-                decoration: BoxDecoration(
-                    color: AppColors.thirdPartyIconBGColor,
-                    borderRadius: BorderRadius.circular(20)),
-                child: const Icon(
-                  FontAwesomeIcons.apple,
-                  color: Colors.black,
-                )),
-          ),
+          // horizontalGap(30),
+          // InkWell(
+          //   splashColor: Colors.transparent,
+          //   onTap: () {},
+          //   child: Container(
+          //       height: 40,
+          //       width: 40,
+          //       padding: const EdgeInsets.all(7),
+          //       decoration: BoxDecoration(
+          //           color: AppColors.thirdPartyIconBGColor,
+          //           borderRadius: BorderRadius.circular(20)),
+          //       child: const Icon(
+          //         FontAwesomeIcons.apple,
+          //         color: Colors.black,
+          //       )),
+          // ),
           horizontalGap(30),
           InkWell(
             splashColor: Colors.transparent,
