@@ -66,7 +66,7 @@ class _UserLocationState extends ConsumerState<UserLocation> {
                     GenerateWeatherLocation.getLocation();
                   },
                   style: ButtonStyle(
-                      elevation: const MaterialStatePropertyAll(10),
+                      elevation: const MaterialStatePropertyAll(5),
                       shape: const MaterialStatePropertyAll(
                           RoundedRectangleBorder(
                               borderRadius:
@@ -77,7 +77,7 @@ class _UserLocationState extends ConsumerState<UserLocation> {
                           MaterialStatePropertyAll(AppColors.accentColor)),
                   child: Text(
                     "Enable Location",
-                    style: textTheme.bodyMedium,
+                    style: textTheme.displaySmall,
                   ),
                 ),
               )

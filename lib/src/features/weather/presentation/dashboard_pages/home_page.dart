@@ -95,13 +95,12 @@ class _HomePageState extends ConsumerState<HomePage> {
                       Text(
                         "$address",
                         // textAlign: TextAlign.center,
-                        style: textTheme.displaySmall,
+                        style: textTheme.titleMedium,
                       ),
                       verticalGap(3),
                       Text(
                         getDateTime(),
-                        style: GoogleFonts.roboto(
-                            fontSize: 15, fontWeight: FontWeight.w600),
+                        style: textTheme.titleSmall,
                         // textAlign: TextAlign.center,
                       ),
                     ],
@@ -161,8 +160,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                               ),
                               Text(
                                 "Feel like: ${data.currentWeatherModel.feelsLike.round()}°c",
-                                style: GoogleFonts.roboto(
-                                    fontSize: 17, fontWeight: FontWeight.w800),
+                                style: textTheme.titleSmall,
                               )
                             ],
                           ),
@@ -204,20 +202,21 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    const Text(
+                                    Text(
                                       "Pressure",
-                                      style: TextStyle(color: Colors.grey),
+                                      style: textTheme.titleSmall,
                                     ),
                                     Text(
-                                        "${data.currentWeatherModel.pressure}"),
+                                      "${data.currentWeatherModel.pressure}",
+                                    ),
                                   ],
                                 ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    const Text(
+                                    Text(
                                       "Sunrise",
-                                      style: TextStyle(color: Colors.grey),
+                                      style: textTheme.titleSmall,
                                     ),
                                     Text(formattedSunrise),
                                   ],
@@ -225,9 +224,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    const Text(
+                                    Text(
                                       "Humidity",
-                                      style: TextStyle(color: Colors.grey),
+                                      style: textTheme.titleSmall,
                                     ),
                                     Text(
                                         "${data.currentWeatherModel.humidity}%"),
@@ -246,9 +245,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    const Text(
+                                    Text(
                                       "Wind Speed",
-                                      style: TextStyle(color: Colors.grey),
+                                      style: textTheme.titleSmall,
                                     ),
                                     Text(
                                         "${data.currentWeatherModel.windSpeed}km/h"),
@@ -257,9 +256,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    const Text(
+                                    Text(
                                       "Sunset",
-                                      style: TextStyle(color: Colors.grey),
+                                      style: textTheme.titleSmall,
                                     ),
                                     Text(formattedSunset),
                                   ],
@@ -267,9 +266,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    const Text(
+                                    Text(
                                       "Dew Point",
-                                      style: TextStyle(color: Colors.grey),
+                                      style: textTheme.titleSmall,
                                     ),
                                     Text(
                                         "${data.currentWeatherModel.dewPoint.round()}°c"),
@@ -293,7 +292,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                           padding: const EdgeInsets.symmetric(horizontal: 20.0),
                           child: Text(
                             'Next 10 hours',
-                            style: textTheme.displaySmall,
+                            style: textTheme.titleMedium,
                           ),
                         ),
                         verticalGap(10),
@@ -369,14 +368,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                                             CrossAxisAlignment.center,
                                         children: [
                                           verticalGap(5),
-                                          Text(
-                                            date.toString(),
-                                            style: GoogleFonts.roboto(
-                                                fontSize: 17,
-                                                fontWeight: FontWeight.w600),
-                                          ),
+                                          Text(date.toString(),
+                                              style: textTheme.titleMedium),
                                           verticalGap(3),
-                                          Text(data_.weather.description),
+                                          Text(
+                                            data_.weather.description,
+                                            style: textTheme.titleSmall,
+                                          ),
                                           verticalGap(2),
                                           const Divider(
                                               thickness: 1,
