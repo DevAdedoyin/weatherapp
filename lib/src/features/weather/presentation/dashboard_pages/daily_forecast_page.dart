@@ -31,11 +31,8 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
       children: [
         Container(
             margin: const EdgeInsets.only(top: 20, bottom: 5),
-            child: Text("7 Days Forecast", style: textTheme.displayMedium)),
-        const Text("Accurate Weather Forecast",
-            style: TextStyle(
-              fontSize: 12,
-            )),
+            child: Text("7 Days Forecast", style: textTheme.titleLarge)),
+        Text("Accurate Weather Forecast", style: textTheme.displaySmall),
         FutureBuilder(
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -99,17 +96,12 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                                 child: Image.network(WeatherIcon.weatherIcon(
                                     data[pos].weather.icon)),
                               ),
-                              title: Text(
-                                data[pos].weather.description,
-                              ),
+                              title: Text(data[pos].weather.description,
+                                  style: textTheme.titleMedium),
                               subtitle: Text(data[pos].summary,
-                                  style: const TextStyle(
-                                    fontSize: 10,
-                                  )),
+                                  style: TextStyle(fontSize: 12)),
                               trailing: Text("${data[pos].temp.day.round()}°c",
-                                  style: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600)),
+                                  style: textTheme.titleMedium),
                             ),
                           ),
                         ),
