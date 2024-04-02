@@ -73,7 +73,7 @@ ThemeData darkTheme = ThemeData(
     ),
     titleLarge: GoogleFonts.nunito(
       fontWeight: FontWeight.bold,
-      fontSize: 18,
+      fontSize: 20,
       // fontStyle: FontStyle.italic
     ),
     titleMedium: GoogleFonts.nunito(

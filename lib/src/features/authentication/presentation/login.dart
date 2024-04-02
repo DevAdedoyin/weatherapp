@@ -30,14 +30,14 @@ class LoginScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    verticalGap(50.0),
+                    verticalGap(40.0),
                     Text(
                       "Welcome",
-                      style: textTheme.displayLarge,
+                      style: textTheme.titleLarge,
                     ),
                     Text(
                       "Back!",
-                      style: textTheme.displayLarge,
+                      style: textTheme.titleLarge,
                     ),
                     verticalGap(30),
                     const LoginForm(),
@@ -47,7 +47,7 @@ class LoginScreen extends StatelessWidget {
                       child: Text(
                         "Sign in with",
                         textAlign: TextAlign.center,
-                        style: textTheme.titleSmall,
+                        style: textTheme.titleMedium,
                       ),
                     ),
                     verticalGap(10),
@@ -63,7 +63,7 @@ class LoginScreen extends StatelessWidget {
                         TextSpan(
                             text: "Register here",
                             recognizer: TapGestureRecognizer()
-                              ..onTap = () => context.go(AppRoutes.register),
+                              ..onTap = () => context.push(AppRoutes.register),
                             style: GoogleFonts.robotoSlab(
                                 fontSize: 12.5,
                                 color: AppColors.accentColor,
@@ -78,7 +78,15 @@ class LoginScreen extends StatelessWidget {
                         onPressed: () {
                           infoAuthAlertWidget(
                               context,
-                              "It's recommeded you sign in to enjoy the app's full feature. Thank you.",
+                              """
+It's recommeded you sign in to enjoy the app's full feature.
+
+Please note that your location is not saved on our server.
+
+Your location is only needed to make the app get weather details for that area.
+
+Thank you.
+                              """,
                               "Recommendation",
                               onTap: () =>
                                   context.go(AppRoutes.userLocatorPage));
@@ -95,10 +103,9 @@ class LoginScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        child: const Text(
-                          "Skip Sign In",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w700),
+                        child: Text(
+                          "Skip",
+                          style: textTheme.displaySmall,
                         ),
                       ),
                     )
