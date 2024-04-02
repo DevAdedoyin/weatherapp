@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:weatherapp/src/constants/app_colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:weatherapp/src/utils/weather_icon_utils.dart';
 
 import '../../data/repositories/hourly_weather_detail.dart';
 
@@ -46,11 +47,14 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text("Other details"),
+                Text(
+                  "Other details,",
+                  style: textTheme.titleMedium,
+                ),
                 SizedBox(
                   height: 25,
                   width: 25,
@@ -103,14 +107,14 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
                       leading: SizedBox(
                         height: size.height * 0.04,
                         width: size.height * 0.04,
-                        child: Image.asset(
-                          "assets/images/${weatherImages[pos]}",
+                        child: Image.network(
+                          WeatherIcon.weatherIcon(hourlyWeatherState.image!),
                           // fit: BoxFit.contain,
                         ),
                       ),
                       title: Text(
                         weatherTitles[pos],
-                        style: textTheme.displaySmall,
+                        style: textTheme.titleSmall,
                       ),
                       // subtitle: Text("data"),
                       trailing: Text(

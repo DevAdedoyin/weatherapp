@@ -55,7 +55,7 @@ class WeatherModel {
     List<Map<String, dynamic>> hourlyWeatherList = [];
     int pos = 0;
     for (var item in hourlyWeather) {
-      if (item is Map<String, dynamic> && pos < 5) {
+      if (item is Map<String, dynamic> && pos < 11) {
         print("Hourlyyysss: $pos");
         if (pos != 0) hourlyWeatherList.add(item);
         pos++;

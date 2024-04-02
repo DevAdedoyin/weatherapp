@@ -5,6 +5,7 @@ import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:weatherapp/src/common/gaps/sized_box.dart';
 import 'package:weatherapp/src/constants/app_colors.dart';
 import 'package:weatherapp/src/features/weather/data/repositories/hourly_weather_detail.dart';
+
 import 'package:weatherapp/src/features/weather/presentation/hourly_weather/weather_details_hourly.dart';
 import 'package:weatherapp/src/utils/weather_icon_utils.dart';
 
@@ -23,6 +24,7 @@ class _HourlyWeatherDetailsScreenState
     TextTheme textTheme = Theme.of(context).textTheme;
     Size size = MediaQuery.of(context).size;
     final hourlyWeatherState = ref.watch(hourlyWeatherDetails);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.scaffoldBgColor,
@@ -30,13 +32,12 @@ class _HourlyWeatherDetailsScreenState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              hourlyWeatherState.location!,
-              style: textTheme.displaySmall,
+              hourlyWeatherState.address,
+              style: textTheme.titleMedium,
             ),
             Text(
               hourlyWeatherState.date!,
-              style:
-                  GoogleFonts.roboto(fontSize: 14, fontWeight: FontWeight.w600),
+              style: textTheme.titleSmall,
             )
           ],
         ),
@@ -62,7 +63,7 @@ class _HourlyWeatherDetailsScreenState
             ),
             Text(
               "Weather Report",
-              style: textTheme.displaySmall,
+              style: textTheme.titleSmall,
             ),
             verticalGap(2),
             SizedBox(
@@ -114,8 +115,7 @@ class _HourlyWeatherDetailsScreenState
                         ),
                         Text(
                           "Feel like: ${hourlyWeatherState.feelsLike}°",
-                          style: GoogleFonts.roboto(
-                              fontSize: 17, fontWeight: FontWeight.w800),
+                          style: textTheme.titleSmall,
                         )
                       ],
                     ),

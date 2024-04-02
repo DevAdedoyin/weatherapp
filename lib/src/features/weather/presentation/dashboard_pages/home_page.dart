@@ -9,6 +9,7 @@ import "package:weatherapp/src/features/geo_location/repositories/address_repo.d
 // import "package:weatherapp/src/features/geo_location/data/get_location.dart";
 import "package:weatherapp/src/features/weather/data/datasources/weather_api_datasource.dart";
 import "package:weatherapp/src/features/weather/data/repositories/hourly_weather_detail.dart";
+import "package:weatherapp/src/features/weather/data/repositories/search_city_repo.dart";
 // import "package:weatherapp/src/features/weather/domain/ho_model.dart";
 import "package:weatherapp/src/features/weather/domain/weather_model.dart";
 import "package:weatherapp/src/common/loading_indicator.dart";
@@ -32,6 +33,8 @@ class _HomePageState extends ConsumerState<HomePage> {
     super.initState();
 
     getAddress();
+    ref.read(currentAddress.notifier).state = address!;
+    // ref.read(isFromSearchScreen.notifier).state = false;
   }
 
   String getDateTime() {
@@ -68,13 +71,12 @@ class _HomePageState extends ConsumerState<HomePage> {
     TextTheme textTheme = Theme.of(context).textTheme;
     ref.watch(hourlyWeatherDetails);
     ref.watch(currentAddress);
-
+    ref.watch(isFromSearchScreen);
     return FutureBuilder<WeatherModel>(
         future: WeatherApiDataSource.fetchWeather(),
         builder: (context, snapshot) {
           if (snapshot.hasData &&
               snapshot.connectionState != ConnectionState.waiting) {
-            ref.read(currentAddress.notifier).state = address!;
             print("ADDRESS $address");
             final data = snapshot.data;
             print("DATA: ${snapshot.data}");
@@ -343,6 +345,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                     hourlyState.windSpeed =
                                         data_.windSpeed.toString();
                                     hourlyState.position = position;
+                                    hourlyState.isFromSearch = false;
+                                    hourlyState.address = address!;
                                     context
                                         .push(AppRoutes.hourlyWeatherDetails);
                                   },

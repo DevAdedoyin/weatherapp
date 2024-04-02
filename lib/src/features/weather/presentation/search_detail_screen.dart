@@ -63,7 +63,8 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
     TextTheme textTheme = Theme.of(context).textTheme;
     ref.watch(hourlyWeatherDetails);
     final searchedCity = ref.watch(searchCity);
-    // final searchedLocationName = ref.watch(searchedALocation);
+    final fromSearch = ref.watch(fromSearchScreen);
+    ref.watch(isFromSearchScreen);
 
     // print("SEARCHING ${ref.read(searchedALocation.notifier).state}");
     return Scaffold(
@@ -71,40 +72,39 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
           future: WeatherApiDataSource.searchedWeather(
               city: "${searchedCity["city"]}"),
           builder: (context, snapshot) {
-            final data = snapshot.data;
-            // print("DATA: ${snapshot.data}");
-            final currentDateTime = DateTime.fromMillisecondsSinceEpoch(
-                data!.currentWeatherModel.dateTime * 1000);
-            final timeZoneAdded =
-                currentDateTime.add(Duration(seconds: data.timezoneOffset));
-            String formattedDateTime =
-                DateFormat('d MMMM, EEEE HH:mm').format(timeZoneAdded);
-            final sunrise = DateTime.fromMillisecondsSinceEpoch(
-                data.currentWeatherModel.sunrise * 1000);
-            final sunset = DateTime.fromMillisecondsSinceEpoch(
-                data.currentWeatherModel.sunset * 1000);
-            String formattedSunrise = DateFormat('HH:mm a').format(sunrise);
-            String formattedSunset = DateFormat('HH:mm a').format(sunset);
-
             if (snapshot.hasData &&
                 snapshot.connectionState != ConnectionState.waiting) {
+              final data = snapshot.data;
+              // print("DATA: ${snapshot.data}");
+              final currentDateTime = DateTime.fromMillisecondsSinceEpoch(
+                  data!.currentWeatherModel.dateTime * 1000);
+              final timeZoneAdded =
+                  currentDateTime.add(Duration(seconds: data.timezoneOffset));
+              String formattedDateTime =
+                  DateFormat('d MMMM, EEEE HH:mm').format(timeZoneAdded);
+              final sunrise = DateTime.fromMillisecondsSinceEpoch(
+                  data.currentWeatherModel.sunrise * 1000);
+              final sunset = DateTime.fromMillisecondsSinceEpoch(
+                  data.currentWeatherModel.sunset * 1000);
+              String formattedSunrise = DateFormat('HH:mm a').format(sunrise);
+              String formattedSunset = DateFormat('HH:mm a').format(sunset);
               return CustomScrollView(
                 slivers: <Widget>[
                   SliverAppBar(
                     backgroundColor: AppColors.scaffoldBgColor,
+                    automaticallyImplyLeading: true,
                     title: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           userSearchedAddress,
                           // textAlign: TextAlign.center,
-                          style: textTheme.displaySmall,
+                          style: textTheme.titleMedium,
                         ),
                         verticalGap(3),
                         Text(
                           formattedDateTime,
-                          style: GoogleFonts.roboto(
-                              fontSize: 15, fontWeight: FontWeight.w600),
+                          style: textTheme.titleSmall,
                           // textAlign: TextAlign.center,
                         ),
                       ],
@@ -165,9 +165,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                 ),
                                 Text(
                                   "Feel like: ${data.currentWeatherModel.feelsLike.round()}°c",
-                                  style: GoogleFonts.roboto(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.w800),
+                                  style: textTheme.titleSmall,
                                 )
                               ],
                             ),
@@ -211,9 +209,9 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      const Text(
+                                      Text(
                                         "Pressure",
-                                        style: TextStyle(color: Colors.grey),
+                                        style: textTheme.titleSmall,
                                       ),
                                       Text(
                                           "${data.currentWeatherModel.pressure}"),
@@ -223,9 +221,9 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      const Text(
+                                      Text(
                                         "Sunrise",
-                                        style: TextStyle(color: Colors.grey),
+                                        style: textTheme.titleSmall,
                                       ),
                                       Text(formattedSunrise),
                                     ],
@@ -234,9 +232,9 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      const Text(
+                                      Text(
                                         "Humidity",
-                                        style: TextStyle(color: Colors.grey),
+                                        style: textTheme.titleSmall,
                                       ),
                                       Text(
                                           "${data.currentWeatherModel.humidity}%"),
@@ -257,21 +255,21 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      const Text(
+                                      Text(
                                         "Wind Speed",
-                                        style: TextStyle(color: Colors.grey),
+                                        style: textTheme.titleSmall,
                                       ),
                                       Text(
-                                          "${data.currentWeatherModel.windSpeed}km/h"),
+                                          "${data.currentWeatherModel.windSpeed}"),
                                     ],
                                   ),
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      const Text(
+                                      Text(
                                         "Sunset",
-                                        style: TextStyle(color: Colors.grey),
+                                        style: textTheme.titleSmall,
                                       ),
                                       Text(formattedSunset),
                                     ],
@@ -280,9 +278,9 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      const Text(
+                                      Text(
                                         "Dew Point",
-                                        style: TextStyle(color: Colors.grey),
+                                        style: textTheme.titleSmall,
                                       ),
                                       Text(
                                           "${data.currentWeatherModel.dewPoint.round()}°c"),
@@ -307,7 +305,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                 const EdgeInsets.symmetric(horizontal: 20.0),
                             child: Text(
                               'Next 10 hours',
-                              style: textTheme.displaySmall,
+                              style: textTheme.titleMedium,
                             ),
                           ),
                           verticalGap(10),
@@ -360,6 +358,11 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                       hourlyState.windSpeed =
                                           data_.windSpeed.toString();
                                       hourlyState.position = position;
+
+                                      hourlyState.isFromSearch = true;
+
+                                      hourlyState.address = userSearchedAddress;
+
                                       context
                                           .push(AppRoutes.hourlyWeatherDetails);
                                     },
@@ -388,30 +391,28 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                             verticalGap(5),
                                             Text(
                                               date.toString(),
-                                              style: GoogleFonts.roboto(
-                                                  fontSize: 17,
-                                                  fontWeight: FontWeight.w600),
+                                              style: textTheme.titleMedium,
                                             ),
                                             verticalGap(3),
-                                            Text(data_.weather.description),
+                                            Text(
+                                              data_.weather.description,
+                                              style: textTheme.titleSmall,
+                                            ),
                                             verticalGap(2),
                                             const Divider(
                                                 thickness: 1,
                                                 indent: 10,
                                                 endIndent: 10,
                                                 color: AppColors.primaryColor),
-                                            Hero(
-                                              tag: "weather-image-$position",
-                                              child: Image.network(
-                                                WeatherIcon.weatherIcon(
-                                                  data_.weather.icon,
-                                                ),
+                                            Image.network(
+                                              WeatherIcon.weatherIcon(
+                                                data_.weather.icon,
                                               ),
                                             ),
                                             Text(
                                               "${data_.temp.round()}°c",
                                               style: GoogleFonts.roboto(
-                                                  fontSize: 27,
+                                                  fontSize: 25,
                                                   fontWeight: FontWeight.w700),
                                             ),
                                             verticalGap(5),
@@ -439,7 +440,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                 const EdgeInsets.symmetric(horizontal: 20.0),
                             child: Text(
                               'Next 7 Days',
-                              style: textTheme.displaySmall,
+                              style: textTheme.titleMedium,
                             ),
                           ),
                           verticalGap(7),
@@ -458,49 +459,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                   final dayOfWeek =
                                       DateFormat('EEEE').format(date);
                                   return InkWell(
-                                    onTap: () {
-                                      // final hourlyState = ref
-                                      //     .read(
-                                      //         hourlyWeatherDetails.notifier)
-                                      //     .state;
-                                      // hourlyState.date = DateFormat(
-                                      //         'd MMMM, EEEE')
-                                      //     .format(DateTime
-                                      //         .fromMillisecondsSinceEpoch(
-                                      //             data_.dateTime * 1000));
-                                      // hourlyState.time = DateFormat('h a')
-                                      //     .format(DateTime
-                                      //         .fromMillisecondsSinceEpoch(
-                                      //             data_.dateTime * 1000));
-                                      // hourlyState.desctiption =
-                                      //     data_.weather.description;
-                                      // hourlyState.dewPoint =
-                                      //     data_.dewPoint.round().toString();
-                                      // hourlyState.feelsLike = data_
-                                      //     .feelsLike
-                                      //     .round()
-                                      //     .toString();
-                                      // hourlyState.humidity =
-                                      //     data_.humidity.toString();
-                                      // hourlyState.image =
-                                      //     data_.weather.icon;
-                                      // hourlyState.location = address;
-                                      // hourlyState.pressure =
-                                      //     data_.pressure.toString();
-                                      // hourlyState.temp =
-                                      //     data_.temp.round().toString();
-                                      // hourlyState.visibility =
-                                      //     data_.visibility.toString();
-                                      // hourlyState.windDegree =
-                                      //     data_.windDegree.toString();
-                                      // hourlyState.windGust =
-                                      //     data_.windGust.toString();
-                                      // hourlyState.windSpeed =
-                                      //     data_.windSpeed.toString();
-                                      // hourlyState.position = position;
-                                      // context.push(
-                                      //     AppRoutes.hourlyWeatherDetails);
-                                    },
+                                    onTap: () {},
                                     borderRadius: BorderRadius.circular(15),
                                     radius: 0.5,
                                     child: Container(
@@ -531,9 +490,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                                   fontWeight: FontWeight.w600),
                                             ),
                                             verticalGap(3),
-                                            Text(""
-                                                // data_.weather.description
-                                                ),
+                                            Text(data_.weather.description),
                                             verticalGap(2),
                                             const Divider(
                                                 thickness: 1,
@@ -544,16 +501,16 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                               tag: "weather-image-$position",
                                               child: Image.network(
                                                 WeatherIcon.weatherIcon(
-                                                  "",
-                                                  // data_.weather.icon,
+                                                  // "",
+                                                  data_.weather.icon,
                                                 ),
                                               ),
                                             ),
                                             Text(
-                                              "",
-                                              // "${data_.temp.day.round()}°c",
+                                              // "",
+                                              "${data_.temp.day.round()}°c",
                                               style: GoogleFonts.roboto(
-                                                  fontSize: 27,
+                                                  fontSize: 25,
                                                   fontWeight: FontWeight.w700),
                                             ),
                                             verticalGap(5),
@@ -571,7 +528,18 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                 ],
               );
             } else {
-              return const LoadingIndicator();
+              return SizedBox(
+                width: double.maxFinite,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const LoadingIndicator(),
+                    verticalGap(10),
+                    Text("Loading weather data for ${searchedCity['city']}")
+                  ],
+                ),
+              );
             }
           }),
     );

@@ -18,9 +18,13 @@ final hourlyWeatherDetails = StateProvider<SelectedHourlyWeather>((ref) =>
         visibility: "visibility",
         windDegree: "windDegree",
         windGust: "windGust",
-        windSpeed: "windSpeed"));
+        windSpeed: "windSpeed",
+        isFromSearch: false,
+        address: ","));
 
 class SelectedHourlyWeather {
+  bool? isFromSearch;
+  String address;
   String? image;
   String? location;
   String? date;
@@ -38,7 +42,9 @@ class SelectedHourlyWeather {
   int? position;
 
   SelectedHourlyWeather(
-      {required this.date,
+      {required this.isFromSearch,
+      required this.address,
+      required this.date,
       required this.time,
       required this.desctiption,
       required this.dewPoint,
