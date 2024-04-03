@@ -26,8 +26,15 @@ class FireAuth {
       await user.reload();
       user = auth.currentUser;
 
-      final message =
-          "Hi ${user!.displayName}, Your registration is almost complete. Please, kindly check your email for a verification link. Thank you";
+      final message = """
+Hi ${user!.displayName},
+
+Your registration is almost complete.
+
+Please, kindly check your email for a verification link.
+
+Thank you
+""";
       const messageHeader = "REGISTRATION SUCCESSFUL";
       successAuthAlertWidget(context!, message, messageHeader);
       Future.delayed(
@@ -59,8 +66,15 @@ class FireAuth {
       );
       user = userCredential.user;
 
-      final message =
-          "Hi ${user!.displayName}, Your login is sucessful. Enjoy top notch weather forecast! Thank you.";
+      final message = """
+Hi ${user!.displayName},
+
+Your login is sucessful.
+
+Enjoy top notch weather forecast!
+
+Thank you.
+""";
       const messageHeader = "LOGIN SUCCESSFUL";
       successAuthAlertWidget(context, message, messageHeader);
       Future.delayed(
@@ -96,8 +110,15 @@ class FireAuth {
   }
 
   static Future<void> deleteUserAccount({required BuildContext context}) async {
-    const message =
-        "Hi,\n\nyour account has been deleted successfully from our server.\n\nTo continue seeing more weather updates, you can create a new account\n\n.Thank You.";
+    const message = """
+Hi,
+
+Your account has been deleted successfully from our server.
+
+To continue seeing more weather updates, you can create a new account.
+
+Thank You.
+""";
     const messageHeader = "Account Removal Successful";
     try {
       await FirebaseAuth.instance.currentUser!.delete();
@@ -121,11 +142,49 @@ class FireAuth {
   static Future<bool?> updatePasword(
       {required BuildContext context, required String newPassword}) async {
     final user = FirebaseAuth.instance.currentUser;
-    final message =
-        "Hi ${user?.displayName}, your password has been updated successfully. To continue seeing more weather updates, please kindly log in. Thank You.";
+    final message = """
+Hi ${user?.displayName},
+
+Your password has been updated successfully.
+
+To continue seeing more weather updates, please kindly log in.
+
+Thank You.
+""";
     const messageHeader = "Password Update Successful";
     try {
       await user?.updatePassword(newPassword);
+
+      successAuthAlertWidget(context, message, messageHeader);
+
+      Future.delayed(
+          const Duration(seconds: 2), () => context.go(AppRoutes.login));
+    } on FirebaseAuthException catch (e) {
+      failedAuthAlertWidget(context, e.message!, "PASSWORD UPDATE FAILED");
+    } catch (e) {
+      failedAuthAlertWidget(
+          context,
+          "Unable to update your password. Please try again.",
+          "PASSWORD UPDATE FAILED");
+    }
+    return false;
+  }
+
+  static Future<bool?> forgotPassword(
+      {required BuildContext context, required String email}) async {
+    // final user = FirebaseAuth.instance.currentUser;
+    final message = """
+Hi,
+
+A password reset link has been sent to $email.
+
+Please click the link to reset your password.
+
+Thank You.
+""";
+    const messageHeader = "Password Update Successful";
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
 
       successAuthAlertWidget(context, message, messageHeader);
 

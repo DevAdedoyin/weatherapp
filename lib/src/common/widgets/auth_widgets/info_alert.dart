@@ -17,7 +17,7 @@ void infoAuthAlertWidget(
           verticalGap(7),
           Text(
             messageHeader,
-            // textAlign: TextAlign.center,
+            textAlign: TextAlign.center,
             style: textTheme.titleMedium,
           ),
           verticalGap(12),
