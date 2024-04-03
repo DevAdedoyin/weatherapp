@@ -87,7 +87,7 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
           AnimatedContainer(
             duration: const Duration(milliseconds: 1200),
             curve: Curves.easeIn,
-            height: isOpen ? size.height * 0.60 : size.height * 0.25,
+            height: isOpen ? size.height * 0.60 : size.height * 0.34,
             child: ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (_, pos) {
@@ -101,7 +101,7 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
                     hourlyWeatherState.windGust!,
                   ];
                   return Card(
-                    elevation: 10,
+                    elevation: 5,
                     color: AppColors.scaffoldBgColor,
                     child: ListTile(
                       leading: SizedBox(

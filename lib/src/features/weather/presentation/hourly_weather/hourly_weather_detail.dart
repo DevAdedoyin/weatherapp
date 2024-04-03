@@ -68,11 +68,11 @@ class _HourlyWeatherDetailsScreenState
             verticalGap(2),
             SizedBox(
               // color: Colors.red,
-              height: size.width * 0.6,
-              width: size.width * 0.6,
+              height: size.width * 0.5,
+              width: size.width * 0.5,
               child: Card(
                 color: AppColors.scaffoldBgColor,
-                elevation: 20,
+                elevation: 5,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(100)),
                 child: Hero(

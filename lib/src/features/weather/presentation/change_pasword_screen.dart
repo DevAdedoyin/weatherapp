@@ -43,7 +43,7 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Change password"),
+        title: Text("Change password", style: textTheme.titleMedium),
         backgroundColor: AppColors.scaffoldBgColor,
       ),
       body: SingleChildScrollView(
@@ -55,8 +55,7 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
               children: [
                 SizedBox(
                   child: TextFormField(
-                    style: GoogleFonts.roboto(
-                        fontSize: 16, fontWeight: FontWeight.normal),
+                    style: textTheme.titleMedium,
                     // controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
                     readOnly: true,
@@ -167,12 +166,7 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
                             width: 15,
                             child: LoadingIndicator(),
                           )
-                        : const Text(
-                            "Update password",
-                            style: TextStyle(
-                              fontSize: 14,
-                            ),
-                          ),
+                        : Text("Update password", style: textTheme.titleSmall),
                   ),
                 ),
                 verticalGap(10),
@@ -187,10 +181,7 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
                     style: const ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(Colors.black),
                     ),
-                    label: const Text(
-                      "Login",
-                      style: TextStyle(color: Colors.white),
-                    ))
+                    label: Text("Login", style: textTheme.titleSmall))
               ],
             ),
           ),

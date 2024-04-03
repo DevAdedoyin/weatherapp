@@ -1,14 +1,15 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
-import "package:google_fonts/google_fonts.dart";
+
 import "package:intl/intl.dart";
+import "package:weatherapp/src/common/gaps/sized_box.dart";
 import "package:weatherapp/src/common/loading_indicator.dart";
 import "package:weatherapp/src/constants/app_colors.dart";
 import "package:weatherapp/src/features/weather/data/datasources/weather_api_datasource.dart";
 import "package:weatherapp/src/features/weather/data/repositories/daily_detail_repo.dart";
 import "package:weatherapp/src/features/weather/domain/daily_detail_model.dart";
-import "package:weatherapp/src/features/weather/domain/daily_weather_model.dart";
+
 import "package:weatherapp/src/routing/app_routes.dart";
 import "package:weatherapp/src/utils/weather_icon_utils.dart";
 
@@ -26,7 +27,7 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
 
-    final dailyWeather = ref.watch(dailyWeatherProvider);
+    ref.watch(dailyWeatherProvider);
     return Column(
       children: [
         Container(
@@ -36,7 +37,19 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
         FutureBuilder(
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const LoadingIndicator();
+              return SizedBox(
+                height: size.height * 0.7,
+                width: double.maxFinite,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const LoadingIndicator(),
+                    verticalGap(10),
+                    const Text("Loading your weather data")
+                  ],
+                ),
+              );
             }
             final data = snapshot.data?.dailyWeather;
             return Expanded(

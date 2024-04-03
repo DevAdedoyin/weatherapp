@@ -88,6 +88,8 @@ class FireAuth {
           const Duration(seconds: 4), () => context.go(AppRoutes.login));
 
       successAuthAlertWidget(context, message, messageHeader);
+      Future.delayed(
+          const Duration(seconds: 4), () => context.go(AppRoutes.login));
     } on FirebaseAuthException catch (e) {
       failedAuthAlertWidget(context, e.message!, "LOGOUT FAILED");
     }

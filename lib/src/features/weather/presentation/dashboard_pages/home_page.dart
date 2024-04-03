@@ -425,7 +425,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 children: [
                   const LoadingIndicator(),
                   verticalGap(10),
-                  Text("Loading weather data for $address")
+                  const Text("Loading your weather data")
                 ],
               ),
             );

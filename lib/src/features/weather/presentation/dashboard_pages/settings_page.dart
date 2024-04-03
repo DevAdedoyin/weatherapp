@@ -89,7 +89,57 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 ),
                 trailing: IconButton(
                   onPressed: () {
-                    FireAuth.signOut(context: context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          backgroundColor: AppColors.scaffoldBgColor,
+                          title: const Text('Logout'),
+                          content: Text(
+                            "Are you sure you want to logout?",
+                            style: textTheme.titleSmall,
+                          ),
+                          actions: [
+                            TextButton(
+                              style: ButtonStyle(
+                                  elevation: const MaterialStatePropertyAll(5),
+                                  backgroundColor:
+                                      MaterialStateProperty.all(Colors.black),
+                                  padding: const MaterialStatePropertyAll(
+                                    EdgeInsets.all(5),
+                                  ),
+                                  textStyle: const MaterialStatePropertyAll(
+                                      TextStyle(fontWeight: FontWeight.w700))),
+                              child: const Text(
+                                'Cancel',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            TextButton(
+                              style: ButtonStyle(
+                                  elevation: const MaterialStatePropertyAll(5),
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Colors.red[900]),
+                                  padding: const MaterialStatePropertyAll(
+                                    EdgeInsets.all(5),
+                                  ),
+                                  textStyle: const MaterialStatePropertyAll(
+                                      TextStyle(fontWeight: FontWeight.w700))),
+                              child: const Text(
+                                'Logout',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              onPressed: () {
+                                FireAuth.signOut(context: context);
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
                   icon: const Icon(Icons.arrow_forward_rounded),
                 ),
