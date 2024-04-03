@@ -10,4 +10,5 @@ class AppRoutes {
   static const String searchCityWeatherDetails = '/searchCityWeatherDetails';
   static const String dailyDetails = '/dailyDetails';
   static const String changePassword = '/changePassword';
+  static const String forgotPassword = '/forgotPassword';
 }

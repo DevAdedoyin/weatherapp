@@ -51,7 +51,7 @@ class WeatherApiDataSource {
     // Retrieve the API key from the environment variables
     final apiKey = dotenv.env['REACT_APP_WEATHER_API_KEY'];
 
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    // final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final latlng =
         await GenerateWeatherLocation.getLocationBySearch(location: city);

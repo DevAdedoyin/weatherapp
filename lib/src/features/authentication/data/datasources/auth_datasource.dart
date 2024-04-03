@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:weatherapp/src/common/widgets/auth_widgets/failed_alert.dart';
+import 'package:weatherapp/src/common/widgets/auth_widgets/info_alert.dart';
 import 'package:weatherapp/src/common/widgets/auth_widgets/success_alert.dart';
 import 'package:weatherapp/src/routing/app_routes.dart';
 
@@ -84,6 +85,11 @@ Thank you.
         failedAuthAlertWidget(context, e.message!, "LOGIN FAILED");
       } else if (e.code == 'wrong-password') {
         failedAuthAlertWidget(context, e.message!, "LOGIN FAILED");
+      } else {
+        failedAuthAlertWidget(
+            context,
+            "Incorrect email or password. Please try again.",
+            "INCORRECT DETAILS");
       }
     }
 
@@ -184,18 +190,24 @@ Thank You.
 """;
     const messageHeader = "Password Update Successful";
     try {
+      // final user = FirebaseAuth.instance.currentUser;
+      // if (!user!.emailVerified) {
+      //   infoAuthAlertWidget(
+      //       context,
+      //       "This email does not exist on our server. Please try again.",
+      //       "Unknown Account");
+      //   return false;
+      // }
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      context.go(AppRoutes.login);
 
       successAuthAlertWidget(context, message, messageHeader);
-
-      Future.delayed(
-          const Duration(seconds: 2), () => context.go(AppRoutes.login));
     } on FirebaseAuthException catch (e) {
       failedAuthAlertWidget(context, e.message!, "PASSWORD UPDATE FAILED");
     } catch (e) {
       failedAuthAlertWidget(
           context,
-          "Unable to update your password. Please try again.",
+          "Unable to send email link to update your password. Please try again.",
           "PASSWORD UPDATE FAILED");
     }
     return false;

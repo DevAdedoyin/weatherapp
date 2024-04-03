@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:weatherapp/src/common/gaps/sized_box.dart';
 import 'package:weatherapp/src/constants/app_colors.dart';
 import 'package:weatherapp/src/features/geo_location/data/get_location.dart';
 

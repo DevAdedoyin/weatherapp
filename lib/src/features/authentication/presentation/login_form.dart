@@ -1,8 +1,10 @@
 import "package:flutter/material.dart";
+import "package:go_router/go_router.dart";
 import "package:weatherapp/src/common/gaps/sized_box.dart";
 import "package:weatherapp/src/common/loading_indicator.dart";
 import "package:weatherapp/src/constants/app_colors.dart";
 import "package:weatherapp/src/features/authentication/data/datasources/auth_datasource.dart";
+import "package:weatherapp/src/routing/app_routes.dart";
 import "package:weatherapp/src/themes/custom_themes.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:google_fonts/google_fonts.dart";
@@ -80,7 +82,9 @@ class _LoginFormState extends ConsumerState<LoginForm> {
             Container(
               alignment: Alignment.centerRight,
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  context.push(AppRoutes.forgotPassword);
+                },
                 child: Text(
                   "Forgot Password?",
                   style: GoogleFonts.robotoSlab(

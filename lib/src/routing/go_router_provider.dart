@@ -1,11 +1,12 @@
 import 'package:go_router/go_router.dart';
+import 'package:weatherapp/src/features/authentication/presentation/forgot_pasword.dart';
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:weatherapp/src/features/authentication/presentation/login.dart';
 import 'package:weatherapp/src/features/authentication/presentation/register.dart';
 import 'package:weatherapp/src/features/geo_location/presentation/user_location.dart';
 import 'package:weatherapp/src/features/onboarding/onboarding/onboarding_screen.dart';
 import 'package:weatherapp/src/features/onboarding/splash_screen.dart';
-import 'package:weatherapp/src/features/weather/presentation/change_pasword_screen.dart';
+import 'package:weatherapp/src/features/authentication/presentation/change_pasword_screen.dart';
 import 'package:weatherapp/src/features/weather/presentation/daily_weather_detail_screen.dart';
 import 'package:weatherapp/src/features/weather/presentation/dashboard/dashboard.dart';
 import 'package:weatherapp/src/features/weather/presentation/hourly_weather/hourly_weather_detail.dart';
@@ -55,6 +56,10 @@ GoRouter goRouter = GoRouter(
     GoRoute(
       path: AppRoutes.changePassword,
       builder: (context, state) => const ChangePasswordScreen(),
+    ),
+    GoRoute(
+      path: AppRoutes.forgotPassword,
+      builder: (context, state) => const ForgotPasswordScreen(),
     ),
   ],
   errorBuilder: (context, state) => RouteErrorScreen(

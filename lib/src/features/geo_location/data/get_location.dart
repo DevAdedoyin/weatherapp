@@ -110,7 +110,7 @@ class GenerateWeatherLocation {
     await prefs.setString(
         'searchedAddress', "$location, ${storedAddress.first.countryName!}");
 
-    return {"lat": lat, "lon": lon, "address": searchALocation!};
+    return {"lat": lat, "lon": lon, "address": searchALocation};
     // goRouter.go(AppRoutes.dashboard);
   }
 
