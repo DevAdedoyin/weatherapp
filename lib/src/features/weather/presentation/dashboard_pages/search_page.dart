@@ -80,7 +80,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
         // height: 30,
         child: Column(
           children: [
-            verticalGap(10),
+            verticalGap(size.height * 0.06),
             SizedBox(
               width: size.width * 0.9,
               child: FieldSuggestion<SearchSuggestionModel>(

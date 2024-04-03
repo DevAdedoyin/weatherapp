@@ -31,14 +31,14 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
     return Column(
       children: [
         Container(
-            margin: const EdgeInsets.only(top: 20, bottom: 5),
+            margin: EdgeInsets.only(top: size.height * 0.06, bottom: 5),
             child: Text("7 Days Forecast", style: textTheme.titleLarge)),
         Text("Accurate Weather Forecast", style: textTheme.displaySmall),
         FutureBuilder(
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return SizedBox(
-                height: size.height * 0.7,
+                height: size.height * 0.75,
                 width: double.maxFinite,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -62,8 +62,8 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                   final currData = data[pos];
 
                   return Container(
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 10),
+                    margin: const EdgeInsets.only(
+                        left: 15, right: 15, top: 0, bottom: 20),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
