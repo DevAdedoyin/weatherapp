@@ -65,10 +65,18 @@ Thank you
         email: email,
         password: password,
       );
+
       user = userCredential.user;
 
+      if (!user!.emailVerified) {
+        failedAuthAlertWidget(
+            context,
+            "This email address is not verified. Please check your email address for a verification link.",
+            "Unverified Account");
+        return user;
+      }
       final message = """
-Hi ${user!.displayName},
+Hi ${user.displayName},
 
 Your login is sucessful.
 
@@ -78,8 +86,8 @@ Thank you.
 """;
       const messageHeader = "LOGIN SUCCESSFUL";
       successAuthAlertWidget(context, message, messageHeader);
-      Future.delayed(
-          const Duration(seconds: 4), () => context.go(AppRoutes.dashboard));
+      Future.delayed(const Duration(seconds: 4),
+          () => context.go(AppRoutes.userLocatorPage));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         failedAuthAlertWidget(context, e.message!, "LOGIN FAILED");
@@ -199,9 +207,10 @@ Thank You.
       //   return false;
       // }
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-      context.go(AppRoutes.login);
 
       successAuthAlertWidget(context, message, messageHeader);
+      Future.delayed(
+          const Duration(seconds: 2), () => context.push(AppRoutes.login));
     } on FirebaseAuthException catch (e) {
       failedAuthAlertWidget(context, e.message!, "PASSWORD UPDATE FAILED");
     } catch (e) {

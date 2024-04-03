@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:weatherapp/src/common/gaps/sized_box.dart';
@@ -13,7 +14,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   var _visible = false;
-
+  // final user = FirebaseAuth.instance.currentUser;
   @override
   void initState() {
     Timer(const Duration(milliseconds: 500), () {
@@ -21,8 +22,14 @@ class _SplashScreenState extends State<SplashScreen> {
         _visible = true;
       });
       Future.delayed(
-        const Duration(milliseconds: 7000),
-        () => context.go(AppRoutes.onboarding),
+        const Duration(milliseconds: 5000),
+        () {
+          if (FirebaseAuth.instance.currentUser == null) {
+            context.go(AppRoutes.onboarding);
+          } else {
+            context.go(AppRoutes.userLocatorPage);
+          }
+        },
       );
     });
 
