@@ -106,10 +106,18 @@ class _HomePageState extends ConsumerState<HomePage> {
                         style: textTheme.titleMedium,
                       ),
                       verticalGap(3),
-                      Text(
-                        getDateTime(),
-                        style: textTheme.titleSmall,
-                        // textAlign: TextAlign.center,
+                      Card(
+                        color: AppColors.scaffoldBgColor,
+                        elevation: 3,
+                        child: Container(
+                          margin:
+                              const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                          child: Text(
+                            getDateTime(),
+                            style: textTheme.titleSmall,
+                            // textAlign: TextAlign.center,
+                          ),
+                        ),
                       ),
                     ],
                   ),

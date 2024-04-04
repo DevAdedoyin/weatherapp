@@ -102,10 +102,18 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                           style: textTheme.titleMedium,
                         ),
                         verticalGap(3),
-                        Text(
-                          formattedDateTime,
-                          style: textTheme.titleSmall,
-                          // textAlign: TextAlign.center,
+                        Card(
+                          color: AppColors.scaffoldBgColor,
+                          elevation: 3,
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 5),
+                            child: Text(
+                              formattedDateTime,
+                              style: textTheme.titleSmall,
+                              // textAlign: TextAlign.center,
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -115,7 +123,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                     // centerTitle: true,
                     // backgroundColor: AppColors.accentColor.withOpacity(0.05),
                     elevation: 5,
-                      expandedHeight: size.height < 650
+                    expandedHeight: size.height < 650
                         ? size.height * 0.30
                         : size.height * 0.30,
                     collapsedHeight: size.height < 650
@@ -314,7 +322,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                           ),
                           verticalGap(10),
                           SizedBox(
-                             height: size.height < 650
+                            height: size.height < 650
                                 ? size.height * 0.40
                                 : size.height * 0.30,
                             child: ListView.builder(
@@ -453,7 +461,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                           ),
                           verticalGap(7),
                           SizedBox(
-                           height: size.height < 650
+                            height: size.height < 650
                                 ? size.height * 0.40
                                 : size.height * 0.30,
                             child: ListView.builder(

@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:weatherapp/src/common/widgets/auth_widgets/failed_alert.dart';
-import 'package:weatherapp/src/common/widgets/auth_widgets/info_alert.dart';
+// import 'package:weatherapp/src/common/widgets/auth_widgets/info_alert.dart';
 import 'package:weatherapp/src/common/widgets/auth_widgets/success_alert.dart';
 import 'package:weatherapp/src/routing/app_routes.dart';
 

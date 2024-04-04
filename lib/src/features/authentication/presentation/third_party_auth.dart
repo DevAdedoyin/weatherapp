@@ -51,24 +51,24 @@ class ThirdPartyAuthWidgets extends ConsumerWidget {
           //         color: Colors.black,
           //       )),
           // ),
-          horizontalGap(20),
-          InkWell(
-            splashColor: Colors.transparent,
-            onTap: () => loginWithFacebook(context: context),
-            child: Container(
-              height: 40,
-              width: 40,
-              padding: const EdgeInsets.all(7),
-              decoration: BoxDecoration(
-                  color: AppColors.thirdPartyIconBGColor,
-                  borderRadius: BorderRadius.circular(20)),
-              child: Image.asset(
-                "assets/images/facebook.png",
-                fit: BoxFit.contain,
-                alignment: Alignment.center,
-              ),
-            ),
-          ),
+          // horizontalGap(20),
+          // InkWell(
+          //   splashColor: Colors.transparent,
+          //   onTap: () => loginWithFacebook(context: context),
+          //   child: Container(
+          //     height: 40,
+          //     width: 40,
+          //     padding: const EdgeInsets.all(7),
+          //     decoration: BoxDecoration(
+          //         color: AppColors.thirdPartyIconBGColor,
+          //         borderRadius: BorderRadius.circular(20)),
+          //     child: Image.asset(
+          //       "assets/images/facebook.png",
+          //       fit: BoxFit.contain,
+          //       alignment: Alignment.center,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
