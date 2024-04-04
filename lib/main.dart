@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:weatherapp/src/routing/go_router_provider.dart';
@@ -11,6 +12,9 @@ import 'firebase_options.dart';
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
   // FirebaseInitialization.initializeFirebase();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const ProviderScope(child: WeatherApp()));
@@ -33,6 +37,7 @@ class _WeatherAppState extends ConsumerState<WeatherApp> {
       routeInformationParser: goRouter.routeInformationParser,
       routeInformationProvider: goRouter.routeInformationProvider,
       routerDelegate: goRouter.routerDelegate,
+      debugShowCheckedModeBanner: false,
       title: 'Weather Monitor',
       theme: darkTheme,
       darkTheme: lightTheme,

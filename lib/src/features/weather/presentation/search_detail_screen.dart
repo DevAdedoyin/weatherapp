@@ -77,15 +77,15 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
               final data = snapshot.data;
               // print("DATA: ${snapshot.data}");
               final currentDateTime = DateTime.fromMillisecondsSinceEpoch(
-                  data!.currentWeatherModel.dateTime * 1000);
-              final timeZoneAdded =
-                  currentDateTime.add(Duration(seconds: data.timezoneOffset));
+                  data!.currentWeatherModel.dateTime.toInt() * 1000);
+              final timeZoneAdded = currentDateTime
+                  .add(Duration(seconds: data.timezoneOffset.toInt()));
               String formattedDateTime =
                   DateFormat('d MMMM, EEEE HH:mm').format(timeZoneAdded);
               final sunrise = DateTime.fromMillisecondsSinceEpoch(
-                  data.currentWeatherModel.sunrise * 1000);
+                  data.currentWeatherModel.sunrise.toInt() * 1000);
               final sunset = DateTime.fromMillisecondsSinceEpoch(
-                  data.currentWeatherModel.sunset * 1000);
+                  data.currentWeatherModel.sunset.toInt() * 1000);
               String formattedSunrise = DateFormat('HH:mm a').format(sunrise);
               String formattedSunset = DateFormat('HH:mm a').format(sunset);
               return CustomScrollView(
@@ -304,7 +304,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 20.0),
                             child: Text(
-                              'Next 10 hours',
+                              'Next 7 hours',
                               style: textTheme.titleMedium,
                             ),
                           ),
@@ -320,7 +320,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                   final data_ = data.hourlyWeather[position];
                                   var date = DateFormat.Hm().format(
                                       DateTime.fromMillisecondsSinceEpoch(
-                                          data_.dateTime * 1000));
+                                          data_.dateTime.toInt() * 1000));
                                   return InkWell(
                                     onTap: () {
                                       final hourlyState = ref
@@ -330,11 +330,13 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                           DateFormat('d MMMM, EEEE').format(
                                               DateTime
                                                   .fromMillisecondsSinceEpoch(
-                                                      data_.dateTime * 1000));
+                                                      data_.dateTime.toInt() *
+                                                          1000));
                                       hourlyState.time = DateFormat('h a')
                                           .format(DateTime
                                               .fromMillisecondsSinceEpoch(
-                                                  data_.dateTime * 1000));
+                                                  data_.dateTime.toInt() *
+                                                      1000));
                                       hourlyState.desctiption =
                                           data_.weather.description;
                                       hourlyState.dewPoint =
@@ -455,7 +457,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                   final data_ = data.dailyWeather[position];
                                   var date =
                                       DateTime.fromMillisecondsSinceEpoch(
-                                          data_.dateTime * 1000);
+                                          data_.dateTime.toInt() * 1000);
                                   final dayOfWeek =
                                       DateFormat('EEEE').format(date);
                                   return InkWell(

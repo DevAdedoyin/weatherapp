@@ -41,13 +41,10 @@ class DailyWeatherModel {
     // Extracting individual properties from the JSON data
     final dateTime = data["dt"] as int;
 
-
-
     final sunrise = data["sunrise"] as int;
     final sunset = data["sunset"] as int;
     final moonrise = data["moonrise"] as int;
     final moonset = data["moonset"] as int;
-   
 
     final pressure = data["pressure"] as int;
     final summary = data["summary"] as String;

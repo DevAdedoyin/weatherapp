@@ -44,14 +44,14 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
       dailyWeather.feelsLike.day,
     ];
 
-    final sunrise =
-        DateTime.fromMillisecondsSinceEpoch(dailyWeather.sunrise * 1000);
+    final sunrise = DateTime.fromMillisecondsSinceEpoch(
+        dailyWeather.sunrise.toInt() * 1000);
     final sunset =
-        DateTime.fromMillisecondsSinceEpoch(dailyWeather.sunset * 1000);
-    final moonrise =
-        DateTime.fromMillisecondsSinceEpoch(dailyWeather.moonrise * 1000);
-    final moonset =
-        DateTime.fromMillisecondsSinceEpoch(dailyWeather.moonset * 1000);
+        DateTime.fromMillisecondsSinceEpoch(dailyWeather.sunset.toInt() * 1000);
+    final moonrise = DateTime.fromMillisecondsSinceEpoch(
+        dailyWeather.moonrise.toInt() * 1000);
+    final moonset = DateTime.fromMillisecondsSinceEpoch(
+        dailyWeather.moonset.toInt() * 1000);
     String formattedSunrise = DateFormat('HH:mm a').format(sunrise);
     String formattedSunset = DateFormat('HH:mm a').format(sunset);
     String formattedMoonrise = DateFormat('HH:mm a').format(moonrise);

@@ -78,15 +78,16 @@ class _HomePageState extends ConsumerState<HomePage> {
     return FutureBuilder<WeatherModel>(
         future: WeatherApiDataSource.fetchWeather(),
         builder: (context, snapshot) {
+          print("snap data ${snapshot.data}");
           if (snapshot.hasData &&
               snapshot.connectionState != ConnectionState.waiting) {
             print("ADDRESS $address");
             final data = snapshot.data;
             print("DATA: ${snapshot.data}");
             final sunrise = DateTime.fromMillisecondsSinceEpoch(
-                data!.currentWeatherModel.sunrise * 1000);
+                data!.currentWeatherModel.sunrise.toInt() * 1000);
             final sunset = DateTime.fromMillisecondsSinceEpoch(
-                data.currentWeatherModel.sunset * 1000);
+                data.currentWeatherModel.sunset.toInt() * 1000);
             String formattedSunrise = DateFormat('HH:mm a').format(sunrise);
             String formattedSunset = DateFormat('HH:mm a').format(sunset);
 
@@ -296,7 +297,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20.0),
                           child: Text(
-                            'Next 10 hours',
+                            'Next 7 hours',
                             style: textTheme.titleMedium,
                           ),
                         ),
@@ -312,7 +313,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 final data_ = data.hourlyWeather[position];
                                 var date = DateFormat.Hm().format(
                                     DateTime.fromMillisecondsSinceEpoch(
-                                        data_.dateTime * 1000));
+                                        data_.dateTime.toInt() * 1000));
                                 return InkWell(
                                   onTap: () {
                                     final hourlyState = ref
@@ -321,10 +322,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                                     hourlyState.date =
                                         DateFormat('d MMMM, EEEE').format(
                                             DateTime.fromMillisecondsSinceEpoch(
-                                                data_.dateTime * 1000));
+                                                data_.dateTime.toInt() * 1000));
                                     hourlyState.time = DateFormat('h a').format(
                                         DateTime.fromMillisecondsSinceEpoch(
-                                            data_.dateTime * 1000));
+                                            data_.dateTime.toInt() * 1000));
                                     hourlyState.desctiption =
                                         data_.weather.description;
                                     hourlyState.dewPoint =
@@ -415,6 +416,28 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
                 ),
               ],
+            );
+          } else if (!snapshot.hasData &&
+              snapshot.connectionState != ConnectionState.waiting) {
+            return SizedBox(
+              width: double.maxFinite,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Unable to fetch data. Please try again.",
+                    style: textTheme.titleSmall,
+                  ),
+                  TextButton.icon(
+                    onPressed: () {
+                      setState(() {});
+                    },
+                    icon: const Icon(Icons.refresh),
+                    label: const Text("Refresh"),
+                  )
+                ],
+              ),
             );
           } else {
             return SizedBox(

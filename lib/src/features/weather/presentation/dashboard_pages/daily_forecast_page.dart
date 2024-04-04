@@ -50,13 +50,36 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                   ],
                 ),
               );
+            } else if (!snapshot.hasData &&
+                snapshot.connectionState != ConnectionState.waiting) {
+              return SizedBox(
+                height: size.height * 0.75,
+                width: double.maxFinite,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Unable to fetch data. Please try again.",
+                      style: textTheme.titleSmall,
+                    ),
+                    TextButton.icon(
+                      onPressed: () {
+                        setState(() {});
+                      },
+                      icon: const Icon(Icons.refresh),
+                      label: const Text("Refresh"),
+                    )
+                  ],
+                ),
+              );
             }
             final data = snapshot.data?.dailyWeather;
             return Expanded(
               child: ListView.builder(
                 itemBuilder: (_, pos) {
                   final dateTime = DateTime.fromMillisecondsSinceEpoch(
-                      data![pos].dateTime * 1000);
+                      data![pos].dateTime.toInt() * 1000);
                   final formattedDate =
                       DateFormat('EEEE, d MMMM').format(dateTime);
                   final currData = data[pos];

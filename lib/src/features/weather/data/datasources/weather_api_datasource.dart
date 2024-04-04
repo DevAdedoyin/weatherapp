@@ -37,10 +37,10 @@ class WeatherApiDataSource {
     // print(response.statusCode);
     // Check if the response status code is 200 (OK)
     if (response.statusCode == 200) {
-      // print("Hourly: ${responseBody["hourly"]}");
-      return WeatherModel.fromJson(responseBody as Map<String, dynamic>);
+      print("Hourly: ${responseBody["hourly"]}");
+      return await WeatherModel.fromJson(responseBody as Map<String, dynamic>);
     } else {
-      throw CustomException(
+      throw CustomException(  
           message: "Error fetching data. Status code: ${response.statusCode}",
           statusCode: response.statusCode);
     }
