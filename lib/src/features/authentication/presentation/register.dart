@@ -40,7 +40,7 @@ class RegisterScreen extends StatelessWidget {
                     ),
                     verticalGap(30),
                     const RegisterForm(),
-                    verticalGap(size.height * 0.06),
+                    verticalGap(size.height < 650 ? 8 : 15),
                     SizedBox(
                       width: double.maxFinite,
                       child: Text(
@@ -49,7 +49,7 @@ class RegisterScreen extends StatelessWidget {
                         style: textTheme.titleMedium,
                       ),
                     ),
-                    verticalGap(10),
+                    verticalGap(5),
                     const ThirdPartyAuthWidgets(),
                     const Spacer(),
                     Container(

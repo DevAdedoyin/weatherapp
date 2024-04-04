@@ -14,22 +14,23 @@ class OnboardingBodyWidget extends StatelessWidget {
     TextTheme textTheme = Theme.of(context).textTheme;
     return SizedBox(
         // color: Colors.white,
-        height: size.height * 0.92,
+        // height: size.height * 0.90,
         child: Column(children: [
-          SizedBox(
-              height: size.height * 0.6,
-              child: Image.asset(
-                image!,
-                fit: BoxFit.contain,
-              )),
-          verticalGap(20.0),
-          Text(title!, style: textTheme.titleMedium),
-          verticalGap(8.0),
-          Text(
-            description!,
-            textAlign: TextAlign.center,
-            style: textTheme.displaySmall,
-          ),
-        ]));
+      SizedBox(
+        height: size.height < 650 ? size.height * 0.45 : size.height * 0.50,
+        child: Image.asset(
+          image!,
+          fit: BoxFit.contain,
+        ),
+      ),
+      verticalGap(size.height < 650 ? size.height * 0.10 : size.height * 0.15),
+      Text(title!, style: textTheme.titleMedium),
+      verticalGap(size.height * 0.01),
+      Text(
+        description!,
+        textAlign: TextAlign.center,
+        style: textTheme.displaySmall,
+      ),
+    ]));
   }
 }

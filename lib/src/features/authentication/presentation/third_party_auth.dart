@@ -51,7 +51,7 @@ class ThirdPartyAuthWidgets extends ConsumerWidget {
           //         color: Colors.black,
           //       )),
           // ),
-          horizontalGap(30),
+          horizontalGap(20),
           InkWell(
             splashColor: Colors.transparent,
             onTap: () => loginWithFacebook(context: context),

@@ -16,6 +16,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
+    print("HEIGHT ${size.height}");
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
@@ -41,7 +42,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                     verticalGap(30),
                     const LoginForm(),
-                    verticalGap(50),
+                    verticalGap(30),
                     SizedBox(
                       width: double.maxFinite,
                       child: Text(
@@ -50,7 +51,7 @@ class LoginScreen extends StatelessWidget {
                         style: textTheme.titleMedium,
                       ),
                     ),
-                    verticalGap(10),
+                    verticalGap(size.height < 650 ? 8 : 15),
                     const ThirdPartyAuthWidgets(),
                     const Spacer(),
                     Container(
@@ -70,7 +71,7 @@ class LoginScreen extends StatelessWidget {
                                 fontWeight: FontWeight.bold))
                       ])),
                     ),
-                    verticalGap(20),
+                    verticalGap(size.height < 650 ? 8 : 15),
                     SizedBox(
                       // height: 30,
                       width: double.maxFinite,

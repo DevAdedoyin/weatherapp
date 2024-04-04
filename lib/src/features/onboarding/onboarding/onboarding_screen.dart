@@ -27,14 +27,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Scaffold(
       body: IntroductionScreen(
         pages: pages,
-        done: Text("Done", style: textTheme.displaySmall),
+        done: Text("Done", style: textTheme.titleSmall),
         onDone: () => context.go(AppRoutes.login),
         onSkip: () => context.go(AppRoutes.login),
-        skip: Text("Skip", style: textTheme.displaySmall),
+        skip: Text("Skip", style: textTheme.titleSmall),
         showSkipButton: true,
         showBackButton: false,
         showNextButton: true,
-        next: Text("Next", style: textTheme.displaySmall),
+        next: Text("Next", style: textTheme.titleSmall),
         back: const Icon(Icons.arrow_back),
         dotsDecorator: DotsDecorator(
           size: const Size.square(8.0),
@@ -48,26 +48,26 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         ),
         skipStyle: TextButton.styleFrom(
             backgroundColor: AppColors.accentColor,
-            elevation: 10,
-            textStyle: const TextStyle(
-              fontWeight: FontWeight.bold,
-              // fontSize: 14,
+            elevation: 5,
+            textStyle: textTheme.titleSmall,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50.0),
             )),
         doneStyle: TextButton.styleFrom(
             backgroundColor: AppColors.black,
-            elevation: 10,
-            textStyle: const TextStyle(
-              fontWeight: FontWeight.bold,
-              // fontSize: 14.5,
-            )),
+            elevation: 5,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50.0),
+            ),
+            textStyle: textTheme.titleSmall),
         nextStyle: TextButton.styleFrom(
             foregroundColor: Colors.black,
             backgroundColor: AppColors.deepBlack,
-            elevation: 10,
-            textStyle: const TextStyle(
-              fontWeight: FontWeight.bold,
-              // fontSize: 14,
-            )),
+            elevation: 5,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50.0),
+            ),
+            textStyle: textTheme.titleSmall),
       ),
     );
   }

@@ -125,7 +125,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
               ),
             ),
             // verticalGap(5),
-            verticalGap(40),
+            verticalGap(30),
             SizedBox(
               child: Row(
                 children: [
