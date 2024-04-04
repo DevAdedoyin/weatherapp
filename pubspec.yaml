@@ -61,6 +61,7 @@ dependencies:
   simple_gradient_text: ^1.3.0
   field_suggestion: ^0.2.5
   get: ^4.6.6
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:

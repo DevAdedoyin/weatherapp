@@ -63,7 +63,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
     TextTheme textTheme = Theme.of(context).textTheme;
     ref.watch(hourlyWeatherDetails);
     final searchedCity = ref.watch(searchCity);
-    final fromSearch = ref.watch(fromSearchScreen);
+    ref.watch(fromSearchScreen);
     ref.watch(isFromSearchScreen);
 
     // print("SEARCHING ${ref.read(searchedALocation.notifier).state}");
@@ -529,6 +529,28 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                     ),
                   ),
                 ],
+              );
+            } else if (!snapshot.hasData &&
+                snapshot.connectionState != ConnectionState.waiting) {
+              return SizedBox(
+                width: double.maxFinite,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Unable to fetch data. Please try again.",
+                      style: textTheme.titleSmall,
+                    ),
+                    TextButton.icon(
+                      onPressed: () {
+                        setState(() {});
+                      },
+                      icon: const Icon(Icons.refresh),
+                      label: const Text("Refresh"),
+                    )
+                  ],
+                ),
               );
             } else {
               return SizedBox(

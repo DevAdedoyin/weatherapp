@@ -1,3 +1,4 @@
+import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
@@ -17,6 +18,7 @@ import "package:weatherapp/src/routing/app_routes.dart";
 import "package:weatherapp/src/utils/weather_icon_utils.dart";
 import 'package:intl/intl.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
+// import 'package:shimmer/shimmer.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -111,6 +113,24 @@ class _HomePageState extends ConsumerState<HomePage> {
                       ),
                     ],
                   ),
+                  actions: [
+                    FirebaseAuth.instance.currentUser == null
+                        ? TextButton(
+                            onPressed: () {
+                              context.go(AppRoutes.login);
+                            },
+                            child: Text(
+                              "Login",
+                              style: textTheme.titleSmall,
+                            ))
+                        : Container(
+                            margin: const EdgeInsets.only(right: 15),
+                            child: Text(
+                              "${FirebaseAuth.instance.currentUser?.displayName!}",
+                              style: textTheme.titleSmall,
+                            ),
+                          )
+                  ],
                   snap: false,
                   floating: true,
                   pinned: true,
