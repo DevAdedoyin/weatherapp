@@ -286,7 +286,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                 ),
                 AnimatedContainer(
                   height: isDailyOtherContainerOpen
-                      ? size.height * 0.45
+                      ? size.height * 0.50
                       : size.height * 0.15,
                   duration: const Duration(milliseconds: 500),
                   child: GridView.builder(

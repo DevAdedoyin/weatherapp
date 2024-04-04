@@ -42,7 +42,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                     verticalGap(30),
                     const LoginForm(),
-                    verticalGap(30),
+                    verticalGap(size.height < 650 ? 15 : 30),
                     SizedBox(
                       width: double.maxFinite,
                       child: Text(

@@ -137,9 +137,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                   // centerTitle: true,
                   // backgroundColor: AppColors.accentColor.withOpacity(0.05),
                   elevation: 5,
-                  expandedHeight: size.height * 0.3,
-                  collapsedHeight: size.height * 0.09,
-                  // toolbarHeight: size.height * 0.085,
+                  expandedHeight: size.height < 650
+                      ? size.height * 0.30
+                      : size.height * 0.30,
+                  collapsedHeight: size.height < 650
+                      ? size.height * 0.09
+                      : size.height * 0.09,
+                  toolbarHeight: size.height * 0.089,
                   flexibleSpace: FlexibleSpaceBar(
                     titlePadding: const EdgeInsets.symmetric(
                       horizontal: 5,
@@ -323,7 +327,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                         ),
                         verticalGap(10),
                         SizedBox(
-                          height: size.height * 0.30,
+                          height: size.height < 650
+                              ? size.height * 0.40
+                              : size.height * 0.30,
                           child: ListView.builder(
                               shrinkWrap: true,
                               itemCount: data.hourlyWeather.length,
@@ -395,10 +401,12 @@ class _HomePageState extends ConsumerState<HomePage> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
-                                          verticalGap(5),
+                                          verticalGap(
+                                              size.height < 650 ? 2 : 5),
                                           Text(date.toString(),
                                               style: textTheme.titleMedium),
-                                          verticalGap(3),
+                                          verticalGap(
+                                              size.height < 650 ? 1 : 3),
                                           Text(
                                             data_.weather.description,
                                             style: textTheme.titleSmall,
@@ -423,7 +431,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                                 fontSize: 27,
                                                 fontWeight: FontWeight.w700),
                                           ),
-                                          verticalGap(5),
+                                          verticalGap(
+                                              size.height < 650 ? 2 : 5),
                                         ],
                                       ),
                                     ),

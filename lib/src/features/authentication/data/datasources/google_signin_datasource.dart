@@ -29,7 +29,14 @@ Future<dynamic> signInWithGoogle({BuildContext? context}) async {
 
     successAuthAlertWidget(
         context!,
-        "Welcome ${user!.displayName}, Your Google signin is successful. Enjoy top notch weather forecast! Thank you.",
+        """
+Welcome ${user!.displayName},
+
+Your Google signin is successful.
+
+Enjoy top notch weather forecast!
+
+Thank you.""",
         "Google Signin Successful");
 
     context.go(AppRoutes.userLocatorPage);

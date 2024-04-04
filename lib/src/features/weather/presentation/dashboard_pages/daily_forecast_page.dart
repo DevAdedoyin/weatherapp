@@ -1,3 +1,4 @@
+import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
@@ -38,7 +39,8 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return SizedBox(
-                height: size.height * 0.75,
+                height:
+                    size.height < 650 ? size.height * 0.6 : size.height * 0.75,
                 width: double.maxFinite,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -53,7 +55,8 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
             } else if (!snapshot.hasData &&
                 snapshot.connectionState != ConnectionState.waiting) {
               return SizedBox(
-                height: size.height * 0.75,
+                height:
+                    size.height < 650 ? size.height * 0.6 : size.height * 0.75,
                 width: double.maxFinite,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -99,28 +102,31 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                           elevation: 5,
                           color: AppColors.scaffoldBgColor,
                           child: InkWell(
-                            onTap: () {
-                              final dailyDetail = DailyDetailModel(
-                                  dateTime: formattedDate,
-                                  temp: currData.temp,
-                                  feelsLike: currData.feelsLike,
-                                  pressure: currData.pressure,
-                                  moonrise: currData.moonrise,
-                                  moonset: currData.moonset,
-                                  summary: currData.summary,
-                                  sunrise: currData.sunrise,
-                                  sunset: currData.sunset,
-                                  humidity: currData.humidity,
-                                  dewPoint: currData.dewPoint,
-                                  windSpeed: currData.windSpeed,
-                                  windDegree: currData.windDegree,
-                                  weather: currData.weather);
+                            onTap: FirebaseAuth.instance.currentUser == null
+                                ? () {}
+                                : () {
+                                    final dailyDetail = DailyDetailModel(
+                                        dateTime: formattedDate,
+                                        temp: currData.temp,
+                                        feelsLike: currData.feelsLike,
+                                        pressure: currData.pressure,
+                                        moonrise: currData.moonrise,
+                                        moonset: currData.moonset,
+                                        summary: currData.summary,
+                                        sunrise: currData.sunrise,
+                                        sunset: currData.sunset,
+                                        humidity: currData.humidity,
+                                        dewPoint: currData.dewPoint,
+                                        windSpeed: currData.windSpeed,
+                                        windDegree: currData.windDegree,
+                                        weather: currData.weather);
 
-                              ref.read(dailyWeatherProvider.notifier).state =
-                                  dailyDetail;
+                                    ref
+                                        .read(dailyWeatherProvider.notifier)
+                                        .state = dailyDetail;
 
-                              context.push(AppRoutes.dailyDetails);
-                            },
+                                    context.push(AppRoutes.dailyDetails);
+                                  },
                             radius: 0.5,
                             borderRadius: BorderRadius.circular(10),
                             child: ListTile(
