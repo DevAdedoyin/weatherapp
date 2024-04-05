@@ -9,18 +9,17 @@ The Weather Monitor App is a mobile application that helps users get real-time u
 - Installation guide
 - Features
 - Usage
-- Configuration
 - Contributing
 - License
 - Contact Information
 
-## Installation guide
-The installation process for this project is very straightforward.
+## Installation guide and Configuration
+###The installation process for this project is very straightforward.
 1. Fork the repository.
 2. Run, <b><i>git clone 'repo-link'</i></b> on your git.
 3. You need to get an API key from Google for the geolocation to work.
 4. You also need an API key from Open Weather to make the API endpoint get data for your location or searched location.
-5. Finally run <b><i>flutter run</i></b>.
+5. Finally run, <b><i>flutter run</i></b>.
 
 ## Features
 ### Authentication
@@ -42,4 +41,20 @@ The installation process for this project is very straightforward.
 - Authenticated users can request for their data to be deleted.
 - Once a user clicks the "Remove account" button and confirms their action, their account automatically gets deleted without having to reach out to any admin.
 
+## Usage
+### Below is a step-by-step video demo on the app usage 
 
+## Contributing
+- Everyone interested in this project is welcome to contribute to the project.
+- All you need to do is
+  1. Fork the repo.
+  2. Clone the repo.
+  3. You can create a new branch if you want.
+  4. Make your adjustments.
+  5. git add and commit your changes.
+  6. Push your changes.
+  7. Make a pull request.
+  8. Your pull request will be tested and merged.
+
+## License
+See the LICENSE.md file for license rights and limitations (MIT).
