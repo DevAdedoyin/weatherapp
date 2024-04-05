@@ -14,7 +14,7 @@ The Weather Monitor App is a mobile application that helps users get real-time u
 - Contact Information
 
 ## Installation guide and Configuration
-###The installation process for this project is very straightforward.
+### The installation process for this project is very straightforward.
 1. Fork the repository.
 2. Run, <b><i>git clone 'repo-link'</i></b> on your git.
 3. You need to get an API key from Google for the geolocation to work.
