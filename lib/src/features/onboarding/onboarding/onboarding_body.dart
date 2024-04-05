@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weatherapp/src/common/gaps/sized_box.dart';
+import 'package:weatherapp/src/constants/app_colors.dart';
 
 class OnboardingBodyWidget extends StatelessWidget {
   final String? image;
@@ -16,11 +17,16 @@ class OnboardingBodyWidget extends StatelessWidget {
         // color: Colors.white,
         // height: size.height * 0.90,
         child: Column(children: [
-      SizedBox(
+      Container(
+        color: AppColors.cardBgColor,
         height: size.height < 650 ? size.height * 0.45 : size.height * 0.50,
-        child: Image.asset(
-          image!,
-          fit: BoxFit.contain,
+        child: Card(
+          color: AppColors.scaffoldBgColor,
+          elevation: 5,
+          child: Image.asset(
+            image!,
+            fit: BoxFit.contain,
+          ),
         ),
       ),
       verticalGap(size.height < 650 ? size.height * 0.10 : size.height * 0.15),
