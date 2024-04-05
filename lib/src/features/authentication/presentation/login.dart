@@ -16,7 +16,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
-    print("HEIGHT ${size.height}");
+    // print("HEIGHT ${size.height}");
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(

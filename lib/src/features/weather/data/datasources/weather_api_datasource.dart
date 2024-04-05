@@ -37,10 +37,10 @@ class WeatherApiDataSource {
     // print(response.statusCode);
     // Check if the response status code is 200 (OK)
     if (response.statusCode == 200) {
-      print("Hourly: ${responseBody["hourly"]}");
+      // print("Hourly: ${responseBody["hourly"]}");
       return await WeatherModel.fromJson(responseBody as Map<String, dynamic>);
     } else {
-      throw CustomException(  
+      throw CustomException(
           message: "Error fetching data. Status code: ${response.statusCode}",
           statusCode: response.statusCode);
     }
@@ -56,7 +56,7 @@ class WeatherApiDataSource {
     final latlng =
         await GenerateWeatherLocation.getLocationBySearch(location: city);
 
-    print("CHECKING CITY: $city");
+    // print("CHECKING CITY: $city");
 
     // final addressContainer = ProviderContainer();
 
@@ -65,7 +65,7 @@ class WeatherApiDataSource {
 
     userSearchedAddress = latlng["address"] as String;
 
-    print("SEARCHER ${latlng["address"]}");
+    // print("SEARCHER ${latlng["address"]}");
     final lat = latlng["lat"];
     final lon = latlng["lon"];
     // double? lati = prefs.getDouble('searchedLat');

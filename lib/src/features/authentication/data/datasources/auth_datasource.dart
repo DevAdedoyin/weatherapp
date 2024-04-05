@@ -47,7 +47,7 @@ Thank you
         failedAuthAlertWidget(context!, e.message!, "REGISTRATION FAILED");
       }
     } catch (e) {
-      print(e);
+      // print(e);
     }
     return user;
   }

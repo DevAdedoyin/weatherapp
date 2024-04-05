@@ -28,14 +28,14 @@ class WeatherModel {
     final currentWeather = CurrentWeatherModel.fromJson(currentWeatherModel);
 
     // HOURLY WEATHER DATA
-    print("KORENT: ${data['hourly']}");
+    // print("KORENT: ${data['hourly']}");
     final hourlyWeather = data['hourly'] as List;
 
     List<Map<String, dynamic>> hourlyWeatherList = [];
     int pos = 0;
     for (var item in hourlyWeather) {
       if (item is Map<String, dynamic> && pos < 8) {
-        print("Hourlyyysss: $pos");
+        // print("Hourlyyysss: $pos");
         if (pos != 0) hourlyWeatherList.add(item);
         pos++;
       } else {
@@ -45,18 +45,18 @@ class WeatherModel {
 
     // print("TESTING $hourlyWeatherList");
     final hourly = hourlyWeatherList.map((e) {
-      print("eeeooo: $e");
+      // print("eeeooo: $e");
       return HourlyWeatherModel.fromJson(e);
     }).toList();
 
     // DAILY WEATHER DATA
-    print("Daily KORENT: ${data['daily']}");
+    // print("Daily KORENT: ${data['daily']}");
     List<Map<String, dynamic>> dailyWeatherList = [];
     int currPos = 0;
     final dailyWeather = data['daily'] as List;
     for (var item in dailyWeather) {
       if (item is Map<String, dynamic> && currPos <= 7) {
-        print("Dailysssss: $currPos");
+        // print("Dailysssss: $currPos");
         if (currPos != 0) dailyWeatherList.add(item);
         currPos++;
       } else {
@@ -64,11 +64,11 @@ class WeatherModel {
       }
     }
     final daily = dailyWeatherList.map((e) {
-      print("dddooo: $e");
+      // print("dddooo: $e");
       return DailyWeatherModel.fromJson(e);
     }).toList();
 
-    print("DAILYWEATHER $daily");
+    // print("DAILYWEATHER $daily");
 
     return WeatherModel(
         lat: lat,

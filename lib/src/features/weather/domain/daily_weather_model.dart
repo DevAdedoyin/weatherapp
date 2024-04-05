@@ -59,7 +59,7 @@ class DailyWeatherModel {
     final temperature = data["temp"];
     final temp = Temp.fromJson(temperature as Map<String, dynamic>);
 
-    print("TEMPERATURE ${temp.day}");
+    // print("TEMPERATURE ${temp.day}");
 
     // Creating FeelsLike object from the "feels_like" property in the JSON data
     final feelsLike_ = data["feels_like"] as Map<String, dynamic>;

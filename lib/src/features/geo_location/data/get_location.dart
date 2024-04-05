@@ -74,7 +74,7 @@ class GenerateWeatherLocation {
 
     final storedAddress = await geocoder.findAddressesFromQuery(location);
 
-    print(storedAddress.first.coordinates);
+    // print(storedAddress.first.coordinates);
     Coordinates coords = storedAddress.first.coordinates;
 
     final lat = coords.latitude;
@@ -83,8 +83,8 @@ class GenerateWeatherLocation {
     // Position position = await Geolocator.getCurrentPosition(
     //     desiredAccuracy: LocationAccuracy.high);
 
-    print("searchedLat $lat");
-    print("searchedLon $lon");
+    // print("searchedLat $lat");
+    // print("searchedLon $lon");
     // await prefs.setDouble('searchedLat', lat!);
     // await prefs.setDouble('searchedLon', lon!);
 
@@ -105,8 +105,8 @@ class GenerateWeatherLocation {
 
     // final storedAddress =
     // await geocoder.findAddressesFromCoordinates(Coordinates(lat, lon));
-    print(
-        "USER SEARCHED LOCATION $location ${storedAddress.first.countryName!}");
+    // print(
+    //     "USER SEARCHED LOCATION $location ${storedAddress.first.countryName!}");
     await prefs.setString(
         'searchedAddress', "$location, ${storedAddress.first.countryName!}");
 

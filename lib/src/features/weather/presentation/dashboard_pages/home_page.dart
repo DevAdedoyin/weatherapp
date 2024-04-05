@@ -80,12 +80,12 @@ class _HomePageState extends ConsumerState<HomePage> {
     return FutureBuilder<WeatherModel>(
         future: WeatherApiDataSource.fetchWeather(),
         builder: (context, snapshot) {
-          print("snap data ${snapshot.data}");
+          // print("snap data ${snapshot.data}");
           if (snapshot.hasData &&
               snapshot.connectionState != ConnectionState.waiting) {
-            print("ADDRESS $address");
+            // print("ADDRESS $address");
             final data = snapshot.data;
-            print("DATA: ${snapshot.data}");
+            // print("DATA: ${snapshot.data}");
             final sunrise = DateTime.fromMillisecondsSinceEpoch(
                 data!.currentWeatherModel.sunrise.toInt() * 1000);
             final sunset = DateTime.fromMillisecondsSinceEpoch(
