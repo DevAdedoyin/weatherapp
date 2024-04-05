@@ -1,17 +1,16 @@
-![8504201](https://github.com/DevAdedoyin/weatherapp/assets/59482569/52ef2f87-f9b7-4ff3-ac80-eb4f71a48be6)
-
 # Weather Monitor App
+![Screenshot_20240405-103750](https://github.com/DevAdedoyin/weatherapp/assets/59482569/598c049e-a6c0-4933-adad-bc5650e4cab1)
+
 
 ## Project Description
 The Weather Monitor App is a mobile application that helps users get real-time updates on weather conditions around the world. The main purpose of this project is to help users obtain weather data for their current location. This documentation contains a comprehensive guide on all you need to know about this project and how to use the mobile app.
 
 ## Table of Content
-- Installation guide
+- Installation guide and configuration
 - Features
 - Usage
 - Contributing
 - License
-- Contact Information
 
 ## Installation guide and Configuration
 ### The installation process for this project is very straightforward.
@@ -58,4 +57,3 @@ The Weather Monitor App is a mobile application that helps users get real-time u
 
 ## License
 See the <a href="https://github.com/DevAdedoyin/weatherapp/blob/master/LICENSE.MD">LICENSE.md</a> file for license rights and limitations (MIT).
-
