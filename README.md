@@ -57,4 +57,5 @@ The Weather Monitor App is a mobile application that helps users get real-time u
   8. Your pull request will be tested and merged.
 
 ## License
-See the LICENSE.md file for license rights and limitations (MIT).
+See the <a href="https://github.com/DevAdedoyin/weatherapp/blob/master/LICENSE.MD">LICENSE.md</a> file for license rights and limitations (MIT).
+
