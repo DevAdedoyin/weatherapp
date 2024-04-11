@@ -11,7 +11,6 @@ The Weather Monitor App is a mobile application that helps users get real-time u
 ## Table of Content
 - Installation guide and configuration
 - Features
-- Usage
 - Contributing
 - License
 
@@ -42,9 +41,6 @@ The Weather Monitor App is a mobile application that helps users get real-time u
 ### User Data Removal
 - Authenticated users can request for their data to be deleted.
 - Once a user clicks the "Remove account" button and confirms their action, their account automatically gets deleted without having to reach out to any admin.
-
-## Usage
-### Below is a step-by-step video demo on the app usage 
 
 ## Contributing
 - Everyone interested in this project is welcome to contribute to the project.
