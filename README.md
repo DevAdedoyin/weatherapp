@@ -11,6 +11,7 @@ The Weather Monitor App is a mobile application that helps users get real-time u
 ## Table of Content
 - Installation guide and configuration
 - Features
+- Architecture
 - Contributing
 - License
 
@@ -41,6 +42,11 @@ The Weather Monitor App is a mobile application that helps users get real-time u
 ### User Data Removal
 - Authenticated users can request for their data to be deleted.
 - Once a user clicks the "Remove account" button and confirms their action, their account automatically gets deleted without having to reach out to any admin.
+
+## Architecture
+This project uses the flutter Feature-First approach.
+Each feature has the Presentation layer, Application layer, Domain layer and Data layer.
+This approach helps to give the codebase and the app a consistent structure.
 
 ## Contributing
 - Everyone interested in this project is welcome to contribute to the project.
