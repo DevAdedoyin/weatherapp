@@ -31,12 +31,12 @@ class WeatherModel {
     // print("KORENT: ${data['hourly']}");
     final hourlyWeather = data['hourly'] as List;
 
-    List<Map<String, dynamic>> hourlyWeatherList = [];
+    List<Map<String, dynamic>> hourlyWeatherList = []; //hourlyWeather.sublist(0, 1);
     int pos = 0;
     for (var item in hourlyWeather) {
-      if (item is Map<String, dynamic> && pos < 8) {
-        // print("Hourlyyysss: $pos");
-        if (pos != 0) hourlyWeatherList.add(item);
+      if (   item is Map<String, dynamic> && pos <= 7 ) {
+        // print("Hourlyyysss: $item");
+        if (pos != 0) hourlyWeatherList.add(item as Map<String, dynamic>);
         pos++;
       } else {
         break;
@@ -55,7 +55,7 @@ class WeatherModel {
     int currPos = 0;
     final dailyWeather = data['daily'] as List;
     for (var item in dailyWeather) {
-      if (item is Map<String, dynamic> && currPos <= 7) {
+      if (item is Map<String, dynamic> && currPos <= 5) {
         // print("Dailysssss: $currPos");
         if (currPos != 0) dailyWeatherList.add(item);
         currPos++;

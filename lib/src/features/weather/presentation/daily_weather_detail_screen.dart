@@ -220,11 +220,11 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                 AnimatedContainer(
                   duration: const Duration(milliseconds: 500),
                   height: isTempContainerOpen
-                      ? size.height * 0.53
+                      ? size.height * 0.55
                       : size.height * 0.11,
                   // color: AppColors.cardBgColor,
                   child: ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
+                      // physics: const NeverScrollableScrollPhysics(),
                       itemCount: daily.length,
                       itemBuilder: (context, pos) {
                         return Card(
@@ -286,7 +286,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                 ),
                 AnimatedContainer(
                   height: isDailyOtherContainerOpen
-                      ? size.height * 0.50
+                      ? size.height * 0.55
                       : size.height * 0.15,
                   duration: const Duration(milliseconds: 500),
                   child: GridView.builder(

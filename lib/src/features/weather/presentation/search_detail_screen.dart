@@ -96,6 +96,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                     title: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        verticalGap(3),
                         Text(
                           userSearchedAddress,
                           // textAlign: TextAlign.center,

@@ -100,6 +100,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      verticalGap(3),
                       Text(
                         "$address",
                         // textAlign: TextAlign.center,
