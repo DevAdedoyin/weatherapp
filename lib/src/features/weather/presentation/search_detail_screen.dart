@@ -96,19 +96,19 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                     title: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        verticalGap(3),
+                        verticalGap(size.height < 650 ? 10 : 3),
                         Text(
                           userSearchedAddress,
                           // textAlign: TextAlign.center,
                           style: textTheme.titleMedium,
                         ),
-                        verticalGap(3),
+                        verticalGap(1),
                         Card(
                           color: AppColors.scaffoldBgColor,
                           elevation: 3,
                           child: Container(
                             margin: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 5),
+                                horizontal: 10, vertical: 7),
                             child: Text(
                               formattedDateTime,
                               style: textTheme.titleSmall,
@@ -166,7 +166,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                 GradientText(
                                   "${data.currentWeatherModel.temp.round()}°",
                                   style: GoogleFonts.robotoCondensed(
-                                    fontSize: 100.0,
+                                    fontSize: size.height < 650 ? 70 :  100.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   colors: const [
@@ -324,7 +324,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                           verticalGap(10),
                           SizedBox(
                             height: size.height < 650
-                                ? size.height * 0.40
+                                ? size.height * 0.50
                                 : size.height * 0.30,
                             child: ListView.builder(
                                 shrinkWrap: true,

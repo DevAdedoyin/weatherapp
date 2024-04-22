@@ -187,7 +187,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                               GradientText(
                                 "${data.currentWeatherModel.temp.round()}°",
                                 style: GoogleFonts.robotoCondensed(
-                                  fontSize: 100.0,
+                                  fontSize:size.height < 650 ? 70 : 100.0,
                                   fontWeight: FontWeight.bold,
                                 ),
                                 colors: const [
@@ -337,7 +337,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                         verticalGap(10),
                         SizedBox(
                           height: size.height < 650
-                              ? size.height * 0.40
+                              ? size.height * 0.50
                               : size.height * 0.30,
                           child: ListView.builder(
                               shrinkWrap: true,

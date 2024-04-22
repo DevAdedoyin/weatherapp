@@ -30,7 +30,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
     TextTheme textTheme = Theme.of(context).textTheme;
     final isPasswordVisible = ref.watch(iconButtonProvider);
     final isLoading = ref.watch(isAuthLoading);
-
+    Size size = MediaQuery.of(context).size;
     return SizedBox(
       child: Form(
         key: _formKey,
@@ -78,7 +78,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                 ),
               ),
             ),
-            verticalGap(5),
+            verticalGap(size.height < 650 ? 2 : 5),
             Container(
               alignment: Alignment.centerRight,
               child: InkWell(
@@ -93,7 +93,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                 ),
               ),
             ),
-            verticalGap(40),
+            verticalGap(size.height < 650 ? 7 : 30),
             SizedBox(
               child: Row(
                 children: [

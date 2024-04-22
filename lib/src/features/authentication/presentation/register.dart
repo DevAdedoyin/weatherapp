@@ -38,7 +38,7 @@ class RegisterScreen extends StatelessWidget {
                       "account",
                       style: textTheme.titleLarge,
                     ),
-                    verticalGap(30),
+                    verticalGap(size.height < 650 ? 15: 30),
                     const RegisterForm(),
                     verticalGap(size.height < 650 ? 8 : 15),
                     SizedBox(

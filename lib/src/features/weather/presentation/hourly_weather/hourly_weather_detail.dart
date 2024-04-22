@@ -50,7 +50,8 @@ class _HourlyWeatherDetailsScreenState
               hourlyWeatherState.time!,
               style: GoogleFonts.robotoCondensed(
                 height: 1,
-                fontSize: 70.0,
+                fontSize: size.height < 650
+                    ? 40 : 70.0,
                 fontWeight: FontWeight.bold,
               ),
               textAlign: TextAlign.center,
@@ -103,7 +104,8 @@ class _HourlyWeatherDetailsScreenState
                           "${hourlyWeatherState.temp!}°",
                           style: GoogleFonts.robotoCondensed(
                             height: 1,
-                            fontSize: 100.0,
+                            fontSize:size.height < 650
+                                ? 70 : 100.0,
                             fontWeight: FontWeight.bold,
                           ),
                           colors: const [

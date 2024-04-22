@@ -151,7 +151,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                 verticalGap(5),
                 Container(
                   padding: const EdgeInsets.only(top: 0),
-                  margin: const EdgeInsets.only(left: 20, right: 20, top: 0),
+                  margin:  EdgeInsets.only(left: size.width < 650 ? 10 : 20, right: size.width < 650 ? 10 :  20, top: 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -163,7 +163,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                             GradientText(
                               "${dailyWeather.temp.day.round()}°",
                               style: GoogleFonts.robotoCondensed(
-                                fontSize: 100.0,
+                                fontSize: size.width < 650 ? 70 : 100.0,
                                 fontWeight: FontWeight.bold,
                               ),
                               colors: const [

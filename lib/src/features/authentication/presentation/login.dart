@@ -16,7 +16,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
-    // print("HEIGHT ${size.height}");
+    print("HEIGHT ${size.height}");
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
@@ -40,7 +40,7 @@ class LoginScreen extends StatelessWidget {
                       "Back!",
                       style: textTheme.titleLarge,
                     ),
-                    verticalGap(30),
+                    verticalGap(size.height < 650 ? 15 :30),
                     const LoginForm(),
                     verticalGap(size.height < 650 ? 15 : 30),
                     SizedBox(

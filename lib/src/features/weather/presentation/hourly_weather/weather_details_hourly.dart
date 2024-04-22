@@ -89,7 +89,7 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
             curve: Curves.easeIn,
             height: isOpen ? size.height * 0.60 : size.height * 0.34,
             child: ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
+                // physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (_, pos) {
                   List<String> details = [
                     hourlyWeatherState.pressure!,
