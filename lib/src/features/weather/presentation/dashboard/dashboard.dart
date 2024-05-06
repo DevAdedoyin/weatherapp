@@ -27,6 +27,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
 
   static const List<Widget> _unAuthpUserPages = [
     HomePage(),
+    SearchPage(),
     DailyForecastPage(),
   ];
 
@@ -56,6 +57,18 @@ class _DashboardState extends ConsumerState<Dashboard> {
                       : const Icon(Icons.home_filled),
                   label: "Home",
                 ),
+                BottomNavigationBarItem(
+                    backgroundColor: AppColors.scaffoldBgColor,
+                    icon: currentIndex == 1
+                        ? Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white54.withOpacity(0.15),
+                            borderRadius: BorderRadius.circular(20)),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 7, vertical: 7),
+                        child: const Icon(Icons.search))
+                        : const Icon(Icons.search),
+                    label: "Search"),
                 BottomNavigationBarItem(
                     backgroundColor: AppColors.scaffoldBgColor,
                     icon: currentIndex == 2

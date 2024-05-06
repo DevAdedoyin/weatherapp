@@ -134,6 +134,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                               ),
                               onPressed: () {
                                 FireAuth.signOut(context: context);
+
                               },
                             ),
                           ],

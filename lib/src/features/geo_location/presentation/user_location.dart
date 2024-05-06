@@ -4,6 +4,8 @@ import 'package:weatherapp/src/common/gaps/sized_box.dart';
 import 'package:weatherapp/src/constants/app_colors.dart';
 import 'package:weatherapp/src/features/geo_location/data/get_location.dart';
 
+import '../../weather/data/repositories/bottom_nav_state.dart';
+
 class UserLocation extends ConsumerStatefulWidget {
   const UserLocation({super.key});
 
@@ -21,8 +23,14 @@ class _UserLocationState extends ConsumerState<UserLocation> {
 
   @override
   Widget build(BuildContext context) {
+
+    resetIndex(){
+      final currentIndex = ref.watch(bottomNavState);
+      ref.read(bottomNavState.notifier).state = 0;
+    }
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
+    resetIndex();
     return Scaffold(
       body: SizedBox(
         width: double.maxFinite,
