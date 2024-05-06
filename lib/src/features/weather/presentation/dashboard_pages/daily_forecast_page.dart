@@ -33,7 +33,7 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
       children: [
         Container(
             margin: EdgeInsets.only(top: size.height * 0.06, bottom: 5),
-            child: Text("7 Days Forecast", style: textTheme.titleLarge)),
+            child: Text("5 Days Forecast", style: textTheme.titleLarge)),
         Text("Accurate Weather Forecast", style: textTheme.displaySmall),
         FutureBuilder(
           builder: (context, snapshot) {
