@@ -1,10 +1,12 @@
 import "package:field_suggestion/box_controller.dart";
 import "package:field_suggestion/field_suggestion.dart";
+import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:weatherapp/src/common/gaps/sized_box.dart";
+import "package:weatherapp/src/common/widgets/auth_widgets/info_alert.dart";
 import "package:weatherapp/src/constants/app_colors.dart";
 import "package:weatherapp/src/features/weather/data/repositories/search_city_repo.dart";
 import "package:weatherapp/src/features/weather/data/repositories/search_suggestion_data.dart";
@@ -62,6 +64,8 @@ class _SearchPageState extends ConsumerState<SearchPage> {
     // List<SearchSuggestionModel> uniqueCityData =
     //     listOfCityData.toSet().toList();
 
+    final user = FirebaseAuth.instance.currentUser;
+
     uniqueCityData.sort((a, b) => a.cityNames.compareTo(b.cityNames));
 
     List<SearchSuggestionModel> topCityData = uniqueCityData;
@@ -70,6 +74,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
 
     topCityData.shuffle();
     List<SearchSuggestionModel> random50Cities = topCityData.take(50).toList();
+    List<SearchSuggestionModel> random15Cities = topCityData.take(15).toList();
 
     ref.watch(searchCity);
 
@@ -80,7 +85,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
         // height: 30,
         child: Column(
           children: [
-            verticalGap(size.height * 0.06),
+            verticalGap( user == null ? size.height * 0.03 : size.height * 0.06),
             SizedBox(
               width: size.width * 0.9,
               child: FieldSuggestion<SearchSuggestionModel>(
@@ -140,11 +145,18 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                             // horizontalGap(2),
                             InkWell(
                                 onTap: () {
-                                  ref.read(searchCity.notifier).state["city"] =
-                                      textController.text;
+                                  if(user == null){
+                                    infoAuthAlertWidget(context, "Please kindly login or create and account to search for weather data of any location of your choice.", "Login Required", onTap: (){context.go(AppRoutes.login);});
+                                  }else {
+                                    ref
+                                        .read(searchCity.notifier)
+                                        .state["city"] =
+                                        textController.text;
 
-                                  context
-                                      .push(AppRoutes.searchCityWeatherDetails);
+                                    context
+                                        .push(
+                                        AppRoutes.searchCityWeatherDetails);
+                                  }
                                 },
                                 splashColor: AppColors.thirdPartyIconBGColor,
                                 borderRadius: BorderRadius.circular(50),
@@ -182,6 +194,31 @@ class _SearchPageState extends ConsumerState<SearchPage> {
               ),
             ),
             verticalGap(10),
+            if(user == null )  ...random15Cities.map((e) => Card(
+              margin:
+              const EdgeInsets.only(bottom: 10, left: 15, right: 15),
+              color: AppColors.scaffoldBgColor,
+              child: InkWell(
+                splashColor: AppColors.cardBgColor,
+                borderRadius: BorderRadius.circular(20),
+                onTap:  () {
+                  ref.read(searchCity.notifier).state["city"] = e.cityNames;
+
+                  context.push(AppRoutes.searchCityWeatherDetails);
+                },
+                child: ListTile(
+                  leading: const Icon(Icons.location_city_rounded),
+                  title: Text(
+                    e.cityNames,
+                    style: textTheme.displaySmall,
+                  ),
+                  trailing: Text(
+                    e.continent,
+                  ),
+                ),
+              ),
+            ),)
+            else
             ...random50Cities.map((e) => Card(
                   margin:
                       const EdgeInsets.only(bottom: 10, left: 15, right: 15),
@@ -189,7 +226,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                   child: InkWell(
                     splashColor: AppColors.cardBgColor,
                     borderRadius: BorderRadius.circular(20),
-                    onTap: () {
+                    onTap:  () {
                       ref.read(searchCity.notifier).state["city"] = e.cityNames;
 
                       context.push(AppRoutes.searchCityWeatherDetails);
@@ -205,7 +242,8 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                       ),
                     ),
                   ),
-                ))
+                ),
+    )
           ],
         ),
       ),
