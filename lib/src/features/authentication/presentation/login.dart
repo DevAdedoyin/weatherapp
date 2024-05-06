@@ -2,6 +2,7 @@ import "package:flutter/gestures.dart";
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 import "package:google_fonts/google_fonts.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:weatherapp/src/common/gaps/sized_box.dart";
 import "package:weatherapp/src/common/widgets/auth_widgets/info_alert.dart";
 import "package:weatherapp/src/constants/app_colors.dart";
@@ -9,14 +10,20 @@ import "package:weatherapp/src/features/authentication/presentation/login_form.d
 import "package:weatherapp/src/features/authentication/presentation/third_party_auth.dart";
 import "package:weatherapp/src/routing/app_routes.dart";
 
-class LoginScreen extends StatelessWidget {
+import "../../weather/data/repositories/bottom_nav_state.dart";
+
+class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
     print("HEIGHT ${size.height}");
+
+    final currentIndex = ref.watch(bottomNavState);
+
+
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
@@ -77,6 +84,7 @@ class LoginScreen extends StatelessWidget {
                       width: double.maxFinite,
                       child: ElevatedButton(
                         onPressed: () {
+                          ref.read(bottomNavState.notifier).state = 0;
                           infoAuthAlertWidget(
                               context,
                               """

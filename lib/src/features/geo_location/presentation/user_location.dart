@@ -24,13 +24,10 @@ class _UserLocationState extends ConsumerState<UserLocation> {
   @override
   Widget build(BuildContext context) {
 
-    resetIndex(){
-      final currentIndex = ref.watch(bottomNavState);
-      ref.read(bottomNavState.notifier).state = 0;
-    }
+
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
-    resetIndex();
+
     return Scaffold(
       body: SizedBox(
         width: double.maxFinite,

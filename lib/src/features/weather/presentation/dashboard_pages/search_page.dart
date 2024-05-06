@@ -92,19 +92,26 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                 itemBuilder: (_, position) {
                   return GestureDetector(
                     onTap: () {
-                      setState(() {
-                        textController.text =
+
+                      if(user == null){
+                        infoAuthAlertWidget(context, "Please kindly login or create and account to search for weather data of any location of your choice.", "LOGIN REQUIRED", onTap: (){context.go(AppRoutes.login);});
+                      }else {
+                        setState(() {
+                          textController.text =
+                              uniqueCityData[position].cityNames;
+                        });
+
+                        textController.selection = TextSelection.fromPosition(
+                          TextPosition(offset: textController.text.length),
+                        );
+
+                        ref
+                            .read(searchCity.notifier)
+                            .state["city"] =
                             uniqueCityData[position].cityNames;
-                      });
 
-                      textController.selection = TextSelection.fromPosition(
-                        TextPosition(offset: textController.text.length),
-                      );
-
-                      ref.read(searchCity.notifier).state["city"] =
-                          uniqueCityData[position].cityNames;
-
-                      context.push(AppRoutes.searchCityWeatherDetails);
+                        context.push(AppRoutes.searchCityWeatherDetails);
+                      }
                     },
                     child: Card(
                       child: ListTile(
@@ -146,7 +153,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                             InkWell(
                                 onTap: () {
                                   if(user == null){
-                                    infoAuthAlertWidget(context, "Please kindly login or create and account to search for weather data of any location of your choice.", "Login Required", onTap: (){context.go(AppRoutes.login);});
+                                    infoAuthAlertWidget(context, "Please kindly login or create and account to search for weather data of any location of your choice.", "LOGIN REQUIRED", onTap: (){context.go(AppRoutes.login);});
                                   }else {
                                     ref
                                         .read(searchCity.notifier)
