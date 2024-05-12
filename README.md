@@ -1,20 +1,22 @@
-![8504201](https://github.com/DevAdedoyin/weatherapp/assets/59482569/52ef2f87-f9b7-4ff3-ac80-eb4f71a48be6)
-
 # Weather Monitor App
+![Capture](https://github.com/DevAdedoyin/weatherapp/assets/59482569/950c21dc-7e0d-4b8d-8675-92f214b4a3e5)
 
 ## Project Description
 The Weather Monitor App is a mobile application that helps users get real-time updates on weather conditions around the world. The main purpose of this project is to help users obtain weather data for their current location. This documentation contains a comprehensive guide on all you need to know about this project and how to use the mobile app.
 
+## Download
+<b color="red">The final version of this app is currently under review by the Google Playstore team. To run the app and test on your android device kindly download via the link below.</b>
+### https://drive.google.com/file/d/1V3wuBugYnNYSqDC7vMrBn7sS_n-jLdas/view?usp=sharing
+
 ## Table of Content
-- Installation guide
+- Installation guide and configuration
 - Features
-- Usage
+- Architecture
 - Contributing
 - License
-- Contact Information
 
 ## Installation guide and Configuration
-###The installation process for this project is very straightforward.
+### The installation process for this project is very straightforward.
 1. Fork the repository.
 2. Run, <b><i>git clone 'repo-link'</i></b> on your git.
 3. You need to get an API key from Google for the geolocation to work.
@@ -41,8 +43,10 @@ The Weather Monitor App is a mobile application that helps users get real-time u
 - Authenticated users can request for their data to be deleted.
 - Once a user clicks the "Remove account" button and confirms their action, their account automatically gets deleted without having to reach out to any admin.
 
-## Usage
-### Below is a step-by-step video demo on the app usage 
+## Architecture
+This project uses the flutter Feature-First approach.
+Each feature has the Presentation layer, Application layer, Domain layer and Data layer.
+This approach helps to give the codebase and the app a consistent structure.
 
 ## Contributing
 - Everyone interested in this project is welcome to contribute to the project.
@@ -57,4 +61,4 @@ The Weather Monitor App is a mobile application that helps users get real-time u
   8. Your pull request will be tested and merged.
 
 ## License
-See the LICENSE.md file for license rights and limitations (MIT).
+See the <a href="https://github.com/DevAdedoyin/weatherapp/blob/master/LICENSE.MD">LICENSE.md</a> file for license rights and limitations (MIT).
