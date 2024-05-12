@@ -337,7 +337,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                         verticalGap(10),
                         SizedBox(
                           height: size.height < 650
-                              ? size.height * 0.50
+                              ? size.height * 0.50 : size.height < 690 ? size.height * 0.40
                               : size.height * 0.30,
                           child: ListView.builder(
                               shrinkWrap: true,
@@ -437,11 +437,15 @@ class _HomePageState extends ConsumerState<HomePage> {
                                           Text(
                                             "${data_.temp.round()}°c",
                                             style: GoogleFonts.roboto(
-                                                fontSize: 27,
+                                                fontSize: size.height < 690 ? 23 : 27,
                                                 fontWeight: FontWeight.w700),
                                           ),
-                                          verticalGap(
-                                              size.height < 650 ? 2 : 5),
+                                          if(size.height > 650 && size.height < 690)
+                                           verticalGap(
+                                              1)
+                                            else
+                                            verticalGap(
+                                                size.height < 650 ? 2 : 5),
                                         ],
                                       ),
                                     ),

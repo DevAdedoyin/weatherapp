@@ -44,8 +44,9 @@ class _UserLocationState extends ConsumerState<UserLocation> {
                   style: textTheme.displaySmall,
                 ),
               ),
-              verticalGap(
-                  size.height < 650 ? size.height * 0.04 : size.height * 0.10),
+
+                verticalGap(
+                  size.height < 690 ? size.height * 0.04 : size.height * 0.10),
               SizedBox(
                 width: size.width * 0.8,
                 child: const Text(
@@ -58,7 +59,7 @@ class _UserLocationState extends ConsumerState<UserLocation> {
                 ),
               ),
               verticalGap(
-                  size.height < 650 ? size.height * 0.04 : size.height * 0.10),
+                  size.height < 690 ? size.height * 0.04 : size.height * 0.10),
               Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -81,14 +82,18 @@ class _UserLocationState extends ConsumerState<UserLocation> {
                   ),
                 ),
               ),
-              verticalGap(
-                  size.height < 650 ? size.height * 0.04 : size.height * 0.10),
+              if(size.height < 690 && size.height > 650)
+                verticalGap(
+                    size.height * 0.10)
+              else verticalGap(size.height < 650 ? size.height * 0.04 : size.height * 0.10),
               const Text("Please wait while we fetch your location"),
               SizedBox(
                   width: size.width * 0.5,
                   child: const LinearProgressIndicator()),
-              verticalGap(
-                  size.height < 650 ? size.height * 0.04 : size.height * 0.10),
+              if(size.height < 690 && size.height > 650)
+                verticalGap(
+                   size.height * 0.10)
+              else verticalGap(size.height < 650 ? size.height * 0.04 : size.height * 0.10),
               SizedBox(
                 width: size.width * 0.7,
                 child: ElevatedButton(
