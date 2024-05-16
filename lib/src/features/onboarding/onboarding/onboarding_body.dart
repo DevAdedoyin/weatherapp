@@ -17,21 +17,16 @@ class OnboardingBodyWidget extends StatelessWidget {
         // color: Colors.white,
         // height: size.height * 0.90,
         child: Column(children: [
-      Container(
-        color: AppColors.cardBgColor,
-        height: size.height < 650 ? size.height * 0.45 : size.height * 0.50,
-        child: Card(
-          color: AppColors.scaffoldBgColor,
-          elevation: 5,
-          child: Image.asset(
-            image!,
-            fit: BoxFit.contain,
-          ),
+      SizedBox(
+        height: size.height < 650 ? size.height * 0.50 : size.height * 0.55,
+        child: Image.asset(
+          image!,
+          fit: BoxFit.fitHeight,
         ),
       ),
-      verticalGap(size.height < 650 ? size.height * 0.10 : size.height * 0.15),
+      verticalGap(size.height < 650 ? size.height * 0.02 : size.height * 0.07),
       Text(title!, style: textTheme.titleMedium),
-      verticalGap(size.height * 0.01),
+      verticalGap(size.height * 0.02),
       Text(
         description!,
         textAlign: TextAlign.center,
