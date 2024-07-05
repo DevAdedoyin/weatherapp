@@ -32,11 +32,11 @@ class RegisterScreen extends StatelessWidget {
                     verticalGap(size.height * 0.07),
                     Text(
                       "Create an",
-                      style: textTheme.titleLarge,
+                      style: textTheme.headlineLarge,
                     ),
                     Text(
                       "account",
-                      style: textTheme.titleLarge,
+                      style: textTheme.headlineMedium,
                     ),
                     verticalGap(size.height < 650 ? 15: 30),
                     const RegisterForm(),
@@ -64,7 +64,7 @@ class RegisterScreen extends StatelessWidget {
                             recognizer: TapGestureRecognizer()
                               ..onTap = () => context.push(AppRoutes.login),
                             style: GoogleFonts.robotoSlab(
-                                fontSize: 12.5,
+                                fontSize: 15,
                                 color: AppColors.accentColor,
                                 fontWeight: FontWeight.bold),
                           )
