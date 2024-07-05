@@ -18,23 +18,32 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   final pages = onboardingItemsList
       .map((onboardingBody) =>
-          PageViewModel(title: "", bodyWidget: onboardingBody))
+      PageViewModel(title: "", bodyWidget: onboardingBody))
       .toList();
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
+    TextTheme textTheme = Theme
+        .of(context)
+        .textTheme;
+
+    bool isDarkMode = Theme
+        .of(context)
+        .brightness == Brightness.dark;
     return Scaffold(
       body: IntroductionScreen(
         pages: pages,
-        done: Text("Done", style: textTheme.titleSmall),
+        done: Text("Done",
+          style: TextStyle(color: isDarkMode ? Colors.white : Colors.white),),
         onDone: () => context.go(AppRoutes.login),
         onSkip: () => context.go(AppRoutes.login),
-        skip: Text("Skip", style: textTheme.titleSmall),
+        skip: Text("Skip",
+          style: TextStyle(color: isDarkMode ? Colors.white : Colors.white),),
         showSkipButton: true,
         showBackButton: false,
         showNextButton: true,
-        next: Text("Next", style: textTheme.titleSmall),
+        next: Text("Next",
+            style: TextStyle(color: isDarkMode ? Colors.white : Colors.white)),
         back: const Icon(Icons.arrow_back),
         dotsDecorator: DotsDecorator(
           size: const Size.square(8.0),
@@ -61,7 +70,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
             textStyle: textTheme.titleSmall),
         nextStyle: TextButton.styleFrom(
-            foregroundColor: Colors.black,
+          // foregroundColor: Colors.black,
             backgroundColor: AppColors.deepBlack,
             elevation: 5,
             shape: RoundedRectangleBorder(
