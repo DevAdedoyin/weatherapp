@@ -4,8 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:weatherapp/src/routing/go_router_provider.dart';
+import 'package:weatherapp/src/themes/theme.dart';
 import 'package:weatherapp/src/themes/theme_constants.dart';
 import 'package:weatherapp/src/themes/theme_manager.dart';
+import 'package:weatherapp/src/themes/theme_notifier.dart';
 // import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -32,16 +34,16 @@ class _WeatherAppState extends ConsumerState<WeatherApp> {
   Widget build(BuildContext context) {
     ThemeManager themeManager = ThemeManager();
     // final router = ref.watch(goRouterProvider);
-
+    final themeMode = ref.watch(themeNotifierProvider);
     return MaterialApp.router(
       routeInformationParser: goRouter.routeInformationParser,
       routeInformationProvider: goRouter.routeInformationProvider,
       routerDelegate: goRouter.routerDelegate,
       debugShowCheckedModeBanner: false,
       title: 'Weather Monitor',
-      theme: darkTheme,
-      darkTheme: lightTheme,
-      themeMode: themeManager.themeMode,
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: themeMode,
     );
   }
 }

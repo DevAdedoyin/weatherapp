@@ -18,19 +18,22 @@ class OnboardingBodyWidget extends StatelessWidget {
         // height: size.height * 0.90,
         child: Column(children: [
       SizedBox(
-        height: size.height < 650 ? size.height * 0.50 : size.height * 0.55,
+        height: size.height < 650 ? size.height * 0.45 : size.height * 0.50,
         child: Image.asset(
           image!,
           fit: BoxFit.fitHeight,
         ),
       ),
-      verticalGap(size.height < 650 ? size.height * 0.02 : size.height * 0.07),
-      Text(title!, style: textTheme.titleMedium),
-      verticalGap(size.height * 0.02),
-      Text(
-        description!,
-        textAlign: TextAlign.center,
-        style: textTheme.displaySmall,
+      verticalGap(size.height < 650 ? size.height * 0.02 : size.height * 0.04),
+      Text(title!, style: textTheme.headlineMedium),
+      verticalGap(size.height * 0.03),
+      SizedBox(
+        width: size.width * 0.8,
+        child: Text(
+          description!,
+          textAlign: TextAlign.center,
+          style: textTheme.headlineSmall,
+        ),
       ),
     ]));
   }

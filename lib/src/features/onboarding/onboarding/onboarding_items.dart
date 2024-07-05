@@ -12,7 +12,7 @@ List<OnboardingBodyWidget> onboardingItemsList = [
       description:
           "Access to your current location to give you weather data, based on the location."),
   const OnboardingBodyWidget(
-      image: "assets/images/onb2.jpg",
+      image: "assets/images/onb2.png",
       title: "Weather Forecast",
       description:
           "Enjoy real-time weather updates and forecasts for future hours and dates."),
