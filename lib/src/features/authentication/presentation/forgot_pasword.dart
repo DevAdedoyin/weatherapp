@@ -58,7 +58,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                     textInputAction: TextInputAction.next,
                     autofocus: false,
                     validator: (email) => Validator.validateEmail(email: email),
-                    decoration: darkThemeInputDecoration(
+                    decoration: themeInputDecoration(
                         'Email address', const Icon(Icons.email)),
                   ),
                 ),

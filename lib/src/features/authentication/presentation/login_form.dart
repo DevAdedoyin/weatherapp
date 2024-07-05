@@ -46,8 +46,11 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                 textInputAction: TextInputAction.next,
                 autofocus: false,
                 validator: (email) => Validator.validateEmail(email: email),
-                decoration:
-                    darkThemeInputDecoration('Email', const Icon(Icons.email)),
+                decoration: themeInputDecoration(
+                    'Email',
+                    const Icon(
+                      Icons.email,
+                    )),
               ),
             ),
             verticalGap(25),
@@ -61,9 +64,11 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                 obscureText: isPasswordVisible ? false : true,
                 validator: (password) =>
                     Validator.validatePassword(password: password),
-                decoration: darkThemeInputDecoration(
+                decoration: themeInputDecoration(
                   'Password',
-                  const Icon(Icons.lock),
+                  const Icon(
+                    Icons.lock,
+                  ),
                   isPassword: true,
                   passwordIcon: IconButton(
                     onPressed: () {
@@ -100,7 +105,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                 children: [
                   Text(
                     "Sign In",
-                    style: textTheme.displayMedium,
+                    style: textTheme.headlineMedium,
                   ),
                   const Spacer(),
                   isLoading
@@ -111,7 +116,9 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                             borderRadius: BorderRadius.circular(25),
                             color: AppColors.accentColor,
                           ),
-                          child: IconButton(
+                          child:  IconButton(
+                              color: AppColors.accentColor,
+                              style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(AppColors.accentColor)),
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
                                   ref.read(isAuthLoading.notifier).state = true;
@@ -124,7 +131,10 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                                       false;
                                 }
                               },
-                              icon: const Icon(Icons.arrow_forward)),
+                              icon: const Icon(
+                                Icons.arrow_forward,
+                                color: Colors.white,
+                              )),
                         ),
                 ],
               ),

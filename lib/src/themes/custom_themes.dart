@@ -2,19 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:weatherapp/src/constants/app_colors.dart';
 
 // INPUT DECORATION DARK THEME
-InputDecoration darkThemeInputDecoration(String textHint, Widget icon,
+InputDecoration themeInputDecoration(String textHint, Widget icon,
         {bool? isPassword, bool? isCPassword, Widget? passwordIcon}) =>
     InputDecoration(
       hintText: textHint,
       // hintStyle:
       //     GoogleFonts.roboto(color: AppColors.inputFieldBG, fontSize: 10),
-      fillColor: AppColors.inputBackGroundDT,
+      // fillColor: AppColors.,
       filled: true,
       suffixIcon: isPassword == true || isCPassword == true
           ? passwordIcon
           : const SizedBox(),
       prefixIcon: icon,
+
+      // iconColor: AppColors.accentColor,
       border: const OutlineInputBorder(
+
           borderRadius: BorderRadius.all(
             Radius.circular(10),
           ),

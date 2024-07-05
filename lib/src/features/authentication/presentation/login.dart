@@ -23,7 +23,9 @@ class LoginScreen extends ConsumerWidget {
 
     final currentIndex = ref.watch(bottomNavState);
 
-
+    bool isDarkMode = Theme
+        .of(context)
+        .brightness == Brightness.dark;
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
@@ -41,11 +43,11 @@ class LoginScreen extends ConsumerWidget {
                     verticalGap(40.0),
                     Text(
                       "Welcome",
-                      style: textTheme.titleLarge,
+                      style: textTheme.headlineLarge,
                     ),
                     Text(
                       "Back!",
-                      style: textTheme.titleLarge,
+                      style: textTheme.headlineMedium,
                     ),
                     verticalGap(size.height < 650 ? 15 :30),
                     const LoginForm(),
@@ -73,7 +75,7 @@ class LoginScreen extends ConsumerWidget {
                             recognizer: TapGestureRecognizer()
                               ..onTap = () => context.push(AppRoutes.register),
                             style: GoogleFonts.robotoSlab(
-                                fontSize: 12.5,
+                                fontSize: 15,
                                 color: AppColors.accentColor,
                                 fontWeight: FontWeight.bold))
                       ])),
@@ -114,7 +116,7 @@ Thank you.
                         ),
                         child: Text(
                           "Skip",
-                          style: textTheme.displaySmall,
+                          style: TextStyle(color: isDarkMode ? Colors.white : Colors.white),
                         ),
                       ),
                     )

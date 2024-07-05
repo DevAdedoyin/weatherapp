@@ -46,7 +46,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                 textInputAction: TextInputAction.next,
                 autofocus: false,
                 validator: (username) => Validator.validateName(name: username),
-                decoration: darkThemeInputDecoration(
+                decoration: themeInputDecoration(
                     'Username', const Icon(Icons.person)),
               ),
             ),
@@ -61,7 +61,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                 autofocus: false,
                 validator: (email) => Validator.validateEmail(email: email),
                 decoration:
-                    darkThemeInputDecoration('Email', const Icon(Icons.email)),
+                    themeInputDecoration('Email', const Icon(Icons.email)),
               ),
             ),
             verticalGap(size.height * 0.019),
@@ -75,7 +75,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                 obscureText: isPasswordVisible ? false : true,
                 validator: (password) =>
                     Validator.validatePassword(password: password),
-                decoration: darkThemeInputDecoration(
+                decoration: themeInputDecoration(
                   'Password',
                   const Icon(Icons.lock),
                   isPassword: true,
@@ -106,7 +106,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                     Validator.validateConfirmPassword(
                         password: _passwordController.text,
                         confirmPassword: confirmPassword),
-                decoration: darkThemeInputDecoration(
+                decoration: themeInputDecoration(
                   'Confirm Password',
                   const Icon(Icons.lock),
                   isCPassword: true,

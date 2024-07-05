@@ -63,7 +63,7 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
                     autofocus: false,
                     enabled: false,
                     // validator: (email) => Validator.validateEmail(email: email),
-                    decoration: darkThemeInputDecoration(
+                    decoration: themeInputDecoration(
                         '${user?.email}', const Icon(Icons.email)),
                   ),
                 ),
@@ -78,7 +78,7 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
                     obscureText: isPasswordVisible ? false : true,
                     validator: (password) =>
                         Validator.validatePassword(password: password),
-                    decoration: darkThemeInputDecoration(
+                    decoration: themeInputDecoration(
                       'New Password',
                       const Icon(Icons.lock),
                       isPassword: true,
@@ -109,7 +109,7 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
                         Validator.validateConfirmPassword(
                             password: _passwordController.text,
                             confirmPassword: confirmPassword),
-                    decoration: darkThemeInputDecoration(
+                    decoration: themeInputDecoration(
                       'Confirm Password',
                       const Icon(Icons.lock),
                       isCPassword: true,
