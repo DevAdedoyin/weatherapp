@@ -23,11 +23,11 @@ class _UserLocationState extends ConsumerState<UserLocation> {
 
   @override
   Widget build(BuildContext context) {
-
-
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
-
+    bool isDarkMode = Theme
+        .of(context)
+        .brightness == Brightness.dark;
     return Scaffold(
       body: SizedBox(
         width: double.maxFinite,
@@ -41,12 +41,11 @@ class _UserLocationState extends ConsumerState<UserLocation> {
                 child: Text(
                   "Let Weather Monitor access your location to give you real-time weather datails on your location.",
                   textAlign: TextAlign.center,
-                  style: textTheme.displaySmall,
+                  style: textTheme.headlineSmall,
                 ),
               ),
-
-                verticalGap(
-                  size.height < 690 ? size.height * 0.04 : size.height * 0.10),
+              verticalGap(
+                  size.height < 690 ? size.height * 0.04 : size.height * 0.07),
               SizedBox(
                 width: size.width * 0.8,
                 child: const Text(
@@ -59,7 +58,7 @@ class _UserLocationState extends ConsumerState<UserLocation> {
                 ),
               ),
               verticalGap(
-                  size.height < 690 ? size.height * 0.04 : size.height * 0.10),
+                  size.height < 690 ? size.height * 0.04 : size.height * 0.07),
               Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -82,37 +81,44 @@ class _UserLocationState extends ConsumerState<UserLocation> {
                   ),
                 ),
               ),
-              if(size.height < 690 && size.height > 650)
-                verticalGap(
-                    size.height * 0.10)
-              else verticalGap(size.height < 650 ? size.height * 0.04 : size.height * 0.10),
-              const Text("Please wait while we fetch your location"),
+              if (size.height < 690 && size.height > 650)
+                verticalGap(size.height * 0.07)
+              else
+                verticalGap(size.height < 650
+                    ? size.height * 0.04
+                    : size.height * 0.10),
+              Text(
+                "Please wait while we fetch your location",
+                style: textTheme.bodySmall,
+              ),
               SizedBox(
                   width: size.width * 0.5,
                   child: const LinearProgressIndicator()),
-              if(size.height < 690 && size.height > 650)
-                verticalGap(
-                   size.height * 0.10)
-              else verticalGap(size.height < 650 ? size.height * 0.04 : size.height * 0.10),
+              if (size.height < 690 && size.height > 650)
+                verticalGap(size.height * 0.07)
+              else
+                verticalGap(size.height < 650
+                    ? size.height * 0.04
+                    : size.height * 0.07),
               SizedBox(
                 width: size.width * 0.7,
                 child: ElevatedButton(
                   onPressed: () {
                     GenerateWeatherLocation.getLocation();
                   },
-                  style: ButtonStyle(
-                      elevation: const MaterialStatePropertyAll(5),
-                      shape: const MaterialStatePropertyAll(
+                  style: const ButtonStyle(
+                      // elevation: const MaterialStatePropertyAll(2),
+                      shape: MaterialStatePropertyAll(
                           RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)))),
-                      padding: const MaterialStatePropertyAll(
+                      padding: MaterialStatePropertyAll(
                           EdgeInsets.symmetric(vertical: 10)),
                       backgroundColor:
                           MaterialStatePropertyAll(AppColors.accentColor)),
                   child: Text(
                     "Enable Location",
-                    style: textTheme.displaySmall,
+                      style: TextStyle(color: isDarkMode ? Colors.white : Colors.white)
                   ),
                 ),
               )

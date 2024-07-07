@@ -18,13 +18,13 @@ void infoAuthAlertWidget(
           Text(
             messageHeader,
             // textAlign: TextAlign.center,
-            style: textTheme.titleMedium,
+            style: textTheme.headlineMedium,
           ),
           verticalGap(12),
           Text(
             message,
             // textAlign: TextAlign.center,
-            style: textTheme.displaySmall,
+            style: textTheme.headlineSmall,
           ),
           verticalGap(10),
           SizedBox(
@@ -35,7 +35,7 @@ void infoAuthAlertWidget(
                   padding: MaterialStateProperty.all(
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 2)),
                   backgroundColor:
-                      MaterialStateProperty.all(AppColors.infoBlue),
+                      MaterialStateProperty.all(AppColors.accentColor),
                   shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)))),
               child: const Text("Proceed",
