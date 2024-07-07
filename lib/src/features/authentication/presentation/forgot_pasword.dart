@@ -38,10 +38,16 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
     TextTheme textTheme = Theme.of(context).textTheme;
     final user = FirebaseAuth.instance.currentUser;
 
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("Reset password", style: textTheme.titleMedium),
-        backgroundColor: AppColors.scaffoldBgColor,
+        title: Text(
+          "Reset password",
+          style: TextStyle(color: isDarkMode ? Colors.white : Colors.white),
+        ),
+        backgroundColor: AppColors.accentColor,
+
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -97,7 +103,9 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                             child: LoadingIndicator(),
                           )
                         : Text("Request password reset",
-                            style: textTheme.titleSmall),
+                            style: TextStyle(
+                                color:
+                                    isDarkMode ? Colors.white : Colors.white)),
                   ),
                 ),
               ],
