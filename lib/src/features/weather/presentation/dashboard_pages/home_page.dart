@@ -7,10 +7,12 @@ import "package:shared_preferences/shared_preferences.dart";
 import "package:weatherapp/src/common/gaps/sized_box.dart";
 import "package:weatherapp/src/constants/app_colors.dart";
 import "package:weatherapp/src/features/geo_location/repositories/address_repo.dart";
+
 // import "package:weatherapp/src/features/geo_location/data/get_location.dart";
 import "package:weatherapp/src/features/weather/data/datasources/weather_api_datasource.dart";
 import "package:weatherapp/src/features/weather/data/repositories/hourly_weather_detail.dart";
 import "package:weatherapp/src/features/weather/data/repositories/search_city_repo.dart";
+
 // import "package:weatherapp/src/features/weather/domain/ho_model.dart";
 import "package:weatherapp/src/features/weather/domain/weather_model.dart";
 import "package:weatherapp/src/common/loading_indicator.dart";
@@ -52,7 +54,9 @@ class _HomePageState extends ConsumerState<HomePage> {
 
     address = prefs.getString("address");
 
-    ref.read(userCurrentAddress.notifier).state = address!;
+    ref
+        .read(userCurrentAddress.notifier)
+        .state = address!;
   }
 
   List<String> getNextTenHours() {
@@ -62,7 +66,8 @@ class _HomePageState extends ConsumerState<HomePage> {
     for (int i = 1; i <= 10; i++) {
       DateTime nextHour = now.add(Duration(hours: i));
       String hourString =
-          "${nextHour.hour.toString().padLeft(2, '0')}:${nextHour.minute.toString().padLeft(2, '0')}";
+          "${nextHour.hour.toString().padLeft(2, '0')}:${nextHour.minute
+          .toString().padLeft(2, '0')}";
       hours.add(hourString);
     }
 
@@ -71,12 +76,18 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    TextTheme textTheme = Theme.of(context).textTheme;
+    Size size = MediaQuery
+        .of(context)
+        .size;
     ref.watch(hourlyWeatherDetails);
     ref.watch(currentAddress);
     ref.watch(userCurrentAddress);
     ref.watch(isFromSearchScreen);
+    bool isDarkMode = Theme
+        .of(context)
+        .brightness == Brightness.dark;
+    TextTheme textTheme = Theme.of(context).textTheme;
+    print("Size ${size.height}");
     return FutureBuilder<WeatherModel>(
         future: WeatherApiDataSource.fetchWeather(),
         builder: (context, snapshot) {
@@ -96,7 +107,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             return CustomScrollView(
               slivers: <Widget>[
                 SliverAppBar(
-                  backgroundColor: AppColors.scaffoldBgColor,
+                  backgroundColor: isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -104,15 +115,16 @@ class _HomePageState extends ConsumerState<HomePage> {
                       Text(
                         "$address",
                         // textAlign: TextAlign.center,
-                        style: textTheme.titleMedium,
+                        style: textTheme.bodyMedium,
                       ),
                       verticalGap(3),
                       Card(
-                        color: AppColors.scaffoldBgColor,
+                        color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
                         elevation: 3,
                         child: Container(
                           margin:
-                              const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                          const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 5),
                           child: Text(
                             getDateTime(),
                             style: textTheme.titleSmall,
@@ -125,20 +137,20 @@ class _HomePageState extends ConsumerState<HomePage> {
                   actions: [
                     FirebaseAuth.instance.currentUser == null
                         ? TextButton(
-                            onPressed: () {
-                              context.go(AppRoutes.login);
-                            },
-                            child: Text(
-                              "Login",
-                              style: textTheme.titleSmall,
-                            ))
+                        onPressed: () {
+                          context.go(AppRoutes.login);
+                        },
+                        child: Text(
+                          "Login",
+                          style: textTheme.titleSmall,
+                        ))
                         : Container(
-                            margin: const EdgeInsets.only(right: 15),
-                            child: Text(
-                              "${FirebaseAuth.instance.currentUser?.displayName!}",
-                              style: textTheme.titleSmall,
-                            ),
-                          )
+                      margin: const EdgeInsets.only(right: 15),
+                      child: Text(
+                        "${FirebaseAuth.instance.currentUser?.displayName!}",
+                        style: textTheme.titleSmall,
+                      ),
+                    )
                   ],
                   snap: false,
                   floating: true,
@@ -158,7 +170,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                       horizontal: 5,
                     ),
                     background: Container(
-                      color: AppColors.scaffoldBgColor,
+                      color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white38,
                       child: Image.network(
                         WeatherIcon.weatherIcon(
                           data.currentWeatherModel.weather.icon,
@@ -187,7 +199,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                               GradientText(
                                 "${data.currentWeatherModel.temp.round()}°",
                                 style: GoogleFonts.robotoCondensed(
-                                  fontSize:size.height < 650 ? 70 : 100.0,
+                                  fontSize: size.height < 650 ? 70 : 100.0,
                                   fontWeight: FontWeight.bold,
                                 ),
                                 colors: const [
@@ -198,7 +210,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 ],
                               ),
                               Text(
-                                "Feel like: ${data.currentWeatherModel.feelsLike.round()}°c",
+                                "Feel like: ${data.currentWeatherModel.feelsLike
+                                    .round()}°c",
                                 style: textTheme.titleSmall,
                               )
                             ],
@@ -225,10 +238,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                     margin: const EdgeInsets.symmetric(
                         horizontal: 18, vertical: 25),
                     child: Card(
-                      color: AppColors.scaffoldBgColor,
+                      color:  isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
-                      elevation: 4,
+                      elevation: 2,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -268,7 +281,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       style: textTheme.titleSmall,
                                     ),
                                     Text(
-                                        "${data.currentWeatherModel.humidity}%"),
+                                        "${data.currentWeatherModel
+                                            .humidity}%"),
                                   ],
                                 )
                               ],
@@ -289,7 +303,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       style: textTheme.titleSmall,
                                     ),
                                     Text(
-                                        "${data.currentWeatherModel.windSpeed}km/h"),
+                                        "${data.currentWeatherModel
+                                            .windSpeed}km/h"),
                                   ],
                                 ),
                                 Column(
@@ -310,7 +325,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       style: textTheme.titleSmall,
                                     ),
                                     Text(
-                                        "${data.currentWeatherModel.dewPoint.round()}°c"),
+                                        "${data.currentWeatherModel.dewPoint
+                                            .round()}°c"),
                                   ],
                                 ),
                               ],
@@ -336,8 +352,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                         ),
                         verticalGap(10),
                         SizedBox(
-                          height: size.height < 650
-                              ? size.height * 0.50 : size.height < 690 ? size.height * 0.40
+                          height: size.height < 620
+                              ? size.height * 0.35 : size.height < 650
+                              ? size.height * 0.45 : size.height < 690 ? size
+                              .height * 0.40
                               : size.height * 0.30,
                           child: ListView.builder(
                               shrinkWrap: true,
@@ -399,16 +417,16 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: Card(
-                                      color: AppColors.scaffoldBgColor,
-                                      elevation: 5,
+                                      color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
+                                      elevation: 2,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                       child: Column(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
+                                        MainAxisAlignment.spaceEvenly,
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                         children: [
                                           verticalGap(
                                               size.height < 650 ? 2 : 5),
@@ -437,11 +455,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                                           Text(
                                             "${data_.temp.round()}°c",
                                             style: GoogleFonts.roboto(
-                                                fontSize: size.height < 690 ? 23 : 27,
+                                                fontSize: size.height < 690
+                                                    ? 22
+                                                    : 25,
                                                 fontWeight: FontWeight.w700),
                                           ),
-                                            verticalGap(
-                                                size.height < 650 ? 2 : 5),
+                                          verticalGap(
+                                              size.height < 650 ? 2 : 5),
                                         ],
                                       ),
                                     ),

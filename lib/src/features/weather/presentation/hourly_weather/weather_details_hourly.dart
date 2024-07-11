@@ -41,13 +41,15 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
     TextTheme textTheme = Theme.of(context).textTheme;
     final isOpen = ref.watch(openWeatherDetails);
     final hourlyWeatherState = ref.watch(hourlyWeatherDetails);
-
+    bool isDarkMode = Theme
+        .of(context)
+        .brightness == Brightness.dark;
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
       child: Column(
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -101,12 +103,13 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
                     hourlyWeatherState.windGust!,
                   ];
                   return Card(
-                    elevation: 5,
-                    color: AppColors.scaffoldBgColor,
+                    elevation: 2,
+                    color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
+                    margin: EdgeInsets.only(bottom: 12),
                     child: ListTile(
                       leading: SizedBox(
-                        height: size.height * 0.04,
-                        width: size.height * 0.04,
+                        height: size.height * 0.065,
+                        width: size.height * 0.065,
                         child: Image.network(
                           WeatherIcon.weatherIcon(hourlyWeatherState.image!),
                           // fit: BoxFit.contain,
@@ -114,12 +117,12 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
                       ),
                       title: Text(
                         weatherTitles[pos],
-                        style: textTheme.titleSmall,
+                        style: textTheme.headlineSmall,
                       ),
                       // subtitle: Text("data"),
                       trailing: Text(
                         details[pos],
-                        style: textTheme.displaySmall,
+                        style: textTheme.headlineSmall,
                       ),
                     ),
                   );

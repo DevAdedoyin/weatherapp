@@ -25,9 +25,13 @@ class _HourlyWeatherDetailsScreenState
     Size size = MediaQuery.of(context).size;
     final hourlyWeatherState = ref.watch(hourlyWeatherDetails);
 
+    bool isDarkMode = Theme
+        .of(context)
+        .brightness == Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.scaffoldBgColor,
+        backgroundColor: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -72,19 +76,19 @@ class _HourlyWeatherDetailsScreenState
               height: size.width * 0.5,
               width: size.width * 0.5,
               child: Card(
-                color: AppColors.scaffoldBgColor,
-                elevation: 5,
+                color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
+                elevation: 2,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(100)),
                 child: Hero(
                   tag: "weather-image-${hourlyWeatherState.position}",
                   child: Image.network(
                     WeatherIcon.weatherIcon(hourlyWeatherState.image!),
-                    fit: BoxFit.fitWidth,
+                    fit: BoxFit.cover,
                     filterQuality: FilterQuality.high,
-                    // height: size.width * 0.7,
-                    // width: size.width * 0.7,
-                    alignment: Alignment.center,
+                    // height: size.width * 0.07,
+                    // width: size.width * 0.07,
+                    // alignment: Alignment.center,
                   ),
                 ),
               ),

@@ -74,6 +74,10 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
     final isDailyOtherContainerOpen =
         ref.watch(isDailyOtherDetailContainerOpen);
 
+    bool isDarkMode = Theme
+        .of(context)
+        .brightness == Brightness.dark;
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
