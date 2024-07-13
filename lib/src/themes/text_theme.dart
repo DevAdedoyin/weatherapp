@@ -14,19 +14,19 @@ class AppTextTheme {
 
     // title theme
     titleLarge: const TextStyle().copyWith(
-        fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.black),
+        fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.black),
     titleMedium: const TextStyle().copyWith(
-        fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.black),
+        fontSize: 16.0, fontWeight: FontWeight.w500, color: Colors.black),
     titleSmall: const TextStyle().copyWith(
-        fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.black),
+        fontSize: 16.0, fontWeight: FontWeight.w400, color: Colors.black),
 
     // label theme
     bodyLarge: const TextStyle().copyWith(
-        fontSize: 14.0, fontWeight: FontWeight.bold, color: Colors.black),
+        fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.black),
     bodyMedium: const TextStyle().copyWith(
-        fontSize: 14.0, fontWeight: FontWeight.w600, color: Colors.black),
+        fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.black),
     bodySmall: const TextStyle().copyWith(
-        fontSize: 14.0, fontWeight: FontWeight.w600, color: Colors.black),
+        fontSize: 14.0, fontWeight: FontWeight.w400, color: Colors.black),
 
     // label theme
     labelLarge: const TextStyle().copyWith(
@@ -46,11 +46,11 @@ class AppTextTheme {
 
     // title theme
     titleLarge: const TextStyle().copyWith(
-        fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.white),
+        fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.white),
     titleMedium: const TextStyle().copyWith(
         fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.white),
     titleSmall: const TextStyle().copyWith(
-        fontSize: 16.0, fontWeight: FontWeight.w600, color: Colors.white),
+        fontSize: 14.0, fontWeight: FontWeight.w600, color: Colors.white),
 
     // label theme
     bodyLarge: const TextStyle().copyWith(

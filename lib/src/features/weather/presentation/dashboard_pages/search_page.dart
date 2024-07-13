@@ -41,6 +41,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
     'São Paulo',
     "Sydney"
   ];
+
   Future<List<String>> future(String input) => Future<List<String>>.delayed(
         const Duration(seconds: 1),
         () => strSuggestions
@@ -80,22 +81,28 @@ class _SearchPageState extends ConsumerState<SearchPage> {
 
     TextTheme textTheme = Theme.of(context).textTheme;
 
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return SingleChildScrollView(
       child: SizedBox(
         // height: 30,
         child: Column(
           children: [
-            verticalGap( user == null ? size.height * 0.03 : size.height * 0.06),
+            verticalGap(user == null ? size.height * 0.03 : size.height * 0.06),
             SizedBox(
               width: size.width * 0.9,
               child: FieldSuggestion<SearchSuggestionModel>(
                 itemBuilder: (_, position) {
                   return GestureDetector(
                     onTap: () {
-
-                      if(user == null){
-                        infoAuthAlertWidget(context, "Please kindly login or create and account to search for weather data of any location of your choice.", "LOGIN REQUIRED", onTap: (){context.go(AppRoutes.login);});
-                      }else {
+                      if (user == null) {
+                        infoAuthAlertWidget(
+                            context,
+                            "Please kindly login or create and account to search for weather data of any location of your choice.",
+                            "LOGIN REQUIRED", onTap: () {
+                          context.go(AppRoutes.login);
+                        });
+                      } else {
                         setState(() {
                           textController.text =
                               uniqueCityData[position].cityNames;
@@ -105,9 +112,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                           TextPosition(offset: textController.text.length),
                         );
 
-                        ref
-                            .read(searchCity.notifier)
-                            .state["city"] =
+                        ref.read(searchCity.notifier).state["city"] =
                             uniqueCityData[position].cityNames;
 
                         context.push(AppRoutes.searchCityWeatherDetails);
@@ -132,6 +137,13 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                     isCollapsed: true,
                     contentPadding: const EdgeInsets.symmetric(
                         horizontal: 10, vertical: 15),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(
+                            color: Colors.red, style: BorderStyle.solid)),
+                    disabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red,),
+                    ),
                     hintStyle: GoogleFonts.roboto(
                       fontWeight: FontWeight.normal,
                       fontSize: 17,
@@ -152,28 +164,32 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                             // horizontalGap(2),
                             InkWell(
                                 onTap: () {
-                                  if(user == null){
-                                    infoAuthAlertWidget(context, "Please kindly login or create and account to search for weather data of any location of your choice.", "LOGIN REQUIRED", onTap: (){context.go(AppRoutes.login);});
-                                  }else {
+                                  if (user == null) {
+                                    infoAuthAlertWidget(
+                                        context,
+                                        "Please kindly login or create and account to search for weather data of any location of your choice.",
+                                        "LOGIN REQUIRED", onTap: () {
+                                      context.go(AppRoutes.login);
+                                    });
+                                  } else {
                                     ref
                                         .read(searchCity.notifier)
-                                        .state["city"] =
-                                        textController.text;
+                                        .state["city"] = textController.text;
 
-                                    context
-                                        .push(
+                                    context.push(
                                         AppRoutes.searchCityWeatherDetails);
                                   }
                                 },
                                 splashColor: AppColors.thirdPartyIconBGColor,
                                 borderRadius: BorderRadius.circular(50),
                                 radius: 20,
-                                child: const Icon(Icons.arrow_forward)),
+                                child: const Icon(Icons.arrow_forward, color: Colors.red,)),
                           ],
                         )),
                     prefixIcon: const SizedBox(
                         child: Icon(
                       Icons.search,
+                          color: Colors.red,
                     ))),
                 textController: textController,
                 suggestions: uniqueCityData,
@@ -197,43 +213,49 @@ class _SearchPageState extends ConsumerState<SearchPage> {
               child: Text(
                 "Popular places",
                 textAlign: TextAlign.start,
-                style: textTheme.titleSmall,
+                style: textTheme.bodyMedium,
               ),
             ),
             verticalGap(10),
-            if(user == null )  ...random15Cities.map((e) => Card(
-              margin:
-              const EdgeInsets.only(bottom: 10, left: 15, right: 15),
-              color: AppColors.scaffoldBgColor,
-              child: InkWell(
-                splashColor: AppColors.cardBgColor,
-                borderRadius: BorderRadius.circular(20),
-                onTap:  () {
-                  ref.read(searchCity.notifier).state["city"] = e.cityNames;
-
-                  context.push(AppRoutes.searchCityWeatherDetails);
-                },
-                child: ListTile(
-                  leading: const Icon(Icons.location_city_rounded),
-                  title: Text(
-                    e.cityNames,
-                    style: textTheme.displaySmall,
-                  ),
-                  trailing: Text(
-                    e.continent,
-                  ),
-                ),
-              ),
-            ),)
-            else
-            ...random50Cities.map((e) => Card(
+            if (user == null)
+              ...random15Cities.map(
+                (e) => Card(
+                  elevation: 2,
                   margin:
                       const EdgeInsets.only(bottom: 10, left: 15, right: 15),
-                  color: AppColors.scaffoldBgColor,
+                  color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
                   child: InkWell(
                     splashColor: AppColors.cardBgColor,
                     borderRadius: BorderRadius.circular(20),
-                    onTap:  () {
+                    onTap: () {
+                      ref.read(searchCity.notifier).state["city"] = e.cityNames;
+
+                      context.push(AppRoutes.searchCityWeatherDetails);
+                    },
+                    child: ListTile(
+                      leading: const Icon(Icons.location_city_rounded, color: Colors.red,),
+                      title: Text(
+                        e.cityNames,
+                        style: textTheme.bodyMedium,
+                      ),
+                      trailing: Text(
+                        e.continent,
+                        style: textTheme.bodySmall,
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            else
+              ...random50Cities.map(
+                (e) => Card(
+                  margin:
+                      const EdgeInsets.only(bottom: 10, left: 15, right: 15),
+                  color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
+                  child: InkWell(
+                    splashColor: AppColors.cardBgColor,
+                    borderRadius: BorderRadius.circular(20),
+                    onTap: () {
                       ref.read(searchCity.notifier).state["city"] = e.cityNames;
 
                       context.push(AppRoutes.searchCityWeatherDetails);
@@ -246,11 +268,12 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                       ),
                       trailing: Text(
                         e.continent,
+                        style: textTheme.bodySmall,
                       ),
                     ),
                   ),
                 ),
-    )
+              )
           ],
         ),
       ),

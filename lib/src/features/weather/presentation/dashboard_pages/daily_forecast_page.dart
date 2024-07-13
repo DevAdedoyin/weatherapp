@@ -29,12 +29,16 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
     TextTheme textTheme = Theme.of(context).textTheme;
 
     ref.watch(dailyWeatherProvider);
+
+    bool isDarkMode = Theme
+        .of(context)
+        .brightness == Brightness.dark;
     return Column(
       children: [
         Container(
             margin: EdgeInsets.only(top: size.height * 0.06, bottom: 5),
-            child: Text("5 Days Forecast", style: textTheme.titleLarge)),
-        Text("Accurate Weather Forecast", style: textTheme.displaySmall),
+            child: Text("5 Days Forecast", style: textTheme.headlineMedium)),
+        Text("Accurate Weather Forecast", style: textTheme.bodyMedium),
         FutureBuilder(
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -97,10 +101,11 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                         Text(
                           formattedDate,
                           textAlign: TextAlign.start,
+                          style: textTheme.titleMedium,
                         ),
                         Card(
-                          elevation: 5,
-                          color: AppColors.scaffoldBgColor,
+                          elevation: 2,
+                          color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white70,
                           child: InkWell(
                             onTap: FirebaseAuth.instance.currentUser == null
                                 ? () {}
@@ -139,11 +144,11 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                                     data[pos].weather.icon)),
                               ),
                               title: Text(data[pos].weather.description,
-                                  style: textTheme.titleMedium),
+                                  style: textTheme.bodyMedium),
                               subtitle: Text(data[pos].summary,
                                   style: const TextStyle(fontSize: 12)),
                               trailing: Text("${data[pos].temp.day.round()}°c",
-                                  style: textTheme.titleMedium),
+                                  style: textTheme.bodyMedium),
                             ),
                           ),
                         ),

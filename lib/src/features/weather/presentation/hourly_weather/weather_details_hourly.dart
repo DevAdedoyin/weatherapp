@@ -122,7 +122,7 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
                       // subtitle: Text("data"),
                       trailing: Text(
                         details[pos],
-                        style: textTheme.headlineSmall,
+                        style: textTheme.bodyMedium,
                       ),
                     ),
                   );

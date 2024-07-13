@@ -34,6 +34,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
   @override
   Widget build(BuildContext context) {
     final currentIndex = ref.watch(bottomNavState);
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       body: SizedBox(
         width: double.maxFinite,
@@ -43,6 +44,8 @@ class _DashboardState extends ConsumerState<Dashboard> {
       ),
       bottomNavigationBar: currentUser == null
           ? BottomNavigationBar(
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
               items: [
                 BottomNavigationBarItem(
                   backgroundColor: AppColors.scaffoldBgColor,
@@ -51,9 +54,13 @@ class _DashboardState extends ConsumerState<Dashboard> {
                           decoration: BoxDecoration(
                               color: Colors.white54.withOpacity(0.15),
                               borderRadius: BorderRadius.circular(20)),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 7, vertical: 7),
-                          child: const Icon(Icons.home_filled))
+                          padding: const  EdgeInsets.symmetric(
+                              horizontal: 1, vertical: 1),
+                          child: const Icon(
+                            Icons.home_filled,
+                            color: Colors.red,
+                            size: 27,
+                          ))
                       : const Icon(Icons.home_filled),
                   label: "Home",
                 ),
@@ -61,12 +68,14 @@ class _DashboardState extends ConsumerState<Dashboard> {
                     backgroundColor: AppColors.scaffoldBgColor,
                     icon: currentIndex == 1
                         ? Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white54.withOpacity(0.15),
-                            borderRadius: BorderRadius.circular(20)),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 7, vertical: 7),
-                        child: const Icon(Icons.search))
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                color: Colors.white54.withOpacity(0.15),
+                                borderRadius: BorderRadius.circular(20)),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 1, vertical: 1),
+                            child: const Icon(Icons.search,   color: Colors.red,
+                              size: 27,))
                         : const Icon(Icons.search),
                     label: "Search"),
                 BottomNavigationBarItem(
@@ -77,8 +86,9 @@ class _DashboardState extends ConsumerState<Dashboard> {
                                 color: Colors.white54.withOpacity(0.15),
                                 borderRadius: BorderRadius.circular(20)),
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 7, vertical: 7),
-                            child: const Icon(Icons.wb_cloudy))
+                                horizontal: 1, vertical: 1),
+                            child: const Icon(Icons.wb_cloudy,   color: Colors.red,
+                              size: 27,))
                         : const Icon(Icons.wb_cloudy),
                     label: "Forecast"),
               ],
