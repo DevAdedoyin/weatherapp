@@ -68,7 +68,7 @@ class _HourlyWeatherDetailsScreenState
             ),
             Text(
               "Weather Report",
-              style: textTheme.titleSmall,
+              style: textTheme.titleMedium,
             ),
             verticalGap(2),
             SizedBox(
@@ -76,7 +76,7 @@ class _HourlyWeatherDetailsScreenState
               height: size.width * 0.5,
               width: size.width * 0.5,
               child: Card(
-                color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
+                color: isDarkMode ? AppColors.scaffoldBgColor : Colors.black12,
                 elevation: 2,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(100)),

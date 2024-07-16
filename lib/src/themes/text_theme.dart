@@ -22,9 +22,9 @@ class AppTextTheme {
 
     // label theme
     bodyLarge: const TextStyle().copyWith(
-        fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.black),
+        fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.black),
     bodyMedium: const TextStyle().copyWith(
-        fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.black),
+        fontSize: 16.0, fontWeight: FontWeight.w500, color: Colors.black),
     bodySmall: const TextStyle().copyWith(
         fontSize: 14.0, fontWeight: FontWeight.w400, color: Colors.black),
 

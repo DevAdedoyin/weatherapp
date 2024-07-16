@@ -21,6 +21,9 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
+    bool isDarkMode = Theme
+        .of(context)
+        .brightness == Brightness.dark;
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -58,13 +61,13 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 15),
             child: Card(
-              elevation: 4,
-              color: AppColors.scaffoldBgColor,
+              elevation: 2,
+              color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white70,
               child: ListTile(
-                leading: const Icon(Icons.lock),
+                leading: const Icon(Icons.lock, ),
                 title: Text(
                   "Change password",
-                  style: textTheme.titleSmall,
+                  style: textTheme.bodyMedium,
                 ),
                 trailing: IconButton(
                   onPressed: () {
@@ -79,8 +82,8 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 15),
             child: Card(
-              elevation: 4,
-              color: AppColors.scaffoldBgColor,
+              elevation: 2,
+              color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white70,
               child: ListTile(
                 leading: const Icon(Icons.logout),
                 title: Text(
@@ -151,8 +154,8 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 15),
             child: Card(
-              elevation: 4,
-              color: AppColors.scaffoldBgColor,
+              elevation: 2,
+              color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white70,
               child: ListTile(
                 leading: const Icon(Icons.delete),
                 title: Text(

@@ -54,7 +54,7 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Other details,",
+                  "Other details",
                   style: textTheme.titleMedium,
                 ),
                 SizedBox(
@@ -69,9 +69,9 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
                       },
                       child: Container(
                         alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: AppColors.inputFieldBG,
-                          borderRadius: const BorderRadius.all(
+                        decoration: const BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.all(
                             Radius.circular(20),
                           ),
                         ),
@@ -79,7 +79,8 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
                           isOpen
                               ? FontAwesomeIcons.chevronUp
                               : FontAwesomeIcons.chevronDown,
-                          size: 15,
+                          size: 18,
+                          color: Colors.white,
                         ),
                       )),
                 )
@@ -107,9 +108,10 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
                     color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
                     margin: EdgeInsets.only(bottom: 12),
                     child: ListTile(
-                      leading: SizedBox(
-                        height: size.height * 0.065,
-                        width: size.height * 0.065,
+                      leading: Container(
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(50), color: Colors.black38),
+                        height: size.height * 0.035,
+                        width: size.height * 0.035,
                         child: Image.network(
                           WeatherIcon.weatherIcon(hourlyWeatherState.image!),
                           // fit: BoxFit.contain,
@@ -117,12 +119,12 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
                       ),
                       title: Text(
                         weatherTitles[pos],
-                        style: textTheme.headlineSmall,
+                        style: textTheme.bodyMedium,
                       ),
                       // subtitle: Text("data"),
                       trailing: Text(
                         details[pos],
-                        style: textTheme.bodyMedium,
+                        style: textTheme.bodySmall,
                       ),
                     ),
                   );

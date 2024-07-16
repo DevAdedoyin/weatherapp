@@ -44,7 +44,14 @@ class _DashboardState extends ConsumerState<Dashboard> {
       ),
       bottomNavigationBar: currentUser == null
           ? BottomNavigationBar(
-              showSelectedLabels: false,
+              backgroundColor:
+                  isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
+              selectedLabelStyle:
+                  const TextStyle(color: Colors.red, fontSize: 14),
+              selectedItemColor: Colors.red,
+              unselectedItemColor:
+                  isDarkMode ? Colors.white : AppColors.scaffoldBgColor,
+              showSelectedLabels: true,
               showUnselectedLabels: false,
               items: [
                 BottomNavigationBarItem(
@@ -54,29 +61,34 @@ class _DashboardState extends ConsumerState<Dashboard> {
                           decoration: BoxDecoration(
                               color: Colors.white54.withOpacity(0.15),
                               borderRadius: BorderRadius.circular(20)),
-                          padding: const  EdgeInsets.symmetric(
-                              horizontal: 1, vertical: 1),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 7, vertical: 7),
                           child: const Icon(
                             Icons.home_filled,
                             color: Colors.red,
-                            size: 27,
                           ))
-                      : const Icon(Icons.home_filled),
+                      : Icon(
+                          Icons.home_filled,
+                          color: isDarkMode ? Colors.white60 : Colors.black87,
+                          size: 30,
+                        ),
                   label: "Home",
                 ),
                 BottomNavigationBarItem(
                     backgroundColor: AppColors.scaffoldBgColor,
                     icon: currentIndex == 1
                         ? Container(
-                            alignment: Alignment.center,
                             decoration: BoxDecoration(
                                 color: Colors.white54.withOpacity(0.15),
                                 borderRadius: BorderRadius.circular(20)),
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 1, vertical: 1),
-                            child: const Icon(Icons.search,   color: Colors.red,
-                              size: 27,))
-                        : const Icon(Icons.search),
+                                horizontal: 7, vertical: 7),
+                            child: const Icon(Icons.search))
+                        : Icon(
+                            Icons.search,
+                            color: isDarkMode ? Colors.white60 : Colors.black87,
+                            size: 30,
+                          ),
                     label: "Search"),
                 BottomNavigationBarItem(
                     backgroundColor: AppColors.scaffoldBgColor,
@@ -86,16 +98,20 @@ class _DashboardState extends ConsumerState<Dashboard> {
                                 color: Colors.white54.withOpacity(0.15),
                                 borderRadius: BorderRadius.circular(20)),
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 1, vertical: 1),
-                            child: const Icon(Icons.wb_cloudy,   color: Colors.red,
-                              size: 27,))
-                        : const Icon(Icons.wb_cloudy),
+                                horizontal: 7, vertical: 7),
+                            child: const Icon(Icons.wb_cloudy))
+                        : Icon(
+                            Icons.wb_cloudy,
+                            color: isDarkMode ? Colors.white60 : Colors.black87,
+                            size: 30,
+                          ),
                     label: "Forecast"),
               ],
               currentIndex: currentIndex,
               onTap: (index) => ref.read(bottomNavState.notifier).state = index,
             )
           : BottomNavigationBar(
+              selectedItemColor: Colors.red,
               items: [
                 BottomNavigationBarItem(
                   backgroundColor: AppColors.scaffoldBgColor,
