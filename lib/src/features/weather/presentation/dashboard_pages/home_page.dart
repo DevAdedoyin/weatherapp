@@ -121,7 +121,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                               horizontal: 10, vertical: 5),
                           child: Text(
                             getDateTime(),
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                             // textAlign: TextAlign.center,
                           ),
                         ),

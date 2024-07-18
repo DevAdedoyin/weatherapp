@@ -73,13 +73,14 @@ class _HourlyWeatherDetailsScreenState
             verticalGap(2),
             SizedBox(
               // color: Colors.red,
-              height: size.width * 0.5,
-              width: size.width * 0.5,
-              child: Card(
-                color: isDarkMode ? AppColors.scaffoldBgColor : Colors.black12,
-                elevation: 2,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(100)),
+              height: size.width * 0.45,
+              width: size.width * 0.45,
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.black12,
+                    borderRadius:
+                    BorderRadius.circular(
+                        100)),
                 child: Hero(
                   tag: "weather-image-${hourlyWeatherState.position}",
                   child: Image.network(

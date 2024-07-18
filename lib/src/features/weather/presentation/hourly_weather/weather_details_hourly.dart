@@ -109,7 +109,7 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
                     margin: EdgeInsets.only(bottom: 12),
                     child: ListTile(
                       leading: Container(
-                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(50), color: Colors.black38),
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(50), color: Colors.black12),
                         height: size.height * 0.035,
                         width: size.height * 0.035,
                         child: Image.network(

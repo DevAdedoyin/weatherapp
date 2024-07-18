@@ -3,11 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+
 // import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:weatherapp/src/common/gaps/sized_box.dart';
 import 'package:weatherapp/src/common/loading_indicator.dart';
 import 'package:weatherapp/src/constants/app_colors.dart';
+
 // import 'package:weatherapp/src/features/geo_location/data/get_location.dart';
 import 'package:weatherapp/src/features/geo_location/repositories/address_repo.dart';
 import 'package:weatherapp/src/features/weather/data/datasources/weather_api_datasource.dart';
@@ -65,7 +67,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
     final searchedCity = ref.watch(searchCity);
     ref.watch(fromSearchScreen);
     ref.watch(isFromSearchScreen);
-
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     // print("SEARCHING ${ref.read(searchedALocation.notifier).state}");
     return Scaffold(
       body: FutureBuilder<WeatherModel>(
@@ -91,7 +93,8 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
               return CustomScrollView(
                 slivers: <Widget>[
                   SliverAppBar(
-                    backgroundColor: AppColors.scaffoldBgColor,
+                    backgroundColor:
+                        isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
                     automaticallyImplyLeading: true,
                     title: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,18 +103,20 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                         Text(
                           userSearchedAddress,
                           // textAlign: TextAlign.center,
-                          style: textTheme.titleMedium,
+                          style: textTheme.bodyLarge,
                         ),
                         verticalGap(1),
                         Card(
-                          color: AppColors.scaffoldBgColor,
+                          color: isDarkMode
+                              ? AppColors.scaffoldBgColor
+                              : Colors.red,
                           elevation: 3,
                           child: Container(
                             margin: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 7),
                             child: Text(
                               formattedDateTime,
-                              style: textTheme.titleSmall,
+                              style: TextStyle(color: Colors.white),
                               // textAlign: TextAlign.center,
                             ),
                           ),
@@ -136,7 +141,9 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                         horizontal: 5,
                       ),
                       background: Container(
-                        color: AppColors.scaffoldBgColor,
+                        color: isDarkMode
+                            ? AppColors.scaffoldBgColor
+                            : Colors.white38,
                         child: Image.network(
                           WeatherIcon.weatherIcon(
                             data.currentWeatherModel.weather.icon,
@@ -166,7 +173,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                 GradientText(
                                   "${data.currentWeatherModel.temp.round()}°",
                                   style: GoogleFonts.robotoCondensed(
-                                    fontSize: size.height < 650 ? 70 :  100.0,
+                                    fontSize: size.height < 650 ? 70 : 100.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   colors: const [
@@ -204,10 +211,12 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                       margin: const EdgeInsets.symmetric(
                           horizontal: 18, vertical: 25),
                       child: Card(
-                        color: AppColors.scaffoldBgColor,
+                        color: isDarkMode
+                            ? AppColors.scaffoldBgColor
+                            : Colors.white,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)),
-                        elevation: 4,
+                        elevation: 2,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -224,10 +233,12 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                     children: [
                                       Text(
                                         "Pressure",
-                                        style: textTheme.titleSmall,
+                                        style: textTheme.bodyMedium,
                                       ),
                                       Text(
-                                          "${data.currentWeatherModel.pressure}"),
+                                        "${data.currentWeatherModel.pressure}",
+                                        style: textTheme.bodySmall,
+                                      ),
                                     ],
                                   ),
                                   Column(
@@ -236,9 +247,12 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                     children: [
                                       Text(
                                         "Sunrise",
-                                        style: textTheme.titleSmall,
+                                        style: textTheme.bodyMedium,
                                       ),
-                                      Text(formattedSunrise),
+                                      Text(
+                                        formattedSunrise,
+                                        style: textTheme.bodySmall,
+                                      ),
                                     ],
                                   ),
                                   Column(
@@ -247,10 +261,12 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                     children: [
                                       Text(
                                         "Humidity",
-                                        style: textTheme.titleSmall,
+                                        style: textTheme.bodyMedium,
                                       ),
                                       Text(
-                                          "${data.currentWeatherModel.humidity}%"),
+                                        "${data.currentWeatherModel.humidity}%",
+                                        style: textTheme.bodySmall,
+                                      ),
                                     ],
                                   )
                                 ],
@@ -270,10 +286,12 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                     children: [
                                       Text(
                                         "Wind Speed",
-                                        style: textTheme.titleSmall,
+                                        style: textTheme.bodyMedium,
                                       ),
                                       Text(
-                                          "${data.currentWeatherModel.windSpeed}"),
+                                        "${data.currentWeatherModel.windSpeed}",
+                                        style: textTheme.bodySmall,
+                                      ),
                                     ],
                                   ),
                                   Column(
@@ -282,9 +300,12 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                     children: [
                                       Text(
                                         "Sunset",
-                                        style: textTheme.titleSmall,
+                                        style: textTheme.bodyMedium,
                                       ),
-                                      Text(formattedSunset),
+                                      Text(
+                                        formattedSunset,
+                                        style: textTheme.bodySmall,
+                                      ),
                                     ],
                                   ),
                                   Column(
@@ -293,10 +314,12 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                     children: [
                                       Text(
                                         "Dew Point",
-                                        style: textTheme.titleSmall,
+                                        style: textTheme.bodyMedium,
                                       ),
                                       Text(
-                                          "${data.currentWeatherModel.dewPoint.round()}°c"),
+                                        "${data.currentWeatherModel.dewPoint.round()}°c",
+                                        style: textTheme.bodySmall,
+                                      ),
                                     ],
                                   ),
                                 ],
@@ -324,8 +347,10 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                           verticalGap(10),
                           SizedBox(
                             height: size.height < 650
-                                ? size.height * 0.50 : size.height < 690 ? size.height * 0.40
-                                : size.height * 0.30,
+                                ? size.height * 0.50
+                                : size.height < 690
+                                    ? size.height * 0.40
+                                    : size.height * 0.30,
                             child: ListView.builder(
                                 shrinkWrap: true,
                                 itemCount: data.hourlyWeather.length,
@@ -393,8 +418,10 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                       child: Card(
-                                        color: AppColors.scaffoldBgColor,
-                                        elevation: 5,
+                                        color: isDarkMode
+                                            ? AppColors.scaffoldBgColor
+                                            : Colors.white,
+                                        elevation: 3,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(10),
@@ -416,14 +443,23 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                               style: textTheme.titleSmall,
                                             ),
                                             verticalGap(2),
-                                            const Divider(
+                                            Divider(
                                                 thickness: 1,
                                                 indent: 10,
                                                 endIndent: 10,
-                                                color: AppColors.primaryColor),
-                                            Image.network(
-                                              WeatherIcon.weatherIcon(
-                                                data_.weather.icon,
+                                                color: isDarkMode
+                                                    ? AppColors.primaryColor
+                                                    : Colors.black12),
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                  color: Colors.black12,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          50)),
+                                              child: Image.network(
+                                                WeatherIcon.weatherIcon(
+                                                  data_.weather.icon,
+                                                ),
                                               ),
                                             ),
                                             Text(
@@ -448,7 +484,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                   // DAILY WEATHER
                   SliverToBoxAdapter(
                     child: Container(
-                      margin: const EdgeInsets.only(top: 25),
+                      margin: const EdgeInsets.only(top: 25, bottom: 20),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -456,15 +492,17 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 20.0),
                             child: Text(
-                              'Next 7 Days',
+                              'Next 5 Days',
                               style: textTheme.titleMedium,
                             ),
                           ),
                           verticalGap(7),
                           SizedBox(
                             height: size.height < 650
-                                ? size.height * 0.50 : size.height < 690 ? size.height * 0.40
-                                : size.height * 0.30,
+                                ? size.height * 0.50
+                                : size.height < 690
+                                    ? size.height * 0.40
+                                    : size.height * 0.30,
                             child: ListView.builder(
                                 shrinkWrap: true,
                                 itemCount: data.dailyWeather.length,
@@ -483,14 +521,16 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                     radius: 0.5,
                                     child: Container(
                                       width: size.width * 0.42,
-                                      margin: const EdgeInsets.symmetric(
-                                          horizontal: 7),
+                                      margin: const EdgeInsets.only(
+                                          left: 7, right: 7, bottom: 7),
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                       child: Card(
-                                        color: AppColors.scaffoldBgColor,
-                                        elevation: 5,
+                                        color: isDarkMode
+                                            ? AppColors.scaffoldBgColor
+                                            : Colors.white,
+                                        elevation: 3,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(10),
@@ -514,17 +554,26 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                               style: textTheme.titleSmall,
                                             ),
                                             verticalGap(2),
-                                            const Divider(
+                                            Divider(
                                                 thickness: 1,
                                                 indent: 10,
                                                 endIndent: 10,
-                                                color: AppColors.primaryColor),
-                                            Hero(
-                                              tag: "weather-image-$position",
-                                              child: Image.network(
-                                                WeatherIcon.weatherIcon(
-                                                  // "",
-                                                  data_.weather.icon,
+                                                color: isDarkMode
+                                                    ? AppColors.primaryColor
+                                                    : Colors.black12),
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                  color: Colors.black12,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          50)),
+                                              child: Hero(
+                                                tag: "weather-image-$position",
+                                                child: Image.network(
+                                                  WeatherIcon.weatherIcon(
+                                                    // "",
+                                                    data_.weather.icon,
+                                                  ),
                                                 ),
                                               ),
                                             ),

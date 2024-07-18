@@ -30,9 +30,7 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
 
     ref.watch(dailyWeatherProvider);
 
-    bool isDarkMode = Theme
-        .of(context)
-        .brightness == Brightness.dark;
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Column(
       children: [
         Container(
@@ -105,7 +103,9 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                         ),
                         Card(
                           elevation: 2,
-                          color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white70,
+                          color: isDarkMode
+                              ? AppColors.scaffoldBgColor
+                              : Colors.white,
                           child: InkWell(
                             onTap: FirebaseAuth.instance.currentUser == null
                                 ? () {}
@@ -135,11 +135,11 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                             radius: 0.5,
                             borderRadius: BorderRadius.circular(10),
                             child: ListTile(
-                              leading: Card(
-                                elevation: 10,
-                                color: AppColors.scaffoldBgColor,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50)),
+                              leading: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.black12,
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
                                 child: Image.network(WeatherIcon.weatherIcon(
                                     data[pos].weather.icon)),
                               ),
