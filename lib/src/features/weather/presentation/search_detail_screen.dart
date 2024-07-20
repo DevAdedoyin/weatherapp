@@ -435,7 +435,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                             verticalGap(5),
                                             Text(
                                               date.toString(),
-                                              style: textTheme.titleMedium,
+                                              style: textTheme.bodyMedium,
                                             ),
                                             verticalGap(3),
                                             Text(
@@ -545,7 +545,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                                 size.height < 650 ? 2 : 5),
                                             Text(
                                               dayOfWeek,
-                                              style: textTheme.titleMedium,
+                                              style: textTheme.bodyMedium,
                                             ),
                                             verticalGap(
                                                 size.height < 650 ? 1 : 3),

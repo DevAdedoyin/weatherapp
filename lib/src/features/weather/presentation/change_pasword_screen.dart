@@ -40,11 +40,18 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
 
     TextTheme textTheme = Theme.of(context).textTheme;
     final user = FirebaseAuth.instance.currentUser;
-
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Change password", style: textTheme.titleMedium),
-        backgroundColor: AppColors.scaffoldBgColor,
+        iconTheme: const IconThemeData(
+          color: Colors.white ,
+        ),
+        title: const Text("Change password",
+            style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w500,
+                fontSize: 19)),
+        backgroundColor: isDarkMode ? AppColors.scaffoldBgColor : Colors.red,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -80,7 +87,7 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
                         Validator.validatePassword(password: password),
                     decoration: themeInputDecoration(
                       'New Password',
-                      const Icon(Icons.lock),
+                      const Icon(Icons.lock, color: Colors.red),
                       isPassword: true,
                       passwordIcon: IconButton(
                         onPressed: () {
@@ -111,7 +118,7 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
                             confirmPassword: confirmPassword),
                     decoration: themeInputDecoration(
                       'Confirm Password',
-                      const Icon(Icons.lock),
+                      const Icon(Icons.lock, color: Colors.red),
                       isCPassword: true,
                       passwordIcon: IconButton(
                         onPressed: () {
@@ -166,7 +173,10 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
                             width: 15,
                             child: LoadingIndicator(),
                           )
-                        : Text("Update password", style: textTheme.titleSmall),
+                        : const Text("Update password", style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 17)),
                   ),
                 ),
                 verticalGap(10),
@@ -181,7 +191,10 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
                     style: const ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(Colors.black),
                     ),
-                    label: Text("Login", style: textTheme.titleSmall))
+                    label: const Text("Login", style:  TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 19)))
               ],
             ),
           ),

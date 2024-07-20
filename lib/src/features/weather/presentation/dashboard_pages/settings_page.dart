@@ -21,9 +21,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
-    bool isDarkMode = Theme
-        .of(context)
-        .brightness == Brightness.dark;
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -56,15 +54,18 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                   ),
           ),
           verticalGap(10),
-          Text("${user?.displayName}", style: textTheme.titleLarge),
+          Text(
+            "${user?.displayName}",
+            style: textTheme.headlineMedium,
+          ),
           verticalGap(20),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 15),
             child: Card(
               elevation: 2,
-              color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white70,
+              color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
               child: ListTile(
-                leading: const Icon(Icons.lock, ),
+                leading: const Icon(Icons.lock, color: Colors.red),
                 title: Text(
                   "Change password",
                   style: textTheme.bodyMedium,
@@ -83,12 +84,12 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             margin: const EdgeInsets.symmetric(horizontal: 15),
             child: Card(
               elevation: 2,
-              color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white70,
+              color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
               child: ListTile(
-                leading: const Icon(Icons.logout),
+                leading: const Icon(Icons.logout, color: Colors.red),
                 title: Text(
                   "Logout",
-                  style: textTheme.titleSmall,
+                  style: textTheme.bodyMedium,
                 ),
                 trailing: IconButton(
                   onPressed: () {
@@ -96,11 +97,14 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          backgroundColor: AppColors.scaffoldBgColor,
-                          title: const Text('Logout'),
+                          // backgroundColor: AppColors.scaffoldBgColor,
+                          title: Text(
+                            'Logout',
+                            style: textTheme.headlineMedium,
+                          ),
                           content: Text(
                             "Are you sure you want to logout?",
-                            style: textTheme.titleSmall,
+                            style: textTheme.bodySmall,
                           ),
                           actions: [
                             TextButton(
@@ -137,7 +141,6 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                               ),
                               onPressed: () {
                                 FireAuth.signOut(context: context);
-
                               },
                             ),
                           ],
@@ -155,12 +158,12 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             margin: const EdgeInsets.symmetric(horizontal: 15),
             child: Card(
               elevation: 2,
-              color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white70,
+              color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
               child: ListTile(
-                leading: const Icon(Icons.delete),
+                leading: const Icon(Icons.delete, color: Colors.red),
                 title: Text(
                   "Remove account",
-                  style: textTheme.titleSmall,
+                  style: textTheme.bodyMedium,
                 ),
                 trailing: IconButton(
                   onPressed: () {
@@ -168,13 +171,19 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          backgroundColor: AppColors.scaffoldBgColor,
-                          title: const Text('Delete your Account?'),
-                          content: const Text('''
+                          // backgroundColor: AppColors.scaffoldBgColor,
+                          title: Text(
+                            'Delete your Account?',
+                            style: textTheme.headlineMedium,
+                          ),
+                          content: Text(
+                            '''
 If you select Delete we will delete your account on our server.
 
 Your app data will also be deleted and you won\'t be able to retrieve it.
-'''),
+''',
+                            style: textTheme.bodySmall,
+                          ),
                           actions: [
                             TextButton(
                               style: ButtonStyle(

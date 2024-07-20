@@ -17,13 +17,13 @@ void failedAuthAlertWidget(
           Text(
             messageHeader,
             // textAlign: TextAlign.center,
-            style: textTheme.titleMedium,
+            style: textTheme.headlineMedium,
           ),
           verticalGap(12),
           Text(
             message,
             // textAlign: TextAlign.center,
-            style: textTheme.displaySmall,
+            style: textTheme.bodySmall,
           ),
           verticalGap(7),
           ElevatedButton(

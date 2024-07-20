@@ -79,11 +79,12 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
         .brightness == Brightness.dark;
 
     return Scaffold(
+
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
             padding:
-                const EdgeInsets.only(left: 15, right: 15, top: 7, bottom: 5),
+                const EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -102,11 +103,12 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                   // width: double.maxFinite,
                   alignment: Alignment.center,
                   child: ClipOval(
-                    child: Card(
-                      color: AppColors.scaffoldBgColor,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100)),
-                      elevation: 5,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.black12,
+                          borderRadius:
+                          BorderRadius.circular(
+                              100)),
                       child: Image.network(
                         WeatherIcon.weatherIcon(dailyWeather.weather.icon),
                         fit: BoxFit.fill,
@@ -118,7 +120,8 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                 ),
                 verticalGap(15),
                 Card(
-                  color: AppColors.scaffoldBgColor,
+                  elevation: 2,
+                  color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(0),
@@ -129,13 +132,13 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                   margin: const EdgeInsets.all(0),
                   child: Padding(
                     padding: const EdgeInsets.only(top: 7, left: 10, right: 10),
-                    child: Text("Weather Summary", style: textTheme.titleSmall),
+                    child: Text("Weather Summary", style: textTheme.bodyMedium),
                   ),
                 ),
                 SizedBox(
                   width: double.maxFinite,
                   child: Card(
-                    color: AppColors.scaffoldBgColor,
+                    color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(0),
@@ -148,7 +151,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                       padding: const EdgeInsets.only(
                           bottom: 7, left: 10, right: 10, top: 5),
                       child: Text(dailyWeather.summary,
-                          style: GoogleFonts.roboto(fontSize: 12)),
+                          style: textTheme.bodySmall),
                     ),
                   ),
                 ),
@@ -202,7 +205,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Temperature", style: textTheme.titleMedium),
+                    Text("Temperature", style: textTheme.bodyMedium),
                     InkWell(
                         onTap: () {
                           ref.read(isDailyContainerTempOpen.notifier).state =
@@ -212,19 +215,22 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                         },
                         borderRadius: BorderRadius.circular(20),
                         child: Card(
+                            elevation: 4,
+                            color: isDarkMode
+                                ? AppColors.scaffoldBgColor
+                                : Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(40),
                             ),
-                            color: AppColors.scaffoldBgColor,
                             child: Icon(isTempContainerOpen
                                 ? Icons.keyboard_arrow_up_sharp
-                                : Icons.keyboard_arrow_down_sharp)))
+                                : Icons.keyboard_arrow_down_sharp, size: 28,)))
                   ],
                 ),
                 AnimatedContainer(
                   duration: const Duration(milliseconds: 500),
                   height: isTempContainerOpen
-                      ? size.height * 0.55
+                      ? size.height * 0.43
                       : size.height * 0.11,
                   // color: AppColors.cardBgColor,
                   child: ListView.builder(
@@ -232,21 +238,23 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                       itemCount: daily.length,
                       itemBuilder: (context, pos) {
                         return Card(
-                          elevation: 5,
-                          color: AppColors.scaffoldBgColor,
+                          elevation: 2,
+                          color: isDarkMode
+                              ? AppColors.scaffoldBgColor
+                              : Colors.white,
                           child: ListTile(
-                            leading: Card(
-                              color: AppColors.scaffoldBgColor,
-                              elevation: 10,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50)),
+                            leading: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.black12,
+                                borderRadius: BorderRadius.circular(50),
+                              ),
                               child: Image.network(WeatherIcon.weatherIcon(
                                   dailyWeather.weather.icon)),
                             ),
                             dense: false,
                             title: Text(
                               dayOfTheDay[pos].toString(),
-                              style: textTheme.titleSmall,
+                              style: textTheme.bodyMedium,
                             ),
                             subtitle: Text(
                               "Feels like ${feelsLike[pos].round().toString()}°c",
@@ -254,7 +262,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                                   fontSize: 12, fontWeight: FontWeight.w500),
                             ),
                             trailing: Text("${daily[pos].round().toString()}°c",
-                                style: textTheme.titleMedium),
+                                style: textTheme.bodySmall),
                             contentPadding: const EdgeInsets.symmetric(
                                 horizontal: 15, vertical: 0),
                           ),
@@ -265,7 +273,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Other details", style: textTheme.titleMedium),
+                    Text("Other details", style: textTheme.bodyMedium),
                     InkWell(
                         onTap: () {
                           ref
@@ -279,13 +287,16 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                         },
                         borderRadius: BorderRadius.circular(20),
                         child: Card(
+                            elevation: 4,
+                            color: isDarkMode
+                                ? AppColors.scaffoldBgColor
+                                : Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(40),
                             ),
-                            color: AppColors.scaffoldBgColor,
                             child: Icon(isDailyOtherContainerOpen
                                 ? Icons.keyboard_arrow_up_sharp
-                                : Icons.keyboard_arrow_down_sharp)))
+                                : Icons.keyboard_arrow_down_sharp, size: 28,)))
                   ],
                 ),
                 AnimatedContainer(
@@ -300,18 +311,20 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                               crossAxisCount: 3),
                       itemBuilder: (_, pos) {
                         return Card(
-                          elevation: 4,
-                          color: AppColors.scaffoldBgColor,
+                          elevation: 2,
+                          color: isDarkMode
+                              ? AppColors.scaffoldBgColor
+                              : Colors.white,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Card(
-                                color: AppColors.scaffoldBgColor,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(100),
-                                ),
-                                elevation: 5,
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.black12,
+                                    borderRadius:
+                                    BorderRadius.circular(
+                                        100)),
                                 child: Image.network(
                                   WeatherIcon.weatherIcon(
                                       dailyWeather.weather.icon),

@@ -88,7 +88,8 @@ class _SearchPageState extends ConsumerState<SearchPage> {
         // height: 30,
         child: Column(
           children: [
-            verticalGap(user == null ? size.height * 0.045 : size.height * 0.075),
+            verticalGap(
+                user == null ? size.height * 0.045 : size.height * 0.055),
             SizedBox(
               width: size.width * 0.9,
               child: FieldSuggestion<SearchSuggestionModel>(
@@ -142,7 +143,9 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                         borderSide: const BorderSide(
                             color: Colors.red, style: BorderStyle.solid)),
                     disabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red,),
+                      borderSide: BorderSide(
+                        color: Colors.red,
+                      ),
                     ),
                     hintStyle: GoogleFonts.roboto(
                       fontWeight: FontWeight.normal,
@@ -183,13 +186,16 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                                 splashColor: AppColors.thirdPartyIconBGColor,
                                 borderRadius: BorderRadius.circular(50),
                                 radius: 20,
-                                child: const Icon(Icons.arrow_forward, color: Colors.red,)),
+                                child: const Icon(
+                                  Icons.arrow_forward,
+                                  color: Colors.red,
+                                )),
                           ],
                         )),
                     prefixIcon: const SizedBox(
                         child: Icon(
                       Icons.search,
-                          color: Colors.red,
+                      color: Colors.red,
                     ))),
                 textController: textController,
                 suggestions: uniqueCityData,
@@ -233,7 +239,10 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                       context.push(AppRoutes.searchCityWeatherDetails);
                     },
                     child: ListTile(
-                      leading: const Icon(Icons.location_city_rounded, color: Colors.red,),
+                      leading: const Icon(
+                        Icons.location_city_rounded,
+                        color: Colors.red,
+                      ),
                       title: Text(
                         e.cityNames,
                         style: textTheme.bodyMedium,
@@ -249,6 +258,8 @@ class _SearchPageState extends ConsumerState<SearchPage> {
             else
               ...random50Cities.map(
                 (e) => Card(
+                  elevation: 2,
+
                   margin:
                       const EdgeInsets.only(bottom: 10, left: 15, right: 15),
                   color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
@@ -261,10 +272,13 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                       context.push(AppRoutes.searchCityWeatherDetails);
                     },
                     child: ListTile(
-                      leading: const Icon(Icons.location_city_rounded),
+                      leading: const Icon(
+                        Icons.location_city_rounded,
+                        color: Colors.red,
+                      ),
                       title: Text(
                         e.cityNames,
-                        style: textTheme.displaySmall,
+                        style: textTheme.bodyMedium,
                       ),
                       trailing: Text(
                         e.continent,

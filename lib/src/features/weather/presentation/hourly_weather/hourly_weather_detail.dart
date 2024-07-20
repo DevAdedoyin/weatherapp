@@ -37,11 +37,11 @@ class _HourlyWeatherDetailsScreenState
           children: [
             Text(
               hourlyWeatherState.address,
-              style: textTheme.titleMedium,
+              style: textTheme.bodyMedium,
             ),
             Text(
               hourlyWeatherState.date!,
-              style: textTheme.titleSmall,
+              style: textTheme.bodySmall,
             )
           ],
         ),
@@ -68,7 +68,7 @@ class _HourlyWeatherDetailsScreenState
             ),
             Text(
               "Weather Report",
-              style: textTheme.titleMedium,
+              style: textTheme.bodyMedium,
             ),
             verticalGap(2),
             SizedBox(

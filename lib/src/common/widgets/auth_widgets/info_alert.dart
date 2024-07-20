@@ -24,7 +24,7 @@ void infoAuthAlertWidget(
           Text(
             message,
             // textAlign: TextAlign.center,
-            style: textTheme.headlineSmall,
+            style: textTheme.bodySmall,
           ),
           verticalGap(10),
           SizedBox(
