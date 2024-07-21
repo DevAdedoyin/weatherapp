@@ -7,6 +7,9 @@ import "package:weatherapp/src/constants/app_colors.dart";
 import "package:weatherapp/src/features/authentication/data/datasources/auth_datasource.dart";
 import "package:weatherapp/src/routing/app_routes.dart";
 
+import "../../../../themes/theme_notifier.dart";
+import "../../data/repositories/switch.dart";
+
 class SettingsPage extends ConsumerStatefulWidget {
   const SettingsPage({super.key});
 
@@ -22,6 +25,8 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    bool isLightMode = ref.watch(switchModes);
+    final themeNotifier = ref.read(themeNotifierProvider.notifier);
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -229,6 +234,27 @@ Your app data will also be deleted and you won\'t be able to retrieve it.
                   icon: const Icon(Icons.arrow_forward_rounded),
                 ),
               ),
+            ),
+          ),
+          verticalGap(10),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 15),
+            child: Card(
+              elevation: 2,
+              color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
+              child: ListTile(
+                  leading: const Icon(Icons.mode_night, color: Colors.red),
+                  title: Text(
+                    "Switch theme",
+                    style: textTheme.bodyMedium,
+                  ),
+                  trailing: Switch(
+                    value: isLightMode,
+                    onChanged: (val) {
+                      ref.read(switchModes.notifier).state = ref.read(switchModes.notifier).state == true ? false : true;
+                      themeNotifier.toggleTheme();
+                    },
+                  )),
             ),
           ),
         ],

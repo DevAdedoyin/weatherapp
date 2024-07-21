@@ -14,6 +14,8 @@ import "package:weatherapp/src/features/weather/domain/daily_detail_model.dart";
 import "package:weatherapp/src/routing/app_routes.dart";
 import "package:weatherapp/src/utils/weather_icon_utils.dart";
 
+import "../../../../common/widgets/auth_widgets/info_alert.dart";
+
 class DailyForecastPage extends ConsumerStatefulWidget {
   const DailyForecastPage({Key? key}) : super(key: key);
 
@@ -108,7 +110,14 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                               : Colors.white,
                           child: InkWell(
                             onTap: FirebaseAuth.instance.currentUser == null
-                                ? () {}
+                                ? () {
+                              infoAuthAlertWidget(
+                                  context,
+                                  "Please kindly login or create an account to see more forecast details",
+                                  "LOGIN REQUIRED", onTap: () {
+                                context.go(AppRoutes.login);
+                              });
+                            }
                                 : () {
                                     final dailyDetail = DailyDetailModel(
                                         dateTime: formattedDate,

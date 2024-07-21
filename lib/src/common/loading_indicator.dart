@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import '../constants/app_colors.dart';
 // import 'package:weatherapp/src/constants/app_colors.dart';
 
 class LoadingIndicator extends StatelessWidget {
@@ -6,11 +8,15 @@ class LoadingIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(
-      height: 12,
-      width: 12,
+    bool isDarkMode = Theme
+        .of(context)
+        .brightness == Brightness.dark;
+    return  SizedBox(
+      height: 20,
+      width: 20,
       child: CircularProgressIndicator(
-        color: Colors.white,
+        color: isDarkMode ? Colors.white : AppColors.accentColor,
+        strokeWidth: 4,
       ),
     );
   }

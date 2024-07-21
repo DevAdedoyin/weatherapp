@@ -87,7 +87,7 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
                         Validator.validatePassword(password: password),
                     decoration: themeInputDecoration(
                       'New Password',
-                      const Icon(Icons.lock, color: Colors.red),
+                      const Icon(Icons.lock, ),
                       isPassword: true,
                       passwordIcon: IconButton(
                         onPressed: () {
@@ -118,7 +118,7 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
                             confirmPassword: confirmPassword),
                     decoration: themeInputDecoration(
                       'Confirm Password',
-                      const Icon(Icons.lock, color: Colors.red),
+                      const Icon(Icons.lock, ),
                       isCPassword: true,
                       passwordIcon: IconButton(
                         onPressed: () {

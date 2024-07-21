@@ -170,7 +170,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                                   if (user == null) {
                                     infoAuthAlertWidget(
                                         context,
-                                        "Please kindly login or create and account to search for weather data of any location of your choice.",
+                                        "Please kindly login or create an account to search for weather data of any location of your choice.",
                                         "LOGIN REQUIRED", onTap: () {
                                       context.go(AppRoutes.login);
                                     });
