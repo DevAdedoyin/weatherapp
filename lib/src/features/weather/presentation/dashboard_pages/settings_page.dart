@@ -2,6 +2,7 @@ import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
+import "package:shared_preferences/shared_preferences.dart";
 import "package:weatherapp/src/common/gaps/sized_box.dart";
 import "package:weatherapp/src/constants/app_colors.dart";
 import "package:weatherapp/src/features/authentication/data/datasources/auth_datasource.dart";
@@ -21,12 +22,20 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
   final user = FirebaseAuth.instance.currentUser;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     bool isLightMode = ref.watch(switchModes);
     final themeNotifier = ref.read(themeNotifierProvider.notifier);
+
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -249,9 +258,8 @@ Your app data will also be deleted and you won\'t be able to retrieve it.
                     style: textTheme.bodyMedium,
                   ),
                   trailing: Switch(
-                    value: isLightMode,
-                    onChanged: (val) {
-                      ref.read(switchModes.notifier).state = ref.read(switchModes.notifier).state == true ? false : true;
+                    value: isDarkMode,
+                    onChanged: (val)  {
                       themeNotifier.toggleTheme();
                     },
                   )),
