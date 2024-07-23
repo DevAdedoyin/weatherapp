@@ -164,6 +164,7 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
                           borderRadius: BorderRadius.all(
                             Radius.circular(10),
                           ),
+                          side: BorderSide.none
                         ),
                       ),
                     ),

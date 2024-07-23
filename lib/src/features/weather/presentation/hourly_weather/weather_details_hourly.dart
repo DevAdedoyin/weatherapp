@@ -41,15 +41,13 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
     TextTheme textTheme = Theme.of(context).textTheme;
     final isOpen = ref.watch(openWeatherDetails);
     final hourlyWeatherState = ref.watch(hourlyWeatherDetails);
-    bool isDarkMode = Theme
-        .of(context)
-        .brightness == Brightness.dark;
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
       child: Column(
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -57,33 +55,29 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
                   "Other details",
                   style: textTheme.titleMedium,
                 ),
-                SizedBox(
-                  height: 25,
-                  width: 25,
-                  child: GestureDetector(
-                      onTap: () {
-                        ref.read(openWeatherDetails.notifier).state =
-                            ref.read(openWeatherDetails.notifier).state
-                                ? false
-                                : true;
-                      },
+                InkWell(
+                    onTap: () {
+                      ref.read(openWeatherDetails.notifier).state =
+                          ref.read(openWeatherDetails.notifier).state
+                              ? false
+                              : true;
+                    },
+                    child: Card(
+                      elevation: 3,
+                      color: isDarkMode ? Colors.white12 : Colors.red,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
                       child: Container(
-                        alignment: Alignment.center,
-                        decoration: const BoxDecoration(
-                          color: Colors.red,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(20),
-                          ),
-                        ),
-                        child: FaIcon(
+                      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                        child: Text(
                           isOpen
-                              ? FontAwesomeIcons.chevronUp
-                              : FontAwesomeIcons.chevronDown,
-                          size: 18,
-                          color: Colors.white,
+                              ? "See less"
+                              : "See more",
+                          style: TextStyle(),
                         ),
-                      )),
-                )
+                      ),
+                    ))
               ],
             ),
           ),
@@ -104,12 +98,16 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
                     hourlyWeatherState.windGust!,
                   ];
                   return Card(
-                    elevation: 2,
-                    color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
-                    margin: EdgeInsets.only(bottom: 12),
+                    elevation: 3,
+                    color:
+                        isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
+                    margin: const EdgeInsets.only(bottom: 12),
                     child: ListTile(
                       leading: Container(
-                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(50), color: Colors.black12),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            color:
+                                isDarkMode ? Colors.white12 : Colors.black12),
                         height: size.height * 0.035,
                         width: size.height * 0.035,
                         child: Image.network(

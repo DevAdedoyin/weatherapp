@@ -106,19 +106,17 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                           style: textTheme.bodyLarge,
                         ),
                         verticalGap(1),
-                        Card(
-                          color: isDarkMode
-                              ? AppColors.scaffoldBgColor
-                              : Colors.red,
-                          elevation: 3,
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 7),
-                            child: Text(
-                              formattedDateTime,
-                              style: TextStyle(color: Colors.white),
-                              // textAlign: TextAlign.center,
-                            ),
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 5, ),
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(7), color: Colors.red ),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 3),
+                          child: Text(
+                            formattedDateTime,
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 13),
+                            // textAlign: TextAlign.center,
                           ),
                         ),
                       ],
@@ -133,9 +131,9 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                         ? size.height * 0.30
                         : size.height * 0.30,
                     collapsedHeight: size.height < 650
-                        ? size.height * 0.09
-                        : size.height * 0.09,
-                    toolbarHeight: size.height * 0.089,
+                        ? size.height * 0.15
+                        : size.height * 0.15,
+                    toolbarHeight: size.height * 0.09,
                     flexibleSpace: FlexibleSpaceBar(
                       titlePadding: const EdgeInsets.symmetric(
                         horizontal: 5,
@@ -216,7 +214,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                             : Colors.white,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)),
-                        elevation: 2,
+                        elevation: 3,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -452,7 +450,9 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                                     : Colors.black12),
                                             Container(
                                               decoration: BoxDecoration(
-                                                  color: Colors.black12,
+                                                  color: isDarkMode
+                                                      ? Colors.white12
+                                                      : Colors.black12,
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           50)),
@@ -563,7 +563,9 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                                     : Colors.black12),
                                             Container(
                                               decoration: BoxDecoration(
-                                                  color: Colors.black12,
+                                                  color: isDarkMode
+                                                      ? Colors.white12
+                                                      : Colors.black12,
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           50)),

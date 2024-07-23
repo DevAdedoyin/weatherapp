@@ -31,7 +31,7 @@ class ElevatedButtonThemes {
       backgroundColor: AppColors.primaryColor,
       disabledForegroundColor: Colors.grey,
       disabledBackgroundColor: Colors.grey,
-      side:  const BorderSide(color: AppColors.primaryColor),
+      // side:  const BorderSide(color: AppColors.primaryColor),
       padding: const EdgeInsets.symmetric(vertical: 10),
       textStyle: const TextStyle(
           fontSize: 16, color: Colors.white, fontWeight: FontWeight.w600),

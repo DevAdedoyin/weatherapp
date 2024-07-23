@@ -76,7 +76,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 15),
             child: Card(
-              elevation: 2,
+              elevation: 3,
               color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
               child: ListTile(
                 leading: const Icon(Icons.lock, color: Colors.red),
@@ -97,7 +97,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 15),
             child: Card(
-              elevation: 2,
+              elevation: 3,
               color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
               child: ListTile(
                 leading: const Icon(Icons.logout, color: Colors.red),
@@ -171,7 +171,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 15),
             child: Card(
-              elevation: 2,
+              elevation: 3,
               color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
               child: ListTile(
                 leading: const Icon(Icons.delete, color: Colors.red),
@@ -249,7 +249,7 @@ Your app data will also be deleted and you won\'t be able to retrieve it.
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 15),
             child: Card(
-              elevation: 2,
+              elevation: 3,
               color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
               child: ListTile(
                   leading: const Icon(Icons.mode_night, color: Colors.red),

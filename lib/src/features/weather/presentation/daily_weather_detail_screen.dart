@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+
 // import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:weatherapp/src/common/gaps/sized_box.dart';
 import 'package:weatherapp/src/constants/app_colors.dart';
+
 // import 'package:weatherapp/src/features/geo_location/repositories/address_repo.dart';
 import 'package:weatherapp/src/features/weather/data/repositories/daily_detail_repo.dart';
 import 'package:weatherapp/src/features/weather/data/repositories/search_city_repo.dart';
@@ -74,12 +76,9 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
     final isDailyOtherContainerOpen =
         ref.watch(isDailyOtherDetailContainerOpen);
 
-    bool isDarkMode = Theme
-        .of(context)
-        .brightness == Brightness.dark;
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -105,10 +104,8 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                   child: ClipOval(
                     child: Container(
                       decoration: BoxDecoration(
-                          color: Colors.black12,
-                          borderRadius:
-                          BorderRadius.circular(
-                              100)),
+                          color: isDarkMode ? Colors.white12 : Colors.black12,
+                          borderRadius: BorderRadius.circular(100)),
                       child: Image.network(
                         WeatherIcon.weatherIcon(dailyWeather.weather.icon),
                         fit: BoxFit.fill,
@@ -120,7 +117,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                 ),
                 verticalGap(15),
                 Card(
-                  elevation: 2,
+                  elevation: 3,
                   color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
@@ -138,7 +135,8 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                 SizedBox(
                   width: double.maxFinite,
                   child: Card(
-                    color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
+                    color:
+                        isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(0),
@@ -158,7 +156,10 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                 verticalGap(5),
                 Container(
                   padding: const EdgeInsets.only(top: 0),
-                  margin:  EdgeInsets.only(left: size.width < 650 ? 10 : 20, right: size.width < 650 ? 10 :  20, top: 0),
+                  margin: EdgeInsets.only(
+                      left: size.width < 650 ? 10 : 20,
+                      right: size.width < 650 ? 10 : 20,
+                      top: 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -215,16 +216,20 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                         },
                         borderRadius: BorderRadius.circular(20),
                         child: Card(
-                            elevation: 4,
-                            color: isDarkMode
-                                ? AppColors.scaffoldBgColor
-                                : Colors.white,
+                            elevation: 3,
+                            color:  isDarkMode
+                                ? Colors.white12
+                                : Colors.red,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(40),
                             ),
-                            child: Icon(isTempContainerOpen
-                                ? Icons.keyboard_arrow_up_sharp
-                                : Icons.keyboard_arrow_down_sharp, size: 28,)))
+                            child: Icon(
+                              isTempContainerOpen
+                                  ? Icons.keyboard_arrow_up_sharp
+                                  : Icons.keyboard_arrow_down_sharp,
+                              size: 28,
+                              color: Colors.white,
+                            )))
                   ],
                 ),
                 AnimatedContainer(
@@ -238,14 +243,16 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                       itemCount: daily.length,
                       itemBuilder: (context, pos) {
                         return Card(
-                          elevation: 2,
+                          elevation: 3,
                           color: isDarkMode
                               ? AppColors.scaffoldBgColor
                               : Colors.white,
                           child: ListTile(
                             leading: Container(
                               decoration: BoxDecoration(
-                                color: Colors.black12,
+                                color: isDarkMode
+                                    ? Colors.white12
+                                    : Colors.black12,
                                 borderRadius: BorderRadius.circular(50),
                               ),
                               child: Image.network(WeatherIcon.weatherIcon(
@@ -287,16 +294,20 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                         },
                         borderRadius: BorderRadius.circular(20),
                         child: Card(
-                            elevation: 4,
+                            elevation: 3,
                             color: isDarkMode
-                                ? AppColors.scaffoldBgColor
-                                : Colors.white,
+                                ? Colors.white12
+                                : Colors.red,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(40),
                             ),
-                            child: Icon(isDailyOtherContainerOpen
-                                ? Icons.keyboard_arrow_up_sharp
-                                : Icons.keyboard_arrow_down_sharp, size: 28,)))
+                            child: Icon(
+                              isDailyOtherContainerOpen
+                                  ? Icons.keyboard_arrow_up_sharp
+                                  : Icons.keyboard_arrow_down_sharp,
+                              size: 28,
+                              color: Colors.white,
+                            )))
                   ],
                 ),
                 AnimatedContainer(
@@ -311,7 +322,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                               crossAxisCount: 3),
                       itemBuilder: (_, pos) {
                         return Card(
-                          elevation: 2,
+                          elevation: 3,
                           color: isDarkMode
                               ? AppColors.scaffoldBgColor
                               : Colors.white,
@@ -321,10 +332,10 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                             children: [
                               Container(
                                 decoration: BoxDecoration(
-                                    color: Colors.black12,
-                                    borderRadius:
-                                    BorderRadius.circular(
-                                        100)),
+                                    color: isDarkMode
+                                        ? Colors.white12
+                                        : Colors.black12,
+                                    borderRadius: BorderRadius.circular(100)),
                                 child: Image.network(
                                   WeatherIcon.weatherIcon(
                                       dailyWeather.weather.icon),

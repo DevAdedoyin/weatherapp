@@ -226,7 +226,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
             if (user == null)
               ...random15Cities.map(
                 (e) => Card(
-                  elevation: 2,
+                  elevation: 3,
                   margin:
                       const EdgeInsets.only(bottom: 10, left: 15, right: 15),
                   color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
@@ -234,9 +234,16 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                     splashColor: AppColors.cardBgColor,
                     borderRadius: BorderRadius.circular(20),
                     onTap: () {
-                      ref.read(searchCity.notifier).state["city"] = e.cityNames;
+                      infoAuthAlertWidget(
+                          context,
+                          "Please kindly login or create an account to see more details",
+                          "LOGIN REQUIRED", onTap: () {
+                        context.go(AppRoutes.login);
+                      });
 
-                      context.push(AppRoutes.searchCityWeatherDetails);
+                      // ref.read(searchCity.notifier).state["city"] = e.cityNames;
+                      //
+                      // context.push(AppRoutes.searchCityWeatherDetails);
                     },
                     child: ListTile(
                       leading: const Icon(
@@ -258,7 +265,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
             else
               ...random50Cities.map(
                 (e) => Card(
-                  elevation: 2,
+                  elevation: 3,
 
                   margin:
                       const EdgeInsets.only(bottom: 10, left: 15, right: 15),

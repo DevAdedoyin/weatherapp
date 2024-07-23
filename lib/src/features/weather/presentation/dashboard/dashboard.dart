@@ -122,7 +122,8 @@ class _DashboardState extends ConsumerState<Dashboard> {
               showUnselectedLabels: false,
               items: [
                 BottomNavigationBarItem(
-                  // backgroundColor: AppColors.scaffoldBgColor,
+                  backgroundColor:
+                      isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
                   icon: currentIndex == 0
                       ? Container(
                           decoration: BoxDecoration(
@@ -139,7 +140,8 @@ class _DashboardState extends ConsumerState<Dashboard> {
                   label: "Home",
                 ),
                 BottomNavigationBarItem(
-                    // backgroundColor: AppColors.scaffoldBgColor,
+                    backgroundColor:
+                        isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
                     icon: currentIndex == 1
                         ? Container(
                             decoration: BoxDecoration(
@@ -155,7 +157,8 @@ class _DashboardState extends ConsumerState<Dashboard> {
                           ),
                     label: "Search"),
                 BottomNavigationBarItem(
-                    // backgroundColor: AppColors.scaffoldBgColor,
+                    backgroundColor:
+                        isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
                     icon: currentIndex == 2
                         ? Container(
                             decoration: BoxDecoration(
@@ -171,7 +174,8 @@ class _DashboardState extends ConsumerState<Dashboard> {
                           ),
                     label: "Forecast"),
                 BottomNavigationBarItem(
-                    // backgroundColor: AppColors.scaffoldBgColor,
+                    backgroundColor:
+                        isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
                     icon: currentIndex == 3
                         ? Container(
                             decoration: BoxDecoration(

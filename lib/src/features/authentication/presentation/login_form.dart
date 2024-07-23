@@ -93,8 +93,8 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                 },
                 child: Text(
                   "Forgot Password?",
-                  style: GoogleFonts.robotoSlab(
-                      fontWeight: FontWeight.w900,
+                  style: GoogleFonts.roboto(
+                      fontWeight: FontWeight.w500,
                       color: AppColors.accentColor),
                 ),
               ),

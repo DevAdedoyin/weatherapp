@@ -20,6 +20,8 @@ import "package:weatherapp/src/routing/app_routes.dart";
 import "package:weatherapp/src/utils/weather_icon_utils.dart";
 import 'package:intl/intl.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
+
+import "../../../../common/widgets/auth_widgets/info_alert.dart";
 // import 'package:shimmer/shimmer.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -71,6 +73,8 @@ class _HomePageState extends ConsumerState<HomePage> {
     return hours;
   }
 
+  final currentUser = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -105,25 +109,23 @@ class _HomePageState extends ConsumerState<HomePage> {
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      verticalGap(3),
+                      // verticalGap(2),
                       Text(
                         "$address",
                         // textAlign: TextAlign.center,
                         style: textTheme.bodyLarge,
                       ),
-                      verticalGap(3),
-                      Card(
-                        color:
-                            isDarkMode ? AppColors.scaffoldBgColor : Colors.red,
-                        elevation: 1,
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 5),
-                          child: Text(
-                            getDateTime(),
-                            style: const TextStyle(color: Colors.white),
-                            // textAlign: TextAlign.center,
-                          ),
+                      // verticalGap(2),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 5),
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(7), color: Colors.red ),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 3),
+                        child: Text(
+                          getDateTime(),
+                          style: const TextStyle(color: Colors.white, fontSize: 13),
+                          // textAlign: TextAlign.center,
                         ),
                       ),
                     ],
@@ -156,9 +158,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                       ? size.height * 0.30
                       : size.height * 0.30,
                   collapsedHeight: size.height < 650
-                      ? size.height * 0.09
-                      : size.height * 0.09,
-                  toolbarHeight: size.height * 0.089,
+                      ? size.height * 0.15
+                      : size.height * 0.15,
+                  toolbarHeight: size.height * 0.09,
                   flexibleSpace: FlexibleSpaceBar(
                     titlePadding: const EdgeInsets.symmetric(
                       horizontal: 5,
@@ -237,7 +239,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                           isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
-                      elevation: 2,
+                      elevation: 3,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -359,7 +361,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                         verticalGap(10),
                         SizedBox(
                           height: size.height < 620
-                              ? size.height * 0.35
+                              ? size.height * 0.38
                               : size.height < 650
                                   ? size.height * 0.45
                                   : size.height < 690
@@ -377,43 +379,56 @@ class _HomePageState extends ConsumerState<HomePage> {
                                         data_.dateTime.toInt() * 1000));
                                 return InkWell(
                                   onTap: () {
-                                    final hourlyState = ref
-                                        .read(hourlyWeatherDetails.notifier)
-                                        .state;
-                                    hourlyState.date =
-                                        DateFormat('d MMMM, EEEE').format(
-                                            DateTime.fromMillisecondsSinceEpoch(
-                                                data_.dateTime.toInt() * 1000));
-                                    hourlyState.time = DateFormat('h a').format(
-                                        DateTime.fromMillisecondsSinceEpoch(
-                                            data_.dateTime.toInt() * 1000));
-                                    hourlyState.desctiption =
-                                        data_.weather.description;
-                                    hourlyState.dewPoint =
-                                        data_.dewPoint.round().toString();
-                                    hourlyState.feelsLike =
-                                        data_.feelsLike.round().toString();
-                                    hourlyState.humidity =
-                                        data_.humidity.toString();
-                                    hourlyState.image = data_.weather.icon;
-                                    hourlyState.location = address;
-                                    hourlyState.pressure =
-                                        data_.pressure.toString();
-                                    hourlyState.temp =
-                                        data_.temp.round().toString();
-                                    hourlyState.visibility =
-                                        data_.visibility.toString();
-                                    hourlyState.windDegree =
-                                        data_.windDegree.toString();
-                                    hourlyState.windGust =
-                                        data_.windGust.toString();
-                                    hourlyState.windSpeed =
-                                        data_.windSpeed.toString();
-                                    hourlyState.position = position;
-                                    hourlyState.isFromSearch = false;
-                                    hourlyState.address = address!;
-                                    context
-                                        .push(AppRoutes.hourlyWeatherDetails);
+                                    if (currentUser == null) {
+                                      infoAuthAlertWidget(
+                                          context,
+                                          "Please kindly login or create an account to see more details",
+                                          "LOGIN REQUIRED", onTap: () {
+                                        context.go(AppRoutes.login);
+                                      });
+                                    } else {
+                                      final hourlyState = ref
+                                          .read(hourlyWeatherDetails.notifier)
+                                          .state;
+                                      hourlyState.date =
+                                          DateFormat('d MMMM, EEEE').format(
+                                              DateTime
+                                                  .fromMillisecondsSinceEpoch(
+                                                      data_.dateTime.toInt() *
+                                                          1000));
+                                      hourlyState.time = DateFormat('h a')
+                                          .format(DateTime
+                                              .fromMillisecondsSinceEpoch(
+                                                  data_.dateTime.toInt() *
+                                                      1000));
+                                      hourlyState.desctiption =
+                                          data_.weather.description;
+                                      hourlyState.dewPoint =
+                                          data_.dewPoint.round().toString();
+                                      hourlyState.feelsLike =
+                                          data_.feelsLike.round().toString();
+                                      hourlyState.humidity =
+                                          data_.humidity.toString();
+                                      hourlyState.image = data_.weather.icon;
+                                      hourlyState.location = address;
+                                      hourlyState.pressure =
+                                          data_.pressure.toString();
+                                      hourlyState.temp =
+                                          data_.temp.round().toString();
+                                      hourlyState.visibility =
+                                          data_.visibility.toString();
+                                      hourlyState.windDegree =
+                                          data_.windDegree.toString();
+                                      hourlyState.windGust =
+                                          data_.windGust.toString();
+                                      hourlyState.windSpeed =
+                                          data_.windSpeed.toString();
+                                      hourlyState.position = position;
+                                      hourlyState.isFromSearch = false;
+                                      hourlyState.address = address!;
+                                      context
+                                          .push(AppRoutes.hourlyWeatherDetails);
+                                    }
                                   },
                                   borderRadius: BorderRadius.circular(15),
                                   radius: 0.5,
@@ -449,14 +464,19 @@ class _HomePageState extends ConsumerState<HomePage> {
                                             style: textTheme.titleSmall,
                                           ),
                                           verticalGap(2),
-                                           Divider(
+                                          Divider(
                                               thickness: 1,
                                               indent: 10,
                                               endIndent: 10,
-                                              color: isDarkMode ? AppColors.primaryColor : Colors.black12),
+                                              color: isDarkMode
+                                                  ? AppColors.primaryColor
+                                                  : Colors.black12),
                                           Container(
                                             // padding: EdgeInsets.all(1),
-                                            decoration: BoxDecoration(color: Colors.black12, borderRadius: BorderRadius.circular(50)),
+                                            decoration: BoxDecoration(
+                                                color: isDarkMode ? Colors.white12 : Colors.black12,
+                                                borderRadius:
+                                                    BorderRadius.circular(50)),
                                             child: Hero(
                                               tag: "weather-image-$position",
                                               child: Image.network(

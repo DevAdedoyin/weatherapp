@@ -39,9 +39,14 @@ class _HourlyWeatherDetailsScreenState
               hourlyWeatherState.address,
               style: textTheme.bodyMedium,
             ),
-            Text(
-              hourlyWeatherState.date!,
-              style: textTheme.bodySmall,
+            Container(
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(7), color: Colors.red ),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 10, vertical: 3),
+              child: Text(
+                hourlyWeatherState.date!,
+                style: textTheme.bodySmall,
+              ),
             )
           ],
         ),
@@ -77,7 +82,7 @@ class _HourlyWeatherDetailsScreenState
               width: size.width * 0.45,
               child: Container(
                 decoration: BoxDecoration(
-                    color: Colors.black12,
+                    color: isDarkMode ? Colors.white12 : Colors.black12,
                     borderRadius:
                     BorderRadius.circular(
                         100)),

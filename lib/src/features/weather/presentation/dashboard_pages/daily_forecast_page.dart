@@ -104,7 +104,7 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                           style: textTheme.titleMedium,
                         ),
                         Card(
-                          elevation: 2,
+                          elevation: 3,
                           color: isDarkMode
                               ? AppColors.scaffoldBgColor
                               : Colors.white,
@@ -146,7 +146,7 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                             child: ListTile(
                               leading: Container(
                                 decoration: BoxDecoration(
-                                  color: Colors.black12,
+                                  color: isDarkMode ? Colors.white12 : Colors.black12,
                                   borderRadius: BorderRadius.circular(50),
                                 ),
                                 child: Image.network(WeatherIcon.weatherIcon(
