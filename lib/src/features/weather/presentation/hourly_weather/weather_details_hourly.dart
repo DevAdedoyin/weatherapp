@@ -64,17 +64,17 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
                     },
                     child: Card(
                       elevation: 3,
-                      color: isDarkMode ? Colors.white12 : Colors.red,
+                      color: isDarkMode ? Colors.red : Colors.red,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 5),
                         child: Text(
                           isOpen
                               ? "See less"
                               : "See more",
-                          style: TextStyle(),
+                          style: const TextStyle(color: Colors.white, fontSize: 15),
                         ),
                       ),
                     ))

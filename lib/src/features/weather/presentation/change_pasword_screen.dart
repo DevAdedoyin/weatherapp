@@ -51,7 +51,7 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
                 fontSize: 19)),
-        backgroundColor: isDarkMode ? AppColors.scaffoldBgColor : Colors.red,
+        backgroundColor:  Colors.red,
       ),
       body: SingleChildScrollView(
         child: Padding(

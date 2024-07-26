@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "161410344201-j2g5kjrd37u847df4ddejkgf9uds0qe1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.weathermonitor.weatherapp",
+            "certificate_hash": "ba6dcad28c096251ed7daab42517f7faa2fb24db"
+          }
+        },
+        {
           "client_id": "161410344201-250cb2fbfafk8umrb7lni50o4ed1svau.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -31,10 +39,10 @@
               "client_type": 3
             },
             {
-              "client_id": "161410344201-11cd6g1gj3vhijjmiik7s6hdv0at74pe.apps.googleusercontent.com",
+              "client_id": "161410344201-0vomm63i3snrqm03ascc4bq6hndli0cg.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.weathermonitor.weatherapp"
+                "bundle_id": "com.weathermonitor.weatherapp.RunnerTests"
               }
             }
           ]

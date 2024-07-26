@@ -41,7 +41,7 @@ class _UserLocationState extends ConsumerState<UserLocation> {
                 child: Text(
                   "Let Weather Monitor access your location to give you real-time weather datails on your location.",
                   textAlign: TextAlign.center,
-                  style: textTheme.headlineSmall,
+                  style: textTheme.bodyMedium,
                 ),
               ),
               verticalGap(

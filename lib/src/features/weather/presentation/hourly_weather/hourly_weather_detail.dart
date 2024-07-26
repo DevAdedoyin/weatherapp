@@ -42,10 +42,10 @@ class _HourlyWeatherDetailsScreenState
             Container(
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(7), color: Colors.red ),
               padding: const EdgeInsets.symmetric(
-                  horizontal: 10, vertical: 3),
+                  horizontal: 10, vertical: 7),
               child: Text(
                 hourlyWeatherState.date!,
-                style: textTheme.bodySmall,
+                style: const TextStyle(color: Colors.white, fontSize: 14),
               ),
             )
           ],

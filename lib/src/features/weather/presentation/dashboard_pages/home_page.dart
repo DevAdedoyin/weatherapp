@@ -121,10 +121,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                             horizontal: 5),
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(7), color: Colors.red ),
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 3),
+                            horizontal: 10, vertical: 7),
                         child: Text(
                           getDateTime(),
-                          style: const TextStyle(color: Colors.white, fontSize: 13),
+                          style: const TextStyle(color: Colors.white, fontSize: 15),
                           // textAlign: TextAlign.center,
                         ),
                       ),
