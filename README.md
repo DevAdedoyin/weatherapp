@@ -1,5 +1,5 @@
 # Weather Monitor App
-![Capture](https://github.com/DevAdedoyin/weatherapp/assets/59482569/950c21dc-7e0d-4b8d-8675-92f214b4a3e5)
+![image1](https://github.com/user-attachments/assets/542b6eee-b092-455a-9ebf-72fc03092f40)
 
 ## Project Description
 The Weather Monitor App is a mobile application that helps users get real-time updates on weather conditions around the world. The main purpose of this project is to help users obtain weather data for their current location. This documentation contains a comprehensive guide on all you need to know about this project and how to use the mobile app.
