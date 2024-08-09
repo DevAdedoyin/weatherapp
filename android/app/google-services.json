@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "161410344201-3rqgc78rb4ao9q8kka02vbaqge663n6d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.weathermonitor.weatherapp",
+            "certificate_hash": "f46ee55323ef2b9180325f68a419591b2bb5e49c"
+          }
+        },
+        {
           "client_id": "161410344201-j2g5kjrd37u847df4ddejkgf9uds0qe1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
