@@ -75,6 +75,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             // foregroundColor: Colors.black,
             backgroundColor: isDarkMode ? Colors.grey : AppColors.deepBlack,
             elevation: 5,
+            
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(50.0),
             ),
