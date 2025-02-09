@@ -6,6 +6,8 @@
 	<string>161410344201-11cd6g1gj3vhijjmiik7s6hdv0at74pe.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
 	<string>com.googleusercontent.apps.161410344201-11cd6g1gj3vhijjmiik7s6hdv0at74pe</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>161410344201-1kh6o4h8m1m2mmtl3ttulspbk1hgu7rj.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyAhC-Qghlj8ej5j2MIagts3Bc5hoemqv50</string>
 	<key>GCM_SENDER_ID</key>
@@ -17,7 +19,7 @@
 	<key>PROJECT_ID</key>
 	<string>weather-monitor-70793</string>
 	<key>STORAGE_BUCKET</key>
-	<string>weather-monitor-70793.appspot.com</string>
+	<string>weather-monitor-70793.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>

@@ -2,7 +2,7 @@
   "project_info": {
     "project_number": "161410344201",
     "project_id": "weather-monitor-70793",
-    "storage_bucket": "weather-monitor-70793.appspot.com"
+    "storage_bucket": "weather-monitor-70793.firebasestorage.app"
   },
   "client": [
     {
