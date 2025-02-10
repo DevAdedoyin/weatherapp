@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "161410344201-d7jrcfu9i27ql6l28k88svamnnjh2vnl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.weathermonitor.weatherapp",
+            "certificate_hash": "2f1f6fd569bc73c5f14686db933a1f00cb8809da"
+          }
+        },
+        {
           "client_id": "161410344201-j2g5kjrd37u847df4ddejkgf9uds0qe1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

@@ -10,4 +10,17 @@ Checking for npm/bin/npm-cli install at /Users/devadedoyin/.cache/firebase/tools
 Checking for npm/bin/npm-cli install at /Users/devadedoyin/.cache/firebase/tools/node_modules/npm/bin/npm-cli
 Checking for npm/bin/npm-cli install at /snapshot/firepit/node_modules/npm/bin/npm-cli
 Found npm/bin/npm-cli install.
-ShellJSInternalError: ENOENT: no such file or directory, stat '/Users/devadedoyin/.cache/firebase/runtime/shell.bat'
+ShellJSInternalError: ENOENT: no such file or directory, unlink '/Users/devadedoyin/.cache/firebase/runtime/node.bat'
+ShellJSInternalError: ENOENT: no such file or directory, unlink '/Users/devadedoyin/.cache/firebase/runtime/shell.bat'
+Runtime binaries created.
+/usr/local/bin/firebase
+/usr/local/bin/firebase,/snapshot/firepit/firepit.js,--version
+Checking for npm/bin/npm-cli install at /Users/devadedoyin/.cache/firebase/tools/lib/node_modules/npm/bin/npm-cli
+Checking for npm/bin/npm-cli install at /Users/devadedoyin/.cache/firebase/tools/node_modules/npm/bin/npm-cli
+Checking for npm/bin/npm-cli install at /snapshot/firepit/node_modules/npm/bin/npm-cli
+Found npm/bin/npm-cli install.
+Checking for npm/bin/npm-cli install at /Users/devadedoyin/.cache/firebase/tools/lib/node_modules/npm/bin/npm-cli
+Checking for npm/bin/npm-cli install at /Users/devadedoyin/.cache/firebase/tools/node_modules/npm/bin/npm-cli
+Checking for npm/bin/npm-cli install at /snapshot/firepit/node_modules/npm/bin/npm-cli
+Found npm/bin/npm-cli install.
+ShellJSInternalError: ENOENT: no such file or directory, chmod '/Users/devadedoyin/.cache/firebase/runtime/node'

@@ -14,6 +14,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   var _visible = false;
+
   // final user = FirebaseAuth.instance.currentUser;
   @override
   void initState() {
@@ -43,25 +44,42 @@ class _SplashScreenState extends State<SplashScreen> {
       body: SizedBox(
         width: double.maxFinite,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
-              height: 112,
-              width: 112,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(70),
-                child:
-                    Image.asset("assets/images/weather.gif", fit: BoxFit.fill),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 112,
+                    width: 112,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(70),
+                      child: Image.asset("assets/images/weather.gif",
+                          fit: BoxFit.fill),
+                    ),
+                  ),
+                  verticalGap(10),
+                  AnimatedOpacity(
+                    opacity: _visible ? 1.0 : 0.0,
+                    duration: const Duration(milliseconds: 5000),
+                    child: Text(
+                      "Weather Monitor",
+                      style: textTheme.titleMedium,
+                    ),
+                  ),
+                ],
               ),
             ),
-            verticalGap(10),
-            AnimatedOpacity(
-              opacity: _visible ? 1.0 : 0.0,
-              duration: const Duration(milliseconds: 5000),
+            // verticalGap(300),
+            Container(
+              alignment: Alignment.bottomCenter,
+              margin: EdgeInsets.only(bottom: 30),
               child: Text(
-                "Weather Monitor",
-                style: textTheme.titleMedium,
+                "Developed by devadedoyin.com",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
               ),
             )
           ],
