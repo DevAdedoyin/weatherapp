@@ -36,11 +36,20 @@ class _DashboardState extends ConsumerState<Dashboard> {
     final currentIndex = ref.watch(bottomNavState);
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      body: SizedBox(
-        width: double.maxFinite,
-        child: currentUser == null
-            ? _unAuthpUserPages.elementAt(currentIndex)
-            : _pages.elementAt(currentIndex),
+      body: Container(
+        decoration: isDarkMode
+            ? BoxDecoration()
+            : BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/sky.jpg"),
+                ),
+              ),
+        child: SizedBox(
+          width: double.maxFinite,
+          child: currentUser == null
+              ? _unAuthpUserPages.elementAt(currentIndex)
+              : _pages.elementAt(currentIndex),
+        ),
       ),
       bottomNavigationBar: currentUser == null
           ? BottomNavigationBar(

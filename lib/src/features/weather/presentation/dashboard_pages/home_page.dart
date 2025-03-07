@@ -236,10 +236,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                         horizontal: 18, vertical: 25),
                     child: Card(
                       color:
-                          isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
+                          isDarkMode ? Colors.grey.shade900 : Colors.white,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
-                      elevation: 3,
+                      elevation: 5,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
