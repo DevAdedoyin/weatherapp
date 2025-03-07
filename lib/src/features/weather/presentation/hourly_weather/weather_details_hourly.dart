@@ -100,7 +100,7 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
                   return Card(
                     elevation: 3,
                     color:
-                        isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
+                        isDarkMode ? AppColors.cardDarkModeColor : Colors.white,
                     margin: const EdgeInsets.only(bottom: 12),
                     child: ListTile(
                       leading: Container(

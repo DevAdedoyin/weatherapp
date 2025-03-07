@@ -236,7 +236,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                         horizontal: 18, vertical: 25),
                     child: Card(
                       color:
-                          isDarkMode ? Colors.grey.shade900 : Colors.white,
+                          isDarkMode ? AppColors.cardDarkModeColor : Colors.white,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
                       elevation: 5,
@@ -441,7 +441,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                     ),
                                     child: Card(
                                       color: isDarkMode
-                                          ? AppColors.scaffoldBgColor
+                                          ? AppColors.cardDarkModeColor
                                           : Colors.white,
                                       elevation: 3,
                                       shape: RoundedRectangleBorder(
