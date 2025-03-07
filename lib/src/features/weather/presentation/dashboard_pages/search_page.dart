@@ -150,7 +150,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                     hintStyle: GoogleFonts.roboto(
                       fontWeight: FontWeight.normal,
                       fontSize: 17,
-                      color: Colors.grey[500],
+                      color: isDarkMode ? Colors.grey[500] : Colors.black54,
                       fontStyle: FontStyle.italic,
                     ),
                     suffixIcon: SizedBox(
@@ -229,7 +229,9 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                   elevation: 3,
                   margin:
                       const EdgeInsets.only(bottom: 10, left: 15, right: 15),
-                  color: isDarkMode ? AppColors.cardDarkModeColor : Colors.white,
+                  color: isDarkMode
+                      ? AppColors.cardDarkModeColor
+                      : AppColors.cardLightModeColor,
                   child: InkWell(
                     splashColor: AppColors.cardBgColor,
                     borderRadius: BorderRadius.circular(20),
@@ -265,11 +267,12 @@ class _SearchPageState extends ConsumerState<SearchPage> {
             else
               ...random50Cities.map(
                 (e) => Card(
-                  elevation: 3,
-
+                  // elevation:  3,
                   margin:
                       const EdgeInsets.only(bottom: 10, left: 15, right: 15),
-                  color: isDarkMode ? AppColors.cardDarkModeColor : Colors.white,
+                  color: isDarkMode
+                      ? AppColors.cardDarkModeColor
+                      : AppColors.cardLightModeColor,
                   child: InkWell(
                     splashColor: AppColors.cardBgColor,
                     borderRadius: BorderRadius.circular(20),

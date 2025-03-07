@@ -35,237 +35,247 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     bool isLightMode = ref.watch(switchModes);
     final themeNotifier = ref.read(themeNotifierProvider.notifier);
 
-
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          verticalGap(size.height * 0.08),
-          SizedBox(
-            child: user?.photoURL == null
-                ? Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        color: AppColors.cardBgColor),
-                    width: size.width * 0.3,
-                    height: size.width * 0.3,
-                    child: const Icon(Icons.person, size: 30),
-                  )
-                : ClipRRect(
-                    borderRadius: BorderRadius.circular(100),
-                    child: Container(
+      child: SizedBox(
+        height: size.height,
+        child: Column(
+          children: [
+            verticalGap(size.height * 0.08),
+            SizedBox(
+              child: user?.photoURL == null
+                  ? Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100),
                           color: AppColors.cardBgColor),
                       width: size.width * 0.3,
                       height: size.width * 0.3,
-                      padding: const EdgeInsets.all(5),
-                      child: ClipOval(
-                          child: Image.network(
-                        "${user?.photoURL}",
-                        fit: BoxFit.cover,
-                      )),
+                      child: const Icon(Icons.person, size: 30),
+                    )
+                  : ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            color: AppColors.cardBgColor),
+                        width: size.width * 0.3,
+                        height: size.width * 0.3,
+                        padding: const EdgeInsets.all(5),
+                        child: ClipOval(
+                            child: Image.network(
+                          "${user?.photoURL}",
+                          fit: BoxFit.cover,
+                        )),
+                      ),
                     ),
-                  ),
-          ),
-          verticalGap(10),
-          Text(
-            "${user?.displayName}",
-            style: textTheme.headlineMedium,
-          ),
-          verticalGap(20),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 15),
-            child: Card(
-              elevation: 3,
-              color: isDarkMode ? AppColors.cardDarkModeColor : Colors.white,
-              child: ListTile(
-                leading: const Icon(Icons.lock, color: Colors.red),
-                title: Text(
-                  "Change password",
-                  style: textTheme.bodyMedium,
-                ),
-                trailing: IconButton(
-                  onPressed: () {
-                    context.push(AppRoutes.changePassword);
-                  },
-                  icon: const Icon(Icons.arrow_forward_rounded),
-                ),
-              ),
             ),
-          ),
-          verticalGap(10),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 15),
-            child: Card(
-              elevation: 3,
-              color: isDarkMode ? AppColors.cardDarkModeColor : Colors.white,
-              child: ListTile(
-                leading: const Icon(Icons.logout, color: Colors.red),
-                title: Text(
-                  "Logout",
-                  style: textTheme.bodyMedium,
-                ),
-                trailing: IconButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          // backgroundColor: AppColors.scaffoldBgColor,
-                          title: Text(
-                            'Logout',
-                            style: textTheme.headlineMedium,
-                          ),
-                          content: Text(
-                            "Are you sure you want to logout?",
-                            style: textTheme.bodySmall,
-                          ),
-                          actions: [
-                            TextButton(
-                              style: ButtonStyle(
-                                  elevation: const MaterialStatePropertyAll(5),
-                                  backgroundColor:
-                                      MaterialStateProperty.all(Colors.black),
-                                  padding: const MaterialStatePropertyAll(
-                                    EdgeInsets.all(5),
-                                  ),
-                                  textStyle: const MaterialStatePropertyAll(
-                                      TextStyle(fontWeight: FontWeight.w700))),
-                              child: const Text(
-                                'Cancel',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                            TextButton(
-                              style: ButtonStyle(
-                                  elevation: const MaterialStatePropertyAll(5),
-                                  backgroundColor: MaterialStateProperty.all(
-                                      Colors.red[900]),
-                                  padding: const MaterialStatePropertyAll(
-                                    EdgeInsets.all(5),
-                                  ),
-                                  textStyle: const MaterialStatePropertyAll(
-                                      TextStyle(fontWeight: FontWeight.w700))),
-                              child: const Text(
-                                'Logout',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              onPressed: () {
-                                FireAuth.signOut(context: context);
-                              },
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  },
-                  icon: const Icon(Icons.arrow_forward_rounded),
-                ),
-              ),
+            verticalGap(10),
+            Text(
+              "${user?.displayName}",
+              style: textTheme.headlineMedium,
             ),
-          ),
-          verticalGap(10),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 15),
-            child: Card(
-              elevation: 3,
-              color: isDarkMode ? AppColors.cardDarkModeColor : Colors.white,
-              child: ListTile(
-                leading: const Icon(Icons.delete, color: Colors.red),
-                title: Text(
-                  "Remove account",
-                  style: textTheme.bodyMedium,
-                ),
-                trailing: IconButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          // backgroundColor: AppColors.scaffoldBgColor,
-                          title: Text(
-                            'Delete your Account?',
-                            style: textTheme.headlineMedium,
-                          ),
-                          content: Text(
-                            '''
-If you select Delete we will delete your account on our server.
-
-Your app data will also be deleted and you won\'t be able to retrieve it.
-''',
-                            style: textTheme.bodySmall,
-                          ),
-                          actions: [
-                            TextButton(
-                              style: ButtonStyle(
-                                  elevation: const MaterialStatePropertyAll(5),
-                                  backgroundColor:
-                                      MaterialStateProperty.all(Colors.black),
-                                  padding: const MaterialStatePropertyAll(
-                                    EdgeInsets.all(5),
-                                  ),
-                                  textStyle: const MaterialStatePropertyAll(
-                                      TextStyle(fontWeight: FontWeight.w700))),
-                              child: const Text(
-                                'Cancel',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                            TextButton(
-                              style: ButtonStyle(
-                                  elevation: const MaterialStatePropertyAll(5),
-                                  backgroundColor: MaterialStateProperty.all(
-                                      Colors.red[900]),
-                                  padding: const MaterialStatePropertyAll(
-                                    EdgeInsets.all(5),
-                                  ),
-                                  textStyle: const MaterialStatePropertyAll(
-                                      TextStyle(fontWeight: FontWeight.w700))),
-                              child: const Text(
-                                'Delete',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              onPressed: () {
-                                FireAuth.deleteUserAccount(context: context);
-                              },
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  },
-                  icon: const Icon(Icons.arrow_forward_rounded),
-                ),
-              ),
-            ),
-          ),
-          verticalGap(10),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 15),
-            child: Card(
-              elevation: 3,
-              color: isDarkMode ? AppColors.cardDarkModeColor : Colors.white,
-              child: ListTile(
-                  leading: const Icon(Icons.mode_night, color: Colors.red),
+            verticalGap(20),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 15),
+              child: Card(
+                elevation: 3,
+                color: isDarkMode
+                    ? AppColors.cardDarkModeColor
+                    : AppColors.cardLightModeColor,
+                child: ListTile(
+                  leading: const Icon(Icons.lock, color: Colors.red),
                   title: Text(
-                    "Switch theme",
+                    "Change password",
                     style: textTheme.bodyMedium,
                   ),
-                  trailing: Switch(
-                    value: isDarkMode,
-                    onChanged: (val)  {
-                      themeNotifier.toggleTheme();
+                  trailing: IconButton(
+                    onPressed: () {
+                      context.push(AppRoutes.changePassword);
                     },
-                  )),
+                    icon: const Icon(Icons.arrow_forward_rounded),
+                  ),
+                ),
+              ),
             ),
-          ),
-        ],
+            verticalGap(10),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 15),
+              child: Card(
+                elevation: 3,
+                color: isDarkMode
+                    ? AppColors.cardDarkModeColor
+                    : AppColors.cardLightModeColor,
+                child: ListTile(
+                  leading: const Icon(Icons.logout, color: Colors.red),
+                  title: Text(
+                    "Logout",
+                    style: textTheme.bodyMedium,
+                  ),
+                  trailing: IconButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            // backgroundColor: AppColors.scaffoldBgColor,
+                            title: Text(
+                              'Logout',
+                              style: textTheme.headlineMedium,
+                            ),
+                            content: Text(
+                              "Are you sure you want to logout?",
+                              style: textTheme.bodySmall,
+                            ),
+                            actions: [
+                              TextButton(
+                                style: ButtonStyle(
+                                    elevation: const MaterialStatePropertyAll(5),
+                                    backgroundColor:
+                                        MaterialStateProperty.all(Colors.black),
+                                    padding: const MaterialStatePropertyAll(
+                                      EdgeInsets.all(5),
+                                    ),
+                                    textStyle: const MaterialStatePropertyAll(
+                                        TextStyle(fontWeight: FontWeight.w700))),
+                                child: const Text(
+                                  'Cancel',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              TextButton(
+                                style: ButtonStyle(
+                                    elevation: const MaterialStatePropertyAll(5),
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Colors.red[900]),
+                                    padding: const MaterialStatePropertyAll(
+                                      EdgeInsets.all(5),
+                                    ),
+                                    textStyle: const MaterialStatePropertyAll(
+                                        TextStyle(fontWeight: FontWeight.w700))),
+                                child: const Text(
+                                  'Logout',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                onPressed: () {
+                                  FireAuth.signOut(context: context);
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    icon: const Icon(Icons.arrow_forward_rounded),
+                  ),
+                ),
+              ),
+            ),
+            verticalGap(10),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 15),
+              child: Card(
+                elevation: 3,
+                color: isDarkMode
+                    ? AppColors.cardDarkModeColor
+                    : AppColors.cardLightModeColor,
+                child: ListTile(
+                  leading: const Icon(Icons.delete, color: Colors.red),
+                  title: Text(
+                    "Remove account",
+                    style: textTheme.bodyMedium,
+                  ),
+                  trailing: IconButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            // backgroundColor: AppColors.scaffoldBgColor,
+                            title: Text(
+                              'Delete your Account?',
+                              style: textTheme.headlineMedium,
+                            ),
+                            content: Text(
+                              '''
+        If you select Delete we will delete your account on our server.
+        
+        Your app data will also be deleted and you won\'t be able to retrieve it.
+        ''',
+                              style: textTheme.bodySmall,
+                            ),
+                            actions: [
+                              TextButton(
+                                style: ButtonStyle(
+                                    elevation: const MaterialStatePropertyAll(5),
+                                    backgroundColor:
+                                        MaterialStateProperty.all(Colors.black),
+                                    padding: const MaterialStatePropertyAll(
+                                      EdgeInsets.all(5),
+                                    ),
+                                    textStyle: const MaterialStatePropertyAll(
+                                        TextStyle(fontWeight: FontWeight.w700))),
+                                child: const Text(
+                                  'Cancel',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              TextButton(
+                                style: ButtonStyle(
+                                    elevation: const MaterialStatePropertyAll(5),
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Colors.red[900]),
+                                    padding: const MaterialStatePropertyAll(
+                                      EdgeInsets.all(5),
+                                    ),
+                                    textStyle: const MaterialStatePropertyAll(
+                                        TextStyle(fontWeight: FontWeight.w700))),
+                                child: const Text(
+                                  'Delete',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                onPressed: () {
+                                  FireAuth.deleteUserAccount(context: context);
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    icon: const Icon(Icons.arrow_forward_rounded),
+                  ),
+                ),
+              ),
+            ),
+            verticalGap(10),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 15),
+              child: Card(
+                elevation: 3,
+                color: isDarkMode
+                    ? AppColors.cardDarkModeColor
+                    : AppColors.cardLightModeColor,
+                child: ListTile(
+                    leading: const Icon(Icons.mode_night, color: Colors.red),
+                    title: Text(
+                      "Switch theme",
+                      style: textTheme.bodyMedium,
+                    ),
+                    trailing: Switch(
+                      value: isDarkMode,
+                      onChanged: (val) {
+                        themeNotifier.toggleTheme();
+                      },
+                    )),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

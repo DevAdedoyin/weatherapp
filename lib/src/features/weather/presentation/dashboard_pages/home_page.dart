@@ -105,7 +105,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               slivers: <Widget>[
                 SliverAppBar(
                   backgroundColor:
-                      isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
+                      isDarkMode ? AppColors.scaffoldBgColor : Colors.transparent,
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -117,14 +117,16 @@ class _HomePageState extends ConsumerState<HomePage> {
                       ),
                       // verticalGap(2),
                       Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 5),
-                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(7), color: Colors.red ),
+                        margin: const EdgeInsets.symmetric(horizontal: 5),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(7),
+                            color: Colors.red),
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 7),
                         child: Text(
                           getDateTime(),
-                          style: const TextStyle(color: Colors.white, fontSize: 15),
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 15),
                           // textAlign: TextAlign.center,
                         ),
                       ),
@@ -235,11 +237,12 @@ class _HomePageState extends ConsumerState<HomePage> {
                     margin: const EdgeInsets.symmetric(
                         horizontal: 18, vertical: 25),
                     child: Card(
-                      color:
-                          isDarkMode ? AppColors.cardDarkModeColor : Colors.white,
+                      color: isDarkMode
+                          ? AppColors.cardDarkModeColor
+                          : AppColors.cardLightModeColor,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
-                      elevation: 1,
+                      // elevation: 1,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -442,8 +445,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                     child: Card(
                                       color: isDarkMode
                                           ? AppColors.cardDarkModeColor
-                                          : Colors.white,
-                                      elevation: 3,
+                                          : AppColors.cardLightModeColor,
+                                      // elevation: 3,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10),
                                       ),
@@ -474,7 +477,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                                           Container(
                                             // padding: EdgeInsets.all(1),
                                             decoration: BoxDecoration(
-                                                color: isDarkMode ? Colors.white12 : Colors.black12,
+                                                color: isDarkMode
+                                                    ? Colors.white12
+                                                    : Colors.black12,
                                                 borderRadius:
                                                     BorderRadius.circular(50)),
                                             child: Hero(

@@ -42,6 +42,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
             : BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/images/sky.jpg"),
+                  fit: BoxFit.cover
                 ),
               ),
         child: SizedBox(
@@ -121,7 +122,9 @@ class _DashboardState extends ConsumerState<Dashboard> {
             )
           : BottomNavigationBar(
               backgroundColor:
-                  isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
+                  isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
+              elevation: 0,
+
               selectedLabelStyle:
                   const TextStyle(color: Colors.red, fontSize: 14),
               selectedItemColor: Colors.red,
@@ -132,7 +135,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
               items: [
                 BottomNavigationBarItem(
                   backgroundColor:
-                      isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
+                      isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
                   icon: currentIndex == 0
                       ? Container(
                           decoration: BoxDecoration(
@@ -150,7 +153,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
                 ),
                 BottomNavigationBarItem(
                     backgroundColor:
-                        isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
+                        isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
                     icon: currentIndex == 1
                         ? Container(
                             decoration: BoxDecoration(
@@ -167,7 +170,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
                     label: "Search"),
                 BottomNavigationBarItem(
                     backgroundColor:
-                        isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
+                        isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
                     icon: currentIndex == 2
                         ? Container(
                             decoration: BoxDecoration(
@@ -184,7 +187,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
                     label: "Forecast"),
                 BottomNavigationBarItem(
                     backgroundColor:
-                        isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
+                        isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
                     icon: currentIndex == 3
                         ? Container(
                             decoration: BoxDecoration(
