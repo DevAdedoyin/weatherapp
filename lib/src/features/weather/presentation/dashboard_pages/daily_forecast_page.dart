@@ -106,7 +106,7 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                         Card(
                           elevation: 3,
                           color: isDarkMode
-                              ? AppColors.scaffoldBgColor
+                              ? AppColors.cardDarkModeColor
                               : Colors.white,
                           child: InkWell(
                             onTap: FirebaseAuth.instance.currentUser == null

@@ -239,7 +239,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                           isDarkMode ? AppColors.cardDarkModeColor : Colors.white,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
-                      elevation: 5,
+                      elevation: 1,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [

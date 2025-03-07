@@ -20,5 +20,5 @@ class AppColors {
   static const black = Color.fromRGBO(40, 40, 43, 1.0);
   static const deepBlack = Colors.black;
   static final infoBlue = Colors.blue[900];
-  static final cardDarkModeColor = Colors.grey.shade900;
+  static final cardDarkModeColor = Color.fromRGBO(24, 24, 24, 0.6);
 }

@@ -118,7 +118,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                 verticalGap(15),
                 Card(
                   elevation: 3,
-                  color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
+                  color: isDarkMode ? AppColors.cardDarkModeColor : Colors.white,
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(0),
@@ -136,7 +136,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                   width: double.maxFinite,
                   child: Card(
                     color:
-                        isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
+                        isDarkMode ? AppColors.cardDarkModeColor : Colors.white,
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(0),
@@ -245,7 +245,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                         return Card(
                           elevation: 3,
                           color: isDarkMode
-                              ? AppColors.scaffoldBgColor
+                              ? AppColors.cardDarkModeColor
                               : Colors.white,
                           child: ListTile(
                             leading: Container(
@@ -324,7 +324,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                         return Card(
                           elevation: 3,
                           color: isDarkMode
-                              ? AppColors.scaffoldBgColor
+                              ? AppColors.cardDarkModeColor
                               : Colors.white,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,

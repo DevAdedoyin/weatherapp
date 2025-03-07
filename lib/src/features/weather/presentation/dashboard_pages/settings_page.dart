@@ -77,7 +77,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             margin: const EdgeInsets.symmetric(horizontal: 15),
             child: Card(
               elevation: 3,
-              color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
+              color: isDarkMode ? AppColors.cardDarkModeColor : Colors.white,
               child: ListTile(
                 leading: const Icon(Icons.lock, color: Colors.red),
                 title: Text(
@@ -98,7 +98,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             margin: const EdgeInsets.symmetric(horizontal: 15),
             child: Card(
               elevation: 3,
-              color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
+              color: isDarkMode ? AppColors.cardDarkModeColor : Colors.white,
               child: ListTile(
                 leading: const Icon(Icons.logout, color: Colors.red),
                 title: Text(
@@ -172,7 +172,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             margin: const EdgeInsets.symmetric(horizontal: 15),
             child: Card(
               elevation: 3,
-              color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
+              color: isDarkMode ? AppColors.cardDarkModeColor : Colors.white,
               child: ListTile(
                 leading: const Icon(Icons.delete, color: Colors.red),
                 title: Text(
@@ -250,7 +250,7 @@ Your app data will also be deleted and you won\'t be able to retrieve it.
             margin: const EdgeInsets.symmetric(horizontal: 15),
             child: Card(
               elevation: 3,
-              color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
+              color: isDarkMode ? AppColors.cardDarkModeColor : Colors.white,
               child: ListTile(
                   leading: const Icon(Icons.mode_night, color: Colors.red),
                   title: Text(

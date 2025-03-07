@@ -229,7 +229,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                   elevation: 3,
                   margin:
                       const EdgeInsets.only(bottom: 10, left: 15, right: 15),
-                  color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
+                  color: isDarkMode ? AppColors.cardDarkModeColor : Colors.white,
                   child: InkWell(
                     splashColor: AppColors.cardBgColor,
                     borderRadius: BorderRadius.circular(20),
@@ -269,7 +269,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
 
                   margin:
                       const EdgeInsets.only(bottom: 10, left: 15, right: 15),
-                  color: isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
+                  color: isDarkMode ? AppColors.cardDarkModeColor : Colors.white,
                   child: InkWell(
                     splashColor: AppColors.cardBgColor,
                     borderRadius: BorderRadius.circular(20),

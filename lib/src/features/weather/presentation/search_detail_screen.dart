@@ -209,11 +209,11 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                           horizontal: 18, vertical: 25),
                       child: Card(
                         color: isDarkMode
-                            ? AppColors.scaffoldBgColor
+                            ? AppColors.cardDarkModeColor
                             : Colors.white,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)),
-                        elevation: 3,
+                        elevation: 7,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -416,7 +416,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                       ),
                                       child: Card(
                                         color: isDarkMode
-                                            ? AppColors.scaffoldBgColor
+                                            ? AppColors.cardDarkModeColor
                                             : Colors.white,
                                         elevation: 3,
                                         shape: RoundedRectangleBorder(
@@ -527,7 +527,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                       ),
                                       child: Card(
                                         color: isDarkMode
-                                            ? AppColors.scaffoldBgColor
+                                            ? AppColors.cardDarkModeColor
                                             : Colors.white,
                                         elevation: 3,
                                         shape: RoundedRectangleBorder(
