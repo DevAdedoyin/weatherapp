@@ -17,7 +17,7 @@ class AppTheme {
     scaffoldBackgroundColor: Colors.white,
     textTheme: AppTextTheme.lightTextTheme,
     elevatedButtonTheme: ElevatedButtonThemes.lightElevatedButtonTheme,
-    appBarTheme: AppbarTheme.lightAppBarTheme,
+    // appBarTheme: AppbarTheme.lightAppBarTheme,
     iconButtonTheme: IconButtonThemes.lightModeIconButton,
   );
 
@@ -29,5 +29,6 @@ class AppTheme {
       scaffoldBackgroundColor: Colors.black,
       textTheme: AppTextTheme.darkTextTheme,
       elevatedButtonTheme: ElevatedButtonThemes.darkElevatedButtonTheme,
-      appBarTheme: AppbarTheme.darkAppBarTheme);
+      // appBarTheme: AppbarTheme.darkAppBarTheme
+  );
 }

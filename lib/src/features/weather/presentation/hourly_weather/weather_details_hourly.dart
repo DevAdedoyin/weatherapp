@@ -69,12 +69,12 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 5),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 7, vertical: 5),
                         child: Text(
-                          isOpen
-                              ? "See less"
-                              : "See more",
-                          style: const TextStyle(color: Colors.white, fontSize: 15),
+                          isOpen ? "See less" : "See more",
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 15),
                         ),
                       ),
                     ))
@@ -98,9 +98,10 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
                     hourlyWeatherState.windGust!,
                   ];
                   return Card(
-                    elevation: 3,
-                    color:
-                        isDarkMode ? AppColors.cardDarkModeColor : Colors.white,
+                    // elevation: 3,
+                    color: isDarkMode
+                        ? AppColors.cardDarkModeColor
+                        : AppColors.cardLightModeColor,
                     margin: const EdgeInsets.only(bottom: 12),
                     child: ListTile(
                       leading: Container(

@@ -77,7 +77,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 15),
               child: Card(
-                elevation: 3,
+                // elevation: 3,
                 color: isDarkMode
                     ? AppColors.cardDarkModeColor
                     : AppColors.cardLightModeColor,
@@ -100,7 +100,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 15),
               child: Card(
-                elevation: 3,
+                // elevation: 3,
                 color: isDarkMode
                     ? AppColors.cardDarkModeColor
                     : AppColors.cardLightModeColor,
@@ -176,7 +176,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 15),
               child: Card(
-                elevation: 3,
+                // elevation: 3,
                 color: isDarkMode
                     ? AppColors.cardDarkModeColor
                     : AppColors.cardLightModeColor,
@@ -256,7 +256,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 15),
               child: Card(
-                elevation: 3,
+                // elevation: 3,
                 color: isDarkMode
                     ? AppColors.cardDarkModeColor
                     : AppColors.cardLightModeColor,

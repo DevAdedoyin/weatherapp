@@ -79,287 +79,297 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding:
-                const EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 5),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  userCurrentAddress_,
-                  style: textTheme.titleMedium,
-                  textAlign: TextAlign.start,
-                ),
-                Text(
-                  dailyWeather.dateTime,
-                  textAlign: TextAlign.start,
-                  style: textTheme.titleSmall,
-                ),
-                verticalGap(10),
-                Align(
-                  // width: double.maxFinite,
-                  alignment: Alignment.center,
-                  child: ClipOval(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: isDarkMode ? Colors.white12 : Colors.black12,
-                          borderRadius: BorderRadius.circular(100)),
-                      child: Image.network(
-                        WeatherIcon.weatherIcon(dailyWeather.weather.icon),
-                        fit: BoxFit.fill,
-                        height: size.width * 0.40,
-                        width: size.width * 0.40,
+      body: Container(
+        decoration: isDarkMode
+            ? BoxDecoration()
+            : BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("assets/images/sky.jpg"),
+              fit: BoxFit.cover
+          ),
+        ),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding:
+                  const EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 5),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    userCurrentAddress_,
+                    style: textTheme.titleMedium,
+                    textAlign: TextAlign.start,
+                  ),
+                  Text(
+                    dailyWeather.dateTime,
+                    textAlign: TextAlign.start,
+                    style: textTheme.titleSmall,
+                  ),
+                  verticalGap(10),
+                  Align(
+                    // width: double.maxFinite,
+                    alignment: Alignment.center,
+                    child: ClipOval(
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: isDarkMode ? Colors.white12 : Colors.black12,
+                            borderRadius: BorderRadius.circular(100)),
+                        child: Image.network(
+                          WeatherIcon.weatherIcon(dailyWeather.weather.icon),
+                          fit: BoxFit.fill,
+                          height: size.width * 0.40,
+                          width: size.width * 0.40,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                verticalGap(15),
-                Card(
-                  elevation: 3,
-                  color: isDarkMode ? AppColors.cardDarkModeColor : Colors.white,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(0),
-                        bottomRight: Radius.circular(0),
-                        topLeft: Radius.circular(5),
-                        topRight: Radius.circular(5)),
-                  ),
-                  margin: const EdgeInsets.all(0),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 7, left: 10, right: 10),
-                    child: Text("Weather Summary", style: textTheme.bodyMedium),
-                  ),
-                ),
-                SizedBox(
-                  width: double.maxFinite,
-                  child: Card(
-                    color:
-                        isDarkMode ? AppColors.cardDarkModeColor : Colors.white,
+                  verticalGap(15),
+                  Card(
+                    elevation: 3,
+                    color: isDarkMode ? AppColors.cardDarkModeColor : Colors.white,
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(0),
-                          bottomRight: Radius.circular(5),
-                          bottomLeft: Radius.circular(5),
+                          bottomLeft: Radius.circular(0),
+                          bottomRight: Radius.circular(0),
+                          topLeft: Radius.circular(5),
                           topRight: Radius.circular(5)),
                     ),
                     margin: const EdgeInsets.all(0),
                     child: Padding(
-                      padding: const EdgeInsets.only(
-                          bottom: 7, left: 10, right: 10, top: 5),
-                      child: Text(dailyWeather.summary,
-                          style: textTheme.bodySmall),
+                      padding: const EdgeInsets.only(top: 7, left: 10, right: 10),
+                      child: Text("Weather Summary", style: textTheme.bodyMedium),
                     ),
                   ),
-                ),
-                verticalGap(5),
-                Container(
-                  padding: const EdgeInsets.only(top: 0),
-                  margin: EdgeInsets.only(
-                      left: size.width < 650 ? 10 : 20,
-                      right: size.width < 650 ? 10 : 20,
-                      top: 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        width: size.width * 0.40,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            GradientText(
-                              "${dailyWeather.temp.day.round()}°",
-                              style: GoogleFonts.robotoCondensed(
-                                fontSize: size.width < 650 ? 70 : 100.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              colors: const [
-                                Colors.white,
-                                Colors.grey,
-                                Colors.white,
-                                // Colors.grey,
-                              ],
-                            ),
-                            Text(
-                              "Feel like: ${dailyWeather.feelsLike.day.round()}°c",
-                              style: textTheme.titleSmall,
-                            )
-                          ],
-                        ),
+                  SizedBox(
+                    width: double.maxFinite,
+                    child: Card(
+                      color:
+                          isDarkMode ? AppColors.cardDarkModeColor : Colors.white,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(0),
+                            bottomRight: Radius.circular(5),
+                            bottomLeft: Radius.circular(5),
+                            topRight: Radius.circular(5)),
                       ),
-                      SizedBox(
-                        width: size.width * 0.40,
-                        // color: Colors.blue[200],
-                        // Adjust height as needed
-                        child: Text(
-                          dailyWeather.weather.description,
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.roboto(
-                              fontSize: 30, fontWeight: FontWeight.w500),
-                        ),
+                      margin: const EdgeInsets.all(0),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            bottom: 7, left: 10, right: 10, top: 5),
+                        child: Text(dailyWeather.summary,
+                            style: textTheme.bodySmall),
                       ),
-                    ],
+                    ),
                   ),
-                ),
-                verticalGap(15),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Temperature", style: textTheme.bodyMedium),
-                    InkWell(
-                        onTap: () {
-                          ref.read(isDailyContainerTempOpen.notifier).state =
-                              ref.read(isDailyContainerTempOpen.notifier).state
-                                  ? false
-                                  : true;
-                        },
-                        borderRadius: BorderRadius.circular(20),
-                        child: Card(
-                            elevation: 3,
-                            color:  isDarkMode
-                                ? Colors.white12
-                                : Colors.red,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(40),
-                            ),
-                            child: Icon(
-                              isTempContainerOpen
-                                  ? Icons.keyboard_arrow_up_sharp
-                                  : Icons.keyboard_arrow_down_sharp,
-                              size: 28,
-                              color: Colors.white,
-                            )))
-                  ],
-                ),
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 500),
-                  height: isTempContainerOpen
-                      ? size.height * 0.43
-                      : size.height * 0.11,
-                  // color: AppColors.cardBgColor,
-                  child: ListView.builder(
-                      // physics: const NeverScrollableScrollPhysics(),
-                      itemCount: daily.length,
-                      itemBuilder: (context, pos) {
-                        return Card(
-                          elevation: 3,
-                          color: isDarkMode
-                              ? AppColors.cardDarkModeColor
-                              : Colors.white,
-                          child: ListTile(
-                            leading: Container(
-                              decoration: BoxDecoration(
-                                color: isDarkMode
-                                    ? Colors.white12
-                                    : Colors.black12,
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                              child: Image.network(WeatherIcon.weatherIcon(
-                                  dailyWeather.weather.icon)),
-                            ),
-                            dense: false,
-                            title: Text(
-                              dayOfTheDay[pos].toString(),
-                              style: textTheme.bodyMedium,
-                            ),
-                            subtitle: Text(
-                              "Feels like ${feelsLike[pos].round().toString()}°c",
-                              style: GoogleFonts.roboto(
-                                  fontSize: 12, fontWeight: FontWeight.w500),
-                            ),
-                            trailing: Text("${daily[pos].round().toString()}°c",
-                                style: textTheme.bodySmall),
-                            contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 15, vertical: 0),
-                          ),
-                        );
-                      }),
-                ),
-                verticalGap(15),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Other details", style: textTheme.bodyMedium),
-                    InkWell(
-                        onTap: () {
-                          ref
-                              .read(isDailyOtherDetailContainerOpen.notifier)
-                              .state = ref
-                                  .read(
-                                      isDailyOtherDetailContainerOpen.notifier)
-                                  .state
-                              ? false
-                              : true;
-                        },
-                        borderRadius: BorderRadius.circular(20),
-                        child: Card(
-                            elevation: 3,
-                            color: isDarkMode
-                                ? Colors.white12
-                                : Colors.red,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(40),
-                            ),
-                            child: Icon(
-                              isDailyOtherContainerOpen
-                                  ? Icons.keyboard_arrow_up_sharp
-                                  : Icons.keyboard_arrow_down_sharp,
-                              size: 28,
-                              color: Colors.white,
-                            )))
-                  ],
-                ),
-                AnimatedContainer(
-                  height: isDailyOtherContainerOpen
-                      ? size.height * 0.55
-                      : size.height * 0.15,
-                  duration: const Duration(milliseconds: 500),
-                  child: GridView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3),
-                      itemBuilder: (_, pos) {
-                        return Card(
-                          elevation: 3,
-                          color: isDarkMode
-                              ? AppColors.cardDarkModeColor
-                              : Colors.white,
+                  verticalGap(5),
+                  Container(
+                    padding: const EdgeInsets.only(top: 0),
+                    margin: EdgeInsets.only(
+                        left: size.width < 650 ? 10 : 20,
+                        right: size.width < 650 ? 10 : 20,
+                        top: 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          width: size.width * 0.40,
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: isDarkMode
-                                        ? Colors.white12
-                                        : Colors.black12,
-                                    borderRadius: BorderRadius.circular(100)),
-                                child: Image.network(
-                                  WeatherIcon.weatherIcon(
-                                      dailyWeather.weather.icon),
-                                  fit: BoxFit.fill,
-                                  height: size.width * 0.09,
-                                  width: size.width * 0.09,
+                              GradientText(
+                                "${dailyWeather.temp.day.round()}°",
+                                style: GoogleFonts.robotoCondensed(
+                                  fontSize: size.width < 650 ? 70 : 100.0,
+                                  fontWeight: FontWeight.bold,
                                 ),
+                                colors: const [
+                                  Colors.white,
+                                  Colors.grey,
+                                  Colors.white,
+                                  // Colors.grey,
+                                ],
                               ),
-                              verticalGap(4),
                               Text(
-                                otherWeatherDetails.entries.elementAt(pos).key,
+                                "Feel like: ${dailyWeather.feelsLike.day.round()}°c",
                                 style: textTheme.titleSmall,
-                              ),
-                              verticalGap(1),
-                              Text(
-                                  "${otherWeatherDetails.entries.elementAt(pos).value}",
-                                  style: const TextStyle(fontSize: 12)),
+                              )
                             ],
                           ),
-                        );
-                      },
-                      itemCount: 9),
-                ),
-              ],
+                        ),
+                        SizedBox(
+                          width: size.width * 0.40,
+                          // color: Colors.blue[200],
+                          // Adjust height as needed
+                          child: Text(
+                            dailyWeather.weather.description,
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.roboto(
+                                fontSize: 30, fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  verticalGap(15),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Temperature", style: textTheme.bodyMedium),
+                      InkWell(
+                          onTap: () {
+                            ref.read(isDailyContainerTempOpen.notifier).state =
+                                ref.read(isDailyContainerTempOpen.notifier).state
+                                    ? false
+                                    : true;
+                          },
+                          borderRadius: BorderRadius.circular(20),
+                          child: Card(
+                              elevation: 3,
+                              color:  isDarkMode
+                                  ? Colors.white12
+                                  : Colors.red,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(40),
+                              ),
+                              child: Icon(
+                                isTempContainerOpen
+                                    ? Icons.keyboard_arrow_up_sharp
+                                    : Icons.keyboard_arrow_down_sharp,
+                                size: 28,
+                                color: Colors.white,
+                              )))
+                    ],
+                  ),
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 500),
+                    height: isTempContainerOpen
+                        ? size.height * 0.43
+                        : size.height * 0.11,
+                    // color: AppColors.cardBgColor,
+                    child: ListView.builder(
+                        // physics: const NeverScrollableScrollPhysics(),
+                        itemCount: daily.length,
+                        itemBuilder: (context, pos) {
+                          return Card(
+                            elevation: 3,
+                            color: isDarkMode
+                                ? AppColors.cardDarkModeColor
+                                : Colors.white,
+                            child: ListTile(
+                              leading: Container(
+                                decoration: BoxDecoration(
+                                  color: isDarkMode
+                                      ? Colors.white12
+                                      : Colors.black12,
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                child: Image.network(WeatherIcon.weatherIcon(
+                                    dailyWeather.weather.icon)),
+                              ),
+                              dense: false,
+                              title: Text(
+                                dayOfTheDay[pos].toString(),
+                                style: textTheme.bodyMedium,
+                              ),
+                              subtitle: Text(
+                                "Feels like ${feelsLike[pos].round().toString()}°c",
+                                style: GoogleFonts.roboto(
+                                    fontSize: 12, fontWeight: FontWeight.w500),
+                              ),
+                              trailing: Text("${daily[pos].round().toString()}°c",
+                                  style: textTheme.bodySmall),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 15, vertical: 0),
+                            ),
+                          );
+                        }),
+                  ),
+                  verticalGap(15),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Other details", style: textTheme.bodyMedium),
+                      InkWell(
+                          onTap: () {
+                            ref
+                                .read(isDailyOtherDetailContainerOpen.notifier)
+                                .state = ref
+                                    .read(
+                                        isDailyOtherDetailContainerOpen.notifier)
+                                    .state
+                                ? false
+                                : true;
+                          },
+                          borderRadius: BorderRadius.circular(20),
+                          child: Card(
+                              elevation: 3,
+                              color: isDarkMode
+                                  ? Colors.white12
+                                  : Colors.red,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(40),
+                              ),
+                              child: Icon(
+                                isDailyOtherContainerOpen
+                                    ? Icons.keyboard_arrow_up_sharp
+                                    : Icons.keyboard_arrow_down_sharp,
+                                size: 28,
+                                color: Colors.white,
+                              )))
+                    ],
+                  ),
+                  AnimatedContainer(
+                    height: isDailyOtherContainerOpen
+                        ? size.height * 0.55
+                        : size.height * 0.15,
+                    duration: const Duration(milliseconds: 500),
+                    child: GridView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3),
+                        itemBuilder: (_, pos) {
+                          return Card(
+                            elevation: 3,
+                            color: isDarkMode
+                                ? AppColors.cardDarkModeColor
+                                : Colors.white,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: isDarkMode
+                                          ? Colors.white12
+                                          : Colors.black12,
+                                      borderRadius: BorderRadius.circular(100)),
+                                  child: Image.network(
+                                    WeatherIcon.weatherIcon(
+                                        dailyWeather.weather.icon),
+                                    fit: BoxFit.fill,
+                                    height: size.width * 0.09,
+                                    width: size.width * 0.09,
+                                  ),
+                                ),
+                                verticalGap(4),
+                                Text(
+                                  otherWeatherDetails.entries.elementAt(pos).key,
+                                  style: textTheme.titleSmall,
+                                ),
+                                verticalGap(1),
+                                Text(
+                                    "${otherWeatherDetails.entries.elementAt(pos).value}",
+                                    style: const TextStyle(fontSize: 12)),
+                              ],
+                            ),
+                          );
+                        },
+                        itemCount: 9),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
