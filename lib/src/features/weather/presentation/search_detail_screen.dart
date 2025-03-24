@@ -219,10 +219,10 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                         child: Card(
                           color: isDarkMode
                               ? AppColors.cardDarkModeColor
-                              : Colors.white,
+                              : AppColors.cardLightModeColor,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
-                          elevation: 7,
+                          // elevation: 7,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
@@ -426,8 +426,8 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                         child: Card(
                                           color: isDarkMode
                                               ? AppColors.cardDarkModeColor
-                                              : Colors.white,
-                                          elevation: 3,
+                                              : AppColors.cardLightModeColor,
+                                          // elevation: 3,
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10),
@@ -537,8 +537,8 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                         child: Card(
                                           color: isDarkMode
                                               ? AppColors.cardDarkModeColor
-                                              : Colors.white,
-                                          elevation: 3,
+                                              : AppColors.cardLightModeColor,
+                                          // elevation: 3,
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10),

@@ -83,16 +83,15 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
         decoration: isDarkMode
             ? BoxDecoration()
             : BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("assets/images/sky.jpg"),
-              fit: BoxFit.cover
-          ),
-        ),
+                image: DecorationImage(
+                    image: AssetImage("assets/images/sky.jpg"),
+                    fit: BoxFit.cover),
+              ),
         child: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
-              padding:
-                  const EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 5),
+              padding: const EdgeInsets.only(
+                  left: 15, right: 15, top: 15, bottom: 5),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -126,8 +125,10 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                   ),
                   verticalGap(15),
                   Card(
-                    elevation: 3,
-                    color: isDarkMode ? AppColors.cardDarkModeColor : Colors.white,
+                    // elevation: 3,
+                    color: isDarkMode
+                        ? AppColors.cardDarkModeColor
+                        : AppColors.cardLightModeColor,
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(0),
@@ -137,15 +138,18 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                     ),
                     margin: const EdgeInsets.all(0),
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 7, left: 10, right: 10),
-                      child: Text("Weather Summary", style: textTheme.bodyMedium),
+                      padding:
+                          const EdgeInsets.only(top: 7, left: 10, right: 10),
+                      child:
+                          Text("Weather Summary", style: textTheme.bodyMedium),
                     ),
                   ),
                   SizedBox(
                     width: double.maxFinite,
                     child: Card(
-                      color:
-                          isDarkMode ? AppColors.cardDarkModeColor : Colors.white,
+                      color: isDarkMode
+                          ? AppColors.cardDarkModeColor
+                          : AppColors.cardLightModeColor,
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(0),
@@ -219,16 +223,16 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                       InkWell(
                           onTap: () {
                             ref.read(isDailyContainerTempOpen.notifier).state =
-                                ref.read(isDailyContainerTempOpen.notifier).state
+                                ref
+                                        .read(isDailyContainerTempOpen.notifier)
+                                        .state
                                     ? false
                                     : true;
                           },
                           borderRadius: BorderRadius.circular(20),
                           child: Card(
-                              elevation: 3,
-                              color:  isDarkMode
-                                  ? Colors.white12
-                                  : Colors.red,
+                              // elevation: 3,
+                              color: isDarkMode ? Colors.white12 : Colors.red,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(40),
                               ),
@@ -252,10 +256,10 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                         itemCount: daily.length,
                         itemBuilder: (context, pos) {
                           return Card(
-                            elevation: 3,
+                            // elevation: 3,
                             color: isDarkMode
                                 ? AppColors.cardDarkModeColor
-                                : Colors.white,
+                                : AppColors.cardLightModeColor,
                             child: ListTile(
                               leading: Container(
                                 decoration: BoxDecoration(
@@ -277,7 +281,8 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                                 style: GoogleFonts.roboto(
                                     fontSize: 12, fontWeight: FontWeight.w500),
                               ),
-                              trailing: Text("${daily[pos].round().toString()}°c",
+                              trailing: Text(
+                                  "${daily[pos].round().toString()}°c",
                                   style: textTheme.bodySmall),
                               contentPadding: const EdgeInsets.symmetric(
                                   horizontal: 15, vertical: 0),
@@ -295,18 +300,16 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                             ref
                                 .read(isDailyOtherDetailContainerOpen.notifier)
                                 .state = ref
-                                    .read(
-                                        isDailyOtherDetailContainerOpen.notifier)
+                                    .read(isDailyOtherDetailContainerOpen
+                                        .notifier)
                                     .state
                                 ? false
                                 : true;
                           },
                           borderRadius: BorderRadius.circular(20),
                           child: Card(
-                              elevation: 3,
-                              color: isDarkMode
-                                  ? Colors.white12
-                                  : Colors.red,
+                              // elevation: 3,
+                              color: isDarkMode ? Colors.white12 : Colors.red,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(40),
                               ),
@@ -331,10 +334,10 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                                 crossAxisCount: 3),
                         itemBuilder: (_, pos) {
                           return Card(
-                            elevation: 3,
+                            // elevation: 3,
                             color: isDarkMode
                                 ? AppColors.cardDarkModeColor
-                                : Colors.white,
+                                : AppColors.cardLightModeColor,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -355,7 +358,9 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                                 ),
                                 verticalGap(4),
                                 Text(
-                                  otherWeatherDetails.entries.elementAt(pos).key,
+                                  otherWeatherDetails.entries
+                                      .elementAt(pos)
+                                      .key,
                                   style: textTheme.titleSmall,
                                 ),
                                 verticalGap(1),
