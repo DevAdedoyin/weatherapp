@@ -40,8 +40,17 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      body: SizedBox(
+      body: Container(
+        decoration: isDarkMode
+            ? BoxDecoration()
+            : BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("assets/images/sky.jpg"),
+              fit: BoxFit.cover
+          ),
+        ),
         width: double.maxFinite,
         child: Column(
 
