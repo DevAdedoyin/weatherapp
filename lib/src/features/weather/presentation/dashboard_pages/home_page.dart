@@ -83,6 +83,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final bannerAd = ref.watch(bannerAdProvider);
+    final banner2Ad = ref.watch(banner2AdProvider);
     ref.watch(hourlyWeatherDetails);
     ref.watch(currentAddress);
     ref.watch(userCurrentAddress);
@@ -244,7 +245,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                         verticalGap(20),
                         SizedBox(
                           height: bannerAd.size.height.toDouble(),
-                          width: bannerAd.size.width.toDouble(),
+                          width: double.maxFinite,
                           child: AdWidget(ad: bannerAd),
                         ),
                       ],
@@ -367,6 +368,19 @@ class _HomePageState extends ConsumerState<HomePage> {
                     ),
                   ),
                 ),
+                if (banner2Ad != null)
+                  SliverToBoxAdapter(
+                    child: Column(
+                      children: [
+                        verticalGap(1),
+                        SizedBox(
+                          height: banner2Ad.size.height.toDouble(),
+                          width: banner2Ad.size.width.toDouble(),
+                          child: AdWidget(ad: banner2Ad),
+                        ),
+                      ],
+                    ),
+                  ),
                 SliverToBoxAdapter(
                   child: Container(
                     margin: const EdgeInsets.only(top: 5),

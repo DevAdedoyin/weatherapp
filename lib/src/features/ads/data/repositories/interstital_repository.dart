@@ -13,7 +13,7 @@ class InterstitialAdNotifier extends StateNotifier<InterstitialAd?> {
 
   void _loadAd() {
     InterstitialAd.load(
-      adUnitId: 'ca-app-pub-3940256099942544/1033173712', // ✅ Test ID
+      adUnitId: adUnitId!,
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (ad) {

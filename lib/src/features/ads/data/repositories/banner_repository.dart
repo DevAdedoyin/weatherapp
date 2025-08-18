@@ -14,7 +14,7 @@ class BannerAdNotifier extends StateNotifier<BannerAd?> {
 
   void _loadAd() {
     final banner = BannerAd(
-      adUnitId: "ca-app-pub-3940256099942544/6300978111",
+      adUnitId: adUnitId!,
       size: AdSize.banner,
       request: const AdRequest(),
       listener: BannerAdListener(
@@ -38,13 +38,25 @@ class BannerAdNotifier extends StateNotifier<BannerAd?> {
   }
 }
 
+// HOME PAGE BANNER
 final bannerAdProvider =
     StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
   return BannerAdNotifier();
 });
 
+final banner2AdProvider =
+StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
+  return BannerAdNotifier();
+});
+
+// SEARCH PAGE BANNER
 final searchBannerAdProvider =
     StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
+  return BannerAdNotifier();
+});
+
+final searchDetailBannerAdProvider =
+StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
   return BannerAdNotifier();
 });
 

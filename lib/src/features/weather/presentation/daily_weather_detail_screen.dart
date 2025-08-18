@@ -176,7 +176,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                     Container(
                       alignment: Alignment.center,
                       height: bannerAd.size.height.toDouble(),
-                      width: bannerAd.size.width.toDouble(),
+                      width: double.maxFinite,
                       child: AdWidget(ad: bannerAd),
                     ),
                   Container(
