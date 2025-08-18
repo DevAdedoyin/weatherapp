@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 
 // import 'package:shared_preferences/shared_preferences.dart';
@@ -12,6 +13,9 @@ import 'package:weatherapp/src/constants/app_colors.dart';
 import 'package:weatherapp/src/features/weather/data/repositories/daily_detail_repo.dart';
 import 'package:weatherapp/src/features/weather/data/repositories/search_city_repo.dart';
 import 'package:weatherapp/src/utils/weather_icon_utils.dart';
+
+import '../../ads/data/repositories/banner_repository.dart';
+import '../../ads/data/repositories/interstital_repository.dart';
 
 class DailyWeatherDetail extends ConsumerStatefulWidget {
   const DailyWeatherDetail({super.key});
@@ -27,6 +31,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
     final dailyWeather = ref.watch(dailyWeatherProvider);
     final userCurrentAddress_ = ref.watch(userCurrentAddress);
     Size size = MediaQuery.of(context).size;
+    final bannerAd = ref.watch(forecastDetailBannerAdProvider);
     TextTheme textTheme = Theme.of(context).textTheme;
 
     final daily = [
@@ -167,6 +172,13 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                     ),
                   ),
                   verticalGap(5),
+                  if (bannerAd != null)
+                    Container(
+                      alignment: Alignment.center,
+                      height: bannerAd.size.height.toDouble(),
+                      width: bannerAd.size.width.toDouble(),
+                      child: AdWidget(ad: bannerAd),
+                    ),
                   Container(
                     padding: const EdgeInsets.only(top: 0),
                     margin: EdgeInsets.only(
@@ -228,6 +240,9 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                                         .state
                                     ? false
                                     : true;
+                            ref
+                                .read(interstitialAdProvider.notifier)
+                                .showAd();
                           },
                           borderRadius: BorderRadius.circular(20),
                           child: Card(
@@ -305,6 +320,9 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                                     .state
                                 ? false
                                 : true;
+                            ref
+                                .read(interstitialAdProvider.notifier)
+                                .showAd();
                           },
                           borderRadius: BorderRadius.circular(20),
                           child: Card(

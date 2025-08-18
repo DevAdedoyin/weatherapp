@@ -2,6 +2,7 @@ import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
+import "package:google_mobile_ads/google_mobile_ads.dart";
 
 import "package:intl/intl.dart";
 import "package:weatherapp/src/common/gaps/sized_box.dart";
@@ -15,6 +16,8 @@ import "package:weatherapp/src/routing/app_routes.dart";
 import "package:weatherapp/src/utils/weather_icon_utils.dart";
 
 import "../../../../common/widgets/auth_widgets/info_alert.dart";
+import "../../../ads/data/repositories/banner_repository.dart";
+import "../../../ads/data/repositories/interstital_repository.dart";
 
 class DailyForecastPage extends ConsumerStatefulWidget {
   const DailyForecastPage({Key? key}) : super(key: key);
@@ -29,7 +32,7 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
-
+    final bannerAd = ref.watch(forecastBannerAdProvider);
     ref.watch(dailyWeatherProvider);
 
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
@@ -39,12 +42,20 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
             margin: EdgeInsets.only(top: size.height * 0.06, bottom: 5),
             child: Text("5 Days Forecast", style: textTheme.headlineMedium)),
         Text("Accurate Weather Forecast", style: textTheme.bodyMedium),
+        verticalGap(10),
+        if (bannerAd != null)
+          SizedBox(
+            height: bannerAd.size.height.toDouble(),
+            width: bannerAd.size.width.toDouble(),
+            child: AdWidget(ad: bannerAd),
+          ),
+        verticalGap(5),
         FutureBuilder(
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return SizedBox(
                 height:
-                    size.height < 650 ? size.height * 0.6 : size.height * 0.75,
+                    size.height < 650 ? size.height * 0.6 : size.height * 0.65,
                 width: double.maxFinite,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -60,7 +71,7 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                 snapshot.connectionState != ConnectionState.waiting) {
               return SizedBox(
                 height:
-                    size.height < 650 ? size.height * 0.6 : size.height * 0.75,
+                    size.height < 650 ? size.height * 0.6 : size.height * 0.65,
                 width: double.maxFinite,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -84,6 +95,8 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
             final data = snapshot.data?.dailyWeather;
             return Expanded(
               child: ListView.builder(
+                shrinkWrap: false,
+                padding: EdgeInsets.symmetric(vertical: 10),
                 itemBuilder: (_, pos) {
                   final dateTime = DateTime.fromMillisecondsSinceEpoch(
                       data![pos].dateTime.toInt() * 1000);
@@ -111,13 +124,13 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                           child: InkWell(
                             onTap: FirebaseAuth.instance.currentUser == null
                                 ? () {
-                              infoAuthAlertWidget(
-                                  context,
-                                  "Please kindly login or create an account to see more forecast details",
-                                  "LOGIN REQUIRED", onTap: () {
-                                context.go(AppRoutes.login);
-                              });
-                            }
+                                    infoAuthAlertWidget(
+                                        context,
+                                        "Please kindly login or create an account to see more forecast details",
+                                        "LOGIN REQUIRED", onTap: () {
+                                      context.go(AppRoutes.login);
+                                    });
+                                  }
                                 : () {
                                     final dailyDetail = DailyDetailModel(
                                         dateTime: formattedDate,
@@ -140,13 +153,18 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                                         .state = dailyDetail;
 
                                     context.push(AppRoutes.dailyDetails);
+                                    ref
+                                        .read(interstitialAdProvider.notifier)
+                                        .showAd();
                                   },
                             radius: 0.5,
                             borderRadius: BorderRadius.circular(10),
                             child: ListTile(
                               leading: Container(
                                 decoration: BoxDecoration(
-                                  color: isDarkMode ? Colors.white12 : Colors.black12,
+                                  color: isDarkMode
+                                      ? Colors.white12
+                                      : Colors.black12,
                                   borderRadius: BorderRadius.circular(50),
                                 ),
                                 child: Image.network(WeatherIcon.weatherIcon(

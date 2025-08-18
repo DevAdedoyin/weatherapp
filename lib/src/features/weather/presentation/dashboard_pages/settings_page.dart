@@ -2,6 +2,7 @@ import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
+import "package:google_mobile_ads/google_mobile_ads.dart";
 import "package:shared_preferences/shared_preferences.dart";
 import "package:weatherapp/src/common/gaps/sized_box.dart";
 import "package:weatherapp/src/constants/app_colors.dart";
@@ -9,6 +10,7 @@ import "package:weatherapp/src/features/authentication/data/datasources/auth_dat
 import "package:weatherapp/src/routing/app_routes.dart";
 
 import "../../../../themes/theme_notifier.dart";
+import "../../../ads/data/repositories/banner_repository.dart";
 import "../../data/repositories/switch.dart";
 
 class SettingsPage extends ConsumerStatefulWidget {
@@ -33,6 +35,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     TextTheme textTheme = Theme.of(context).textTheme;
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     bool isLightMode = ref.watch(switchModes);
+    final bannerAd = ref.watch(searchBannerAdProvider);
     final themeNotifier = ref.read(themeNotifierProvider.notifier);
 
     return SingleChildScrollView(
@@ -73,7 +76,14 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
               "${user?.displayName}",
               style: textTheme.headlineMedium,
             ),
-            verticalGap(20),
+            verticalGap(10),
+            if (bannerAd != null)
+              SizedBox(
+                height: bannerAd.size.height.toDouble(),
+                width: bannerAd.size.width.toDouble(),
+                child: AdWidget(ad: bannerAd),
+              ),
+            verticalGap(10),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 15),
               child: Card(

@@ -68,7 +68,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
 
     // List<SearchSuggestionModel> uniqueCityData =
     //     listOfCityData.toSet().toList();
-    final bannerAd = ref.watch(bannerAdProvider);
+    final bannerAd = ref.watch(searchBannerAdProvider);
     final user = FirebaseAuth.instance.currentUser;
 
     uniqueCityData.sort((a, b) => a.cityNames.compareTo(b.cityNames));

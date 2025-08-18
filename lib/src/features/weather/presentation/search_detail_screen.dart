@@ -67,7 +67,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
-    final bannerAd = ref.watch(bannerAdProvider);
+    final bannerAd = ref.watch(searchBannerAdProvider);
     ref.watch(hourlyWeatherDetails);
     final searchedCity = ref.watch(searchCity);
     ref.watch(fromSearchScreen);
