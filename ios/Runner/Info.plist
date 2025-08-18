@@ -54,6 +54,8 @@
             </array>
         </dict>
     </array>
+    <key>GADApplicationIdentifier</key>
+    <string>ca-app-pub-1226359525220465~6787896822</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>

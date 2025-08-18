@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:weatherapp/src/routing/go_router_provider.dart';
 import 'package:weatherapp/src/themes/theme.dart';
 import 'package:weatherapp/src/themes/theme_constants.dart';
@@ -18,6 +21,7 @@ Future<void> main() async {
     DeviceOrientation.portraitUp,
   ]);
   WidgetsFlutterBinding.ensureInitialized();
+  unawaited(MobileAds.instance.initialize());
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const ProviderScope(child: WeatherApp()));
 }

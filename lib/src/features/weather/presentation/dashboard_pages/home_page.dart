@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 import "package:google_fonts/google_fonts.dart";
+import "package:google_mobile_ads/google_mobile_ads.dart";
 import "package:shared_preferences/shared_preferences.dart";
 import "package:weatherapp/src/common/gaps/sized_box.dart";
 import "package:weatherapp/src/constants/app_colors.dart";
@@ -22,6 +23,8 @@ import 'package:intl/intl.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
 import "../../../../common/widgets/auth_widgets/info_alert.dart";
+import "../../../ads/data/repositories/banner_repository.dart";
+import "../../../ads/data/repositories/interstital_repository.dart";
 // import 'package:shimmer/shimmer.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -39,6 +42,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     super.initState();
 
     getAddress();
+    ref.read(interstitialAdProvider.notifier).showAd();
     // ref.read(userCurrentAddress.notifier).state = address!;
     // ref.read(isFromSearchScreen.notifier).state = false;
   }
@@ -78,6 +82,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final bannerAd = ref.watch(bannerAdProvider);
     ref.watch(hourlyWeatherDetails);
     ref.watch(currentAddress);
     ref.watch(userCurrentAddress);
@@ -104,8 +109,9 @@ class _HomePageState extends ConsumerState<HomePage> {
             return CustomScrollView(
               slivers: <Widget>[
                 SliverAppBar(
-                  backgroundColor:
-                      isDarkMode ? AppColors.scaffoldBgColor : Colors.transparent,
+                  backgroundColor: isDarkMode
+                      ? AppColors.scaffoldBgColor
+                      : Colors.transparent,
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -231,11 +237,24 @@ class _HomePageState extends ConsumerState<HomePage> {
                     ),
                   ),
                 ),
+                if (bannerAd != null)
+                  SliverToBoxAdapter(
+                    child: Column(
+                      children: [
+                        verticalGap(20),
+                        SizedBox(
+                          height: bannerAd.size.height.toDouble(),
+                          width: bannerAd.size.width.toDouble(),
+                          child: AdWidget(ad: bannerAd),
+                        ),
+                      ],
+                    ),
+                  ),
                 SliverToBoxAdapter(
                   child: Container(
                     width: double.maxFinite,
                     margin: const EdgeInsets.symmetric(
-                        horizontal: 18, vertical: 25),
+                        horizontal: 18, vertical: 20),
                     child: Card(
                       color: isDarkMode
                           ? AppColors.cardDarkModeColor
@@ -431,6 +450,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       hourlyState.address = address!;
                                       context
                                           .push(AppRoutes.hourlyWeatherDetails);
+                                      ref
+                                          .read(interstitialAdProvider.notifier)
+                                          .showAd();
                                     }
                                   },
                                   borderRadius: BorderRadius.circular(15),
@@ -506,7 +528,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                   ),
                                 );
                               }),
-                        )
+                        ),
                       ],
                     ),
                   ),

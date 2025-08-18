@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:weatherapp/src/common/gaps/sized_box.dart';
 import 'package:weatherapp/src/constants/app_colors.dart';
@@ -8,6 +9,8 @@ import 'package:weatherapp/src/features/weather/data/repositories/hourly_weather
 
 import 'package:weatherapp/src/features/weather/presentation/hourly_weather/weather_details_hourly.dart';
 import 'package:weatherapp/src/utils/weather_icon_utils.dart';
+
+import '../../../ads/data/repositories/banner_repository.dart';
 
 class HourlyWeatherDetailsScreen extends ConsumerStatefulWidget {
   const HourlyWeatherDetailsScreen({super.key});
@@ -22,18 +25,32 @@ class _HourlyWeatherDetailsScreenState
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
+    final bannerAd = ref.watch(bannerAdProvider);
     Size size = MediaQuery.of(context).size;
     final hourlyWeatherState = ref.watch(hourlyWeatherDetails);
 
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
+    final ad = BannerAd(
+      adUnitId: 'ca-app-pub-3940256099942544/6300978111',
+      size: AdSize.banner,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (ad) => debugPrint('Ad loaded'),
+        onAdFailedToLoad: (ad, error) => ad.dispose(),
+      ),
+    )..load();
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:
-            isDarkMode ? AppColors.scaffoldBgColor : AppColors.cardLightModeColor,
+        backgroundColor: isDarkMode
+            ? AppColors.scaffoldBgColor
+            : AppColors.cardLightModeColor,
         elevation: 0,
         title: Container(
-          color: isDarkMode ? AppColors.scaffoldBgColor : AppColors.cardLightModeColor,
+          color: isDarkMode
+              ? AppColors.scaffoldBgColor
+              : AppColors.cardLightModeColor,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -155,6 +172,12 @@ class _HourlyWeatherDetailsScreenState
                 ),
               ),
               verticalGap(20),
+              if (bannerAd != null)
+              SizedBox(
+                height: bannerAd.size.height.toDouble(),
+                width: bannerAd.size.width.toDouble(),
+                child: AdWidget(ad: ad),
+              ),
               const WeatherDetailsHourly()
             ],
           ),

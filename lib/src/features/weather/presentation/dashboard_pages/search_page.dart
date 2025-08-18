@@ -5,12 +5,16 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 import "package:google_fonts/google_fonts.dart";
+import "package:google_mobile_ads/google_mobile_ads.dart";
 import "package:weatherapp/src/common/gaps/sized_box.dart";
 import "package:weatherapp/src/common/widgets/auth_widgets/info_alert.dart";
 import "package:weatherapp/src/constants/app_colors.dart";
 import "package:weatherapp/src/features/weather/data/repositories/search_city_repo.dart";
 import "package:weatherapp/src/features/weather/data/repositories/search_suggestion_data.dart";
 import "package:weatherapp/src/routing/app_routes.dart";
+
+import "../../../ads/data/repositories/banner_repository.dart";
+import "../../../ads/data/repositories/interstital_repository.dart";
 
 class SearchPage extends ConsumerStatefulWidget {
   const SearchPage({super.key});
@@ -64,7 +68,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
 
     // List<SearchSuggestionModel> uniqueCityData =
     //     listOfCityData.toSet().toList();
-
+    final bannerAd = ref.watch(bannerAdProvider);
     final user = FirebaseAuth.instance.currentUser;
 
     uniqueCityData.sort((a, b) => a.cityNames.compareTo(b.cityNames));
@@ -97,6 +101,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                   return GestureDetector(
                     onTap: () {
                       if (user == null) {
+                        ref.read(interstitialAdProvider.notifier).showAd();
                         infoAuthAlertWidget(
                             context,
                             "Please kindly login or create and account to search for weather data of any location of your choice.",
@@ -117,6 +122,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                             uniqueCityData[position].cityNames;
 
                         context.push(AppRoutes.searchCityWeatherDetails);
+                        ref.read(interstitialAdProvider.notifier).showAd();
                       }
                     },
                     child: Card(
@@ -168,6 +174,9 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                             InkWell(
                                 onTap: () {
                                   if (user == null) {
+                                    ref
+                                        .read(interstitialAdProvider.notifier)
+                                        .showAd();
                                     infoAuthAlertWidget(
                                         context,
                                         "Please kindly login or create an account to search for weather data of any location of your choice.",
@@ -176,8 +185,15 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                                     });
                                   } else {
                                     ref
+                                        .read(interstitialAdProvider.notifier)
+                                        .showAd();
+                                    ref
                                         .read(searchCity.notifier)
                                         .state["city"] = textController.text;
+
+                                    ref
+                                        .read(interstitialAdProvider.notifier)
+                                        .showAd();
 
                                     context.push(
                                         AppRoutes.searchCityWeatherDetails);
@@ -212,6 +228,13 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                 },
               ),
             ),
+            verticalGap(5),
+            if (bannerAd != null)
+              SizedBox(
+                height: bannerAd.size.height.toDouble(),
+                width: bannerAd.size.width.toDouble(),
+                child: AdWidget(ad: bannerAd),
+              ),
             verticalGap(10),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 15),
@@ -280,6 +303,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                       ref.read(searchCity.notifier).state["city"] = e.cityNames;
 
                       context.push(AppRoutes.searchCityWeatherDetails);
+                      ref.read(interstitialAdProvider.notifier).showAd();
                     },
                     child: ListTile(
                       leading: const Icon(

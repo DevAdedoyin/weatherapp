@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 
 // import 'package:shared_preferences/shared_preferences.dart';
@@ -18,6 +19,9 @@ import 'package:weatherapp/src/features/weather/data/repositories/search_city_re
 import 'package:weatherapp/src/features/weather/domain/weather_model.dart';
 import 'package:weatherapp/src/routing/app_routes.dart';
 import 'package:weatherapp/src/utils/weather_icon_utils.dart';
+
+import '../../ads/data/repositories/banner_repository.dart';
+import '../../ads/data/repositories/interstital_repository.dart';
 
 class SearchDetailScreen extends ConsumerStatefulWidget {
   const SearchDetailScreen({super.key});
@@ -63,6 +67,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
+    final bannerAd = ref.watch(bannerAdProvider);
     ref.watch(hourlyWeatherDetails);
     final searchedCity = ref.watch(searchCity);
     ref.watch(fromSearchScreen);
@@ -74,11 +79,10 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
         decoration: isDarkMode
             ? BoxDecoration()
             : BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("assets/images/sky.jpg"),
-              fit: BoxFit.cover
-          ),
-        ),
+                image: DecorationImage(
+                    image: AssetImage("assets/images/sky.jpg"),
+                    fit: BoxFit.cover),
+              ),
         child: FutureBuilder<WeatherModel>(
             future: WeatherApiDataSource.searchedWeather(
                 city: "${searchedCity["city"]}"),
@@ -102,8 +106,9 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                 return CustomScrollView(
                   slivers: <Widget>[
                     SliverAppBar(
-                      backgroundColor:
-                          isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
+                      backgroundColor: isDarkMode
+                          ? AppColors.scaffoldBgColor
+                          : Colors.white54,
                       automaticallyImplyLeading: true,
                       title: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,13 +122,17 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                           verticalGap(1),
                           Container(
                             margin: const EdgeInsets.symmetric(
-                                horizontal: 5, ),
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(7), color: Colors.red ),
+                              horizontal: 5,
+                            ),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(7),
+                                color: Colors.red),
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 5),
                             child: Text(
                               formattedDateTime,
-                              style: const TextStyle(color: Colors.white, fontSize: 15),
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 15),
                               // textAlign: TextAlign.center,
                             ),
                           ),
@@ -211,6 +220,19 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                         ),
                       ),
                     ),
+                    if (bannerAd != null)
+                      SliverToBoxAdapter(
+                        child: Column(
+                          children: [
+                            verticalGap(20),
+                            SizedBox(
+                              height: bannerAd.size.height.toDouble(),
+                              width: bannerAd.size.width.toDouble(),
+                              child: AdWidget(ad: bannerAd),
+                            ),
+                          ],
+                        ),
+                      ),
                     SliverToBoxAdapter(
                       child: Container(
                         width: double.maxFinite,
@@ -409,10 +431,15 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
 
                                         hourlyState.isFromSearch = true;
 
-                                        hourlyState.address = userSearchedAddress;
+                                        hourlyState.address =
+                                            userSearchedAddress;
 
-                                        context
-                                            .push(AppRoutes.hourlyWeatherDetails);
+                                        context.push(
+                                            AppRoutes.hourlyWeatherDetails);
+                                        ref
+                                            .read(
+                                                interstitialAdProvider.notifier)
+                                            .showAd();
                                       },
                                       borderRadius: BorderRadius.circular(15),
                                       radius: 0.5,
@@ -421,7 +448,8 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                         margin: const EdgeInsets.symmetric(
                                             horizontal: 7),
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                         ),
                                         child: Card(
                                           color: isDarkMode
@@ -474,7 +502,8 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                                 "${data_.temp.round()}°c",
                                                 style: GoogleFonts.roboto(
                                                     fontSize: 25,
-                                                    fontWeight: FontWeight.w700),
+                                                    fontWeight:
+                                                        FontWeight.w700),
                                               ),
                                               verticalGap(5),
                                             ],
@@ -532,7 +561,8 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                         margin: const EdgeInsets.only(
                                             left: 7, right: 7, bottom: 7),
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                         ),
                                         child: Card(
                                           color: isDarkMode
@@ -578,7 +608,8 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                                         BorderRadius.circular(
                                                             50)),
                                                 child: Hero(
-                                                  tag: "weather-image-$position",
+                                                  tag:
+                                                      "weather-image-$position",
                                                   child: Image.network(
                                                     WeatherIcon.weatherIcon(
                                                       // "",
@@ -592,7 +623,8 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                                 "${data_.temp.day.round()}°c",
                                                 style: GoogleFonts.roboto(
                                                     fontSize: 25,
-                                                    fontWeight: FontWeight.w700),
+                                                    fontWeight:
+                                                        FontWeight.w700),
                                               ),
                                               verticalGap(
                                                   size.height < 650 ? 2 : 5),

@@ -4,6 +4,7 @@ import 'package:weatherapp/src/constants/app_colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:weatherapp/src/utils/weather_icon_utils.dart';
 
+import '../../../ads/data/repositories/interstital_repository.dart';
 import '../../data/repositories/hourly_weather_detail.dart';
 
 class WeatherDetailsHourly extends ConsumerStatefulWidget {
@@ -61,6 +62,7 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
                           ref.read(openWeatherDetails.notifier).state
                               ? false
                               : true;
+                      ref.read(interstitialAdProvider.notifier).showAd();
                     },
                     child: Card(
                       elevation: 3,
