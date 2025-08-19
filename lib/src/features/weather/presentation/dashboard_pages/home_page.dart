@@ -383,7 +383,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
                 SliverToBoxAdapter(
                   child: Container(
-                    margin: const EdgeInsets.only(top: 5),
+                    margin: const EdgeInsets.only(top: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

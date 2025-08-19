@@ -9,7 +9,11 @@ class InterstitialAdNotifier extends StateNotifier<InterstitialAd?> {
     _loadAd();
   }
 
+  // PRODUCTION
   final adUnitId = dotenv.env["INTERSTITIAL_AD_UNIT"];
+
+  // DEVELOPMENT
+  // final adUnitId = dotenv.env["SAMPLE_INTERSTITIAL_ID_ANDROID"];
 
   void _loadAd() {
     InterstitialAd.load(

@@ -86,7 +86,7 @@ class _SplashScreenState extends State<SplashScreen> {
               alignment: Alignment.bottomCenter,
               margin: EdgeInsets.only(bottom: 30),
               child: Text(
-                "Developed by devAdedoyin",
+                "Powered by Pauversildo",
                 style: TextStyle(
                     fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
               ),

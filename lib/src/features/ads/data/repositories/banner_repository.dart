@@ -10,7 +10,11 @@ class BannerAdNotifier extends StateNotifier<BannerAd?> {
     _loadAd();
   }
 
+  // PRODUCTION
   final adUnitId = dotenv.env["BANNER_AD_UNIT"];
+
+  // DEVELOPMENT
+  // final adUnitId = dotenv.env["SAMPLE_BANNER_ID_ANDROID"];
 
   void _loadAd() {
     final banner = BannerAd(
@@ -45,7 +49,12 @@ final bannerAdProvider =
 });
 
 final banner2AdProvider =
-StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
+    StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
+  return BannerAdNotifier();
+});
+
+final bannerHourlyAdProvider =
+    StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
   return BannerAdNotifier();
 });
 
@@ -56,21 +65,26 @@ final searchBannerAdProvider =
 });
 
 final searchDetailBannerAdProvider =
+    StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
+  return BannerAdNotifier();
+});
+
+final searchDetail2BannerAdProvider =
 StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
   return BannerAdNotifier();
 });
 
 final forecastBannerAdProvider =
-StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
+    StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
   return BannerAdNotifier();
 });
 
 final forecastDetailBannerAdProvider =
-StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
+    StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
   return BannerAdNotifier();
 });
 
 final settingsBannerAdProvider =
-StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
+    StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
   return BannerAdNotifier();
 });

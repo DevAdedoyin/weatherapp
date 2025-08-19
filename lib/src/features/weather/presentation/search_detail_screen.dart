@@ -68,6 +68,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
     final bannerAd = ref.watch(searchDetailBannerAdProvider);
+    final banner2Ad = ref.watch(searchDetail2BannerAdProvider);
     ref.watch(hourlyWeatherDetails);
     final searchedCity = ref.watch(searchCity);
     ref.watch(fromSearchScreen);
@@ -518,10 +519,24 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                       ),
                     ),
 
+                    if (banner2Ad != null)
+                      SliverToBoxAdapter(
+                        child: Column(
+                          children: [
+                            verticalGap(20),
+                            SizedBox(
+                              height: banner2Ad.size.height.toDouble(),
+                              width: banner2Ad.size.width.toDouble(),
+                              child: AdWidget(ad: banner2Ad),
+                            ),
+                          ],
+                        ),
+                      ),
+
                     // DAILY WEATHER
                     SliverToBoxAdapter(
                       child: Container(
-                        margin: const EdgeInsets.only(top: 25, bottom: 20),
+                        margin: const EdgeInsets.only(top: 20, bottom: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

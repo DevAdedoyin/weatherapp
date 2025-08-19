@@ -25,21 +25,12 @@ class _HourlyWeatherDetailsScreenState
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    final bannerAd = ref.watch(bannerAdProvider);
+    final bannerAd = ref.watch(bannerHourlyAdProvider);
     Size size = MediaQuery.of(context).size;
     final hourlyWeatherState = ref.watch(hourlyWeatherDetails);
 
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
-    final ad = BannerAd(
-      adUnitId: 'ca-app-pub-3940256099942544/6300978111',
-      size: AdSize.banner,
-      request: const AdRequest(),
-      listener: BannerAdListener(
-        onAdLoaded: (ad) => debugPrint('Ad loaded'),
-        onAdFailedToLoad: (ad, error) => ad.dispose(),
-      ),
-    )..load();
 
     return Scaffold(
       appBar: AppBar(
@@ -176,7 +167,7 @@ class _HourlyWeatherDetailsScreenState
               SizedBox(
                 height: bannerAd.size.height.toDouble(),
                 width: bannerAd.size.width.toDouble(),
-                child: AdWidget(ad: ad),
+                child: AdWidget(ad: bannerAd),
               ),
               const WeatherDetailsHourly()
             ],
