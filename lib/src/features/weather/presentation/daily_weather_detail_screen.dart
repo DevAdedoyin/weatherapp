@@ -70,7 +70,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
       "Humidity": dailyWeather.humidity,
       "Wind Speed": dailyWeather.windSpeed,
       "Sunset": formattedSunset,
-      "Dew Point": dailyWeather.dewPoint,
+      "Dew Point": "${dailyWeather.dewPoint}°c",
       "Wind Degree": dailyWeather.windDegree,
       "Moonrise": formattedMoonrise,
       "Moonset": formattedMoonset,

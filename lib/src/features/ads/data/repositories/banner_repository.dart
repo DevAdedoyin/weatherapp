@@ -12,13 +12,14 @@ class BannerAdNotifier extends StateNotifier<BannerAd?> {
 
   // PRODUCTION
   final adUnitId = dotenv.env["BANNER_AD_UNIT"];
+  final adUnitIdIOS = dotenv.env["BANNER_AD_UNIT_IOS"];
 
   // DEVELOPMENT
   // final adUnitId = dotenv.env["SAMPLE_BANNER_ID_ANDROID"];
 
   void _loadAd() {
     final banner = BannerAd(
-      adUnitId: adUnitId!,
+      adUnitId: Platform.isAndroid ? adUnitId! : adUnitIdIOS!,
       size: AdSize.banner,
       request: const AdRequest(),
       listener: BannerAdListener(
@@ -70,7 +71,7 @@ final searchDetailBannerAdProvider =
 });
 
 final searchDetail2BannerAdProvider =
-StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
+    StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
   return BannerAdNotifier();
 });
 

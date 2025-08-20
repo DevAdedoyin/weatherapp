@@ -21,8 +21,8 @@ class WeatherModel {
 
   // Factory method to create WeatherModel from JSON data
   factory WeatherModel.fromJson(Map<String, dynamic> data) {
-    final lat = data['lat'] as double;
-    final lon = data['lon'] as double;
+    final lat = (data['lat'] as num).toDouble();
+    final lon = (data['lon'] as num).toDouble();
     final timezone = data['timezone_offset'] as int;
     final currentWeatherModel = data['current'] as Map<String, dynamic>;
     final currentWeather = CurrentWeatherModel.fromJson(currentWeatherModel);
@@ -31,12 +31,13 @@ class WeatherModel {
     // print("KORENT: ${data['hourly']}");
     final hourlyWeather = data['hourly'] as List;
 
-    List<Map<String, dynamic>> hourlyWeatherList = []; //hourlyWeather.sublist(0, 1);
+    List<Map<String, dynamic>> hourlyWeatherList =
+        []; //hourlyWeather.sublist(0, 1);
     int pos = 0;
     for (var item in hourlyWeather) {
-      if (   item is Map<String, dynamic> && pos <= 7 ) {
+      if (item is Map<String, dynamic> && pos <= 7) {
         // print("Hourlyyysss: $item");
-        if (pos != 0) hourlyWeatherList.add(item as Map<String, dynamic>);
+        if (pos != 0) hourlyWeatherList.add(item);
         pos++;
       } else {
         break;
@@ -55,7 +56,7 @@ class WeatherModel {
     int currPos = 0;
     final dailyWeather = data['daily'] as List;
     for (var item in dailyWeather) {
-      if (item is Map<String, dynamic> && currPos <= 5) {
+      if (item is Map<String, dynamic> && currPos <= 7) {
         // print("Dailysssss: $currPos");
         if (currPos != 0) dailyWeatherList.add(item);
         currPos++;
@@ -114,12 +115,12 @@ class CurrentWeatherModel {
     final dateTime = data["dt"] as int;
     final sunrise = data["sunrise"] as int;
     final sunset = data["sunset"] as int;
-    final temp = data["temp"] - 273.15 as double;
-    final feelsLike = data["feels_like"] - 273.15 as double;
+    final temp = (data["temp"] as num).toDouble() - 273.15;
+    final feelsLike = (data["feels_like"] as num).toDouble() - 273.15;
     final pressure = data["pressure"] as int;
     final humidity = data["humidity"] as int;
-    final dewPoint = data["dew_point"] - 273.15 as double;
-    final windSpeed = data["wind_speed"] as double;
+    final dewPoint = (data["dew_point"] as num).toDouble() - 273.15;
+    final windSpeed = (data["wind_speed"] as num).toDouble();
     final windDegree = data["wind_deg"] as int;
     final weatherData = data["weather"][0] as Map<String, dynamic>;
 

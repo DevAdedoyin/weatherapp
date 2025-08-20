@@ -91,6 +91,13 @@ class _HomePageState extends ConsumerState<HomePage> {
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     TextTheme textTheme = Theme.of(context).textTheme;
     print("Size ${size.height}");
+
+    final user = FirebaseAuth.instance.currentUser;
+
+    final name = user == null || user.isAnonymous
+        ? ""
+        : (user.displayName ?? "");
+
     return FutureBuilder<WeatherModel>(
         future: WeatherApiDataSource.fetchWeather(),
         builder: (context, snapshot) {
@@ -152,7 +159,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                         : Container(
                             margin: const EdgeInsets.only(right: 15),
                             child: Text(
-                              "${FirebaseAuth.instance.currentUser?.displayName!}",
+                             name,
                               style: textTheme.titleSmall,
                             ),
                           )
@@ -551,6 +558,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             );
           } else if (!snapshot.hasData &&
               snapshot.connectionState != ConnectionState.waiting) {
+            print("UNABALE DATA: ${snapshot.error}");
             return SizedBox(
               width: double.maxFinite,
               child: Column(

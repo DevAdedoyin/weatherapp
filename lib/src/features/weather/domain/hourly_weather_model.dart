@@ -30,11 +30,11 @@ class HourlyWeatherModel {
   // Factory method to create HourlyWeatherModel from JSON data
   factory HourlyWeatherModel.fromJson(Map<String, dynamic> data) {
     final dateTime = data["dt"] as int;
-    final temp = data["temp"] - 273.15 as double;
-    final feelsLike = data["feels_like"] - 273.15 as double;
+    final temp = (data["temp"] as num).toDouble() - 273.15;
+    final feelsLike = (data["feels_like"] as num).toDouble() - 273.15;
     final pressure = data["pressure"] as int;
     final humidity = data["humidity"] as int;
-    final dewPoint = data["dew_point"] - 273.15 as double;
+    final dewPoint = (data["dew_point"] as num).toDouble() - 273.15;
     final windGust = data["wind_gust"] as double;
     final visibility = data["visibility"] as int;
     final windSpeed = data["wind_speed"] as double;

@@ -46,14 +46,12 @@ class _SplashScreenState extends State<SplashScreen> {
         decoration: isDarkMode
             ? BoxDecoration()
             : BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("assets/images/sky.jpg"),
-              fit: BoxFit.cover
-          ),
-        ),
+                image: DecorationImage(
+                    image: AssetImage("assets/images/sky.jpg"),
+                    fit: BoxFit.cover),
+              ),
         width: double.maxFinite,
         child: Column(
-
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
@@ -69,28 +67,28 @@ class _SplashScreenState extends State<SplashScreen> {
                           fit: BoxFit.fill),
                     ),
                   ),
-                  verticalGap(10),
-                  AnimatedOpacity(
-                    opacity: _visible ? 1.0 : 0.0,
-                    duration: const Duration(milliseconds: 5000),
-                    child: Text(
-                      "Weather Monitor",
-                      style: textTheme.titleMedium,
-                    ),
-                  ),
+                  // verticalGap(10),
+                  // AnimatedOpacity(
+                  //   opacity: _visible ? 1.0 : 0.0,
+                  //   duration: const Duration(milliseconds: 5000),
+                  //   child: Text(
+                  //     "Weather Monitor",
+                  //     style: textTheme.titleMedium,
+                  //   ),
+                  // ),
                 ],
               ),
             ),
             // verticalGap(300),
-            Container(
-              alignment: Alignment.bottomCenter,
-              margin: EdgeInsets.only(bottom: 30),
-              child: Text(
-                "Powered by Pauversildo",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
-              ),
-            )
+            // Container(
+            //   alignment: Alignment.bottomCenter,
+            //   margin: EdgeInsets.only(bottom: 30),
+            //   child: Text(
+            //     "Powered by Pauversildo",
+            //     style: TextStyle(
+            //         fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
+            //   ),
+            // )
           ],
         ),
       ),

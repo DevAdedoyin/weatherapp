@@ -1,3 +1,4 @@
+import 'dart:io';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,13 +12,14 @@ class InterstitialAdNotifier extends StateNotifier<InterstitialAd?> {
 
   // PRODUCTION
   final adUnitId = dotenv.env["INTERSTITIAL_AD_UNIT"];
+  final adUnitIdIOS = dotenv.env["INTERSTITIAL_AD_UNIT_IOS"];
 
   // DEVELOPMENT
   // final adUnitId = dotenv.env["SAMPLE_INTERSTITIAL_ID_ANDROID"];
 
   void _loadAd() {
     InterstitialAd.load(
-      adUnitId: adUnitId!,
+      adUnitId: Platform.isAndroid ? adUnitId! : adUnitIdIOS!,
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (ad) {
@@ -60,5 +62,5 @@ class InterstitialAdNotifier extends StateNotifier<InterstitialAd?> {
 }
 
 final interstitialAdProvider =
-StateNotifierProvider<InterstitialAdNotifier, InterstitialAd?>(
+    StateNotifierProvider<InterstitialAdNotifier, InterstitialAd?>(
         (ref) => InterstitialAdNotifier());

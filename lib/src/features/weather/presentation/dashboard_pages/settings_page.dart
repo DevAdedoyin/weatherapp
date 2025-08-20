@@ -73,7 +73,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             ),
             verticalGap(10),
             Text(
-              "${user?.displayName}",
+              user?.displayName ?? '' ,
               style: textTheme.headlineMedium,
             ),
             verticalGap(10),

@@ -40,7 +40,6 @@ class DailyWeatherModel {
   factory DailyWeatherModel.fromJson(Map<String, dynamic> data) {
     // Extracting individual properties from the JSON data
     final dateTime = data["dt"] as int;
-
     final sunrise = data["sunrise"] as int;
     final sunset = data["sunset"] as int;
     final moonrise = data["moonrise"] as int;
@@ -49,7 +48,7 @@ class DailyWeatherModel {
     final pressure = data["pressure"] as int;
     final summary = data["summary"] as String;
     final humidity = data["humidity"] as int;
-    final dewPoint = data["dew_point"] as double;
+    final dewPoint = (data["dew_point"] as num).toDouble() - 273.15;
     final windSpeed = data["wind_speed"] as double;
     final windDegree = data["wind_deg"] as int;
     // final weatherData = data["weather"] as List<Map<String, dynamic>>;
@@ -106,10 +105,10 @@ class FeelsLike {
   // Factory method to create a FeelsLike instance from JSON data
   factory FeelsLike.fromJson(Map<String, dynamic> data) {
     // Extracting individual properties from the JSON data
-    final day = data["day"] - 273.15 as double;
-    final night = data["night"] - 273.15 as double;
-    final eve = data["eve"] - 273.15 as double;
-    final morn = data["morn"] - 273.15 as double;
+    final day = (data["day"] as num).toDouble() - 273.15;
+    final night = (data["night"] as num).toDouble() - 273.15;
+    final eve = (data["eve"] as num).toDouble() - 273.15;
+    final morn = (data["morn"] as num).toDouble() - 273.15;
     // Returning a new instance of FeelsLike with extracted data
     return FeelsLike(day: day, eve: eve, morn: morn, night: night);
   }
@@ -137,12 +136,12 @@ class Temp {
   // Factory method to create a Temp instance from JSON data
   factory Temp.fromJson(Map<String, dynamic> data) {
     // Extracting individual properties from the JSON data
-    final day = data["day"] - 273.15 as double;
-    final min = data["min"] - 273.15 as double;
-    final max = data["max"] - 273.15 as double;
-    final night = data["night"] - 273.15 as double;
-    final eve = data["eve"] - 273.15 as double;
-    final morn = data["morn"] - 273.15 as double;
+    final day = (data["day"] as num).toDouble() - 273.15;
+    final min = (data["min"] as num).toDouble() - 273.15;
+    final max = (data["max"] as num).toDouble() - 273.15;
+    final night = (data["night"] as num).toDouble() - 273.15;
+    final eve = (data["eve"] as num).toDouble() - 273.15;
+    final morn = (data["morn"] as num).toDouble() - 273.15;
     // Returning a new instance of Temp with extracted data
     return Temp(
         day: day, eve: eve, max: max, min: min, morn: morn, night: night);

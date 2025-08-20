@@ -40,7 +40,7 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
       children: [
         Container(
             margin: EdgeInsets.only(top: size.height * 0.06, bottom: 5),
-            child: Text("5 Days Forecast", style: textTheme.headlineMedium)),
+            child: Text("7 Days Forecast", style: textTheme.headlineMedium)),
         Text("Accurate Weather Forecast", style: textTheme.bodyMedium),
         verticalGap(10),
         if (bannerAd != null)
