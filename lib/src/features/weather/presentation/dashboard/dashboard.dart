@@ -7,6 +7,8 @@ import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/dai
 import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/home_page.dart';
 import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/search_page.dart';
 import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/settings_page.dart';
+import 'package:weatherapp/src/routing/app_routes.dart';
+import 'package:weatherapp/src/routing/go_router_provider.dart';
 
 class Dashboard extends ConsumerStatefulWidget {
   const Dashboard({super.key});
@@ -36,14 +38,26 @@ class _DashboardState extends ConsumerState<Dashboard> {
     final currentIndex = ref.watch(bottomNavState);
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(50))),
+        onPressed: () {
+          goRouter.push(AppRoutes.suggestion);
+        },
+        child: Icon(
+          Icons.lightbulb,
+          color: Colors.red,
+          size: 30,
+        ),
+      ),
       body: Container(
         decoration: isDarkMode
             ? BoxDecoration()
             : BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage("assets/images/sky.jpg"),
-                  fit: BoxFit.cover
-                ),
+                    image: AssetImage("assets/images/sky.jpg"),
+                    fit: BoxFit.cover),
               ),
         child: SizedBox(
           width: double.maxFinite,
@@ -124,7 +138,6 @@ class _DashboardState extends ConsumerState<Dashboard> {
               backgroundColor:
                   isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
               elevation: 0,
-
               selectedLabelStyle:
                   const TextStyle(color: Colors.red, fontSize: 14),
               selectedItemColor: Colors.red,

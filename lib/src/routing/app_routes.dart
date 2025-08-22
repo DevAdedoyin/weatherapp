@@ -11,4 +11,5 @@ class AppRoutes {
   static const String dailyDetails = '/dailyDetails';
   static const String changePassword = '/changePassword';
   static const String forgotPassword = '/forgotPassword';
+  static const String suggestion = '/suggestion';
 }

@@ -1,16 +1,22 @@
 import 'dart:async';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:weatherapp/src/features/notification/background_handler.dart';
+import 'package:weatherapp/src/features/notification/providers.dart';
+import 'package:weatherapp/src/routing/app_routes.dart';
 import 'package:weatherapp/src/routing/go_router_provider.dart';
 import 'package:weatherapp/src/themes/theme.dart';
 import 'package:weatherapp/src/themes/theme_constants.dart';
 import 'package:weatherapp/src/themes/theme_manager.dart';
 import 'package:weatherapp/src/themes/theme_notifier.dart';
+
 // import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -22,6 +28,8 @@ Future<void> main() async {
   ]);
   WidgetsFlutterBinding.ensureInitialized();
   unawaited(MobileAds.instance.initialize());
+
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const ProviderScope(child: WeatherApp()));
 }
@@ -34,6 +42,12 @@ class WeatherApp extends ConsumerStatefulWidget {
 }
 
 class _WeatherAppState extends ConsumerState<WeatherApp> {
+  @override
+  void initState() {
+    super.initState();
+    setupFCM();
+  }
+
   @override
   Widget build(BuildContext context) {
     ThemeManager themeManager = ThemeManager();

@@ -64,7 +64,8 @@ dependencies:
   flutter_facebook_auth: ^6.0.4
   google_mobile_ads: ^6.0.0
   sign_in_with_apple: ^7.0.1
-
+  firebase_messaging: ^15.2.10
+  flutter_local_notifications: ^19.4.0
 
 dev_dependencies:
   flutter_test:
