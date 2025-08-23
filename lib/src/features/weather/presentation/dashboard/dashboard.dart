@@ -40,7 +40,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
+    checkForUpdates();
     AppRatings.requestReview();
   }
 
