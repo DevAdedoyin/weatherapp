@@ -144,20 +144,29 @@ class CurrentWeatherModel {
 
 // Sub-Model for current weather using type checks and none pattern matching
 class SubWeather {
+  // final double id;
   final String main;
   final String description;
   final String icon;
 
   // Constructor for SubWeather
   SubWeather(
-      {required this.main, required this.description, required this.icon});
+      {
+        // required this.id,
+      required this.main,
+      required this.description,
+      required this.icon});
 
   // Factory method to create SubWeather from JSON data
   factory SubWeather.fromJson(Map<String, dynamic> data) {
+    // final id = data['id'] as double;
     final main = data['main'] as String;
     final description = data['description'] as String;
     final icon = data['icon'] as String;
 
-    return SubWeather(main: main, description: description, icon: icon);
+    return SubWeather(
+        // id: id,
+
+        main: main, description: description, icon: icon);
   }
 }

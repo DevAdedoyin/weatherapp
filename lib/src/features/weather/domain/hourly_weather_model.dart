@@ -35,9 +35,9 @@ class HourlyWeatherModel {
     final pressure = data["pressure"] as int;
     final humidity = data["humidity"] as int;
     final dewPoint = (data["dew_point"] as num).toDouble() - 273.15;
-    final windGust = data["wind_gust"] as double;
+    final windGust = (data["wind_gust"] as num).toDouble();
     final visibility = data["visibility"] as int;
-    final windSpeed = data["wind_speed"] as double;
+    final windSpeed = (data["wind_speed"] as num).toDouble();
     final windDegree = data["wind_deg"] as int;
     final weatherData = data["weather"][0] as Map<String, dynamic>;
 

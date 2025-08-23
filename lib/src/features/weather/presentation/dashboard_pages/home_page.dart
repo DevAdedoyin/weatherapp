@@ -13,6 +13,7 @@ import "package:weatherapp/src/features/geo_location/repositories/address_repo.d
 import "package:weatherapp/src/features/weather/data/datasources/weather_api_datasource.dart";
 import "package:weatherapp/src/features/weather/data/repositories/hourly_weather_detail.dart";
 import "package:weatherapp/src/features/weather/data/repositories/search_city_repo.dart";
+import "package:weatherapp/src/features/weather/data/repositories/weather_tips.dart";
 
 // import "package:weatherapp/src/features/weather/domain/ho_model.dart";
 import "package:weatherapp/src/features/weather/domain/weather_model.dart";
@@ -88,15 +89,15 @@ class _HomePageState extends ConsumerState<HomePage> {
     ref.watch(currentAddress);
     ref.watch(userCurrentAddress);
     ref.watch(isFromSearchScreen);
+    ref.watch(weatherId);
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     TextTheme textTheme = Theme.of(context).textTheme;
     print("Size ${size.height}");
 
     final user = FirebaseAuth.instance.currentUser;
 
-    final name = user == null || user.isAnonymous
-        ? ""
-        : (user.displayName ?? "");
+    final name =
+        user == null || user.isAnonymous ? "" : (user.displayName ?? "");
 
     return FutureBuilder<WeatherModel>(
         future: WeatherApiDataSource.fetchWeather(),
@@ -113,7 +114,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                 data.currentWeatherModel.sunset.toInt() * 1000);
             String formattedSunrise = DateFormat('HH:mm a').format(sunrise);
             String formattedSunset = DateFormat('HH:mm a').format(sunset);
-
+            // ref.read(weatherId.notifier).state =
+            //     data.currentWeatherModel.weather.id;
             return CustomScrollView(
               slivers: <Widget>[
                 SliverAppBar(
@@ -159,7 +161,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                         : Container(
                             margin: const EdgeInsets.only(right: 15),
                             child: Text(
-                             name,
+                              name,
                               style: textTheme.titleSmall,
                             ),
                           )

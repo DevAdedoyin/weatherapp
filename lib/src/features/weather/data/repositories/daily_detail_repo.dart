@@ -21,7 +21,9 @@ final dailyWeatherProvider = StateProvider<DailyDetailModel>((ref) {
       windSpeed: 0,
       windDegree: 0,
       weather:
-          SubWeather(main: "main", description: "description", icon: "icon"));
+          SubWeather(
+              // id: 800,
+              main: "main", description: "description", icon: "icon"));
 });
 
 final temperatureContainerTempHeight = StateProvider<int>((ref) {

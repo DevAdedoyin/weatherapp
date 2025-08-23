@@ -37,9 +37,8 @@ class AppleAuth {
       final user = userCredential.user;
 
       successAuthAlertWidget(
-        context,
-        """
-Welcome ${user!.displayName},
+        context, """
+Welcome ${user!.displayName ?? ""},
 
 Your Apple sign-in is successful.
 
