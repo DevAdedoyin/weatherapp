@@ -1,6 +1,8 @@
+import 'package:check_app_version/components/dialogs/app_version_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:weatherapp/src/constants/app_colors.dart';
 import 'package:weatherapp/src/features/ratings.dart';
 import 'package:weatherapp/src/features/weather/data/repositories/bottom_nav_state.dart';
@@ -38,7 +40,39 @@ class _DashboardState extends ConsumerState<Dashboard> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     AppRatings.requestReview();
+  }
+
+  void checkForUpdates() {
+    AppVersionDialog(
+      context: context,
+      jsonUrl:
+          'https://raw.githubusercontent.com/DevAdedoyin/weatherapp/master/app_version.json',
+      onPressConfirm: () {
+        _openStore();
+      },
+      onPressDecline: () {
+        Navigator.of(context).pop();
+      },
+      laterButtonEnable: true,
+    ).show();
+  }
+
+  void _openStore() async {
+    const appStoreUrl = 'https://apps.apple.com/app/id6751232705';
+    const playStoreUrl =
+        'https://play.google.com/store/apps/details?id=com.weathermonitor.weatherapp';
+
+    final url = Theme.of(context).platform == TargetPlatform.iOS
+        ? appStoreUrl
+        : playStoreUrl;
+
+    if (await canLaunchUrl(url as Uri)) {
+      await launchUrl(url as Uri);
+    } else {
+      print('Could not launch store URL');
+    }
   }
 
   @override
