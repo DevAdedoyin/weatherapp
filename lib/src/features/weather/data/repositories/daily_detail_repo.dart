@@ -22,7 +22,7 @@ final dailyWeatherProvider = StateProvider<DailyDetailModel>((ref) {
       windDegree: 0,
       weather:
           SubWeather(
-              // id: 800,
+              id: 800,
               main: "main", description: "description", icon: "icon"));
 });
 

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:weatherapp/src/constants/app_colors.dart';
+import 'package:weatherapp/src/features/ratings.dart';
 import 'package:weatherapp/src/features/weather/data/repositories/bottom_nav_state.dart';
 import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/daily_forecast_page.dart';
 import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/home_page.dart';
@@ -32,6 +33,13 @@ class _DashboardState extends ConsumerState<Dashboard> {
     SearchPage(),
     DailyForecastPage(),
   ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    AppRatings.requestReview();
+  }
 
   @override
   Widget build(BuildContext context) {

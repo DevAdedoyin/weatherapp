@@ -318,7 +318,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                           style: textTheme.bodyMedium,
                                         ),
                                         Text(
-                                          "${data.currentWeatherModel.windSpeed}",
+                                          "${data.currentWeatherModel.windSpeed} m/s",
                                           style: textTheme.bodySmall,
                                         ),
                                       ],

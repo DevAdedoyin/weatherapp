@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 import "package:google_mobile_ads/google_mobile_ads.dart";
+import "package:in_app_review/in_app_review.dart";
 import "package:shared_preferences/shared_preferences.dart";
 import "package:weatherapp/src/common/gaps/sized_box.dart";
 import "package:weatherapp/src/constants/app_colors.dart";
@@ -73,7 +74,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             ),
             verticalGap(10),
             Text(
-              user?.displayName ?? '' ,
+              user?.displayName ?? '',
               style: textTheme.headlineMedium,
             ),
             verticalGap(10),
@@ -83,6 +84,33 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 width: bannerAd.size.width.toDouble(),
                 child: AdWidget(ad: bannerAd),
               ),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 15),
+              child: Card(
+                // elevation: 3,
+                color: isDarkMode
+                    ? AppColors.cardDarkModeColor
+                    : AppColors.cardLightModeColor,
+                child: ListTile(
+                  leading: const Icon(Icons.rate_review, color: Colors.red),
+                  title: Text(
+                    "Rate Us",
+                    style: textTheme.bodyMedium,
+                  ),
+                  trailing: IconButton(
+                    onPressed: () async {
+                      final inAppReview = InAppReview.instance;
+                      if (await inAppReview.isAvailable()) {
+                        await inAppReview.requestReview();
+                      } else {
+                        await inAppReview.openStoreListing();
+                      }
+                    },
+                    icon: const Icon(Icons.arrow_forward_rounded),
+                  ),
+                ),
+              ),
+            ),
             verticalGap(10),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 15),
@@ -138,14 +166,16 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                             actions: [
                               TextButton(
                                 style: ButtonStyle(
-                                    elevation: const MaterialStatePropertyAll(5),
+                                    elevation:
+                                        const MaterialStatePropertyAll(5),
                                     backgroundColor:
                                         MaterialStateProperty.all(Colors.black),
                                     padding: const MaterialStatePropertyAll(
                                       EdgeInsets.all(5),
                                     ),
                                     textStyle: const MaterialStatePropertyAll(
-                                        TextStyle(fontWeight: FontWeight.w700))),
+                                        TextStyle(
+                                            fontWeight: FontWeight.w700))),
                                 child: const Text(
                                   'Cancel',
                                   style: TextStyle(color: Colors.white),
@@ -156,14 +186,16 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                               ),
                               TextButton(
                                 style: ButtonStyle(
-                                    elevation: const MaterialStatePropertyAll(5),
+                                    elevation:
+                                        const MaterialStatePropertyAll(5),
                                     backgroundColor: MaterialStateProperty.all(
                                         Colors.red[900]),
                                     padding: const MaterialStatePropertyAll(
                                       EdgeInsets.all(5),
                                     ),
                                     textStyle: const MaterialStatePropertyAll(
-                                        TextStyle(fontWeight: FontWeight.w700))),
+                                        TextStyle(
+                                            fontWeight: FontWeight.w700))),
                                 child: const Text(
                                   'Logout',
                                   style: TextStyle(color: Colors.white),
@@ -218,14 +250,16 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                             actions: [
                               TextButton(
                                 style: ButtonStyle(
-                                    elevation: const MaterialStatePropertyAll(5),
+                                    elevation:
+                                        const MaterialStatePropertyAll(5),
                                     backgroundColor:
                                         MaterialStateProperty.all(Colors.black),
                                     padding: const MaterialStatePropertyAll(
                                       EdgeInsets.all(5),
                                     ),
                                     textStyle: const MaterialStatePropertyAll(
-                                        TextStyle(fontWeight: FontWeight.w700))),
+                                        TextStyle(
+                                            fontWeight: FontWeight.w700))),
                                 child: const Text(
                                   'Cancel',
                                   style: TextStyle(color: Colors.white),
@@ -236,14 +270,16 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                               ),
                               TextButton(
                                 style: ButtonStyle(
-                                    elevation: const MaterialStatePropertyAll(5),
+                                    elevation:
+                                        const MaterialStatePropertyAll(5),
                                     backgroundColor: MaterialStateProperty.all(
                                         Colors.red[900]),
                                     padding: const MaterialStatePropertyAll(
                                       EdgeInsets.all(5),
                                     ),
                                     textStyle: const MaterialStatePropertyAll(
-                                        TextStyle(fontWeight: FontWeight.w700))),
+                                        TextStyle(
+                                            fontWeight: FontWeight.w700))),
                                 child: const Text(
                                   'Delete',
                                   style: TextStyle(color: Colors.white),
@@ -284,6 +320,8 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                     )),
               ),
             ),
+            verticalGap(30),
+            Text("App Version: 3.0.0+19"),
           ],
         ),
       ),

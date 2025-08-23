@@ -118,9 +118,9 @@ class WeatherTipsHelper {
         "Photography of snowy landscapes can be stunning."
       ],
       "safety": [
-        "Walk carefully — sidewalks may be icy.",
+        "Walk carefully. Sidewalks may be icy.",
         "Check for frostbite signs if outdoors too long.",
-        "Drive slowly; snow increases stopping distance."
+        "Drive slowly, snow increases stopping distance."
       ],
       "home_commute": [
         "Shovel paths and salt driveways to avoid slips.",

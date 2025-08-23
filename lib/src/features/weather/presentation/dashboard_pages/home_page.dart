@@ -80,6 +80,9 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   final currentUser = FirebaseAuth.instance.currentUser;
 
+  // RATINGS & REVIEW
+  
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -114,8 +117,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                 data.currentWeatherModel.sunset.toInt() * 1000);
             String formattedSunrise = DateFormat('HH:mm a').format(sunrise);
             String formattedSunset = DateFormat('HH:mm a').format(sunset);
-            // ref.read(weatherId.notifier).state =
-            //     data.currentWeatherModel.weather.id;
+            Future.delayed(
+                Duration(milliseconds: 10),
+                () => ref.read(weatherId.notifier).state =
+                    data.currentWeatherModel.weather.id);
             return CustomScrollView(
               slivers: <Widget>[
                 SliverAppBar(
@@ -338,7 +343,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       style: textTheme.bodyMedium,
                                     ),
                                     Text(
-                                      "${data.currentWeatherModel.windSpeed}km/h",
+                                      "${data.currentWeatherModel.windSpeed}m/s",
                                       style: textTheme.bodySmall,
                                     ),
                                   ],
