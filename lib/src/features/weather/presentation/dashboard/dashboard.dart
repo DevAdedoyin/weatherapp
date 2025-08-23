@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:check_app_version/components/dialogs/app_version_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -46,6 +48,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
 
   void checkForUpdates() {
     AppVersionDialog(
+      updateButtonColor: Colors.red,
       context: context,
       jsonUrl:
           'https://raw.githubusercontent.com/DevAdedoyin/weatherapp/master/app_version.json',
@@ -64,12 +67,11 @@ class _DashboardState extends ConsumerState<Dashboard> {
     const playStoreUrl =
         'https://play.google.com/store/apps/details?id=com.weathermonitor.weatherapp';
 
-    final url = Theme.of(context).platform == TargetPlatform.iOS
-        ? appStoreUrl
-        : playStoreUrl;
+    final url = Platform.isIOS ? appStoreUrl : playStoreUrl;
+    final uri = Uri.parse(url);
 
-    if (await canLaunchUrl(url as Uri)) {
-      await launchUrl(url as Uri);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
     } else {
       print('Could not launch store URL');
     }
