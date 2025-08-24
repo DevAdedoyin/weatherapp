@@ -87,28 +87,30 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 width: bannerAd.size.width.toDouble(),
                 child: AdWidget(ad: bannerAd),
               ),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 15),
-              child: Card(
-                // elevation: 3,
-                color: isDarkMode
-                    ? AppColors.cardDarkModeColor
-                    : AppColors.cardLightModeColor,
-                child: ListTile(
-                  leading: const Icon(Icons.lock, color: Colors.red),
-                  title: Text(
-                    "Change password",
-                    style: textTheme.bodyMedium,
+            user == null
+                ? SizedBox()
+                : Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Card(
+                      // elevation: 3,
+                      color: isDarkMode
+                          ? AppColors.cardDarkModeColor
+                          : AppColors.cardLightModeColor,
+                      child: ListTile(
+                        leading: const Icon(Icons.lock, color: Colors.red),
+                        title: Text(
+                          "Change password",
+                          style: textTheme.bodyMedium,
+                        ),
+                        trailing: IconButton(
+                          onPressed: () {
+                            context.push(AppRoutes.changePassword);
+                          },
+                          icon: const Icon(Icons.arrow_forward_rounded),
+                        ),
+                      ),
+                    ),
                   ),
-                  trailing: IconButton(
-                    onPressed: () {
-                      context.push(AppRoutes.changePassword);
-                    },
-                    icon: const Icon(Icons.arrow_forward_rounded),
-                  ),
-                ),
-              ),
-            ),
             verticalGap(10),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 15),
@@ -203,169 +205,186 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
               ),
             ),
             verticalGap(10),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 15),
-              child: Card(
-                // elevation: 3,
-                color: isDarkMode
-                    ? AppColors.cardDarkModeColor
-                    : AppColors.cardLightModeColor,
-                child: ListTile(
-                  leading: const Icon(Icons.logout, color: Colors.red),
-                  title: Text(
-                    "Logout",
-                    style: textTheme.bodyMedium,
-                  ),
-                  trailing: IconButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            // backgroundColor: AppColors.scaffoldBgColor,
-                            title: Text(
-                              'Logout',
-                              style: textTheme.headlineMedium,
-                            ),
-                            content: Text(
-                              "Are you sure you want to logout?",
-                              style: textTheme.bodySmall,
-                            ),
-                            actions: [
-                              TextButton(
-                                style: ButtonStyle(
-                                    elevation:
-                                        const MaterialStatePropertyAll(5),
-                                    backgroundColor:
-                                        MaterialStateProperty.all(Colors.black),
-                                    padding: const MaterialStatePropertyAll(
-                                      EdgeInsets.all(5),
+            user == null
+                ? SizedBox()
+                : Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Card(
+                      // elevation: 3,
+                      color: isDarkMode
+                          ? AppColors.cardDarkModeColor
+                          : AppColors.cardLightModeColor,
+                      child: ListTile(
+                        leading: const Icon(Icons.logout, color: Colors.red),
+                        title: Text(
+                          "Logout",
+                          style: textTheme.bodyMedium,
+                        ),
+                        trailing: IconButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  // backgroundColor: AppColors.scaffoldBgColor,
+                                  title: Text(
+                                    'Logout',
+                                    style: textTheme.headlineMedium,
+                                  ),
+                                  content: Text(
+                                    "Are you sure you want to logout?",
+                                    style: textTheme.bodySmall,
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      style: ButtonStyle(
+                                          elevation:
+                                              const MaterialStatePropertyAll(5),
+                                          backgroundColor: MaterialStateProperty
+                                              .all(Colors.black),
+                                          padding:
+                                              const MaterialStatePropertyAll(
+                                            EdgeInsets.all(5),
+                                          ),
+                                          textStyle:
+                                              const MaterialStatePropertyAll(
+                                                  TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w700))),
+                                      child: const Text(
+                                        'Cancel',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
                                     ),
-                                    textStyle: const MaterialStatePropertyAll(
-                                        TextStyle(
-                                            fontWeight: FontWeight.w700))),
-                                child: const Text(
-                                  'Cancel',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                              TextButton(
-                                style: ButtonStyle(
-                                    elevation:
-                                        const MaterialStatePropertyAll(5),
-                                    backgroundColor: MaterialStateProperty.all(
-                                        Colors.red[900]),
-                                    padding: const MaterialStatePropertyAll(
-                                      EdgeInsets.all(5),
+                                    TextButton(
+                                      style: ButtonStyle(
+                                          elevation:
+                                              const MaterialStatePropertyAll(5),
+                                          backgroundColor: MaterialStateProperty
+                                              .all(Colors.red[900]),
+                                          padding:
+                                              const MaterialStatePropertyAll(
+                                            EdgeInsets.all(5),
+                                          ),
+                                          textStyle:
+                                              const MaterialStatePropertyAll(
+                                                  TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w700))),
+                                      child: const Text(
+                                        'Logout',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      onPressed: () {
+                                        FireAuth.signOut(context: context);
+                                      },
                                     ),
-                                    textStyle: const MaterialStatePropertyAll(
-                                        TextStyle(
-                                            fontWeight: FontWeight.w700))),
-                                child: const Text(
-                                  'Logout',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                onPressed: () {
-                                  FireAuth.signOut(context: context);
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    icon: const Icon(Icons.arrow_forward_rounded),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          icon: const Icon(Icons.arrow_forward_rounded),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
             verticalGap(10),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 15),
-              child: Card(
-                // elevation: 3,
-                color: isDarkMode
-                    ? AppColors.cardDarkModeColor
-                    : AppColors.cardLightModeColor,
-                child: ListTile(
-                  leading: const Icon(Icons.delete, color: Colors.red),
-                  title: Text(
-                    "Remove account",
-                    style: textTheme.bodyMedium,
-                  ),
-                  trailing: IconButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            // backgroundColor: AppColors.scaffoldBgColor,
-                            title: Text(
-                              'Delete your Account?',
-                              style: textTheme.headlineMedium,
-                            ),
-                            content: Text(
-                              '''
+            user == null
+                ? SizedBox()
+                : Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Card(
+                      // elevation: 3,
+                      color: isDarkMode
+                          ? AppColors.cardDarkModeColor
+                          : AppColors.cardLightModeColor,
+                      child: ListTile(
+                        leading: const Icon(Icons.delete, color: Colors.red),
+                        title: Text(
+                          "Remove account",
+                          style: textTheme.bodyMedium,
+                        ),
+                        trailing: IconButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  // backgroundColor: AppColors.scaffoldBgColor,
+                                  title: Text(
+                                    'Delete your Account?',
+                                    style: textTheme.headlineMedium,
+                                  ),
+                                  content: Text(
+                                    '''
         If you select Delete we will delete your account on our server.
         
         Your app data will also be deleted and you won\'t be able to retrieve it.
         ''',
-                              style: textTheme.bodySmall,
-                            ),
-                            actions: [
-                              TextButton(
-                                style: ButtonStyle(
-                                    elevation:
-                                        const MaterialStatePropertyAll(5),
-                                    backgroundColor:
-                                        MaterialStateProperty.all(Colors.black),
-                                    padding: const MaterialStatePropertyAll(
-                                      EdgeInsets.all(5),
+                                    style: textTheme.bodySmall,
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      style: ButtonStyle(
+                                          elevation:
+                                              const MaterialStatePropertyAll(5),
+                                          backgroundColor: MaterialStateProperty
+                                              .all(Colors.black),
+                                          padding:
+                                              const MaterialStatePropertyAll(
+                                            EdgeInsets.all(5),
+                                          ),
+                                          textStyle:
+                                              const MaterialStatePropertyAll(
+                                                  TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w700))),
+                                      child: const Text(
+                                        'Cancel',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
                                     ),
-                                    textStyle: const MaterialStatePropertyAll(
-                                        TextStyle(
-                                            fontWeight: FontWeight.w700))),
-                                child: const Text(
-                                  'Cancel',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                              TextButton(
-                                style: ButtonStyle(
-                                    elevation:
-                                        const MaterialStatePropertyAll(5),
-                                    backgroundColor: MaterialStateProperty.all(
-                                        Colors.red[900]),
-                                    padding: const MaterialStatePropertyAll(
-                                      EdgeInsets.all(5),
+                                    TextButton(
+                                      style: ButtonStyle(
+                                          elevation:
+                                              const MaterialStatePropertyAll(5),
+                                          backgroundColor: MaterialStateProperty
+                                              .all(Colors.red[900]),
+                                          padding:
+                                              const MaterialStatePropertyAll(
+                                            EdgeInsets.all(5),
+                                          ),
+                                          textStyle:
+                                              const MaterialStatePropertyAll(
+                                                  TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w700))),
+                                      child: const Text(
+                                        'Delete',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      onPressed: () {
+                                        FireAuth.deleteUserAccount(
+                                            context: context);
+                                      },
                                     ),
-                                    textStyle: const MaterialStatePropertyAll(
-                                        TextStyle(
-                                            fontWeight: FontWeight.w700))),
-                                child: const Text(
-                                  'Delete',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                onPressed: () {
-                                  FireAuth.deleteUserAccount(context: context);
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    icon: const Icon(Icons.arrow_forward_rounded),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          icon: const Icon(Icons.arrow_forward_rounded),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
             verticalGap(30),
             Text("App Version: $appVersion"),
           ],

@@ -27,7 +27,9 @@ class ContactSupportPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Contact Support'),
+        backgroundColor: Colors.red,
       ),
+
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
