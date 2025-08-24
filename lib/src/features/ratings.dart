@@ -11,7 +11,6 @@ class AppRatings {
 
     launchCount++;
     await prefs.setInt('launch_count', launchCount);
-
     if (launchCount >= 2 && !reviewShown) {
       if (await _inAppReview.isAvailable()) {
         await _inAppReview.requestReview();

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:weatherapp/src/constants/app_colors.dart';
+import 'package:weatherapp/src/features/app_update_notification/check_updates.dart';
 import 'package:weatherapp/src/features/ratings.dart';
 import 'package:weatherapp/src/features/weather/data/repositories/bottom_nav_state.dart';
 import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/daily_forecast_page.dart';
@@ -42,44 +43,16 @@ class _DashboardState extends ConsumerState<Dashboard> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    checkForUpdates();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      checkForUpdates(context);
+    });
     AppRatings.requestReview();
-  }
-
-  void checkForUpdates() {
-    AppVersionDialog(
-      updateButtonColor: Colors.red,
-      context: context,
-      jsonUrl:
-          'https://raw.githubusercontent.com/DevAdedoyin/weatherapp/master/app_version.json',
-      onPressConfirm: () {
-        _openStore();
-      },
-      onPressDecline: () {
-        Navigator.of(context).pop();
-      },
-      laterButtonEnable: true,
-    ).show();
-  }
-
-  void _openStore() async {
-    const appStoreUrl = 'https://apps.apple.com/app/id6751232705';
-    const playStoreUrl =
-        'https://play.google.com/store/apps/details?id=com.weathermonitor.weatherapp';
-
-    final url = Platform.isIOS ? appStoreUrl : playStoreUrl;
-    final uri = Uri.parse(url);
-
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
-    } else {
-      print('Could not launch store URL');
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     final currentIndex = ref.watch(bottomNavState);
+
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       floatingActionButton: FloatingActionButton(

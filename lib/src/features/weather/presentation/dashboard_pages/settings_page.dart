@@ -7,8 +7,11 @@ import "package:in_app_review/in_app_review.dart";
 import "package:shared_preferences/shared_preferences.dart";
 import "package:weatherapp/src/common/gaps/sized_box.dart";
 import "package:weatherapp/src/constants/app_colors.dart";
+import "package:weatherapp/src/features/app_update_notification/check_updates.dart";
 import "package:weatherapp/src/features/authentication/data/datasources/auth_datasource.dart";
+import "package:weatherapp/src/features/share_app.dart";
 import "package:weatherapp/src/routing/app_routes.dart";
+import "package:weatherapp/src/routing/go_router_provider.dart";
 
 import "../../../../themes/theme_notifier.dart";
 import "../../../ads/data/repositories/banner_repository.dart";
@@ -49,17 +52,17 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
               child: user?.photoURL == null
                   ? Container(
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
+                          borderRadius: BorderRadius.circular(200),
                           color: AppColors.cardBgColor),
                       width: size.width * 0.3,
                       height: size.width * 0.3,
                       child: const Icon(Icons.person, size: 30),
                     )
                   : ClipRRect(
-                      borderRadius: BorderRadius.circular(100),
+                      borderRadius: BorderRadius.circular(200),
                       child: Container(
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
+                            borderRadius: BorderRadius.circular(200),
                             color: AppColors.cardBgColor),
                         width: size.width * 0.3,
                         height: size.width * 0.3,
@@ -92,6 +95,28 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                     ? AppColors.cardDarkModeColor
                     : AppColors.cardLightModeColor,
                 child: ListTile(
+                  leading: const Icon(Icons.lock, color: Colors.red),
+                  title: Text(
+                    "Change password",
+                    style: textTheme.bodyMedium,
+                  ),
+                  trailing: IconButton(
+                    onPressed: () {
+                      context.push(AppRoutes.changePassword);
+                    },
+                    icon: const Icon(Icons.arrow_forward_rounded),
+                  ),
+                ),
+              ),
+            ),
+            verticalGap(10),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 15),
+              child: Card(
+                color: isDarkMode
+                    ? AppColors.cardDarkModeColor
+                    : AppColors.cardLightModeColor,
+                child: ListTile(
                   leading: const Icon(Icons.rate_review, color: Colors.red),
                   title: Text(
                     "Rate Us",
@@ -115,23 +140,66 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 15),
               child: Card(
+                color: isDarkMode
+                    ? AppColors.cardDarkModeColor
+                    : AppColors.cardLightModeColor,
+                child: ListTile(
+                  leading: const Icon(Icons.support_agent, color: Colors.red),
+                  title: Text(
+                    "Contact Us",
+                    style: textTheme.bodyMedium,
+                  ),
+                  trailing: IconButton(
+                    onPressed: () {
+                      goRouter.push(AppRoutes.contact);
+                    },
+                    icon: const Icon(Icons.arrow_forward_rounded),
+                  ),
+                ),
+              ),
+            ),
+            verticalGap(10),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 15),
+              child: Card(
+                color: isDarkMode
+                    ? AppColors.cardDarkModeColor
+                    : AppColors.cardLightModeColor,
+                child: ListTile(
+                  leading: const Icon(Icons.share, color: Colors.red),
+                  title: Text(
+                    "Share App",
+                    style: textTheme.bodyMedium,
+                  ),
+                  trailing: IconButton(
+                    onPressed: () {
+                      ShareApp.shareApp(context);
+                    },
+                    icon: const Icon(Icons.arrow_forward_rounded),
+                  ),
+                ),
+              ),
+            ),
+            verticalGap(10),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 15),
+              child: Card(
                 // elevation: 3,
                 color: isDarkMode
                     ? AppColors.cardDarkModeColor
                     : AppColors.cardLightModeColor,
                 child: ListTile(
-                  leading: const Icon(Icons.lock, color: Colors.red),
-                  title: Text(
-                    "Change password",
-                    style: textTheme.bodyMedium,
-                  ),
-                  trailing: IconButton(
-                    onPressed: () {
-                      context.push(AppRoutes.changePassword);
-                    },
-                    icon: const Icon(Icons.arrow_forward_rounded),
-                  ),
-                ),
+                    leading: const Icon(Icons.mode_night, color: Colors.red),
+                    title: Text(
+                      "Switch theme",
+                      style: textTheme.bodyMedium,
+                    ),
+                    trailing: Switch(
+                      value: isDarkMode,
+                      onChanged: (val) {
+                        themeNotifier.toggleTheme();
+                      },
+                    )),
               ),
             ),
             verticalGap(10),
@@ -298,30 +366,8 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 ),
               ),
             ),
-            verticalGap(10),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 15),
-              child: Card(
-                // elevation: 3,
-                color: isDarkMode
-                    ? AppColors.cardDarkModeColor
-                    : AppColors.cardLightModeColor,
-                child: ListTile(
-                    leading: const Icon(Icons.mode_night, color: Colors.red),
-                    title: Text(
-                      "Switch theme",
-                      style: textTheme.bodyMedium,
-                    ),
-                    trailing: Switch(
-                      value: isDarkMode,
-                      onChanged: (val) {
-                        themeNotifier.toggleTheme();
-                      },
-                    )),
-              ),
-            ),
             verticalGap(30),
-            Text("App Version: 3.0.0+19"),
+            Text("App Version: $appVersion"),
           ],
         ),
       ),

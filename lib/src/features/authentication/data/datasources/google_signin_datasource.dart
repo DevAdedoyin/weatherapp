@@ -32,18 +32,18 @@ Future<dynamic> signInWithGoogle({BuildContext? context}) async {
         """
 Welcome ${user!.displayName},
 
-Your Google signin is successful.
+Your Google sign-in is successful.
 
 Enjoy top notch weather forecast!
 
 Thank you.""",
-        "Google Signin Successful");
+        "Google Sign-in Successful");
 
     context.go(AppRoutes.userLocatorPage);
     return await FirebaseAuth.instance.signInWithCredential(credential);
   } on Exception catch (e) {
     // TODO
-    failedAuthAlertWidget(context!, e.toString(), "Authentication Failed");
+    failedAuthAlertWidget(context!, "Google sign-in failed. Please, try again!", "Authentication Failed");
   }
 }
 

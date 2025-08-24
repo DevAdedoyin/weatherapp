@@ -37,7 +37,8 @@ class AppleAuth {
       final user = userCredential.user;
 
       successAuthAlertWidget(
-        context, """
+        context,
+        """
 Welcome ${user!.displayName ?? ""},
 
 Your Apple sign-in is successful.
@@ -148,11 +149,15 @@ Enjoy top notch weather forecast!
           return null;
         }
       } else {
-        failedAuthAlertWidget(context, e.toString(), "Authentication Failed");
+        failedAuthAlertWidget(
+            context,
+            "Apple sign-in failed. Please, try again!",
+            "Authentication Failed");
         return null;
       }
     } catch (e) {
-      failedAuthAlertWidget(context, e.toString(), "Authentication Failed");
+      failedAuthAlertWidget(context, "Apple sign-in failed. Please, try again!",
+          "Authentication Failed");
       return null;
     }
   }

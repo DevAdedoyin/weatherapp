@@ -19,6 +19,8 @@ import 'package:weatherapp/src/features/weather/presentation/weather_tips.dart';
 import 'package:weatherapp/src/routing/app_routes.dart';
 import 'package:weatherapp/src/routing/route_error_screen.dart';
 
+import '../features/contact_support/contact_support_screen.dart';
+
 GoRouter goRouter = GoRouter(
   initialLocation: '/',
   routes: [
@@ -69,6 +71,10 @@ GoRouter goRouter = GoRouter(
     GoRoute(
       path: AppRoutes.suggestion,
       builder: (context, state) => const WeatherTipsScreen(),
+    ),
+    GoRoute(
+      path: AppRoutes.contact,
+      builder: (context, state) => const ContactSupportPage(),
     ),
   ],
   errorBuilder: (context, state) => RouteErrorScreen(
