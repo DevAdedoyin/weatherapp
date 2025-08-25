@@ -22,6 +22,7 @@ import 'package:weatherapp/src/utils/weather_icon_utils.dart';
 
 import '../../ads/data/repositories/banner_repository.dart';
 import '../../ads/data/repositories/interstital_repository.dart';
+import '../domain/weather_tips_model.dart';
 
 class SearchDetailScreen extends ConsumerStatefulWidget {
   const SearchDetailScreen({super.key});
@@ -104,6 +105,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                     data.currentWeatherModel.sunset.toInt() * 1000);
                 String formattedSunrise = DateFormat('HH:mm a').format(sunrise);
                 String formattedSunset = DateFormat('HH:mm a').format(sunset);
+                double wId = data.currentWeatherModel.weather.id;
                 return CustomScrollView(
                   slivers: <Widget>[
                     SliverAppBar(
@@ -160,15 +162,16 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                           color: isDarkMode
                               ? AppColors.scaffoldBgColor
                               : Colors.white38,
-                          child: Image.network(
-                            WeatherIcon.weatherIcon(
-                              data.currentWeatherModel.weather.icon,
-                            ),
+                          child: Image.asset(
+                            WeatherImages.weatherImages(wId),
+                            // WeatherIcon.weatherIcon(
+                            //   data.currentWeatherModel.weather.icon,
+                            // ),
                             filterQuality: FilterQuality.high,
                             // alignment: Alignment.bottomCenter,
-                            height: size.width * 0.30,
-                            width: size.width * 0.30,
-                            fit: BoxFit.cover,
+                            // height: size.width * 0.30,
+                            // width: size.width * 0.30,
+                            fit: BoxFit.contain,
                           ),
                         ),
                       ),

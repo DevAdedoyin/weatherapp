@@ -18,6 +18,7 @@ import "package:weatherapp/src/features/weather/data/repositories/weather_tips.d
 // import "package:weatherapp/src/features/weather/domain/ho_model.dart";
 import "package:weatherapp/src/features/weather/domain/weather_model.dart";
 import "package:weatherapp/src/common/loading_indicator.dart";
+import "package:weatherapp/src/features/weather/domain/weather_tips_model.dart";
 import "package:weatherapp/src/routing/app_routes.dart";
 import "package:weatherapp/src/utils/weather_icon_utils.dart";
 import 'package:intl/intl.dart';
@@ -80,9 +81,6 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   final currentUser = FirebaseAuth.instance.currentUser;
 
-  // RATINGS & REVIEW
-  
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -121,6 +119,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 Duration(milliseconds: 10),
                 () => ref.read(weatherId.notifier).state =
                     data.currentWeatherModel.weather.id);
+            double wId = data.currentWeatherModel.weather.id;
             return CustomScrollView(
               slivers: <Widget>[
                 SliverAppBar(
@@ -192,15 +191,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                       color: isDarkMode
                           ? AppColors.scaffoldBgColor
                           : Colors.white38,
-                      child: Image.network(
-                        WeatherIcon.weatherIcon(
-                          data.currentWeatherModel.weather.icon,
-                        ),
+                      child: Image.asset(
+                       WeatherImages.weatherImages(wId),
                         filterQuality: FilterQuality.high,
                         // alignment: Alignment.bottomCenter,
                         // height: size.width * 0.20,
                         // width: size.width * 0.20,
-                        fit: BoxFit.cover,
+                        fit: BoxFit.contain,
                       ),
                     ),
                   ),
@@ -276,7 +273,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                           : AppColors.cardLightModeColor,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
-                      // elevation: 1,
+                      elevation: 3,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [

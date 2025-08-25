@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:check_app_version/components/dialogs/app_version_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -46,7 +47,6 @@ class _DashboardState extends ConsumerState<Dashboard> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       checkForUpdates(context);
     });
-    AppRatings.requestReview();
   }
 
   @override
@@ -60,6 +60,11 @@ class _DashboardState extends ConsumerState<Dashboard> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(50))),
         onPressed: () {
+          if (kDebugMode) {
+            AppRatings.forceReview();
+          } else {
+            AppRatings.requestReview();
+          }
           goRouter.push(AppRoutes.suggestion);
         },
         child: Icon(
@@ -86,160 +91,159 @@ class _DashboardState extends ConsumerState<Dashboard> {
         ),
       ),
       bottomNavigationBar:
-      // currentUser == null
-      //     ? BottomNavigationBar(
-      //         backgroundColor:
-      //             isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
-      //         selectedLabelStyle:
-      //             const TextStyle(color: Colors.red, fontSize: 14),
-      //         selectedItemColor: Colors.red,
-      //         unselectedItemColor:
-      //             isDarkMode ? Colors.white : AppColors.scaffoldBgColor,
-      //         showSelectedLabels: true,
-      //         showUnselectedLabels: false,
-      //         items: [
-      //           BottomNavigationBarItem(
-      //             // backgroundColor: AppColors.scaffoldBgColor,
-      //             icon: currentIndex == 0
-      //                 ? Container(
-      //                     decoration: BoxDecoration(
-      //                         color: Colors.white54.withOpacity(0.15),
-      //                         borderRadius: BorderRadius.circular(20)),
-      //                     padding: const EdgeInsets.symmetric(
-      //                         horizontal: 7, vertical: 7),
-      //                     child: const Icon(
-      //                       Icons.home_filled,
-      //                       color: Colors.red,
-      //                     ))
-      //                 : Icon(
-      //                     Icons.home_filled,
-      //                     color: isDarkMode ? Colors.white60 : Colors.black87,
-      //                     size: 30,
-      //                   ),
-      //             label: "Home",
-      //           ),
-      //           BottomNavigationBarItem(
-      //               // backgroundColor: AppColors.scaffoldBgColor,
-      //               icon: currentIndex == 1
-      //                   ? Container(
-      //                       decoration: BoxDecoration(
-      //                           color: Colors.white54.withOpacity(0.15),
-      //                           borderRadius: BorderRadius.circular(20)),
-      //                       padding: const EdgeInsets.symmetric(
-      //                           horizontal: 7, vertical: 7),
-      //                       child: const Icon(Icons.search))
-      //                   : Icon(
-      //                       Icons.search,
-      //                       color: isDarkMode ? Colors.white60 : Colors.black87,
-      //                       size: 30,
-      //                     ),
-      //               label: "Search"),
-      //           BottomNavigationBarItem(
-      //               // backgroundColor: AppColors.scaffoldBgColor,
-      //               icon: currentIndex == 2
-      //                   ? Container(
-      //                       decoration: BoxDecoration(
-      //                           color: Colors.white54.withOpacity(0.15),
-      //                           borderRadius: BorderRadius.circular(20)),
-      //                       padding: const EdgeInsets.symmetric(
-      //                           horizontal: 7, vertical: 7),
-      //                       child: const Icon(Icons.wb_cloudy))
-      //                   : Icon(
-      //                       Icons.wb_cloudy,
-      //                       color: isDarkMode ? Colors.white60 : Colors.black87,
-      //                       size: 30,
-      //                     ),
-      //               label: "Forecast"),
-      //         ],
-      //         currentIndex: currentIndex,
-      //         onTap: (index) => ref.read(bottomNavState.notifier).state = index,
-      //       )
-      //     :
-      BottomNavigationBar(
+          // currentUser == null
+          //     ? BottomNavigationBar(
+          //         backgroundColor:
+          //             isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
+          //         selectedLabelStyle:
+          //             const TextStyle(color: Colors.red, fontSize: 14),
+          //         selectedItemColor: Colors.red,
+          //         unselectedItemColor:
+          //             isDarkMode ? Colors.white : AppColors.scaffoldBgColor,
+          //         showSelectedLabels: true,
+          //         showUnselectedLabels: false,
+          //         items: [
+          //           BottomNavigationBarItem(
+          //             // backgroundColor: AppColors.scaffoldBgColor,
+          //             icon: currentIndex == 0
+          //                 ? Container(
+          //                     decoration: BoxDecoration(
+          //                         color: Colors.white54.withOpacity(0.15),
+          //                         borderRadius: BorderRadius.circular(20)),
+          //                     padding: const EdgeInsets.symmetric(
+          //                         horizontal: 7, vertical: 7),
+          //                     child: const Icon(
+          //                       Icons.home_filled,
+          //                       color: Colors.red,
+          //                     ))
+          //                 : Icon(
+          //                     Icons.home_filled,
+          //                     color: isDarkMode ? Colors.white60 : Colors.black87,
+          //                     size: 30,
+          //                   ),
+          //             label: "Home",
+          //           ),
+          //           BottomNavigationBarItem(
+          //               // backgroundColor: AppColors.scaffoldBgColor,
+          //               icon: currentIndex == 1
+          //                   ? Container(
+          //                       decoration: BoxDecoration(
+          //                           color: Colors.white54.withOpacity(0.15),
+          //                           borderRadius: BorderRadius.circular(20)),
+          //                       padding: const EdgeInsets.symmetric(
+          //                           horizontal: 7, vertical: 7),
+          //                       child: const Icon(Icons.search))
+          //                   : Icon(
+          //                       Icons.search,
+          //                       color: isDarkMode ? Colors.white60 : Colors.black87,
+          //                       size: 30,
+          //                     ),
+          //               label: "Search"),
+          //           BottomNavigationBarItem(
+          //               // backgroundColor: AppColors.scaffoldBgColor,
+          //               icon: currentIndex == 2
+          //                   ? Container(
+          //                       decoration: BoxDecoration(
+          //                           color: Colors.white54.withOpacity(0.15),
+          //                           borderRadius: BorderRadius.circular(20)),
+          //                       padding: const EdgeInsets.symmetric(
+          //                           horizontal: 7, vertical: 7),
+          //                       child: const Icon(Icons.wb_cloudy))
+          //                   : Icon(
+          //                       Icons.wb_cloudy,
+          //                       color: isDarkMode ? Colors.white60 : Colors.black87,
+          //                       size: 30,
+          //                     ),
+          //               label: "Forecast"),
+          //         ],
+          //         currentIndex: currentIndex,
+          //         onTap: (index) => ref.read(bottomNavState.notifier).state = index,
+          //       )
+          //     :
+          BottomNavigationBar(
+        backgroundColor:
+            isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
+        elevation: 0,
+        selectedLabelStyle: const TextStyle(color: Colors.red, fontSize: 14),
+        selectedItemColor: Colors.red,
+        unselectedItemColor:
+            isDarkMode ? Colors.white : AppColors.scaffoldBgColor,
+        showSelectedLabels: true,
+        showUnselectedLabels: false,
+        items: [
+          BottomNavigationBarItem(
+            backgroundColor:
+                isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
+            icon: currentIndex == 0
+                ? Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white54.withOpacity(0.15),
+                        borderRadius: BorderRadius.circular(20)),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 7, vertical: 7),
+                    child: const Icon(Icons.home_filled))
+                : Icon(
+                    Icons.home_filled,
+                    color: isDarkMode ? Colors.white60 : Colors.black87,
+                    size: 30,
+                  ),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
               backgroundColor:
                   isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
-              elevation: 0,
-              selectedLabelStyle:
-                  const TextStyle(color: Colors.red, fontSize: 14),
-              selectedItemColor: Colors.red,
-              unselectedItemColor:
-                  isDarkMode ? Colors.white : AppColors.scaffoldBgColor,
-              showSelectedLabels: true,
-              showUnselectedLabels: false,
-              items: [
-                BottomNavigationBarItem(
-                  backgroundColor:
-                      isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
-                  icon: currentIndex == 0
-                      ? Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white54.withOpacity(0.15),
-                              borderRadius: BorderRadius.circular(20)),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 7, vertical: 7),
-                          child: const Icon(Icons.home_filled))
-                      : Icon(
-                          Icons.home_filled,
-                          color: isDarkMode ? Colors.white60 : Colors.black87,
-                          size: 30,
-                        ),
-                  label: "Home",
-                ),
-                BottomNavigationBarItem(
-                    backgroundColor:
-                        isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
-                    icon: currentIndex == 1
-                        ? Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white54.withOpacity(0.15),
-                                borderRadius: BorderRadius.circular(20)),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 7, vertical: 7),
-                            child: const Icon(Icons.search))
-                        : Icon(
-                            Icons.search,
-                            color: isDarkMode ? Colors.white60 : Colors.black87,
-                            size: 30,
-                          ),
-                    label: "Search"),
-                BottomNavigationBarItem(
-                    backgroundColor:
-                        isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
-                    icon: currentIndex == 2
-                        ? Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white54.withOpacity(0.15),
-                                borderRadius: BorderRadius.circular(20)),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 7, vertical: 7),
-                            child: const Icon(Icons.wb_cloudy))
-                        : Icon(
-                            Icons.wb_cloudy,
-                            color: isDarkMode ? Colors.white60 : Colors.black87,
-                            size: 30,
-                          ),
-                    label: "Forecast"),
-                BottomNavigationBarItem(
-                    backgroundColor:
-                        isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
-                    icon: currentIndex == 3
-                        ? Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white54.withOpacity(0.15),
-                                borderRadius: BorderRadius.circular(20)),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 7, vertical: 7),
-                            child: const Icon(Icons.settings))
-                        : Icon(
-                            Icons.settings,
-                            color: isDarkMode ? Colors.white60 : Colors.black87,
-                            size: 30,
-                          ),
-                    label: "Settings"),
-              ],
-              currentIndex: currentIndex,
-              onTap: (index) => ref.read(bottomNavState.notifier).state = index,
-            ),
+              icon: currentIndex == 1
+                  ? Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white54.withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(20)),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 7, vertical: 7),
+                      child: const Icon(Icons.search))
+                  : Icon(
+                      Icons.search,
+                      color: isDarkMode ? Colors.white60 : Colors.black87,
+                      size: 30,
+                    ),
+              label: "Search"),
+          BottomNavigationBarItem(
+              backgroundColor:
+                  isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
+              icon: currentIndex == 2
+                  ? Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white54.withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(20)),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 7, vertical: 7),
+                      child: const Icon(Icons.wb_cloudy))
+                  : Icon(
+                      Icons.wb_cloudy,
+                      color: isDarkMode ? Colors.white60 : Colors.black87,
+                      size: 30,
+                    ),
+              label: "Forecast"),
+          BottomNavigationBarItem(
+              backgroundColor:
+                  isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
+              icon: currentIndex == 3
+                  ? Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white54.withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(20)),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 7, vertical: 7),
+                      child: const Icon(Icons.settings))
+                  : Icon(
+                      Icons.settings,
+                      color: isDarkMode ? Colors.white60 : Colors.black87,
+                      size: 30,
+                    ),
+              label: "Settings"),
+        ],
+        currentIndex: currentIndex,
+        onTap: (index) => ref.read(bottomNavState.notifier).state = index,
+      ),
     );
   }
 }

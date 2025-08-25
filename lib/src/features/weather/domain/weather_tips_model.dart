@@ -224,7 +224,7 @@ class WeatherTipsHelper {
       } else {
         return weatherId == int.parse(range);
       }
-    }, orElse: () => "800"); // default to clear
+    }, orElse: () => "800");
 
     final category = _tips[key]!;
     return WeatherTipsCategory(
@@ -234,5 +234,25 @@ class WeatherTipsHelper {
       safety: category["safety"]!,
       homeCommute: category["home_commute"]!,
     );
+  }
+}
+
+class WeatherImages {
+  static String weatherImages(double wId) {
+    return wId >= 200 && wId <= 232
+        ? "assets/images/thunderstorm.png"
+        : wId >= 300 && wId <= 321
+            ? "assets/images/drizzle.png"
+            : wId >= 500 && wId <= 531
+                ? "assets/images/rain.png"
+                : wId >= 600 && wId <= 622
+                    ? "assets/images/snow.png"
+                    : wId >= 701 && wId <= 781
+                        ? "assets/images/fog.png"
+                        : wId == 800
+                            ? "assets/images/clear_sky.png"
+                            : wId >= 801 && wId <= 804
+                                ? "assets/images/clouds.png"
+                                : "assets/images/wId.png";
   }
 }

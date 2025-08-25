@@ -3,7 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:weatherapp/src/common/gaps/sized_box.dart';
+import 'package:weatherapp/src/features/onboarding/launch_counter.dart';
 import 'package:weatherapp/src/routing/app_routes.dart';
+import 'package:weatherapp/src/routing/go_router_provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -24,11 +26,18 @@ class _SplashScreenState extends State<SplashScreen> {
       });
       Future.delayed(
         const Duration(milliseconds: 5000),
-        () {
+        () async {
           if (FirebaseAuth.instance.currentUser == null) {
-            context.go(AppRoutes.onboarding);
+            int launchNumber = await LaunchCounter.launchCounter();
+            if (launchNumber > 1) {
+              Future.delayed(Duration(milliseconds: 100),
+                  () => goRouter.go(AppRoutes.userLocatorPage));
+            } else {
+              print(LaunchCounter.launchCounter());
+              goRouter.go(AppRoutes.onboarding);
+            }
           } else {
-            context.go(AppRoutes.userLocatorPage);
+            goRouter.go(AppRoutes.userLocatorPage);
           }
         },
       );

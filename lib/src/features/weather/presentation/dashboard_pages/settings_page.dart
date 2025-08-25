@@ -1,4 +1,5 @@
 import "package:firebase_auth/firebase_auth.dart";
+import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
@@ -15,6 +16,7 @@ import "package:weatherapp/src/routing/go_router_provider.dart";
 
 import "../../../../themes/theme_notifier.dart";
 import "../../../ads/data/repositories/banner_repository.dart";
+import "../../../ratings.dart";
 import "../../data/repositories/switch.dart";
 
 class SettingsPage extends ConsumerStatefulWidget {
@@ -125,12 +127,11 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                     style: textTheme.bodyMedium,
                   ),
                   trailing: IconButton(
-                    onPressed: () async {
-                      final inAppReview = InAppReview.instance;
-                      if (await inAppReview.isAvailable()) {
-                        await inAppReview.requestReview();
+                    onPressed: () {
+                      if (kDebugMode) {
+                        AppRatings.forceReview();
                       } else {
-                        await inAppReview.openStoreListing();
+                        AppRatings.requestReview();
                       }
                     },
                     icon: const Icon(Icons.arrow_forward_rounded),
