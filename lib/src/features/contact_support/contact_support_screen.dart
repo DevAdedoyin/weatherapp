@@ -26,10 +26,13 @@ class ContactSupportPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Contact Support'),
+        title: Text(
+          'Contact Support',
+          style: TextStyle(color: Colors.white),
+        ),
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: Colors.red,
       ),
-
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
