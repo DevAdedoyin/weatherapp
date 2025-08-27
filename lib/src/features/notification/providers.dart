@@ -9,7 +9,7 @@ void setupFCM() async {
   // Request iOS permissions (Android is automatic)
   await messaging.requestPermission();
 
-  // Subscribe every user to "all"
+  // Subscribe every user to weather
   await messaging.subscribeToTopic("weather");
 
   // Handle notification tap when app is in foreground/background

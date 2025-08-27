@@ -47,8 +47,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
           "Reset password",
           style: TextStyle(color: isDarkMode ? Colors.white : Colors.white),
         ),
-        backgroundColor: AppColors.accentColor,
-
+        backgroundColor: isDarkMode ? Colors.red : Colors.blue,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -86,8 +85,8 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                       ref.read(isPasswordUpdating.notifier).state = false;
                     },
                     style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all(AppColors.accentColor),
+                      backgroundColor: MaterialStateProperty.all(
+                          isDarkMode ? Colors.red : Colors.blue),
                       padding: MaterialStateProperty.all(EdgeInsets.zero),
                       shape: const MaterialStatePropertyAll(
                         RoundedRectangleBorder(

@@ -31,7 +31,6 @@ class _HourlyWeatherDetailsScreenState
 
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: isDarkMode
@@ -51,7 +50,8 @@ class _HourlyWeatherDetailsScreenState
               ),
               Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(7), color: Colors.red),
+                    borderRadius: BorderRadius.circular(7),
+                    color: isDarkMode ? Colors.red : Colors.blue),
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
                 child: Text(
@@ -164,11 +164,11 @@ class _HourlyWeatherDetailsScreenState
               ),
               verticalGap(20),
               if (bannerAd != null)
-              SizedBox(
-                height: bannerAd.size.height.toDouble(),
-                width: bannerAd.size.width.toDouble(),
-                child: AdWidget(ad: bannerAd),
-              ),
+                SizedBox(
+                  height: bannerAd.size.height.toDouble(),
+                  width: bannerAd.size.width.toDouble(),
+                  child: AdWidget(ad: bannerAd),
+                ),
               const WeatherDetailsHourly()
             ],
           ),

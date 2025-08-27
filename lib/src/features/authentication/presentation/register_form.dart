@@ -26,16 +26,13 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
     final isPasswordVisible = ref.watch(iconButtonProvider);
     final isConfirmPasswordVisible = ref.watch(iconButtonProviderCP);
     final isLoading = ref.watch(isAuthLoading);
 
-    TextTheme textTheme = Theme
-        .of(context)
-        .textTheme;
+    TextTheme textTheme = Theme.of(context).textTheme;
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return SizedBox(
       child: Form(
         key: _formKey,
@@ -50,8 +47,8 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                 textInputAction: TextInputAction.next,
                 autofocus: false,
                 validator: (username) => Validator.validateName(name: username),
-                decoration: themeInputDecoration(
-                    'Username', const Icon(Icons.person)),
+                decoration:
+                    themeInputDecoration('Username', const Icon(Icons.person)),
               ),
             ),
             verticalGap(size.height * 0.019),
@@ -65,7 +62,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                 autofocus: false,
                 validator: (email) => Validator.validateEmail(email: email),
                 decoration:
-                themeInputDecoration('Email', const Icon(Icons.email)),
+                    themeInputDecoration('Email', const Icon(Icons.email)),
               ),
             ),
             verticalGap(size.height * 0.019),
@@ -85,14 +82,10 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                   isPassword: true,
                   passwordIcon: IconButton(
                     onPressed: () {
-                      ref
-                          .read(iconButtonProvider.notifier)
-                          .state =
-                      ref
-                          .read(iconButtonProvider.notifier)
-                          .state
-                          ? false
-                          : true;
+                      ref.read(iconButtonProvider.notifier).state =
+                          ref.read(iconButtonProvider.notifier).state
+                              ? false
+                              : true;
                     },
                     icon: Icon(isPasswordVisible
                         ? Icons.visibility_off
@@ -120,14 +113,10 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                   isCPassword: true,
                   passwordIcon: IconButton(
                     onPressed: () {
-                      ref
-                          .read(iconButtonProviderCP.notifier)
-                          .state =
-                      ref
-                          .read(iconButtonProviderCP.notifier)
-                          .state
-                          ? false
-                          : true;
+                      ref.read(iconButtonProviderCP.notifier).state =
+                          ref.read(iconButtonProviderCP.notifier).state
+                              ? false
+                              : true;
                     },
                     icon: Icon(isConfirmPasswordVisible
                         ? Icons.visibility_off
@@ -148,34 +137,35 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                   const Spacer(),
                   isLoading
                       ? const SizedBox(
-                      height: 17, width: 17, child: LoadingIndicator())
+                          height: 17, width: 17, child: LoadingIndicator())
                       : Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-                      color: AppColors.accentColor,
-                    ),
-                    child: IconButton(
-                        style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(AppColors.accentColor)),
-                        onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            ref
-                                .read(isAuthLoading.notifier)
-                                .state = true;
-                            await FireAuth.registerUsingEmailPassword(
-                              context: context,
-                              name: _usernameController.text,
-                              email: _emailController.text,
-                              password: _passwordController.text,
-                            );
-                            ref
-                                .read(isAuthLoading.notifier)
-                                .state =
-                            false;
-                          }
-                        },
-                        icon: const Icon(
-                          Icons.arrow_forward, color: Colors.white,)),
-                  )
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            color: isDarkMode ? Colors.red : Colors.blue,
+                          ),
+                          child: IconButton(
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(
+                                    isDarkMode ? Colors.red : Colors.blue),
+                              ),
+                              onPressed: () async {
+                                if (_formKey.currentState!.validate()) {
+                                  ref.read(isAuthLoading.notifier).state = true;
+                                  await FireAuth.registerUsingEmailPassword(
+                                    context: context,
+                                    name: _usernameController.text,
+                                    email: _emailController.text,
+                                    password: _passwordController.text,
+                                  );
+                                  ref.read(isAuthLoading.notifier).state =
+                                      false;
+                                }
+                              },
+                              icon: const Icon(
+                                Icons.arrow_forward,
+                                color: Colors.white,
+                              )),
+                        )
                 ],
               ),
             )

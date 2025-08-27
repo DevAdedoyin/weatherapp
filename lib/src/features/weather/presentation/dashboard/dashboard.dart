@@ -69,7 +69,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
         },
         child: Icon(
           Icons.lightbulb,
-          color: Colors.red,
+          color: isDarkMode ? Colors.red : Colors.blue,
           size: 30,
         ),
       ),
@@ -164,10 +164,10 @@ class _DashboardState extends ConsumerState<Dashboard> {
         backgroundColor:
             isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
         elevation: 0,
-        selectedLabelStyle: const TextStyle(color: Colors.red, fontSize: 14),
-        selectedItemColor: Colors.red,
-        unselectedItemColor:
-            isDarkMode ? Colors.white : AppColors.scaffoldBgColor,
+        selectedLabelStyle: TextStyle(
+            color: isDarkMode ? Colors.red : Colors.blue, fontSize: 14),
+        selectedItemColor: isDarkMode ? Colors.red : Colors.blue,
+        unselectedItemColor: isDarkMode ? Colors.white : Colors.grey,
         showSelectedLabels: true,
         showUnselectedLabels: false,
         items: [

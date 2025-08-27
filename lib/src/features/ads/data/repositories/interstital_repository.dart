@@ -11,7 +11,7 @@ class InterstitialAdNotifier extends StateNotifier<InterstitialAd?> {
   }
 
   // PRODUCTION
-  final adUnitId = dotenv.env["INTERSTITIAL_AD_UNIT"];
+  final adUnitId = dotenv.env["INTERSTITIAL_AD_UNIT_ANDROID"];
   final adUnitIdIOS = dotenv.env["INTERSTITIAL_AD_UNIT_IOS"];
 
   // DEVELOPMENT

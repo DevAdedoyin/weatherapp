@@ -76,7 +76,7 @@ class LoginScreen extends ConsumerWidget {
                               ..onTap = () => context.push(AppRoutes.register),
                             style: GoogleFonts.robotoSlab(
                                 fontSize: 15,
-                                color: AppColors.accentColor,
+                                color: isDarkMode ? Colors.red : Colors.blue,
                                 fontWeight: FontWeight.bold))
                       ])),
                     ),
@@ -104,7 +104,7 @@ Thank you.
                         },
                         style: ButtonStyle(
                           backgroundColor:
-                              MaterialStateProperty.all(AppColors.accentColor),
+                              MaterialStateProperty.all(isDarkMode ? Colors.red : Colors.blue),
                           padding: MaterialStateProperty.all(EdgeInsets.zero),
                           shape: const MaterialStatePropertyAll(
                             RoundedRectangleBorder(

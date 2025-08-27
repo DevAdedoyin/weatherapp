@@ -129,7 +129,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                             ),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(7),
-                                color: Colors.red),
+                                color: isDarkMode ? Colors.red : Colors.blue),
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 5),
                             child: Text(

@@ -146,11 +146,11 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                         horizontal: 10, vertical: 15),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(
-                            color: Colors.red, style: BorderStyle.solid)),
-                    disabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: isDarkMode ? Colors.red : Colors.blue, style: BorderStyle.solid)),
+                    disabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: Colors.red,
+                        color: isDarkMode ? Colors.red : Colors.blue,
                       ),
                     ),
                     hintStyle: GoogleFonts.roboto(
@@ -202,16 +202,16 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                                 splashColor: AppColors.thirdPartyIconBGColor,
                                 borderRadius: BorderRadius.circular(50),
                                 radius: 20,
-                                child: const Icon(
+                                child: Icon(
                                   Icons.arrow_forward,
-                                  color: Colors.red,
+                                  color: isDarkMode ? Colors.red : Colors.blue,
                                 )),
                           ],
                         )),
-                    prefixIcon: const SizedBox(
+                    prefixIcon: SizedBox(
                         child: Icon(
                       Icons.search,
-                      color: Colors.red,
+                      color: isDarkMode ? Colors.red : Colors.blue,
                     ))),
                 textController: textController,
                 suggestions: uniqueCityData,
@@ -271,9 +271,9 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                       // context.push(AppRoutes.searchCityWeatherDetails);
                     },
                     child: ListTile(
-                      leading: const Icon(
+                      leading: Icon(
                         Icons.location_city_rounded,
-                        color: Colors.red,
+                        color: isDarkMode ? Colors.red : Colors.blue,
                       ),
                       title: Text(
                         e.cityNames,
@@ -306,9 +306,9 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                       ref.read(interstitialAdProvider.notifier).showAd();
                     },
                     child: ListTile(
-                      leading: const Icon(
+                      leading: Icon(
                         Icons.location_city_rounded,
-                        color: Colors.red,
+                        color: isDarkMode ? Colors.red : Colors.blue,
                       ),
                       title: Text(
                         e.cityNames,

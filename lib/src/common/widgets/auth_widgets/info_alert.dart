@@ -7,6 +7,7 @@ void infoAuthAlertWidget(
     BuildContext context, String message, String messageHeader,
     {Function? onTap}) {
   TextTheme textTheme = Theme.of(context).textTheme;
+  bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
   Alert(
     context: context,
     type: AlertType.info,
@@ -34,8 +35,8 @@ void infoAuthAlertWidget(
               style: ButtonStyle(
                   padding: MaterialStateProperty.all(
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 2)),
-                  backgroundColor:
-                      MaterialStateProperty.all(AppColors.accentColor),
+                  backgroundColor: MaterialStateProperty.all(
+                      isDarkMode ? Colors.red : Colors.blue),
                   shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)))),
               child: const Text("Proceed",

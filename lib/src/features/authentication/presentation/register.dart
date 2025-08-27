@@ -15,6 +15,7 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
@@ -65,7 +66,7 @@ class RegisterScreen extends StatelessWidget {
                               ..onTap = () => context.push(AppRoutes.login),
                             style: GoogleFonts.robotoSlab(
                                 fontSize: 15,
-                                color: AppColors.accentColor,
+                                color: isDarkMode ? Colors.red : Colors.blue,
                                 fontWeight: FontWeight.bold),
                           )
                         ]),

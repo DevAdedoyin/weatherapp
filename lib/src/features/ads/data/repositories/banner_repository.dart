@@ -11,7 +11,7 @@ class BannerAdNotifier extends StateNotifier<BannerAd?> {
   }
 
   // PRODUCTION
-  final adUnitId = dotenv.env["BANNER_AD_UNIT"];
+  final adUnitId = dotenv.env["BANNER_AD_UNIT_ANDROID"];
   final adUnitIdIOS = dotenv.env["BANNER_AD_UNIT_IOS"];
 
   // DEVELOPMENT

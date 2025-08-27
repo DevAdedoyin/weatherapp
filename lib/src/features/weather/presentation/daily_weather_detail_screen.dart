@@ -247,7 +247,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                           borderRadius: BorderRadius.circular(20),
                           child: Card(
                               // elevation: 3,
-                              color: isDarkMode ? Colors.white12 : Colors.red,
+                              color: isDarkMode ? Colors.red : Colors.blue,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(40),
                               ),
@@ -327,7 +327,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                           borderRadius: BorderRadius.circular(20),
                           child: Card(
                               // elevation: 3,
-                              color: isDarkMode ? Colors.white12 : Colors.red,
+                              color: isDarkMode ? Colors.red : Colors.blue,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(40),
                               ),

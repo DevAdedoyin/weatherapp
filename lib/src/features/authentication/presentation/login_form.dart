@@ -32,6 +32,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
     final isPasswordVisible = ref.watch(iconButtonProvider);
     final isLoading = ref.watch(isAuthLoading);
     Size size = MediaQuery.of(context).size;
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return SizedBox(
       child: Form(
         key: _formKey,
@@ -94,9 +95,9 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                 child: Text(
                   "Forgot Password?",
                   style: GoogleFonts.roboto(
-                    fontSize: 15.0,
+                      fontSize: 15.0,
                       fontWeight: FontWeight.w600,
-                      color: AppColors.accentColor),
+                      color: isDarkMode ? Colors.red : Colors.blue),
                 ),
               ),
             ),
@@ -115,11 +116,13 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                       : Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(25),
-                            color: AppColors.accentColor,
+                            color: isDarkMode ? Colors.red : Colors.blue,
                           ),
-                          child:  IconButton(
-                              color: AppColors.accentColor,
-                              style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(AppColors.accentColor)),
+                          child: IconButton(
+                              color: isDarkMode ? Colors.red : Colors.blue,
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStatePropertyAll(
+                                      isDarkMode ? Colors.red : Colors.blue)),
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
                                   ref.read(isAuthLoading.notifier).state = true;

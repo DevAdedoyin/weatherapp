@@ -99,7 +99,8 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                           ? AppColors.cardDarkModeColor
                           : AppColors.cardLightModeColor,
                       child: ListTile(
-                        leading: const Icon(Icons.lock, color: Colors.red),
+                        leading: Icon(Icons.lock,
+                            color: isDarkMode ? Colors.red : Colors.blue),
                         title: Text(
                           "Change password",
                           style: textTheme.bodyMedium,
@@ -121,7 +122,8 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                     ? AppColors.cardDarkModeColor
                     : AppColors.cardLightModeColor,
                 child: ListTile(
-                  leading: const Icon(Icons.rate_review, color: Colors.red),
+                  leading: Icon(Icons.rate_review,
+                      color: isDarkMode ? Colors.red : Colors.blue),
                   title: Text(
                     "Rate Us",
                     style: textTheme.bodyMedium,
@@ -147,7 +149,8 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                     ? AppColors.cardDarkModeColor
                     : AppColors.cardLightModeColor,
                 child: ListTile(
-                  leading: const Icon(Icons.support_agent, color: Colors.red),
+                  leading: Icon(Icons.support_agent,
+                      color: isDarkMode ? Colors.red : Colors.blue),
                   title: Text(
                     "Contact Us",
                     style: textTheme.bodyMedium,
@@ -169,7 +172,8 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                     ? AppColors.cardDarkModeColor
                     : AppColors.cardLightModeColor,
                 child: ListTile(
-                  leading: const Icon(Icons.share, color: Colors.red),
+                  leading: Icon(Icons.share,
+                      color: isDarkMode ? Colors.red : Colors.blue),
                   title: Text(
                     "Share App",
                     style: textTheme.bodyMedium,
@@ -192,7 +196,8 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                     ? AppColors.cardDarkModeColor
                     : AppColors.cardLightModeColor,
                 child: ListTile(
-                    leading: const Icon(Icons.mode_night, color: Colors.red),
+                    leading: Icon(Icons.mode_night,
+                        color: isDarkMode ? Colors.red : Colors.blue),
                     title: Text(
                       "Switch theme",
                       style: textTheme.bodyMedium,
@@ -216,7 +221,8 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                           ? AppColors.cardDarkModeColor
                           : AppColors.cardLightModeColor,
                       child: ListTile(
-                        leading: const Icon(Icons.logout, color: Colors.red),
+                        leading: Icon(Icons.logout,
+                            color: isDarkMode ? Colors.red : Colors.blue),
                         title: Text(
                           "Logout",
                           style: textTheme.bodyMedium,
@@ -264,8 +270,11 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                                       style: ButtonStyle(
                                           elevation:
                                               const MaterialStatePropertyAll(5),
-                                          backgroundColor: MaterialStateProperty
-                                              .all(Colors.red[900]),
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  isDarkMode
+                                                      ? Colors.red
+                                                      : Colors.blue),
                                           padding:
                                               const MaterialStatePropertyAll(
                                             EdgeInsets.all(5),
@@ -304,7 +313,8 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                           ? AppColors.cardDarkModeColor
                           : AppColors.cardLightModeColor,
                       child: ListTile(
-                        leading: const Icon(Icons.delete, color: Colors.red),
+                        leading: Icon(Icons.delete,
+                            color: isDarkMode ? Colors.red : Colors.blue),
                         title: Text(
                           "Remove account",
                           style: textTheme.bodyMedium,
@@ -356,8 +366,11 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                                       style: ButtonStyle(
                                           elevation:
                                               const MaterialStatePropertyAll(5),
-                                          backgroundColor: MaterialStateProperty
-                                              .all(Colors.red[900]),
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  isDarkMode
+                                                      ? Colors.red
+                                                      : Colors.blue),
                                           padding:
                                               const MaterialStatePropertyAll(
                                             EdgeInsets.all(5),

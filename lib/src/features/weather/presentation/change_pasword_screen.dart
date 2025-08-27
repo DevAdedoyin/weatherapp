@@ -44,14 +44,14 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(
-          color: Colors.white ,
+          color: Colors.white,
         ),
         title: const Text("Change password",
             style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
                 fontSize: 19)),
-        backgroundColor:  Colors.red,
+        backgroundColor: isDarkMode ? Colors.red : Colors.blue,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -87,7 +87,9 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
                         Validator.validatePassword(password: password),
                     decoration: themeInputDecoration(
                       'New Password',
-                      const Icon(Icons.lock, ),
+                      const Icon(
+                        Icons.lock,
+                      ),
                       isPassword: true,
                       passwordIcon: IconButton(
                         onPressed: () {
@@ -118,7 +120,9 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
                             confirmPassword: confirmPassword),
                     decoration: themeInputDecoration(
                       'Confirm Password',
-                      const Icon(Icons.lock, ),
+                      const Icon(
+                        Icons.lock,
+                      ),
                       isCPassword: true,
                       passwordIcon: IconButton(
                         onPressed: () {
@@ -156,16 +160,15 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
                       //     (await loadingState)!;
                     },
                     style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all(AppColors.accentColor),
+                      backgroundColor: MaterialStateProperty.all(
+                          isDarkMode ? Colors.red : Colors.blue),
                       padding: MaterialStateProperty.all(EdgeInsets.zero),
                       shape: const MaterialStatePropertyAll(
                         RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                          side: BorderSide.none
-                        ),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                            side: BorderSide.none),
                       ),
                     ),
                     child: isLoading
@@ -174,10 +177,11 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
                             width: 15,
                             child: LoadingIndicator(),
                           )
-                        : const Text("Update password", style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 17)),
+                        : const Text("Update password",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 17)),
                   ),
                 ),
                 verticalGap(10),
@@ -192,10 +196,11 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
                     style: const ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(Colors.black),
                     ),
-                    label: const Text("Login", style:  TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 19)))
+                    label: const Text("Login",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 19)))
               ],
             ),
           ),

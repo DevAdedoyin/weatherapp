@@ -25,9 +25,7 @@ class _UserLocationState extends ConsumerState<UserLocation> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
-    bool isDarkMode = Theme
-        .of(context)
-        .brightness == Brightness.dark;
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       body: SizedBox(
         width: double.maxFinite,
@@ -106,20 +104,19 @@ class _UserLocationState extends ConsumerState<UserLocation> {
                   onPressed: () {
                     GenerateWeatherLocation.getLocation();
                   },
-                  style: const ButtonStyle(
+                  style: ButtonStyle(
                       // elevation: const MaterialStatePropertyAll(2),
-                      shape: MaterialStatePropertyAll(
+                      shape: const MaterialStatePropertyAll(
                           RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)))),
-                      padding: MaterialStatePropertyAll(
+                      padding: const MaterialStatePropertyAll(
                           EdgeInsets.symmetric(vertical: 10)),
-                      backgroundColor:
-                          MaterialStatePropertyAll(AppColors.accentColor)),
-                  child: Text(
-                    "Enable Location",
-                      style: TextStyle(color: isDarkMode ? Colors.white : Colors.white)
-                  ),
+                      backgroundColor: MaterialStatePropertyAll(
+                          isDarkMode ? Colors.red : Colors.blue)),
+                  child: Text("Enable Location",
+                      style: TextStyle(
+                          color: isDarkMode ? Colors.white : Colors.white)),
                 ),
               )
             ]),
