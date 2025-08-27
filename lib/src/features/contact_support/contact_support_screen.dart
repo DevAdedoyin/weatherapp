@@ -3,8 +3,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class ContactSupportPage extends StatelessWidget {
   final String phoneNumber = '+447300850614';
-  final String googleFormUrl =
-      'https://docs.google.com/forms/d/1epdVF6bChenokENDYg_Ys1ElMDmNEmxPCzbSFf8IGhM/edit';
+  final String googleFormUrl = 'https://forms.gle/HiQEtA4QKxJGkD6H8';
 
   const ContactSupportPage({super.key});
 
