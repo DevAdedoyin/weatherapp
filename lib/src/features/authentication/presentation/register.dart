@@ -22,57 +22,66 @@ class RegisterScreen extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         child: SizedBox(
           width: double.maxFinite,
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: SizedBox(
-              height: size.height * 0.95,
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    verticalGap(size.height * 0.07),
-                    Text(
-                      "Create an",
-                      style: textTheme.headlineLarge,
-                    ),
-                    Text(
-                      "account",
-                      style: textTheme.headlineMedium,
-                    ),
-                    verticalGap(size.height < 650 ? 15: 30),
-                    const RegisterForm(),
-                    verticalGap(size.height < 650 ? 8 : 15),
-                    SizedBox(
-                      width: double.maxFinite,
-                      child: Text(
-                        "Sign up with",
-                        textAlign: TextAlign.center,
-                        style: textTheme.titleMedium,
+          child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(isDarkMode
+                      ? "assets/images/darkmode.jpg"
+                      : "assets/images/sky.jpg"),
+                  fit: BoxFit.cover),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: SizedBox(
+                height: size.height * 0.95,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      verticalGap(size.height * 0.07),
+                      Text(
+                        "Create an",
+                        style: textTheme.headlineLarge,
                       ),
-                    ),
-                    verticalGap(5),
-                    const ThirdPartyAuthWidgets(),
-                    const Spacer(),
-                    Container(
-                      alignment: Alignment.center,
-                      child: RichText(
-                        text: TextSpan(children: [
-                          TextSpan(
-                              text: "Registered already? ",
-                              style: textTheme.titleSmall),
-                          TextSpan(
-                            text: "Sign In here",
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () => context.push(AppRoutes.login),
-                            style: GoogleFonts.robotoSlab(
-                                fontSize: 15,
-                                color: isDarkMode ? Colors.red : Colors.blue,
-                                fontWeight: FontWeight.bold),
-                          )
-                        ]),
+                      Text(
+                        "account",
+                        style: textTheme.headlineMedium,
                       ),
-                    )
-                  ]),
+                      verticalGap(size.height < 650 ? 15 : 30),
+                      const RegisterForm(),
+                      verticalGap(size.height < 650 ? 8 : 15),
+                      SizedBox(
+                        width: double.maxFinite,
+                        child: Text(
+                          "Sign up with",
+                          textAlign: TextAlign.center,
+                          style: textTheme.titleMedium,
+                        ),
+                      ),
+                      verticalGap(5),
+                      const ThirdPartyAuthWidgets(),
+                      const Spacer(),
+                      Container(
+                        alignment: Alignment.center,
+                        child: RichText(
+                          text: TextSpan(children: [
+                            TextSpan(
+                                text: "Registered already? ",
+                                style: textTheme.titleSmall),
+                            TextSpan(
+                              text: "Sign In here",
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () => context.push(AppRoutes.login),
+                              style: GoogleFonts.robotoSlab(
+                                  fontSize: 15,
+                                  color: isDarkMode ? Colors.red : Colors.blue,
+                                  fontWeight: FontWeight.bold),
+                            )
+                          ]),
+                        ),
+                      )
+                    ]),
+              ),
             ),
           ),
         ),

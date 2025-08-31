@@ -55,6 +55,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
 
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
+      // extendBody: true,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(
@@ -74,13 +75,13 @@ class _DashboardState extends ConsumerState<Dashboard> {
         ),
       ),
       body: Container(
-        decoration: isDarkMode
-            ? BoxDecoration()
-            : BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/sky.jpg"),
-                    fit: BoxFit.cover),
-              ),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(isDarkMode
+                  ? "assets/images/darkmode.jpg"
+                  : "assets/images/sky.jpg"),
+              fit: BoxFit.cover),
+        ),
         child: SizedBox(
           width: double.maxFinite,
           child:
@@ -160,20 +161,22 @@ class _DashboardState extends ConsumerState<Dashboard> {
           //         onTap: (index) => ref.read(bottomNavState.notifier).state = index,
           //       )
           //     :
+
           BottomNavigationBar(
-        backgroundColor:
-            isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         selectedLabelStyle: TextStyle(
-            color: isDarkMode ? Colors.red : Colors.blue, fontSize: 14),
+            color: isDarkMode ? Colors.red : Colors.blue,
+            fontSize: 14,
+            fontWeight: FontWeight.bold),
         selectedItemColor: isDarkMode ? Colors.red : Colors.blue,
         unselectedItemColor: isDarkMode ? Colors.white : Colors.grey,
         showSelectedLabels: true,
         showUnselectedLabels: false,
         items: [
           BottomNavigationBarItem(
-            backgroundColor:
-                isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
+            backgroundColor: isDarkMode ? Colors.black87 : Colors.white70,
+            // isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
             icon: currentIndex == 0
                 ? Container(
                     decoration: BoxDecoration(
@@ -190,8 +193,8 @@ class _DashboardState extends ConsumerState<Dashboard> {
             label: "Home",
           ),
           BottomNavigationBarItem(
-              backgroundColor:
-                  isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
+              backgroundColor: Colors.transparent,
+              // isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
               icon: currentIndex == 1
                   ? Container(
                       decoration: BoxDecoration(
@@ -207,8 +210,8 @@ class _DashboardState extends ConsumerState<Dashboard> {
                     ),
               label: "Search"),
           BottomNavigationBarItem(
-              backgroundColor:
-                  isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
+              backgroundColor: Colors.transparent,
+              // isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
               icon: currentIndex == 2
                   ? Container(
                       decoration: BoxDecoration(
@@ -224,8 +227,8 @@ class _DashboardState extends ConsumerState<Dashboard> {
                     ),
               label: "Forecast"),
           BottomNavigationBarItem(
-              backgroundColor:
-                  isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
+              backgroundColor: Colors.transparent,
+              // isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
               icon: currentIndex == 3
                   ? Container(
                       decoration: BoxDecoration(
@@ -244,6 +247,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
         currentIndex: currentIndex,
         onTap: (index) => ref.read(bottomNavState.notifier).state = index,
       ),
+      // extendBody: true,
     );
   }
 }

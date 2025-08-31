@@ -123,9 +123,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             return CustomScrollView(
               slivers: <Widget>[
                 SliverAppBar(
-                  backgroundColor: isDarkMode
-                      ? AppColors.scaffoldBgColor
-                      : Colors.transparent,
+                  backgroundColor: Colors.transparent,
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -188,30 +186,28 @@ class _HomePageState extends ConsumerState<HomePage> {
                       horizontal: 5,
                     ),
                     background:
-                    // !isDarkMode
-                    //     ? Container(
-                    //         // color: Colors.black,
-                    //         child: Image.network(
-                    //           WeatherIcon.weatherIcon(
-                    //               data.currentWeatherModel.weather.icon),
-                    //           fit: BoxFit.cover,
-                    //           filterQuality: FilterQuality.high,
-                    //         ),
-                    //       )
-                    //     :
-                    Container(
-                            color: isDarkMode
-                                ? AppColors.scaffoldBgColor
-                                : Colors.white38,
-                            child: Image.asset(
-                              WeatherImages.weatherImages(wId),
-                              filterQuality: FilterQuality.high,
-                              // alignment: Alignment.bottomCenter,
-                              // height: size.width * 0.20,
-                              // width: size.width * 0.20,
-                              fit: BoxFit.contain,
-                            ),
-                          ),
+                        // !isDarkMode
+                        //     ? Container(
+                        //         // color: Colors.black,
+                        //         child: Image.network(
+                        //           WeatherIcon.weatherIcon(
+                        //               data.currentWeatherModel.weather.icon),
+                        //           fit: BoxFit.cover,
+                        //           filterQuality: FilterQuality.high,
+                        //         ),
+                        //       )
+                        //     :
+                        Container(
+                      color: Colors.transparent,
+                      child: Image.asset(
+                        WeatherImages.weatherImages(wId),
+                        filterQuality: FilterQuality.high,
+                        // alignment: Alignment.bottomCenter,
+                        // height: size.width * 0.20,
+                        // width: size.width * 0.20,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
                   ),
                 ),
                 SliverToBoxAdapter(

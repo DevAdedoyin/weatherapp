@@ -29,97 +29,108 @@ class _UserLocationState extends ConsumerState<UserLocation> {
     return Scaffold(
       body: SizedBox(
         width: double.maxFinite,
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              verticalGap(size.height * 0.10),
-              SizedBox(
-                width: size.width * 0.8,
-                child: Text(
-                  "Let Weather Monitor access your location to give you real-time weather datails on your location.",
-                  textAlign: TextAlign.center,
-                  style: textTheme.bodyMedium,
-                ),
-              ),
-              verticalGap(
-                  size.height < 690 ? size.height * 0.04 : size.height * 0.07),
-              SizedBox(
-                width: size.width * 0.8,
-                child: const Text(
-                  "Please note that your location is NOT stored on our server. We only need your location to give you weather update for your current location.",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.red,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-              verticalGap(
-                  size.height < 690 ? size.height * 0.04 : size.height * 0.07),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                height: 200,
-                width: 200,
-                decoration: BoxDecoration(
-                    color: AppColors.accentColor,
-                    borderRadius: BorderRadius.circular(100)),
-                child: Container(
-                  height: 170,
-                  width: 170,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  decoration: BoxDecoration(
-                      color: AppColors.fontColor,
-                      borderRadius: BorderRadius.circular(100)),
-                  child: Image.asset(
-                    "assets/images/location.png",
-                    fit: BoxFit.contain,
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(isDarkMode
+                    ? "assets/images/darkmode.jpg"
+                    : "assets/images/sky.jpg"),
+                fit: BoxFit.cover),
+          ),
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                verticalGap(size.height * 0.10),
+                SizedBox(
+                  width: size.width * 0.8,
+                  child: Text(
+                    "Let Weather Monitor access your location to give you real-time weather datails on your location.",
+                    textAlign: TextAlign.center,
+                    style: textTheme.bodyMedium,
                   ),
                 ),
-              ),
-              if (size.height < 690 && size.height > 650)
-                verticalGap(size.height * 0.07)
-              else
-                verticalGap(size.height < 650
-                    ? size.height * 0.04
-                    : size.height * 0.10),
-              Text(
-                "Please wait while we fetch your location",
-                style: textTheme.bodySmall,
-              ),
-              SizedBox(
-                  width: size.width * 0.5,
-                  child: const LinearProgressIndicator()),
-              if (size.height < 690 && size.height > 650)
-                verticalGap(size.height * 0.07)
-              else
-                verticalGap(size.height < 650
+                verticalGap(size.height < 690
                     ? size.height * 0.04
                     : size.height * 0.07),
-              SizedBox(
-                width: size.width * 0.7,
-                child: ElevatedButton(
-                  onPressed: () {
-                    GenerateWeatherLocation.getLocation();
-                  },
-                  style: ButtonStyle(
-                      // elevation: const MaterialStatePropertyAll(2),
-                      shape: const MaterialStatePropertyAll(
-                          RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10)))),
-                      padding: const MaterialStatePropertyAll(
-                          EdgeInsets.symmetric(vertical: 10)),
-                      backgroundColor: MaterialStatePropertyAll(
-                          isDarkMode ? Colors.red : Colors.blue)),
-                  child: Text("Enable Location",
-                      style: TextStyle(
-                          color: isDarkMode ? Colors.white : Colors.white)),
+                SizedBox(
+                  width: size.width * 0.8,
+                  child: const Text(
+                    "Please note that your location is NOT stored on our server. We only need your location to give you weather update for your current location.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
-              )
-            ]),
+                verticalGap(size.height < 690
+                    ? size.height * 0.04
+                    : size.height * 0.07),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  height: 200,
+                  width: 200,
+                  decoration: BoxDecoration(
+                      color: AppColors.accentColor,
+                      borderRadius: BorderRadius.circular(100)),
+                  child: Container(
+                    height: 170,
+                    width: 170,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
+                    decoration: BoxDecoration(
+                        color: AppColors.fontColor,
+                        borderRadius: BorderRadius.circular(100)),
+                    child: Image.asset(
+                      "assets/images/location.png",
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+                if (size.height < 690 && size.height > 650)
+                  verticalGap(size.height * 0.07)
+                else
+                  verticalGap(size.height < 650
+                      ? size.height * 0.04
+                      : size.height * 0.10),
+                Text(
+                  "Please wait while we fetch your location",
+                  style: textTheme.bodySmall,
+                ),
+                SizedBox(
+                    width: size.width * 0.5,
+                    child: const LinearProgressIndicator()),
+                if (size.height < 690 && size.height > 650)
+                  verticalGap(size.height * 0.07)
+                else
+                  verticalGap(size.height < 650
+                      ? size.height * 0.04
+                      : size.height * 0.07),
+                SizedBox(
+                  width: size.width * 0.7,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      GenerateWeatherLocation.getLocation();
+                    },
+                    style: ButtonStyle(
+                        // elevation: const MaterialStatePropertyAll(2),
+                        shape: const MaterialStatePropertyAll(
+                            RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)))),
+                        padding: const MaterialStatePropertyAll(
+                            EdgeInsets.symmetric(vertical: 10)),
+                        backgroundColor: MaterialStatePropertyAll(
+                            isDarkMode ? Colors.red : Colors.blue)),
+                    child: Text("Enable Location",
+                        style: TextStyle(
+                            color: isDarkMode ? Colors.white : Colors.white)),
+                  ),
+                )
+              ]),
+        ),
       ),
     );
   }

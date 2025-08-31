@@ -54,154 +54,164 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
         backgroundColor: isDarkMode ? Colors.red : Colors.blue,
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                SizedBox(
-                  child: TextFormField(
-                    style: textTheme.titleMedium,
-                    // controller: _emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    readOnly: true,
-                    textInputAction: TextInputAction.next,
-                    autofocus: false,
-                    enabled: false,
-                    // validator: (email) => Validator.validateEmail(email: email),
-                    decoration: themeInputDecoration(
-                        '${user?.email}', const Icon(Icons.email)),
+        child: Container(
+          height: size.height,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(isDarkMode
+                    ? "assets/images/darkmode.jpg"
+                    : "assets/images/sky.jpg"),
+                fit: BoxFit.cover),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  SizedBox(
+                    child: TextFormField(
+                      style: textTheme.titleMedium,
+                      // controller: _emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      readOnly: true,
+                      textInputAction: TextInputAction.next,
+                      autofocus: false,
+                      enabled: false,
+                      // validator: (email) => Validator.validateEmail(email: email),
+                      decoration: themeInputDecoration(
+                          '${user?.email}', const Icon(Icons.email)),
+                    ),
                   ),
-                ),
-                verticalGap(20),
-                SizedBox(
-                  child: TextFormField(
-                    style: GoogleFonts.roboto(
-                        fontSize: 16, fontWeight: FontWeight.normal),
-                    controller: _passwordController,
-                    textInputAction: TextInputAction.next,
-                    autofocus: false,
-                    obscureText: isPasswordVisible ? false : true,
-                    validator: (password) =>
-                        Validator.validatePassword(password: password),
-                    decoration: themeInputDecoration(
-                      'New Password',
-                      const Icon(
-                        Icons.lock,
-                      ),
-                      isPassword: true,
-                      passwordIcon: IconButton(
-                        onPressed: () {
-                          ref.read(iconButtonProvider.notifier).state =
-                              ref.read(iconButtonProvider.notifier).state
-                                  ? false
-                                  : true;
-                        },
-                        icon: Icon(isPasswordVisible
-                            ? Icons.visibility_off
-                            : Icons.visibility),
+                  verticalGap(20),
+                  SizedBox(
+                    child: TextFormField(
+                      style: GoogleFonts.roboto(
+                          fontSize: 16, fontWeight: FontWeight.normal),
+                      controller: _passwordController,
+                      textInputAction: TextInputAction.next,
+                      autofocus: false,
+                      obscureText: isPasswordVisible ? false : true,
+                      validator: (password) =>
+                          Validator.validatePassword(password: password),
+                      decoration: themeInputDecoration(
+                        'New Password',
+                        const Icon(
+                          Icons.lock,
+                        ),
+                        isPassword: true,
+                        passwordIcon: IconButton(
+                          onPressed: () {
+                            ref.read(iconButtonProvider.notifier).state =
+                                ref.read(iconButtonProvider.notifier).state
+                                    ? false
+                                    : true;
+                          },
+                          icon: Icon(isPasswordVisible
+                              ? Icons.visibility_off
+                              : Icons.visibility),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                verticalGap(20),
-                SizedBox(
-                  child: TextFormField(
-                    style: GoogleFonts.roboto(
-                        fontSize: 16, fontWeight: FontWeight.normal),
-                    controller: _confirmPasswordController,
-                    textInputAction: TextInputAction.done,
-                    obscureText: isConfirmPasswordVisible ? false : true,
-                    autofocus: false,
-                    validator: (confirmPassword) =>
-                        Validator.validateConfirmPassword(
-                            password: _passwordController.text,
-                            confirmPassword: confirmPassword),
-                    decoration: themeInputDecoration(
-                      'Confirm Password',
-                      const Icon(
-                        Icons.lock,
-                      ),
-                      isCPassword: true,
-                      passwordIcon: IconButton(
-                        onPressed: () {
-                          ref.read(iconButtonProviderCP.notifier).state =
-                              ref.read(iconButtonProviderCP.notifier).state
-                                  ? false
-                                  : true;
-                        },
-                        icon: Icon(isConfirmPasswordVisible
-                            ? Icons.visibility_off
-                            : Icons.visibility),
+                  verticalGap(20),
+                  SizedBox(
+                    child: TextFormField(
+                      style: GoogleFonts.roboto(
+                          fontSize: 16, fontWeight: FontWeight.normal),
+                      controller: _confirmPasswordController,
+                      textInputAction: TextInputAction.done,
+                      obscureText: isConfirmPasswordVisible ? false : true,
+                      autofocus: false,
+                      validator: (confirmPassword) =>
+                          Validator.validateConfirmPassword(
+                              password: _passwordController.text,
+                              confirmPassword: confirmPassword),
+                      decoration: themeInputDecoration(
+                        'Confirm Password',
+                        const Icon(
+                          Icons.lock,
+                        ),
+                        isCPassword: true,
+                        passwordIcon: IconButton(
+                          onPressed: () {
+                            ref.read(iconButtonProviderCP.notifier).state =
+                                ref.read(iconButtonProviderCP.notifier).state
+                                    ? false
+                                    : true;
+                          },
+                          icon: Icon(isConfirmPasswordVisible
+                              ? Icons.visibility_off
+                              : Icons.visibility),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                verticalGap(40),
-                SizedBox(
-                  // height: 30,
-                  width: double.maxFinite,
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        ref.read(isPasswordUpdating.notifier).state = true;
+                  verticalGap(40),
+                  SizedBox(
+                    // height: 30,
+                    width: double.maxFinite,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          ref.read(isPasswordUpdating.notifier).state = true;
 
-                        await FireAuth.updatePasword(
-                            context: context,
-                            newPassword: _passwordController.text);
-                        ref.read(isAuthLoading.notifier).state = false;
-                      }
+                          await FireAuth.updatePasword(
+                              context: context,
+                              newPassword: _passwordController.text);
+                          ref.read(isAuthLoading.notifier).state = false;
+                        }
 
-                      ref.read(isPasswordUpdating.notifier).state = false;
-                      // final loadingState =
+                        ref.read(isPasswordUpdating.notifier).state = false;
+                        // final loadingState =
 
-                      // ref.read(isPasswordUpdating.notifier).state =
-                      //     (await loadingState)!;
-                    },
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                          isDarkMode ? Colors.red : Colors.blue),
-                      padding: MaterialStateProperty.all(EdgeInsets.zero),
-                      shape: const MaterialStatePropertyAll(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            side: BorderSide.none),
+                        // ref.read(isPasswordUpdating.notifier).state =
+                        //     (await loadingState)!;
+                      },
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                            isDarkMode ? Colors.red : Colors.blue),
+                        padding: MaterialStateProperty.all(EdgeInsets.zero),
+                        shape: const MaterialStatePropertyAll(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                              side: BorderSide.none),
+                        ),
                       ),
+                      child: isLoading
+                          ? const SizedBox(
+                              height: 15,
+                              width: 15,
+                              child: LoadingIndicator(),
+                            )
+                          : const Text("Update password",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 17)),
                     ),
-                    child: isLoading
-                        ? const SizedBox(
-                            height: 15,
-                            width: 15,
-                            child: LoadingIndicator(),
-                          )
-                        : const Text("Update password",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 17)),
                   ),
-                ),
-                verticalGap(10),
-                TextButton.icon(
-                    onPressed: () {
-                      context.go(AppRoutes.login);
-                    },
-                    icon: const Icon(
-                      Icons.login_rounded,
-                      color: Colors.white,
-                    ),
-                    style: const ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(Colors.black),
-                    ),
-                    label: const Text("Login",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 19)))
-              ],
+                  verticalGap(10),
+                  TextButton.icon(
+                      onPressed: () {
+                        context.go(AppRoutes.login);
+                      },
+                      icon: const Icon(
+                        Icons.login_rounded,
+                        color: Colors.white,
+                      ),
+                      style: const ButtonStyle(
+                        backgroundColor: MaterialStatePropertyAll(Colors.black),
+                      ),
+                      label: const Text("Login",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 19)))
+                ],
+              ),
             ),
           ),
         ),

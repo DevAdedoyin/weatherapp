@@ -52,13 +52,13 @@ class _SplashScreenState extends State<SplashScreen> {
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       body: Container(
-        decoration: isDarkMode
-            ? BoxDecoration()
-            : BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/sky.jpg"),
-                    fit: BoxFit.cover),
-              ),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(isDarkMode
+                  ? "assets/images/darkmode.jpg"
+                  : "assets/images/sky.jpg"),
+              fit: BoxFit.cover),
+        ),
         width: double.maxFinite,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

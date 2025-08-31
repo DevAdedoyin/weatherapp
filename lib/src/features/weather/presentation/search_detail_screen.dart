@@ -78,13 +78,13 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
     // print("SEARCHING ${ref.read(searchedALocation.notifier).state}");
     return Scaffold(
       body: Container(
-        decoration: isDarkMode
-            ? BoxDecoration()
-            : BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/sky.jpg"),
-                    fit: BoxFit.cover),
-              ),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(isDarkMode
+                  ? "assets/images/darkmode.jpg"
+                  : "assets/images/sky.jpg"),
+              fit: BoxFit.cover),
+        ),
         child: FutureBuilder<WeatherModel>(
             future: WeatherApiDataSource.searchedWeather(
                 city: "${searchedCity["city"]}"),
@@ -109,9 +109,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                 return CustomScrollView(
                   slivers: <Widget>[
                     SliverAppBar(
-                      backgroundColor: isDarkMode
-                          ? AppColors.scaffoldBgColor
-                          : Colors.white54,
+                      backgroundColor: Colors.transparent,
                       automaticallyImplyLeading: true,
                       title: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -159,9 +157,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                           horizontal: 5,
                         ),
                         background: Container(
-                          color: isDarkMode
-                              ? AppColors.scaffoldBgColor
-                              : Colors.white38,
+                          color: Colors.transparent,
                           child: Image.asset(
                             WeatherImages.weatherImages(wId),
                             // WeatherIcon.weatherIcon(

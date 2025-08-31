@@ -25,13 +25,13 @@ class WeatherTipsScreen extends ConsumerWidget {
         iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Container(
-        decoration: isDarkMode
-            ? BoxDecoration()
-            : BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/sky.jpg"),
-                    fit: BoxFit.cover),
-              ),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(isDarkMode
+                  ? "assets/images/darkmode.jpg"
+                  : "assets/images/sky.jpg"),
+              fit: BoxFit.cover),
+        ),
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [

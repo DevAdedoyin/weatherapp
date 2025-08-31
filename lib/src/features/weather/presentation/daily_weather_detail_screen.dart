@@ -85,13 +85,13 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
 
     return Scaffold(
       body: Container(
-        decoration: isDarkMode
-            ? BoxDecoration()
-            : BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/sky.jpg"),
-                    fit: BoxFit.cover),
-              ),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(isDarkMode
+                  ? "assets/images/darkmode.jpg"
+                  : "assets/images/sky.jpg"),
+              fit: BoxFit.cover),
+        ),
         child: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
@@ -240,9 +240,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                                         .state
                                     ? false
                                     : true;
-                            ref
-                                .read(interstitialAdProvider.notifier)
-                                .showAd();
+                            ref.read(interstitialAdProvider.notifier).showAd();
                           },
                           borderRadius: BorderRadius.circular(20),
                           child: Card(
@@ -320,9 +318,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                                     .state
                                 ? false
                                 : true;
-                            ref
-                                .read(interstitialAdProvider.notifier)
-                                .showAd();
+                            ref.read(interstitialAdProvider.notifier).showAd();
                           },
                           borderRadius: BorderRadius.circular(20),
                           child: Card(

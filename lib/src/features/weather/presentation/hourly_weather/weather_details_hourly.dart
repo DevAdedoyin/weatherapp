@@ -86,9 +86,10 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
           AnimatedContainer(
             duration: const Duration(milliseconds: 1200),
             curve: Curves.easeIn,
-            height: isOpen ? size.height * 0.60 : size.height * 0.34,
+            height: isOpen ? size.height * 0.65 : size.height * 0.30,
             child: ListView.builder(
-                // physics: const NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
+              padding: EdgeInsets.zero,
                 itemBuilder: (_, pos) {
                   List<String> details = [
                     hourlyWeatherState.pressure!,

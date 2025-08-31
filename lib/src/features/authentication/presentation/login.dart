@@ -32,64 +32,73 @@ class LoginScreen extends ConsumerWidget {
         physics: const BouncingScrollPhysics(),
         child: SizedBox(
           width: double.maxFinite,
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: SizedBox(
-              height: size.height * 0.9,
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    verticalGap(40.0),
-                    Text(
-                      "Welcome",
-                      style: textTheme.headlineLarge,
-                    ),
-                    Text(
-                      "Back!",
-                      style: textTheme.headlineMedium,
-                    ),
-                    verticalGap(size.height < 650 ? 15 :30),
-                    const LoginForm(),
-                    verticalGap(size.height < 650 ? 15 : 30),
-                    SizedBox(
-                      width: double.maxFinite,
-                      child: Text(
-                        "Sign in with",
-                        textAlign: TextAlign.center,
-                        style: textTheme.titleMedium,
+          child: Container(
+            height: size.height,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(isDarkMode
+                      ? "assets/images/darkmode.jpg"
+                      : "assets/images/sky.jpg"),
+                  fit: BoxFit.cover),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: SizedBox(
+                height: size.height * 0.9,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      verticalGap(40.0),
+                      Text(
+                        "Welcome",
+                        style: textTheme.headlineLarge,
                       ),
-                    ),
-                    verticalGap(size.height < 650 ? 8 : 15),
-                    const ThirdPartyAuthWidgets(),
-                    const Spacer(),
-                    Container(
-                      alignment: Alignment.center,
-                      child: RichText(
-                          text: TextSpan(children: [
-                        TextSpan(
-                            text: "Not registered yet? ",
-                            style: textTheme.titleSmall),
-                        TextSpan(
-                            text: "Register here",
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () => context.push(AppRoutes.register),
-                            style: GoogleFonts.robotoSlab(
-                                fontSize: 15,
-                                color: isDarkMode ? Colors.red : Colors.blue,
-                                fontWeight: FontWeight.bold))
-                      ])),
-                    ),
-                    verticalGap(size.height < 650 ? 8 : 15),
-                    SizedBox(
-                      // height: 30,
-                      width: double.maxFinite,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          ref.read(bottomNavState.notifier).state = 0;
-                          infoAuthAlertWidget(
-                              context,
-                              """
+                      Text(
+                        "Back!",
+                        style: textTheme.headlineMedium,
+                      ),
+                      verticalGap(size.height < 650 ? 15 :30),
+                      const LoginForm(),
+                      verticalGap(size.height < 650 ? 15 : 30),
+                      SizedBox(
+                        width: double.maxFinite,
+                        child: Text(
+                          "Sign in with",
+                          textAlign: TextAlign.center,
+                          style: textTheme.titleMedium,
+                        ),
+                      ),
+                      verticalGap(size.height < 650 ? 8 : 15),
+                      const ThirdPartyAuthWidgets(),
+                      const Spacer(),
+                      Container(
+                        alignment: Alignment.center,
+                        child: RichText(
+                            text: TextSpan(children: [
+                          TextSpan(
+                              text: "Not registered yet? ",
+                              style: textTheme.titleSmall),
+                          TextSpan(
+                              text: "Register here",
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () => context.push(AppRoutes.register),
+                              style: GoogleFonts.robotoSlab(
+                                  fontSize: 15,
+                                  color: isDarkMode ? Colors.red : Colors.blue,
+                                  fontWeight: FontWeight.bold))
+                        ])),
+                      ),
+                      verticalGap(size.height < 650 ? 8 : 15),
+                      SizedBox(
+                        // height: 30,
+                        width: double.maxFinite,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            ref.read(bottomNavState.notifier).state = 0;
+                            infoAuthAlertWidget(
+                                context,
+                                """
 It's recommeded you sign in to enjoy the app's full feature.
 
 Please note that your location is not saved on our server.
@@ -98,29 +107,31 @@ Your location is only needed to make the app get weather details for that area.
 
 Thank you.
                               """,
-                              "Recommendation",
-                              onTap: () =>
-                                  context.go(AppRoutes.userLocatorPage));
-                        },
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(isDarkMode ? Colors.red : Colors.blue),
-                          padding: MaterialStateProperty.all(EdgeInsets.zero),
-                          shape: const MaterialStatePropertyAll(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
+                                "Recommendation",
+                                onTap: () =>
+                                    context.go(AppRoutes.userLocatorPage));
+                          },
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(isDarkMode ? Colors.red : Colors.blue),
+                            padding: MaterialStateProperty.all(EdgeInsets.zero),
+                            shape: const MaterialStatePropertyAll(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        child: Text(
-                          "Skip",
-                          style: TextStyle(color: isDarkMode ? Colors.white : Colors.white),
+                          child: Text(
+                            "Skip",
+                            style: TextStyle(color: isDarkMode ? Colors.white : Colors.white),
+                          ),
                         ),
                       ),
-                    )
-                  ]),
+                      verticalGap(10),
+                    ]),
+              ),
             ),
           ),
         ),

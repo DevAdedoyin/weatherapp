@@ -32,15 +32,13 @@ class _HourlyWeatherDetailsScreenState
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: isDarkMode
-            ? AppColors.scaffoldBgColor
-            : AppColors.cardLightModeColor,
+        backgroundColor:
+            isDarkMode ? Colors.transparent : AppColors.cardLightModeColor,
         elevation: 0,
         title: Container(
-          color: isDarkMode
-              ? AppColors.scaffoldBgColor
-              : AppColors.cardLightModeColor,
+          color: isDarkMode ? Colors.transparent : AppColors.cardLightModeColor,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -64,113 +62,119 @@ class _HourlyWeatherDetailsScreenState
         ),
       ),
       body: Container(
-        decoration: isDarkMode
-            ? BoxDecoration()
-            : BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/sky.jpg"),
-                    fit: BoxFit.cover),
-              ),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(isDarkMode
+                  ? "assets/images/darkmode.jpg"
+                  : "assets/images/sky.jpg"),
+              fit: BoxFit.cover),
+        ),
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          child: Column(
-            children: [
-              GradientText(
-                hourlyWeatherState.time!,
-                style: GoogleFonts.robotoCondensed(
-                  height: 1,
-                  fontSize: size.height < 650 ? 40 : 70.0,
-                  fontWeight: FontWeight.bold,
+          child: Padding(
+            padding: EdgeInsets.only(
+              top: kToolbarHeight + MediaQuery.of(context).padding.top,
+            ),
+            child: Column(
+              children: [
+                // verticalGap(70.0),
+                GradientText(
+                  hourlyWeatherState.time!,
+                  style: GoogleFonts.robotoCondensed(
+                    height: 1,
+                    fontSize: size.height < 650 ? 40 : 70.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                  colors: const [
+                    Colors.white,
+                    Colors.grey,
+                    Colors.white,
+                    // Colors.grey,
+                  ],
                 ),
-                textAlign: TextAlign.center,
-                colors: const [
-                  Colors.white,
-                  Colors.grey,
-                  Colors.white,
-                  // Colors.grey,
-                ],
-              ),
-              Text(
-                "Weather Report",
-                style: textTheme.bodyMedium,
-              ),
-              verticalGap(2),
-              SizedBox(
-                // color: Colors.red,
-                height: size.width * 0.45,
-                width: size.width * 0.45,
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: isDarkMode ? Colors.white12 : Colors.black12,
-                      borderRadius: BorderRadius.circular(100)),
-                  child: Hero(
-                    tag: "weather-image-${hourlyWeatherState.position}",
-                    child: Image.network(
-                      WeatherIcon.weatherIcon(hourlyWeatherState.image!),
-                      fit: BoxFit.cover,
-                      filterQuality: FilterQuality.high,
-                      // height: size.width * 0.07,
-                      // width: size.width * 0.07,
-                      // alignment: Alignment.center,
+                Text(
+                  "Weather Report",
+                  style: textTheme.bodyMedium,
+                ),
+                verticalGap(2),
+                SizedBox(
+                  // color: Colors.red,
+                  height: size.width * 0.45,
+                  width: size.width * 0.45,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: isDarkMode ? Colors.white12 : Colors.black12,
+                        borderRadius: BorderRadius.circular(100)),
+                    child: Hero(
+                      tag: "weather-image-${hourlyWeatherState.position}",
+                      child: Image.network(
+                        WeatherIcon.weatherIcon(hourlyWeatherState.image!),
+                        fit: BoxFit.cover,
+                        filterQuality: FilterQuality.high,
+                        // height: size.width * 0.07,
+                        // width: size.width * 0.07,
+                        // alignment: Alignment.center,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Container(
-                padding: const EdgeInsets.only(top: 0),
-                margin: const EdgeInsets.only(left: 20, right: 20, top: 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      width: size.width * 0.40,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          GradientText(
-                            "${hourlyWeatherState.temp!}°",
-                            style: GoogleFonts.robotoCondensed(
-                              height: 1,
-                              fontSize: size.height < 650 ? 70 : 100.0,
-                              fontWeight: FontWeight.bold,
+                Container(
+                  padding: const EdgeInsets.only(top: 0),
+                  margin: const EdgeInsets.only(left: 20, right: 20, top: 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: size.width * 0.40,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            GradientText(
+                              "${hourlyWeatherState.temp!}°",
+                              style: GoogleFonts.robotoCondensed(
+                                height: 1,
+                                fontSize: size.height < 650 ? 70 : 100.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              colors: const [
+                                Colors.white,
+                                Colors.grey,
+                                Colors.white,
+                                // Colors.grey,
+                              ],
                             ),
-                            colors: const [
-                              Colors.white,
-                              Colors.grey,
-                              Colors.white,
-                              // Colors.grey,
-                            ],
-                          ),
-                          Text(
-                            "Feel like: ${hourlyWeatherState.feelsLike}°",
-                            style: textTheme.titleSmall,
-                          )
-                        ],
+                            Text(
+                              "Feel like: ${hourlyWeatherState.feelsLike}°",
+                              style: textTheme.titleSmall,
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: size.width * 0.40,
-                      // color: Colors.blue[200],
-                      // Adjust height as needed
-                      child: Text(
-                        hourlyWeatherState.desctiption!,
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.roboto(
-                            fontSize: 30, fontWeight: FontWeight.w500),
+                      SizedBox(
+                        width: size.width * 0.40,
+                        // color: Colors.blue[200],
+                        // Adjust height as needed
+                        child: Text(
+                          hourlyWeatherState.desctiption!,
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.roboto(
+                              fontSize: 30, fontWeight: FontWeight.w500),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              verticalGap(20),
-              if (bannerAd != null)
-                SizedBox(
-                  height: bannerAd.size.height.toDouble(),
-                  width: bannerAd.size.width.toDouble(),
-                  child: AdWidget(ad: bannerAd),
-                ),
-              const WeatherDetailsHourly()
-            ],
+                verticalGap(20),
+                if (bannerAd != null)
+                  SizedBox(
+                    height: bannerAd.size.height.toDouble(),
+                    width: bannerAd.size.width.toDouble(),
+                    child: AdWidget(ad: bannerAd),
+                  ),
+                const WeatherDetailsHourly()
+              ],
+            ),
           ),
         ),
       ),
