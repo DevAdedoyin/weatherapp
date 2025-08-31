@@ -4,6 +4,8 @@ import 'package:url_launcher/url_launcher.dart';
 class ContactSupportPage extends StatelessWidget {
   final String phoneNumber = '+447300850614';
   final String googleFormUrl = 'https://forms.gle/HiQEtA4QKxJGkD6H8';
+  final String contactWebUrl =
+      'https://devadedoyin.github.io/weather-monitor-support/';
 
   const ContactSupportPage({super.key});
 
@@ -18,6 +20,13 @@ class ContactSupportPage extends StatelessWidget {
     final Uri url = Uri.parse(googleFormUrl);
     if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
       throw Exception('Could not launch $googleFormUrl');
+    }
+  }
+
+  Future<void> _launchContactWebPage() async {
+    final Uri url = Uri.parse(contactWebUrl);
+    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+      throw Exception('Could not launch $contactWebUrl');
     }
   }
 
@@ -73,6 +82,18 @@ class ContactSupportPage extends StatelessWidget {
                   title: Text('Contact via Google Form'),
                   subtitle: Text('Fill out the form to reach us'),
                   onTap: _launchGoogleForm,
+                ),
+              ),
+              SizedBox(height: 16),
+              Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12)),
+                elevation: 4,
+                child: ListTile(
+                  leading: Icon(Icons.support_agent, color: Colors.red),
+                  title: Text('Contact via Support Page'),
+                  subtitle: Text('Send us an email'),
+                  onTap: _launchContactWebPage,
                 ),
               ),
             ],
