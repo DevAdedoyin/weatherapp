@@ -13,4 +13,5 @@ class AppRoutes {
   static const String forgotPassword = '/forgotPassword';
   static const String suggestion = '/suggestion';
   static const String contact = '/contact';
+  static const String shareApp = '/shareApp';
 }

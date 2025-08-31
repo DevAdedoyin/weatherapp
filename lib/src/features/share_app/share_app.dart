@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 
 class ShareApp {
-  static void shareApp(BuildContext context) async {
-    String appLink = Platform.isIOS
+  static void shareApp(BuildContext context, {required String os}) async {
+    String appLink = os == "iOS"
         ? 'https://apps.apple.com/app/id6751232705'
         : 'https://play.google.com/store/apps/details?id=com.weathermonitor.weatherapp';
 

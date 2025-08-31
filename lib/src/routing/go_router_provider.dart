@@ -8,6 +8,7 @@ import 'package:weatherapp/src/features/geo_location/presentation/user_location.
 import 'package:weatherapp/src/features/notification/suggestion_screen.dart';
 import 'package:weatherapp/src/features/onboarding/onboarding/onboarding_screen.dart';
 import 'package:weatherapp/src/features/onboarding/splash_screen.dart';
+import 'package:weatherapp/src/features/share_app/share_app_screen.dart';
 
 // import 'package:weatherapp/src/features/authentication/presentation/change_pasword_screen.dart';
 import 'package:weatherapp/src/features/weather/presentation/change_pasword_screen.dart';
@@ -75,6 +76,10 @@ GoRouter goRouter = GoRouter(
     GoRoute(
       path: AppRoutes.contact,
       builder: (context, state) => const ContactSupportPage(),
+    ),
+    GoRoute(
+      path: AppRoutes.shareApp,
+      builder: (context, state) => const ShareAppScreen(),
     ),
   ],
   errorBuilder: (context, state) => RouteErrorScreen(

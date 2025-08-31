@@ -10,7 +10,7 @@ import "package:weatherapp/src/common/gaps/sized_box.dart";
 import "package:weatherapp/src/constants/app_colors.dart";
 import "package:weatherapp/src/features/app_update_notification/check_updates.dart";
 import "package:weatherapp/src/features/authentication/data/datasources/auth_datasource.dart";
-import "package:weatherapp/src/features/share_app.dart";
+import "package:weatherapp/src/features/share_app/share_app.dart";
 import "package:weatherapp/src/routing/app_routes.dart";
 import "package:weatherapp/src/routing/go_router_provider.dart";
 
@@ -180,7 +180,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                   ),
                   trailing: IconButton(
                     onPressed: () {
-                      ShareApp.shareApp(context);
+                      goRouter.push(AppRoutes.shareApp);
                     },
                     icon: const Icon(Icons.arrow_forward_rounded),
                   ),
