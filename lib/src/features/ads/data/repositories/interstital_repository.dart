@@ -20,8 +20,8 @@ class InterstitialAdNotifier extends StateNotifier<InterstitialAd?> {
   void _loadAd() {
     InterstitialAd.load(
       adUnitId:
-      testAdUnitId!,
-      // Platform.isAndroid ? adUnitId! : adUnitIdIOS!,
+      // testAdUnitId!,
+      Platform.isAndroid ? adUnitId! : adUnitIdIOS!,
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (ad) {

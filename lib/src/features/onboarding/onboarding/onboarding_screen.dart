@@ -33,8 +33,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           "Done",
           style: TextStyle(color: isDarkMode ? Colors.white : Colors.white),
         ),
-        onDone: () => context.go(AppRoutes.login),
-        onSkip: () => context.go(AppRoutes.login),
+        onDone: () => context.go(AppRoutes.userLocatorPage),
+        onSkip: () => context.go(AppRoutes.userLocatorPage),
         skip: Text(
           "Skip",
           style: TextStyle(
