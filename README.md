@@ -13,6 +13,9 @@ The Weather Monitor App is a mobile application that helps users get real-time u
 <b color="red">To run the app and use on your android device kindly download via the link below.</b>
 ### https://play.google.com/store/apps/details?id=com.weathermonitor.weatherapp
 
+<b color="red">To run the app and use on your iOS device kindly download via the link below.</b>
+### https://apps.apple.com/us/app/weather-monitor-app/id6751232705
+
 ## Table of Content
 - Installation guide and configuration
 - Features
