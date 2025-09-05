@@ -30,14 +30,17 @@ class _SplashScreenState extends State<SplashScreen> {
           if (FirebaseAuth.instance.currentUser == null) {
             int launchNumber = await LaunchCounter.launchCounter();
             if (launchNumber > 1) {
-              Future.delayed(Duration(milliseconds: 100),
-                  () => goRouter.go(AppRoutes.userLocatorPage));
+              Future.delayed(Duration(milliseconds: 100), () => goRouter.go(
+                  // AppRoutes.userLocatorPage
+                  AppRoutes.newOnboarding));
             } else {
               print(LaunchCounter.launchCounter());
-              goRouter.go(AppRoutes.onboarding);
+              goRouter.go(AppRoutes.newOnboarding);
             }
           } else {
-            goRouter.go(AppRoutes.userLocatorPage);
+            goRouter.go(AppRoutes.newOnboarding
+                // AppRoutes.userLocatorPage
+                );
           }
         },
       );

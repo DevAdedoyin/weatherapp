@@ -27,59 +27,68 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      body: IntroductionScreen(
-        pages: pages,
-        done: Text(
-          "Done",
-          style: TextStyle(color: isDarkMode ? Colors.white : Colors.white),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(isDarkMode
+                  ? "assets/images/darkmode.jpg"
+                  : "assets/images/sky.jpg"),
+              fit: BoxFit.cover),
         ),
-        onDone: () => context.go(AppRoutes.userLocatorPage),
-        onSkip: () => context.go(AppRoutes.userLocatorPage),
-        skip: Text(
-          "Skip",
-          style: TextStyle(
-              color: isDarkMode ? Colors.white : Colors.white, fontSize: 15),
-        ),
-        showSkipButton: true,
-        showBackButton: false,
-        showNextButton: true,
-        next: Text("Next",
-            style: TextStyle(
-                color: isDarkMode ? Colors.white : Colors.white, fontSize: 15)),
-        back: const Icon(Icons.arrow_back),
-        dotsDecorator: DotsDecorator(
-          size: const Size.square(8.0),
-          activeSize: const Size(18.0, 8.0),
-          activeColor: AppColors.accentColor,
-          color:  isDarkMode ? Colors.grey : AppColors.deepBlack,
-          spacing: const EdgeInsets.symmetric(horizontal: 3.0),
-          activeShape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(25.0),
+        child: IntroductionScreen(
+          pages: pages,
+          done: Text(
+            "Done",
+            style: TextStyle(color: isDarkMode ? Colors.white : Colors.white),
           ),
-        ),
-        skipStyle: TextButton.styleFrom(
-            backgroundColor: AppColors.accentColor,
-            elevation: 5,
-            textStyle: textTheme.titleSmall,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50.0),
-            )),
-        doneStyle: TextButton.styleFrom(
-            backgroundColor: AppColors.black,
-            elevation: 5,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50.0),
+          onDone: () => context.go(AppRoutes.userLocatorPage),
+          onSkip: () => context.go(AppRoutes.userLocatorPage),
+          skip: Text(
+            "Skip",
+            style: TextStyle(
+                color: isDarkMode ? Colors.white : Colors.white, fontSize: 15),
+          ),
+          showSkipButton: true,
+          showBackButton: false,
+          showNextButton: true,
+          next: Text("Next",
+              style: TextStyle(
+                  color: isDarkMode ? Colors.white : Colors.white, fontSize: 15)),
+          back: const Icon(Icons.arrow_back),
+          dotsDecorator: DotsDecorator(
+            size: const Size.square(8.0),
+            activeSize: const Size(18.0, 8.0),
+            activeColor: AppColors.accentColor,
+            color:  isDarkMode ? Colors.grey : AppColors.deepBlack,
+            spacing: const EdgeInsets.symmetric(horizontal: 3.0),
+            activeShape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(25.0),
             ),
-            textStyle: textTheme.bodyMedium),
-        nextStyle: TextButton.styleFrom(
-            // foregroundColor: Colors.black,
-            backgroundColor: isDarkMode ? Colors.grey : AppColors.deepBlack,
-            elevation: 5,
+          ),
+          skipStyle: TextButton.styleFrom(
+              backgroundColor: AppColors.accentColor,
+              elevation: 5,
+              textStyle: textTheme.titleSmall,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50.0),
+              )),
+          doneStyle: TextButton.styleFrom(
+              backgroundColor: AppColors.black,
+              elevation: 5,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50.0),
+              ),
+              textStyle: textTheme.bodyMedium),
+          nextStyle: TextButton.styleFrom(
+              // foregroundColor: Colors.black,
+              backgroundColor: isDarkMode ? Colors.grey : AppColors.deepBlack,
+              elevation: 5,
 
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50.0),
-            ),
-            textStyle: textTheme.bodyMedium),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50.0),
+              ),
+              textStyle: textTheme.bodyMedium),
+        ),
       ),
     );
   }

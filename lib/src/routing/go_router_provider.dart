@@ -6,6 +6,7 @@ import 'package:weatherapp/src/features/authentication/presentation/login.dart';
 import 'package:weatherapp/src/features/authentication/presentation/register.dart';
 import 'package:weatherapp/src/features/geo_location/presentation/user_location.dart';
 import 'package:weatherapp/src/features/notification/suggestion_screen.dart';
+import 'package:weatherapp/src/features/onboarding/new_onboarding/new_onboarding_screen.dart';
 import 'package:weatherapp/src/features/onboarding/onboarding/onboarding_screen.dart';
 import 'package:weatherapp/src/features/onboarding/splash_screen.dart';
 import 'package:weatherapp/src/features/share_app/share_app_screen.dart';
@@ -30,8 +31,8 @@ GoRouter goRouter = GoRouter(
         name: AppRoutes.root,
         builder: (context, state) => const SplashScreen()),
     GoRoute(
-      path: AppRoutes.onboarding,
-      builder: (context, state) => const OnboardingScreen(),
+      path: AppRoutes.newOnboarding,
+      builder: (context, state) => const NewOnboardingScreen(),
     ),
     GoRoute(
       path: AppRoutes.login,
