@@ -54,17 +54,17 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
               child: user?.photoURL == null
                   ? Container(
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(200),
+                          borderRadius: BorderRadius.circular(500),
                           color: AppColors.cardBgColor),
                       width: size.width * 0.3,
                       height: size.width * 0.3,
                       child: const Icon(Icons.person, size: 30),
                     )
                   : ClipRRect(
-                      borderRadius: BorderRadius.circular(200),
+                      borderRadius: BorderRadius.circular(500),
                       child: Container(
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(200),
+                            borderRadius: BorderRadius.circular(500),
                             color: AppColors.cardBgColor),
                         width: size.width * 0.3,
                         height: size.width * 0.3,

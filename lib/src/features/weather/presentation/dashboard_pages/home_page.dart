@@ -250,7 +250,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                             data.currentWeatherModel.weather.description,
                             textAlign: TextAlign.center,
                             style: GoogleFonts.roboto(
-                                fontSize: 30, fontWeight: FontWeight.w500),
+                                fontSize: 30, fontWeight: FontWeight.w700),
                           ),
                         ),
                       ],
@@ -281,7 +281,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                           : AppColors.cardLightModeColor,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
-                      elevation: 3,
+                      elevation: isDarkMode ? 3 : 1,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -413,7 +413,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                             style: textTheme.titleMedium,
                           ),
                         ),
-                        verticalGap(10),
+                        verticalGap(8),
                         SizedBox(
                           height: size.height < 620
                               ? size.height * 0.38
@@ -501,7 +501,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       color: isDarkMode
                                           ? AppColors.cardDarkModeColor
                                           : AppColors.cardLightModeColor,
-                                      // elevation: 3,
+                                      elevation: isDarkMode ? 3 : 1,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10),
                                       ),

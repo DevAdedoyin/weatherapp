@@ -93,7 +93,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
         child: Column(
           children: [
             verticalGap(
-                user == null ? size.height * 0.045 : size.height * 0.055),
+                user == null ? size.height * 0.065 : size.height * 0.075),
             SizedBox(
               width: size.width * 0.9,
               child: FieldSuggestion<SearchSuggestionModel>(
@@ -242,14 +242,14 @@ class _SearchPageState extends ConsumerState<SearchPage> {
               child: Text(
                 "Popular places",
                 textAlign: TextAlign.start,
-                style: textTheme.bodyMedium,
+                style: textTheme.bodyLarge,
               ),
             ),
             verticalGap(10),
             if (user == null)
               ...random15Cities.map(
                 (e) => Card(
-                  elevation: 3,
+                  // elevation: 1,
                   margin:
                       const EdgeInsets.only(bottom: 10, left: 15, right: 15),
                   color: isDarkMode

@@ -31,15 +31,17 @@ class _SplashScreenState extends State<SplashScreen> {
             int launchNumber = await LaunchCounter.launchCounter();
             if (launchNumber > 1) {
               Future.delayed(Duration(milliseconds: 100), () => goRouter.go(
-                  // AppRoutes.userLocatorPage
-                  AppRoutes.newOnboarding));
+                  AppRoutes.userLocatorPage
+                  // AppRoutes.newOnboarding
+              ));
             } else {
               print(LaunchCounter.launchCounter());
               goRouter.go(AppRoutes.newOnboarding);
             }
           } else {
-            goRouter.go(AppRoutes.newOnboarding
-                // AppRoutes.userLocatorPage
+            goRouter.go(
+                // AppRoutes.newOnboarding
+                AppRoutes.userLocatorPage
                 );
           }
         },
@@ -53,6 +55,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -71,10 +74,10 @@ class _SplashScreenState extends State<SplashScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 112,
-                    width: 112,
+                    height: size.height * 0.12,
+                    width: size.height * 0.12,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(70),
+                      borderRadius: BorderRadius.circular(100),
                       child: Image.asset("assets/images/weather.gif",
                           fit: BoxFit.fill),
                     ),
