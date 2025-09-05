@@ -48,7 +48,8 @@ class DailyWeatherModel {
     final pressure = data["pressure"] as int;
     final summary = data["summary"] as String;
     final humidity = data["humidity"] as int;
-    final dewPoint = (data["dew_point"] as num).toDouble() - 273.15;
+    final dewPoint =
+        ((data["dew_point"] as num).toDouble() - 273.15).roundToDouble();
     final windSpeed = (data["wind_speed"] as num).toDouble();
     final windDegree = data["wind_deg"] as int;
     // final weatherData = data["weather"] as List<Map<String, dynamic>>;

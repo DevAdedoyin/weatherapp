@@ -213,7 +213,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                 data.currentWeatherModel.weather.description,
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.roboto(
-                                    fontSize: 30, fontWeight: FontWeight.w500),
+                                    fontSize: 30, fontWeight: FontWeight.w700),
                               ),
                             ),
                           ],

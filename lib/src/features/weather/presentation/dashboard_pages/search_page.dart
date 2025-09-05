@@ -147,7 +147,8 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(
-                            color: isDarkMode ? Colors.red : Colors.blue, style: BorderStyle.solid)),
+                            color: isDarkMode ? Colors.red : Colors.blue,
+                            style: BorderStyle.solid)),
                     disabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: isDarkMode ? Colors.red : Colors.blue,
@@ -208,7 +209,10 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                                 )),
                           ],
                         )),
-                    prefixIcon: SizedBox(
+                    prefixIcon: InkWell(
+                      onTap: (){
+                        FocusManager.instance.primaryFocus?.unfocus();
+                      },
                         child: Icon(
                       Icons.search,
                       color: isDarkMode ? Colors.red : Colors.blue,

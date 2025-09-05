@@ -34,17 +34,16 @@ class _HourlyWeatherDetailsScreenState
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor:
-            isDarkMode ? Colors.transparent : AppColors.cardLightModeColor,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         title: Container(
-          color: isDarkMode ? Colors.transparent : AppColors.cardLightModeColor,
+          color: Colors.transparent,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 hourlyWeatherState.address,
-                style: textTheme.bodyMedium,
+                style: textTheme.bodyLarge,
               ),
               Container(
                 decoration: BoxDecoration(
@@ -93,19 +92,20 @@ class _HourlyWeatherDetailsScreenState
                     // Colors.grey,
                   ],
                 ),
+                verticalGap(size.height * 0.02),
                 Text(
                   "Weather Report",
                   style: textTheme.bodyMedium,
                 ),
-                verticalGap(2),
+                verticalGap(size.height * 0.005),
                 SizedBox(
                   // color: Colors.red,
-                  height: size.width * 0.45,
-                  width: size.width * 0.45,
+                  height: size.width * 0.40,
+                  width: size.width * 0.40,
                   child: Container(
                     decoration: BoxDecoration(
                         color: isDarkMode ? Colors.white12 : Colors.black12,
-                        borderRadius: BorderRadius.circular(100)),
+                        borderRadius: BorderRadius.circular(500)),
                     child: Hero(
                       tag: "weather-image-${hourlyWeatherState.position}",
                       child: Image.network(
@@ -159,7 +159,7 @@ class _HourlyWeatherDetailsScreenState
                           hourlyWeatherState.desctiption!,
                           textAlign: TextAlign.center,
                           style: GoogleFonts.roboto(
-                              fontSize: 30, fontWeight: FontWeight.w500),
+                              fontSize: 30, fontWeight: FontWeight.w700),
                         ),
                       ),
                     ],

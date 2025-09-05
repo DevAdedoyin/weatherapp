@@ -21,7 +21,7 @@ class WeatherTipsScreen extends ConsumerWidget {
           "Weather Tips",
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.red,
+        backgroundColor: isDarkMode ? Colors.red : Colors.blue,
         iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Container(

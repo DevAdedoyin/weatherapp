@@ -66,7 +66,7 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
                     },
                     child: Card(
                       elevation: 3,
-                      color: isDarkMode ? Colors.red : Colors.blue,
+                      color: isDarkMode ? Colors.red : Colors.blue[800],
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
                       ),

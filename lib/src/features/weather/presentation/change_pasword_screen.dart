@@ -169,13 +169,16 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
                         //     (await loadingState)!;
                       },
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
+                        backgroundColor: WidgetStatePropertyAll(
                             isDarkMode ? Colors.red : Colors.blue),
+                        side: WidgetStatePropertyAll(
+                          BorderSide(color: Colors.transparent),
+                        ),
                         padding: MaterialStateProperty.all(EdgeInsets.zero),
                         shape: const MaterialStatePropertyAll(
                           RoundedRectangleBorder(
                               borderRadius: BorderRadius.all(
-                                Radius.circular(10),
+                                Radius.circular(50),
                               ),
                               side: BorderSide.none),
                         ),

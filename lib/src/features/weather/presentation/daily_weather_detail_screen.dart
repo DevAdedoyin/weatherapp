@@ -221,7 +221,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                             dailyWeather.weather.description,
                             textAlign: TextAlign.center,
                             style: GoogleFonts.roboto(
-                                fontSize: 30, fontWeight: FontWeight.w500),
+                                fontSize: 30, fontWeight: FontWeight.w700),
                           ),
                         ),
                       ],
@@ -245,7 +245,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                           borderRadius: BorderRadius.circular(20),
                           child: Card(
                               // elevation: 3,
-                              color: isDarkMode ? Colors.red : Colors.blue,
+                              color: isDarkMode ? Colors.red : Colors.blue[800],
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(40),
                               ),
@@ -261,8 +261,8 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                   AnimatedContainer(
                     duration: const Duration(milliseconds: 500),
                     height: isTempContainerOpen
-                        ? size.height * 0.43
-                        : size.height * 0.11,
+                        ? size.height * 0.47
+                        : size.height * 0.10,
                     // color: AppColors.cardBgColor,
                     child: ListView.builder(
                         // physics: const NeverScrollableScrollPhysics(),
@@ -323,7 +323,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                           borderRadius: BorderRadius.circular(20),
                           child: Card(
                               // elevation: 3,
-                              color: isDarkMode ? Colors.red : Colors.blue,
+                              color: isDarkMode ? Colors.red : Colors.blue[800],
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(40),
                               ),

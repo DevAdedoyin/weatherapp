@@ -53,13 +53,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           showNextButton: true,
           next: Text("Next",
               style: TextStyle(
-                  color: isDarkMode ? Colors.white : Colors.white, fontSize: 15)),
+                  color: isDarkMode ? Colors.white : Colors.white,
+                  fontSize: 15)),
           back: const Icon(Icons.arrow_back),
           dotsDecorator: DotsDecorator(
             size: const Size.square(8.0),
             activeSize: const Size(18.0, 8.0),
             activeColor: AppColors.accentColor,
-            color:  isDarkMode ? Colors.grey : AppColors.deepBlack,
+            color: isDarkMode ? Colors.grey : AppColors.deepBlack,
             spacing: const EdgeInsets.symmetric(horizontal: 3.0),
             activeShape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(25.0),
@@ -83,7 +84,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               // foregroundColor: Colors.black,
               backgroundColor: isDarkMode ? Colors.grey : AppColors.deepBlack,
               elevation: 5,
-
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50.0),
               ),

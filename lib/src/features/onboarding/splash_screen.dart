@@ -74,8 +74,8 @@ class _SplashScreenState extends State<SplashScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: size.height * 0.12,
-                    width: size.height * 0.12,
+                    height: size.height * 0.13,
+                    width: size.height * 0.13,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(100),
                       child: Image.asset("assets/images/weather.gif",

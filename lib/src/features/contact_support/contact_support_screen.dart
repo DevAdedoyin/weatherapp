@@ -40,7 +40,7 @@ class ContactSupportPage extends StatelessWidget {
           style: TextStyle(color: Colors.white),
         ),
         iconTheme: IconThemeData(color: Colors.white),
-        backgroundColor: Colors.red,
+        backgroundColor: isDarkMode ? Colors.red : Colors.blue,
       ),
       body: Container(
         decoration: BoxDecoration(
