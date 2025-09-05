@@ -132,7 +132,11 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
                 children: [
                   Text(
                     "Register",
-                    style: textTheme.headlineMedium,
+                    style: GoogleFonts.roboto(
+                        fontSize: 22.0,
+                        fontWeight: FontWeight.w900,
+                        color: isDarkMode ? Colors.white : Colors.black),
+                    // textTheme.headlineMedium,
                   ),
                   const Spacer(),
                   isLoading

@@ -108,7 +108,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                   Text(
                     "Sign In",
                     style: GoogleFonts.roboto(
-                        fontSize: 24.0,
+                        fontSize: 22.0,
                         fontWeight: FontWeight.w900,
                         color: isDarkMode ? Colors.white : Colors.black),
                     // textTheme.headlineMedium,

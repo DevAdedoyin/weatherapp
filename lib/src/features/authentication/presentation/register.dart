@@ -39,14 +39,20 @@ class RegisterScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       verticalGap(size.height * 0.07),
-                      Text(
-                        "Create an",
-                        style: textTheme.headlineLarge,
-                      ),
-                      Text(
-                        "account",
-                        style: textTheme.headlineMedium,
-                      ),
+                      Text("Create an",
+                          style: GoogleFonts.petemoss(
+                              height: 1,
+                              fontSize: 70,
+                              fontWeight: FontWeight.bold)
+                          // textTheme.headlineLarge,
+                          ),
+                      Text("Account",
+                          style: GoogleFonts.petemoss(
+                              height: 1,
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold)
+                          // textTheme.headlineMedium,
+                          ),
                       verticalGap(size.height < 650 ? 15 : 30),
                       const RegisterForm(),
                       verticalGap(size.height < 650 ? 8 : 15),
@@ -67,14 +73,20 @@ class RegisterScreen extends StatelessWidget {
                           text: TextSpan(children: [
                             TextSpan(
                                 text: "Registered already? ",
-                                style: textTheme.titleSmall),
+                                style: GoogleFonts.roboto(
+                                    fontSize: 15,
+                                    color:
+                                    isDarkMode ? Colors.white : Colors.black,
+                                    fontWeight: FontWeight.w800)
+                                // textTheme.titleSmall
+                            ),
                             TextSpan(
                               text: "Sign In here",
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () => context.push(AppRoutes.login),
                               style: GoogleFonts.robotoSlab(
                                   fontSize: 15,
-                                  color: isDarkMode ? Colors.red : Colors.blue,
+                                  color: isDarkMode ? Colors.red : Colors.blue[900],
                                   fontWeight: FontWeight.bold),
                             )
                           ]),

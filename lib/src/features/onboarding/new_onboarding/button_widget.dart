@@ -30,6 +30,10 @@ class ButtonWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(30))),
           backgroundColor: WidgetStatePropertyAll(backgroundColor),
           foregroundColor: WidgetStatePropertyAll(textColor),
+          elevation: WidgetStatePropertyAll(1),
+          side: WidgetStatePropertyAll(
+            BorderSide(color: Colors.transparent),
+          ),
         ),
         child: Text(text),
       ),
