@@ -88,11 +88,11 @@ class _NewOnboardingScreenState extends ConsumerState<NewOnboardingScreen> {
               height: size.height * 0.019,
             ),
             ButtonWidget(
-              text: currentIndex == 3 ? "Get Started" : "Next",
-              backgroundColor: Colors.black,
+              text: currentIndex == 3 ? "Get Started" : "Continue",
+              backgroundColor: isDarkMode ? Colors.white : Colors.black,
               height: size.height * 0.05,
               width: size.width * 0.85,
-              textColor: Colors.white,
+              textColor: isDarkMode ? Colors.black : Colors.white,
               onPress: () {
                 if (currentIndex == 3) {
                   goRouter.go(AppRoutes.userLocatorPage);
