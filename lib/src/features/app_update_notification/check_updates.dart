@@ -37,7 +37,7 @@ void checkForUpdates(BuildContext context) async {
         AppVersionDialog(
           updateButtonColor: isDarkMode ? Colors.red : Colors.blue,
           backgroundColor: isDarkMode ? Colors.black87 : Colors.white70,
-          title: "New Version Available",
+          title: "Update Your App",
           titleColor: isDarkMode ? Colors.white : Colors.black,
           context: context,
           jsonUrl:
