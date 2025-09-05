@@ -93,11 +93,11 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                   context.push(AppRoutes.forgotPassword);
                 },
                 child: Text(
-                  "Forgot Password?",
+                  "Forgot password?",
                   style: GoogleFonts.roboto(
                       fontSize: 15.0,
-                      fontWeight: FontWeight.w600,
-                      color: isDarkMode ? Colors.red : Colors.blue),
+                      fontWeight: FontWeight.w900,
+                      color: isDarkMode ? Colors.red : Colors.black),
                 ),
               ),
             ),
@@ -107,7 +107,11 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                 children: [
                   Text(
                     "Sign In",
-                    style: textTheme.headlineMedium,
+                    style: GoogleFonts.roboto(
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.w900,
+                        color: isDarkMode ? Colors.white : Colors.black),
+                    // textTheme.headlineMedium,
                   ),
                   const Spacer(),
                   isLoading

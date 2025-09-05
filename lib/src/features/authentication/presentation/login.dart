@@ -23,9 +23,7 @@ class LoginScreen extends ConsumerWidget {
 
     final currentIndex = ref.watch(bottomNavState);
 
-    bool isDarkMode = Theme
-        .of(context)
-        .brightness == Brightness.dark;
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
@@ -50,15 +48,21 @@ class LoginScreen extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       verticalGap(40.0),
-                      Text(
-                        "Welcome",
-                        style: textTheme.headlineLarge,
-                      ),
-                      Text(
-                        "Back!",
-                        style: textTheme.headlineMedium,
-                      ),
-                      verticalGap(size.height < 650 ? 15 :30),
+                      Text("Welcome",
+                          style: GoogleFonts.petemoss(
+                              height: 1,
+                              fontSize: 70,
+                              fontWeight: FontWeight.bold)
+                          // textTheme.headlineLarge,
+                          ),
+                      Text("Back!",
+                          style: GoogleFonts.petemoss(
+                              height: 1,
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold)
+                          // textTheme.headlineMedium,
+                          ),
+                      verticalGap(size.height < 650 ? 15 : 30),
                       const LoginForm(),
                       verticalGap(size.height < 650 ? 15 : 30),
                       SizedBox(
@@ -78,14 +82,23 @@ class LoginScreen extends ConsumerWidget {
                             text: TextSpan(children: [
                           TextSpan(
                               text: "Not registered yet? ",
-                              style: textTheme.titleSmall),
+                              style: GoogleFonts.roboto(
+                                  fontSize: 15,
+                                  color:
+                                      isDarkMode ? Colors.white : Colors.black,
+                                  fontWeight: FontWeight.w800)
+                              // textTheme.titleSmall,
+                              ),
                           TextSpan(
                               text: "Register here",
                               recognizer: TapGestureRecognizer()
-                                ..onTap = () => context.push(AppRoutes.register),
+                                ..onTap =
+                                    () => context.push(AppRoutes.register),
                               style: GoogleFonts.robotoSlab(
                                   fontSize: 15,
-                                  color: isDarkMode ? Colors.red : Colors.blue,
+                                  color: isDarkMode
+                                      ? Colors.red
+                                      : Colors.blue[900],
                                   fontWeight: FontWeight.bold))
                         ])),
                       ),
@@ -112,20 +125,26 @@ Thank you.
                                     context.go(AppRoutes.userLocatorPage));
                           },
                           style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(isDarkMode ? Colors.red : Colors.blue),
-                            padding: MaterialStateProperty.all(EdgeInsets.zero),
-                            shape: const MaterialStatePropertyAll(
+                            backgroundColor: WidgetStatePropertyAll(
+                                isDarkMode ? Colors.red : Colors.blue),
+                            padding: WidgetStatePropertyAll(EdgeInsets.zero),
+                            shape: const WidgetStatePropertyAll(
                               RoundedRectangleBorder(
                                 borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
+                                  Radius.circular(20),
                                 ),
                               ),
+                            ),
+                            elevation: WidgetStatePropertyAll(2),
+                            side: WidgetStatePropertyAll(
+                              BorderSide(color: Colors.transparent),
                             ),
                           ),
                           child: Text(
                             "Skip",
-                            style: TextStyle(color: isDarkMode ? Colors.white : Colors.white),
+                            style: TextStyle(
+                                color:
+                                    isDarkMode ? Colors.white : Colors.white),
                           ),
                         ),
                       ),
