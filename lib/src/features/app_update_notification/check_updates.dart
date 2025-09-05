@@ -14,7 +14,7 @@ String appVersion = "1.0.0";
 void checkForUpdates(BuildContext context) async {
   try {
     final response = await http.get(Uri.parse(
-        'https://raw.githubusercontent.com/DevAdedoyin/weatherapp/master/app_version.json'));
+        'https://raw.githubusercontent.com/DevAdedoyin/weather_monitor_update_file/master/app_version.json'));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
@@ -37,7 +37,7 @@ void checkForUpdates(BuildContext context) async {
           updateButtonColor: Colors.red,
           context: context,
           jsonUrl:
-              'https://raw.githubusercontent.com/DevAdedoyin/weatherapp/master/app_version.json',
+              'https://raw.githubusercontent.com/DevAdedoyin/weather_monitor_update_file/master/app_version.json',
           onPressConfirm: () async {
             await _openStore(updateUrl);
           },
