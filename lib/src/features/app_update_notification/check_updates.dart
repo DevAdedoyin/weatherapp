@@ -12,6 +12,7 @@ import 'package:weatherapp/src/routing/go_router_provider.dart';
 String appVersion = "1.0.0";
 
 void checkForUpdates(BuildContext context) async {
+  bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
   try {
     final response = await http.get(Uri.parse(
         'https://raw.githubusercontent.com/DevAdedoyin/weather_monitor_update_file/master/app_version.json'));
@@ -34,7 +35,10 @@ void checkForUpdates(BuildContext context) async {
           lastSkippedVersion != latestVersion) {
         if (!context.mounted) return;
         AppVersionDialog(
-          updateButtonColor: Colors.red,
+          updateButtonColor: isDarkMode ? Colors.red : Colors.blue,
+          backgroundColor: isDarkMode ? Colors.black87 : Colors.white70,
+          title: "New Version Available",
+          titleColor: isDarkMode ? Colors.white : Colors.black,
           context: context,
           jsonUrl:
               'https://raw.githubusercontent.com/DevAdedoyin/weather_monitor_update_file/master/app_version.json',
