@@ -49,7 +49,15 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
         ),
         backgroundColor: isDarkMode ? Colors.red : Colors.blue,
       ),
-      body: SingleChildScrollView(
+      body: Container(
+        height: size.height,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(isDarkMode
+                  ? "assets/images/darkmode.jpg"
+                  : "assets/images/sky.jpg"),
+              fit: BoxFit.cover),
+        ),
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: Form(
@@ -85,13 +93,16 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                       ref.read(isPasswordUpdating.notifier).state = false;
                     },
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
+                      backgroundColor: WidgetStatePropertyAll(
                           isDarkMode ? Colors.red : Colors.blue),
-                      padding: MaterialStateProperty.all(EdgeInsets.zero),
-                      shape: const MaterialStatePropertyAll(
+                      padding: WidgetStatePropertyAll(EdgeInsets.zero),
+                      side: WidgetStatePropertyAll(
+                        BorderSide(color: Colors.transparent),
+                      ),
+                      shape: const WidgetStatePropertyAll(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(
-                            Radius.circular(10),
+                            Radius.circular(20),
                           ),
                         ),
                       ),

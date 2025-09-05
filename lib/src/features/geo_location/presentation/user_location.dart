@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:weatherapp/src/common/gaps/sized_box.dart';
 import 'package:weatherapp/src/constants/app_colors.dart';
 import 'package:weatherapp/src/features/geo_location/data/get_location.dart';
@@ -45,22 +46,25 @@ class _UserLocationState extends ConsumerState<UserLocation> {
                 SizedBox(
                   width: size.width * 0.8,
                   child: Text(
-                    "Let Weather Monitor access your location to give you real-time weather datails on your location.",
-                    textAlign: TextAlign.center,
-                    style: textTheme.bodyMedium,
-                  ),
+                      "Let Weather Monitor access your location to give you real-time weather datails on your location.",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.roboto(
+                          fontWeight: FontWeight.bold,
+                          color: isDarkMode ? Colors.white : Colors.black)
+                      // textTheme.bodyMedium,
+                      ),
                 ),
                 verticalGap(size.height < 690
                     ? size.height * 0.04
                     : size.height * 0.07),
                 SizedBox(
                   width: size.width * 0.8,
-                  child: const Text(
+                  child: Text(
                     "Please note that your location is NOT stored on our server. We only need your location to give you weather update for your current location.",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.red,
+                    style: GoogleFonts.roboto(
+                        fontSize: 13,
+                        color: Colors.white,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -95,10 +99,12 @@ class _UserLocationState extends ConsumerState<UserLocation> {
                   verticalGap(size.height < 650
                       ? size.height * 0.04
                       : size.height * 0.10),
-                Text(
-                  "Please wait while we fetch your location",
-                  style: textTheme.bodySmall,
-                ),
+                Text("Please wait while we fetch your location",
+                    style: GoogleFonts.roboto(
+                        fontWeight: FontWeight.bold,
+                        color: isDarkMode ? Colors.white : Colors.black)
+                    // textTheme.bodySmall,
+                    ),
                 SizedBox(
                     width: size.width * 0.5,
                     child: const LinearProgressIndicator()),
@@ -109,20 +115,23 @@ class _UserLocationState extends ConsumerState<UserLocation> {
                       ? size.height * 0.04
                       : size.height * 0.07),
                 SizedBox(
-                  width: size.width * 0.7,
+                  width: size.width * 0.8,
                   child: ElevatedButton(
                     onPressed: () {
                       GenerateWeatherLocation.getLocation();
                     },
                     style: ButtonStyle(
-                        // elevation: const MaterialStatePropertyAll(2),
-                        shape: const MaterialStatePropertyAll(
+                        elevation: const WidgetStatePropertyAll(1),
+                        shape: const WidgetStatePropertyAll(
                             RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10)))),
-                        padding: const MaterialStatePropertyAll(
+                        padding: const WidgetStatePropertyAll(
                             EdgeInsets.symmetric(vertical: 10)),
-                        backgroundColor: MaterialStatePropertyAll(
+                        side: WidgetStatePropertyAll(
+                          BorderSide(color: Colors.transparent),
+                        ),
+                        backgroundColor: WidgetStatePropertyAll(
                             isDarkMode ? Colors.red : Colors.blue)),
                     child: Text("Enable Location",
                         style: TextStyle(
