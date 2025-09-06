@@ -16,6 +16,7 @@ import 'package:weatherapp/src/utils/weather_icon_utils.dart';
 
 import '../../ads/data/repositories/banner_repository.dart';
 import '../../ads/data/repositories/interstital_repository.dart';
+import '../../temeperature_scale/data/temperature_data.dart';
 
 class DailyWeatherDetail extends ConsumerStatefulWidget {
   const DailyWeatherDetail({super.key});
@@ -67,10 +68,10 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
     final Map<String, dynamic> otherWeatherDetails = {
       "Pressure": dailyWeather.pressure,
       "Sunrise": formattedSunrise,
-      "Humidity": dailyWeather.humidity,
-      "Wind Speed": dailyWeather.windSpeed,
+      "Humidity": "${dailyWeather.humidity}%",
+      "Wind Speed": "${dailyWeather.windSpeed}m/s",
       "Sunset": formattedSunset,
-      "Dew Point": "${dailyWeather.dewPoint}°c",
+      "Dew Point": dailyWeather.dewPoint.toDouble(),
       "Wind Degree": dailyWeather.windDegree,
       "Moonrise": formattedMoonrise,
       "Moonset": formattedMoonset,
@@ -182,38 +183,57 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                   Container(
                     padding: const EdgeInsets.only(top: 0),
                     margin: EdgeInsets.only(
-                        left: size.width < 650 ? 10 : 20,
-                        right: size.width < 650 ? 10 : 20,
+                        left: size.width < 650 ? 5 : 15,
+                        right: size.width < 650 ? 5 : 15,
                         top: 0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SizedBox(
-                          width: size.width * 0.40,
+                          // color: Colors.blue,
+                          width: size.width * 0.47,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              GradientText(
-                                "${dailyWeather.temp.day.round()}°",
-                                style: GoogleFonts.robotoCondensed(
-                                  fontSize: size.width < 650 ? 70 : 100.0,
-                                  fontWeight: FontWeight.bold,
+                              FutureBuilder<String>(
+                                future: TemperatureConverter.formatWithPrefs(
+                                  dailyWeather.temp.day.toDouble(),
                                 ),
-                                colors: const [
-                                  Colors.white,
-                                  Colors.grey,
-                                  Colors.white,
-                                  // Colors.grey,
-                                ],
+                                builder: (context, snapshot) {
+                                  if (!snapshot.hasData) {
+                                    return const SizedBox.shrink();
+                                  }
+                                  return GradientText(
+                                    snapshot.data!,
+                                    style: GoogleFonts.robotoCondensed(
+                                      fontSize: size.width < 650 ? 70 : 100.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    colors: const [
+                                      Colors.white,
+                                      Colors.grey,
+                                      Colors.white
+                                    ],
+                                  );
+                                },
                               ),
-                              Text(
-                                "Feel like: ${dailyWeather.feelsLike.day.round()}°c",
-                                style: textTheme.titleSmall,
-                              )
+                              FutureBuilder<String>(
+                                future: TemperatureConverter.formatWithPrefs(
+                                  dailyWeather.feelsLike.day.toDouble(),
+                                ),
+                                builder: (context, snapshot) {
+                                  if (!snapshot.hasData) {
+                                    return const SizedBox.shrink();
+                                  }
+                                  return Text("Feel like: ${snapshot.data}",
+                                      style: textTheme.titleSmall);
+                                },
+                              ),
                             ],
                           ),
                         ),
                         SizedBox(
+                          // color: Colors.blue,
                           width: size.width * 0.40,
                           // color: Colors.blue[200],
                           // Adjust height as needed
@@ -221,7 +241,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                             dailyWeather.weather.description,
                             textAlign: TextAlign.center,
                             style: GoogleFonts.roboto(
-                                fontSize: 30, fontWeight: FontWeight.w700),
+                                fontSize: 28, fontWeight: FontWeight.w700),
                           ),
                         ),
                       ],
@@ -265,7 +285,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                         : size.height * 0.10,
                     // color: AppColors.cardBgColor,
                     child: ListView.builder(
-                        // physics: const NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         itemCount: daily.length,
                         itemBuilder: (context, pos) {
                           return Card(
@@ -289,14 +309,32 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                                 dayOfTheDay[pos].toString(),
                                 style: textTheme.bodyMedium,
                               ),
-                              subtitle: Text(
-                                "Feels like ${feelsLike[pos].round().toString()}°c",
-                                style: GoogleFonts.roboto(
-                                    fontSize: 12, fontWeight: FontWeight.w500),
+                              subtitle: FutureBuilder<String>(
+                                future: TemperatureConverter.formatWithPrefs(
+                                    feelsLike[pos].toDouble()),
+                                builder: (context, snapshot) {
+                                  if (!snapshot.hasData) {
+                                    return const SizedBox.shrink();
+                                  }
+                                  return Text(
+                                    "Feels like ${snapshot.data}",
+                                    style: GoogleFonts.roboto(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500),
+                                  );
+                                },
                               ),
-                              trailing: Text(
-                                  "${daily[pos].round().toString()}°c",
-                                  style: textTheme.bodySmall),
+                              trailing: FutureBuilder<String>(
+                                future: TemperatureConverter.formatWithPrefs(
+                                    daily[pos].toDouble()),
+                                builder: (context, snapshot) {
+                                  if (!snapshot.hasData) {
+                                    return const SizedBox.shrink();
+                                  }
+                                  return Text(snapshot.data!,
+                                      style: textTheme.bodySmall);
+                                },
+                              ),
                               contentPadding: const EdgeInsets.symmetric(
                                   horizontal: 15, vertical: 0),
                             ),
@@ -375,12 +413,31 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                                   otherWeatherDetails.entries
                                       .elementAt(pos)
                                       .key,
-                                  style: textTheme.titleSmall,
+                                  style: textTheme.bodyMedium,
                                 ),
                                 verticalGap(1),
-                                Text(
-                                    "${otherWeatherDetails.entries.elementAt(pos).value}",
-                                    style: const TextStyle(fontSize: 12)),
+                                otherWeatherDetails.entries
+                                            .elementAt(pos)
+                                            .key ==
+                                        "Dew Point"
+                                    ? FutureBuilder<String>(
+                                        future: TemperatureConverter
+                                            .formatWithPrefs(otherWeatherDetails
+                                                .entries
+                                                .elementAt(pos)
+                                                .value as double),
+                                        builder: (context, snapshot) {
+                                          if (!snapshot.hasData) {
+                                            return const SizedBox.shrink();
+                                          }
+                                          return Text(snapshot.data!,
+                                              style: const TextStyle(
+                                                  fontSize: 12));
+                                        },
+                                      )
+                                    : Text(
+                                        "${otherWeatherDetails.entries.elementAt(pos).value}",
+                                        style: const TextStyle(fontSize: 12)),
                               ],
                             ),
                           );

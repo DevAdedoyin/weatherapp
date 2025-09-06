@@ -210,13 +210,13 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                           ],
                         )),
                     prefixIcon: InkWell(
-                      onTap: (){
-                        FocusManager.instance.primaryFocus?.unfocus();
-                      },
+                        onTap: () {
+                          FocusManager.instance.primaryFocus?.unfocus();
+                        },
                         child: Icon(
-                      Icons.search,
-                      color: isDarkMode ? Colors.red : Colors.blue,
-                    ))),
+                          Icons.search,
+                          color: isDarkMode ? Colors.red : Colors.blue,
+                        ))),
                 textController: textController,
                 suggestions: uniqueCityData,
                 boxController: boxController,
@@ -236,7 +236,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
             if (bannerAd != null)
               SizedBox(
                 height: bannerAd.size.height.toDouble(),
-                width: bannerAd.size.width.toDouble(),
+                width: size.width * 0.89,
                 child: AdWidget(ad: bannerAd),
               ),
             verticalGap(10),

@@ -18,9 +18,10 @@ import "package:weatherapp/src/utils/weather_icon_utils.dart";
 import "../../../../common/widgets/auth_widgets/info_alert.dart";
 import "../../../ads/data/repositories/banner_repository.dart";
 import "../../../ads/data/repositories/interstital_repository.dart";
+import "../../../temeperature_scale/data/temperature_data.dart";
 
 class DailyForecastPage extends ConsumerStatefulWidget {
-  const DailyForecastPage({Key? key}) : super(key: key);
+  const DailyForecastPage({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -34,19 +35,21 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
     TextTheme textTheme = Theme.of(context).textTheme;
     final bannerAd = ref.watch(forecastBannerAdProvider);
     ref.watch(dailyWeatherProvider);
+    final user = FirebaseAuth.instance.currentUser;
 
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Column(
       children: [
         Container(
             margin: EdgeInsets.only(top: size.height * 0.06, bottom: 5),
-            child: Text("7 Days Forecast", style: textTheme.headlineMedium)),
+            child: Text(user == null ? "5 Days Forecast" : "7 Days Forecast",
+                style: textTheme.headlineMedium)),
         Text("Accurate Weather Forecast", style: textTheme.bodyMedium),
         verticalGap(10),
         if (bannerAd != null)
           SizedBox(
             height: bannerAd.size.height.toDouble(),
-            width: bannerAd.size.width.toDouble(),
+            width: size.width * 0.89,
             child: AdWidget(ad: bannerAd),
           ),
         verticalGap(5),
@@ -174,8 +177,20 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                                   style: textTheme.bodyMedium),
                               subtitle: Text(data[pos].summary,
                                   style: const TextStyle(fontSize: 12)),
-                              trailing: Text("${data[pos].temp.day.round()}°c",
-                                  style: textTheme.bodyMedium),
+                              trailing: FutureBuilder<String>(
+                                future: TemperatureConverter.formatWithPrefs(
+                                  data[pos].temp.day.toDouble(),
+                                ),
+                                builder: (context, snapshot) {
+                                  if (!snapshot.hasData) {
+                                    return const SizedBox.shrink();
+                                  }
+                                  return Text(
+                                    snapshot.data!,
+                                    style: textTheme.bodyMedium,
+                                  );
+                                },
+                              ),
                             ),
                           ),
                         ),
@@ -183,7 +198,7 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                     ),
                   );
                 },
-                itemCount: data?.length,
+                itemCount: user == null ? 5 : data?.length,
               ),
             );
           },

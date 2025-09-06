@@ -18,7 +18,7 @@ class AppTextTheme {
     titleMedium: const TextStyle().copyWith(
         fontSize: 16.0, fontWeight: FontWeight.w700, color: Colors.black),
     titleSmall: const TextStyle().copyWith(
-        fontSize: 14.0, fontWeight: FontWeight.w500, color: Colors.black),
+        fontSize: 14.0, fontWeight: FontWeight.w600, color: Colors.black),
 
     // label theme
     bodyLarge: const TextStyle().copyWith(
@@ -50,7 +50,7 @@ class AppTextTheme {
     titleMedium: const TextStyle().copyWith(
         fontSize: 16.0, fontWeight: FontWeight.w700, color: Colors.white),
     titleSmall: const TextStyle().copyWith(
-        fontSize: 14.0, fontWeight: FontWeight.w500, color: Colors.white),
+        fontSize: 14.0, fontWeight: FontWeight.w600, color: Colors.white),
 
     // label theme
     bodyLarge: const TextStyle().copyWith(

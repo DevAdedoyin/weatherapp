@@ -11,6 +11,7 @@ import 'package:weatherapp/src/features/weather/presentation/hourly_weather/weat
 import 'package:weatherapp/src/utils/weather_icon_utils.dart';
 
 import '../../../ads/data/repositories/banner_repository.dart';
+import '../../../temeperature_scale/data/temperature_data.dart';
 
 class HourlyWeatherDetailsScreen extends ConsumerStatefulWidget {
   const HourlyWeatherDetailsScreen({super.key});
@@ -126,28 +127,50 @@ class _HourlyWeatherDetailsScreenState
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        width: size.width * 0.40,
+                        width: size.width * 0.45,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            GradientText(
-                              "${hourlyWeatherState.temp!}°",
-                              style: GoogleFonts.robotoCondensed(
-                                height: 1,
-                                fontSize: size.height < 650 ? 70 : 100.0,
-                                fontWeight: FontWeight.bold,
+                            FutureBuilder<String>(
+                              future: TemperatureConverter.formatWithPrefs(
+                                double.tryParse(
+                                        hourlyWeatherState.temp ?? '') ??
+                                    0.0,
                               ),
-                              colors: const [
-                                Colors.white,
-                                Colors.grey,
-                                Colors.white,
-                                // Colors.grey,
-                              ],
+                              builder: (context, snapshot) {
+                                if (!snapshot.hasData) {
+                                  return const SizedBox.shrink();
+                                }
+                                return GradientText(
+                                  snapshot.data!,
+                                  style: GoogleFonts.robotoCondensed(
+                                    fontSize: 70,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  colors: const [
+                                    Colors.white,
+                                    Colors.grey,
+                                    Colors.white
+                                  ],
+                                );
+                              },
                             ),
-                            Text(
-                              "Feel like: ${hourlyWeatherState.feelsLike}°",
-                              style: textTheme.titleSmall,
-                            )
+                            FutureBuilder<String>(
+                              future: TemperatureConverter.formatWithPrefs(
+                                double.tryParse(
+                                        hourlyWeatherState.temp ?? '') ??
+                                    0.0,
+                              ),
+                              builder: (context, snapshot) {
+                                if (!snapshot.hasData) {
+                                  return const SizedBox.shrink();
+                                }
+                                return Text(
+                                  "Feel like: ${snapshot.data}",
+                                  style: textTheme.titleSmall,
+                                );
+                              },
+                            ),
                           ],
                         ),
                       ),

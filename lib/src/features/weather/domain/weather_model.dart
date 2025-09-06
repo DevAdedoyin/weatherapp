@@ -35,7 +35,7 @@ class WeatherModel {
         []; //hourlyWeather.sublist(0, 1);
     int pos = 0;
     for (var item in hourlyWeather) {
-      if (item is Map<String, dynamic> && pos <= 7) {
+      if (item is Map<String, dynamic> && pos <= 24) {
         // print("Hourlyyysss: $item");
         if (pos != 0) hourlyWeatherList.add(item);
         pos++;

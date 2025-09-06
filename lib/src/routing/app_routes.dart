@@ -15,4 +15,5 @@ class AppRoutes {
   static const String suggestion = '/suggestion';
   static const String contact = '/contact';
   static const String shareApp = '/shareApp';
+  static const String temperatureScale = '/temperatureScale';
 }

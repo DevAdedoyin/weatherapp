@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -22,6 +23,7 @@ import 'package:weatherapp/src/utils/weather_icon_utils.dart';
 
 import '../../ads/data/repositories/banner_repository.dart';
 import '../../ads/data/repositories/interstital_repository.dart';
+import '../../temeperature_scale/data/temperature_data.dart';
 import '../domain/weather_tips_model.dart';
 
 class SearchDetailScreen extends ConsumerStatefulWidget {
@@ -181,27 +183,49 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             SizedBox(
-                              width: size.width * 0.40,
+                              width: size.width * 0.45,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  GradientText(
-                                    "${data.currentWeatherModel.temp.round()}°",
-                                    style: GoogleFonts.robotoCondensed(
-                                      fontSize: size.height < 650 ? 70 : 100.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    colors: const [
-                                      Colors.white,
-                                      Colors.grey,
-                                      Colors.white,
-                                      // Colors.grey,
-                                    ],
+                                  FutureBuilder<String>(
+                                    future:
+                                        TemperatureConverter.formatWithPrefs(
+                                            data.currentWeatherModel.temp),
+                                    builder: (context, snapshot) {
+                                      if (!snapshot.hasData) {
+                                        return const SizedBox(
+                                          height: 70,
+                                          width: 100,
+                                        ); // placeholder while loading
+                                      }
+                                      return GradientText(
+                                        snapshot.data!,
+                                        style: GoogleFonts.robotoCondensed(
+                                          fontSize:
+                                              size.height < 650 ? 65 : 80.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                        colors: const [
+                                          Colors.white,
+                                          Colors.grey,
+                                          Colors.white,
+                                        ],
+                                      );
+                                    },
                                   ),
-                                  Text(
-                                    "Feel like: ${data.currentWeatherModel.feelsLike.round()}°c",
-                                    style: textTheme.titleSmall,
-                                  )
+                                  FutureBuilder<String>(
+                                    future:
+                                        TemperatureConverter.formatWithPrefs(
+                                            data.currentWeatherModel.feelsLike),
+                                    builder: (context, snapshot) {
+                                      if (!snapshot.hasData)
+                                        return const SizedBox();
+                                      return Text(
+                                        "Feel like: ${snapshot.data!}",
+                                        style: textTheme.titleSmall,
+                                      );
+                                    },
+                                  ),
                                 ],
                               ),
                             ),
@@ -227,7 +251,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                             verticalGap(20),
                             SizedBox(
                               height: bannerAd.size.height.toDouble(),
-                              width: bannerAd.size.width.toDouble(),
+                              width: size.width * 0.89,
                               child: AdWidget(ad: bannerAd),
                             ),
                           ],
@@ -344,9 +368,19 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                           "Dew Point",
                                           style: textTheme.bodyMedium,
                                         ),
-                                        Text(
-                                          "${data.currentWeatherModel.dewPoint.round()}°c",
-                                          style: textTheme.bodySmall,
+                                        FutureBuilder<String>(
+                                          future: TemperatureConverter
+                                              .formatWithPrefs(data
+                                                  .currentWeatherModel
+                                                  .dewPoint),
+                                          builder: (context, snapshot) {
+                                            if (!snapshot.hasData)
+                                              return const SizedBox();
+                                            return Text(
+                                              snapshot.data!,
+                                              style: textTheme.bodySmall,
+                                            );
+                                          },
                                         ),
                                       ],
                                     ),
@@ -368,7 +402,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20.0),
                               child: Text(
-                                'Next 7 hours',
+                                'Next 24 hours',
                                 style: textTheme.titleMedium,
                               ),
                             ),
@@ -498,12 +532,21 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                                   ),
                                                 ),
                                               ),
-                                              Text(
-                                                "${data_.temp.round()}°c",
-                                                style: GoogleFonts.roboto(
-                                                    fontSize: 25,
-                                                    fontWeight:
-                                                        FontWeight.w700),
+                                              FutureBuilder<String>(
+                                                future: TemperatureConverter
+                                                    .formatWithPrefs(
+                                                        data_.temp),
+                                                builder: (context, snapshot) {
+                                                  if (!snapshot.hasData)
+                                                    return const SizedBox();
+                                                  return Text(
+                                                    snapshot.data!,
+                                                    style: GoogleFonts.roboto(
+                                                        fontSize: 25,
+                                                        fontWeight:
+                                                            FontWeight.w700),
+                                                  );
+                                                },
                                               ),
                                               verticalGap(5),
                                             ],
@@ -525,7 +568,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                             verticalGap(20),
                             SizedBox(
                               height: banner2Ad.size.height.toDouble(),
-                              width: banner2Ad.size.width.toDouble(),
+                              width: size.width * 0.89,
                               child: AdWidget(ad: banner2Ad),
                             ),
                           ],
@@ -543,7 +586,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20.0),
                               child: Text(
-                                'Next 5 Days',
+                                'Next 7 Days',
                                 style: textTheme.titleMedium,
                               ),
                             ),
@@ -632,13 +675,22 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                                   ),
                                                 ),
                                               ),
-                                              Text(
-                                                // "",
-                                                "${data_.temp.day.round()}°c",
-                                                style: GoogleFonts.roboto(
-                                                    fontSize: 25,
-                                                    fontWeight:
-                                                        FontWeight.w700),
+                                              FutureBuilder<String>(
+                                                future: TemperatureConverter
+                                                    .formatWithPrefs(
+                                                        data_.temp.day),
+                                                builder: (context, snapshot) {
+                                                  if (!snapshot.hasData) {
+                                                    return const SizedBox();
+                                                  }
+                                                  return Text(
+                                                    snapshot.data!,
+                                                    style: GoogleFonts.roboto(
+                                                        fontSize: 25,
+                                                        fontWeight:
+                                                            FontWeight.w700),
+                                                  );
+                                                },
                                               ),
                                               verticalGap(
                                                   size.height < 650 ? 2 : 5),

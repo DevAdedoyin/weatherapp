@@ -41,12 +41,12 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     TextTheme textTheme = Theme.of(context).textTheme;
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     bool isLightMode = ref.watch(switchModes);
-    final bannerAd = ref.watch(searchBannerAdProvider);
+    final bannerAd = ref.watch(settingsBannerAdProvider);
     final themeNotifier = ref.read(themeNotifierProvider.notifier);
 
     return SingleChildScrollView(
       child: SizedBox(
-        height: size.height,
+        // height: size.height,
         child: Column(
           children: [
             verticalGap(size.height * 0.08),
@@ -86,9 +86,33 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             if (bannerAd != null)
               SizedBox(
                 height: bannerAd.size.height.toDouble(),
-                width: bannerAd.size.width.toDouble(),
+                width: size.width * 0.89,
                 child: AdWidget(ad: bannerAd),
               ),
+            verticalGap(10),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 15),
+              child: Card(
+                color: isDarkMode
+                    ? AppColors.cardDarkModeColor
+                    : AppColors.cardLightModeColor,
+                child: ListTile(
+                  leading: Icon(Icons.thermostat,
+                      color: isDarkMode ? Colors.red : Colors.blue),
+                  title: Text(
+                    "Temperature Unit",
+                    style: textTheme.bodyMedium,
+                  ),
+                  trailing: IconButton(
+                    onPressed: () {
+                      goRouter.push(AppRoutes.temperatureScale);
+                    },
+                    icon: const Icon(Icons.arrow_forward_rounded),
+                  ),
+                ),
+              ),
+            ),
+            verticalGap(10),
             user == null
                 ? SizedBox()
                 : Container(
@@ -399,7 +423,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                       ),
                     ),
                   ),
-            verticalGap(30),
+            user == null ? verticalGap(5) : verticalGap(30),
             Text("App Version: $appVersion"),
           ],
         ),

@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:weatherapp/src/utils/weather_icon_utils.dart';
 
 import '../../../ads/data/repositories/interstital_repository.dart';
+import '../../../temeperature_scale/data/temperature_data.dart';
 import '../../data/repositories/hourly_weather_detail.dart';
 
 class WeatherDetailsHourly extends ConsumerStatefulWidget {
@@ -89,14 +90,15 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
             height: isOpen ? size.height * 0.65 : size.height * 0.30,
             child: ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.zero,
+                padding: EdgeInsets.zero,
                 itemBuilder: (_, pos) {
                   List<String> details = [
                     hourlyWeatherState.pressure!,
-                    hourlyWeatherState.humidity!,
-                    hourlyWeatherState.dewPoint!,
+                    "${hourlyWeatherState.humidity!}%",
+                    "",
+                    // hourlyWeatherState.dewPoint!,
                     hourlyWeatherState.visibility!,
-                    hourlyWeatherState.windSpeed!,
+                   "${hourlyWeatherState.windSpeed!}m/s",
                     hourlyWeatherState.windDegree!,
                     hourlyWeatherState.windGust!,
                   ];
@@ -124,10 +126,17 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
                         style: textTheme.bodyMedium,
                       ),
                       // subtitle: Text("data"),
-                      trailing: Text(
-                        details[pos],
-                        style: textTheme.bodySmall,
-                      ),
+                      trailing: pos == 2
+                          ? FutureBuilder<String>(
+                        future: TemperatureConverter.formatWithPrefs(
+                          double.tryParse(hourlyWeatherState.dewPoint!) ?? 0,
+                        ),
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) return const SizedBox.shrink();
+                          return Text(snapshot.data!, style: textTheme.bodySmall);
+                        },
+                      )
+                          : Text(details[pos], style: textTheme.bodySmall),
                     ),
                   );
                 },
