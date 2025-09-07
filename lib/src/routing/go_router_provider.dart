@@ -71,10 +71,10 @@ GoRouter goRouter = GoRouter(
       path: AppRoutes.forgotPassword,
       builder: (context, state) => const ForgotPasswordScreen(),
     ),
-    GoRoute(
-      path: AppRoutes.suggestion,
-      builder: (context, state) => const WeatherTipsScreen(),
-    ),
+    // GoRoute(
+    //   path: AppRoutes.suggestion,
+    //   builder: (context, state) => const WeatherTipsScreen(),
+    // ),
     GoRoute(
       path: AppRoutes.contact,
       builder: (context, state) => const ContactSupportPage(),

@@ -246,7 +246,10 @@ class _SearchPageState extends ConsumerState<SearchPage> {
               child: Text(
                 "Popular places",
                 textAlign: TextAlign.start,
-                style: textTheme.bodyLarge,
+                style: GoogleFonts.aBeeZee(
+                    color: isDarkMode ? Colors.white : Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
               ),
             ),
             verticalGap(10),

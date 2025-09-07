@@ -2,6 +2,7 @@ import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
+import "package:google_fonts/google_fonts.dart";
 import "package:google_mobile_ads/google_mobile_ads.dart";
 
 import "package:intl/intl.dart";
@@ -41,9 +42,14 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
     return Column(
       children: [
         Container(
-            margin: EdgeInsets.only(top: size.height * 0.06, bottom: 5),
-            child: Text(user == null ? "5 Days Forecast" : "7 Days Forecast",
-                style: textTheme.headlineMedium)),
+            margin: EdgeInsets.only(top: size.height * 0.075, bottom: 5),
+            child: Text(
+              user == null ? "5 Days Forecast" : "7 Days Forecast",
+              style: GoogleFonts.aboreto(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
+            )),
         Text("Accurate Weather Forecast", style: textTheme.bodyMedium),
         verticalGap(10),
         if (bannerAd != null)

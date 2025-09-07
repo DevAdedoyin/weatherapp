@@ -91,3 +91,8 @@ final settingsBannerAdProvider =
     StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
   return BannerAdNotifier();
 });
+
+final tipsBannerAdProvider =
+StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
+  return BannerAdNotifier();
+});

@@ -132,7 +132,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                       Text(
                         "$address",
                         // textAlign: TextAlign.center,
-                        style: textTheme.bodyLarge,
+                        style: GoogleFonts.aBeeZee(
+                            color: isDarkMode ? Colors.white : Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
                       ),
                       // verticalGap(2),
                       Container(

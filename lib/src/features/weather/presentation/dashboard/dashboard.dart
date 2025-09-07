@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:weatherapp/src/constants/app_colors.dart';
 import 'package:weatherapp/src/features/app_update_notification/check_updates.dart';
@@ -14,6 +15,7 @@ import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/dai
 import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/home_page.dart';
 import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/search_page.dart';
 import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/settings_page.dart';
+import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/tips_page.dart';
 import 'package:weatherapp/src/routing/app_routes.dart';
 import 'package:weatherapp/src/routing/go_router_provider.dart';
 
@@ -31,6 +33,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
     HomePage(),
     SearchPage(),
     DailyForecastPage(),
+    WeatherTipsScreen(),
     SettingsPage()
   ];
 
@@ -66,10 +69,10 @@ class _DashboardState extends ConsumerState<Dashboard> {
           } else {
             AppRatings.requestReview();
           }
-          goRouter.push(AppRoutes.suggestion);
+          // goRouter.push(AppRoutes.suggestion);
         },
         child: Icon(
-          Icons.lightbulb,
+          FontAwesomeIcons.book,
           color: isDarkMode ? Colors.red : Colors.blue,
           size: 30,
         ),
@@ -230,6 +233,23 @@ class _DashboardState extends ConsumerState<Dashboard> {
               backgroundColor: Colors.transparent,
               // isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
               icon: currentIndex == 3
+                  ? Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white54.withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(20)),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 7, vertical: 7),
+                  child: const Icon(Icons.lightbulb))
+                  : Icon(
+                Icons.lightbulb,
+                color: isDarkMode ? Colors.white60 : Colors.black87,
+                size: 30,
+              ),
+              label: "Tips"),
+          BottomNavigationBarItem(
+              backgroundColor: Colors.transparent,
+              // isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
+              icon: currentIndex == 4
                   ? Container(
                       decoration: BoxDecoration(
                           color: Colors.white54.withOpacity(0.15),
