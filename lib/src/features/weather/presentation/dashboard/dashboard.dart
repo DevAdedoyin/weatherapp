@@ -69,7 +69,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
           } else {
             AppRatings.requestReview();
           }
-          // goRouter.push(AppRoutes.suggestion);
+          goRouter.push(AppRoutes.weatherFact);
         },
         child: Icon(
           FontAwesomeIcons.book,

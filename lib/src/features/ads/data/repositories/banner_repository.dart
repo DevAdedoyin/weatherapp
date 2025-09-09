@@ -96,3 +96,8 @@ final tipsBannerAdProvider =
 StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
   return BannerAdNotifier();
 });
+
+final weatherFactsBannerAdProvider =
+StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
+  return BannerAdNotifier();
+});

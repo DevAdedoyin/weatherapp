@@ -28,6 +28,7 @@ import "../../../../common/widgets/auth_widgets/info_alert.dart";
 import "../../../ads/data/repositories/banner_repository.dart";
 import "../../../ads/data/repositories/interstital_repository.dart";
 import "../../../temeperature_scale/data/temperature_data.dart";
+import "../../../weather_fact/weather_fact_data.dart";
 // import 'package:shimmer/shimmer.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -43,9 +44,11 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   void initState() {
     super.initState();
-
+    // addWeatherFacts();
     getAddress();
-    ref.read(interstitialAdProvider.notifier).showAd();
+    currentUser == null
+        ? ref.read(interstitialAdProvider.notifier).showAd()
+        : null;
     // ref.read(userCurrentAddress.notifier).state = address!;
     // ref.read(isFromSearchScreen.notifier).state = false;
   }
@@ -420,6 +423,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
                 ),
                 if (banner2Ad != null && user == null)
+                // if (banner2Ad != null)
                   SliverToBoxAdapter(
                     child: Column(
                       children: [

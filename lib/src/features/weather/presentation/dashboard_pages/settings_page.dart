@@ -46,7 +46,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
 
     return SingleChildScrollView(
       child: SizedBox(
-        // height: size.height,
+        height: user == null ? size.height : null,
         child: Column(
           children: [
             verticalGap(size.height * 0.08),

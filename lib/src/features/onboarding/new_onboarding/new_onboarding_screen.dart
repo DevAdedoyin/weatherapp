@@ -59,10 +59,11 @@ class _NewOnboardingScreenState extends ConsumerState<NewOnboardingScreen> {
                           height: 10,
                           width: index == currentIndex ? 25 : 10,
                           decoration: BoxDecoration(
-                              color: index == currentIndex
-                                  ? Colors.red
-                                  : Colors.white60,
-                              borderRadius: BorderRadius.circular(50)),
+                            color: index == currentIndex
+                                ? Colors.red
+                                : Colors.white60,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
                         );
                       }),
                     ),
@@ -95,7 +96,7 @@ class _NewOnboardingScreenState extends ConsumerState<NewOnboardingScreen> {
               textColor: isDarkMode ? Colors.black : Colors.white,
               onPress: () {
                 if (currentIndex == 3) {
-                  goRouter.go(AppRoutes.userLocatorPage);
+                  goRouter.go(AppRoutes.login);
                 }
                 ref.read(currentPage.notifier).state++;
                 pageController.animateToPage(
