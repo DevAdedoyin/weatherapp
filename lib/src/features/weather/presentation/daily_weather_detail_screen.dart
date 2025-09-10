@@ -103,7 +103,10 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                 children: [
                   Text(
                     userCurrentAddress_,
-                    style: textTheme.titleMedium,
+                    style: GoogleFonts.acme(
+                        color: isDarkMode ? Colors.white : Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
                     textAlign: TextAlign.start,
                   ),
                   Text(

@@ -46,9 +46,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     super.initState();
     // addWeatherFacts();
     getAddress();
-    currentUser == null
-        ? ref.read(interstitialAdProvider.notifier).showAd()
-        : null;
+
     // ref.read(userCurrentAddress.notifier).state = address!;
     // ref.read(isFromSearchScreen.notifier).state = false;
   }
@@ -135,7 +133,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                       Text(
                         "$address",
                         // textAlign: TextAlign.center,
-                        style: GoogleFonts.aBeeZee(
+                        style: GoogleFonts.acme(
                             color: isDarkMode ? Colors.white : Colors.black,
                             fontSize: 16,
                             fontWeight: FontWeight.bold),
