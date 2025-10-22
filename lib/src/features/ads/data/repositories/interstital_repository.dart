@@ -15,13 +15,13 @@ class InterstitialAdNotifier extends StateNotifier<InterstitialAd?> {
   final adUnitIdIOS = dotenv.env["INTERSTITIAL_AD_UNIT_IOS"];
 
   // DEVELOPMENT
-  // final testAdUnitId = dotenv.env["SAMPLE_INTERSTITIAL_ID_ANDROID"];
+  final testAdUnitId = dotenv.env["SAMPLE_INTERSTITIAL_ID_ANDROID"];
 
   void _loadAd() {
     InterstitialAd.load(
       adUnitId:
-          // testAdUnitId!,
-          Platform.isAndroid ? adUnitId! : adUnitIdIOS!,
+          testAdUnitId!,
+          // Platform.isAndroid ? adUnitId! : adUnitIdIOS!,
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (ad) {

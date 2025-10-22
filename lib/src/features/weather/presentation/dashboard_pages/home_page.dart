@@ -44,11 +44,38 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   void initState() {
     super.initState();
-    // addWeatherFacts();
+    // TODO: PUSH NEW DATA TO PLAYSTORE
+    addWeatherFacts();
     getAddress();
 
+    addDisplayCounter();
     // ref.read(userCurrentAddress.notifier).state = address!;
     // ref.read(isFromSearchScreen.notifier).state = false;
+  }
+
+  void addDisplayCounter() async {
+    SharedPreferences counter = await SharedPreferences.getInstance();
+
+    int adNoDisplayCount = counter.getInt("adNoDisplayCount") ?? 0;
+
+    int adNoDisplayCount_ = adNoDisplayCount++;
+
+    if (FirebaseAuth.instance.currentUser?.email != null ||
+        FirebaseAuth.instance.currentUser?.email != "") {
+      if (adNoDisplayCount_ <= 4) {
+        counter.setInt("adNoDisplayCount", adNoDisplayCount_);
+      } else {
+        counter.setInt("adNoDisplayCount", 0);
+        ref.read(interstitialAdProvider.notifier).showAd();
+      }
+    } else {
+      if (adNoDisplayCount_ <= 2) {
+        counter.setInt("adNoDisplayCount", adNoDisplayCount_);
+      } else {
+        counter.setInt("adNoDisplayCount", 0);
+        ref.read(interstitialAdProvider.notifier).showAd();
+      }
+    }
   }
 
   String getDateTime() {
@@ -421,7 +448,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
                 ),
                 if (banner2Ad != null && user == null)
-                // if (banner2Ad != null)
+                  // if (banner2Ad != null)
                   SliverToBoxAdapter(
                     child: Column(
                       children: [

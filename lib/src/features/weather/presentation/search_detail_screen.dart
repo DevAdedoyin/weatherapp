@@ -120,7 +120,10 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                           Text(
                             userSearchedAddress,
                             // textAlign: TextAlign.center,
-                            style: textTheme.bodyLarge,
+                            style: GoogleFonts.acme(
+                                color: isDarkMode ? Colors.white : Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold),
                           ),
                           verticalGap(1),
                           Container(
