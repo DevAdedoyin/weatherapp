@@ -17,6 +17,7 @@ import "package:weatherapp/src/routing/app_routes.dart";
 import "package:weatherapp/src/utils/weather_icon_utils.dart";
 
 import "../../../../common/widgets/auth_widgets/info_alert.dart";
+import "../../../ads/ad_counter.dart";
 import "../../../ads/data/repositories/banner_repository.dart";
 import "../../../ads/data/repositories/interstital_repository.dart";
 import "../../../temeperature_scale/data/temperature_data.dart";
@@ -30,6 +31,14 @@ class DailyForecastPage extends ConsumerStatefulWidget {
 }
 
 class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    AdDisplayCounter.addDisplayCounter(
+        ref.read(interstitialAdProvider.notifier));
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

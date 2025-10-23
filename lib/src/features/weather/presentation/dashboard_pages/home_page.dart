@@ -7,6 +7,7 @@ import "package:google_mobile_ads/google_mobile_ads.dart";
 import "package:shared_preferences/shared_preferences.dart";
 import "package:weatherapp/src/common/gaps/sized_box.dart";
 import "package:weatherapp/src/constants/app_colors.dart";
+import "package:weatherapp/src/features/ads/ad_counter.dart";
 import "package:weatherapp/src/features/geo_location/repositories/address_repo.dart";
 
 // import "package:weatherapp/src/features/geo_location/data/get_location.dart";
@@ -48,35 +49,12 @@ class _HomePageState extends ConsumerState<HomePage> {
     addWeatherFacts();
     getAddress();
 
-    addDisplayCounter();
+    AdDisplayCounter.addDisplayCounter(ref.read(interstitialAdProvider.notifier));
     // ref.read(userCurrentAddress.notifier).state = address!;
     // ref.read(isFromSearchScreen.notifier).state = false;
   }
 
-  void addDisplayCounter() async {
-    SharedPreferences counter = await SharedPreferences.getInstance();
 
-    int adNoDisplayCount = counter.getInt("adNoDisplayCount") ?? 0;
-
-    int adNoDisplayCount_ = adNoDisplayCount++;
-
-    if (FirebaseAuth.instance.currentUser?.email != null ||
-        FirebaseAuth.instance.currentUser?.email != "") {
-      if (adNoDisplayCount_ <= 4) {
-        counter.setInt("adNoDisplayCount", adNoDisplayCount_);
-      } else {
-        counter.setInt("adNoDisplayCount", 0);
-        ref.read(interstitialAdProvider.notifier).showAd();
-      }
-    } else {
-      if (adNoDisplayCount_ <= 2) {
-        counter.setInt("adNoDisplayCount", adNoDisplayCount_);
-      } else {
-        counter.setInt("adNoDisplayCount", 0);
-        ref.read(interstitialAdProvider.notifier).showAd();
-      }
-    }
-  }
 
   String getDateTime() {
     var now = DateTime.now();
