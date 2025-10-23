@@ -9,7 +9,7 @@ class AdDisplayCounter {
     int? adNoDisplayCount = counter.getInt("adNoDisplayCount") ?? 0;
 
     int? adNoDisplayCount_ = adNoDisplayCount + 1;
-    print("AD COUNT $adNoDisplayCount");
+    // print("AD COUNT $adNoDisplayCount");
     print(FirebaseAuth.instance.currentUser?.email);
 
     if (FirebaseAuth.instance.currentUser?.email != null) {

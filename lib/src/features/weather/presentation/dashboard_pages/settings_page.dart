@@ -114,7 +114,9 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 ),
               ),
             ),
-            verticalGap(10),
+            user == null
+                ? SizedBox()
+                :   verticalGap(10),
             user == null
                 ? SizedBox()
                 : Container(
