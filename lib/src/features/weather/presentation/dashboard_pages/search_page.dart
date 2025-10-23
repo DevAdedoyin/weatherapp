@@ -266,6 +266,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                     splashColor: AppColors.cardBgColor,
                     borderRadius: BorderRadius.circular(20),
                     onTap: () {
+                      ref.read(interstitialAdProvider.notifier).showAd();
                       infoAuthAlertWidget(
                           context,
                           "Please kindly login or create an account to see more details",

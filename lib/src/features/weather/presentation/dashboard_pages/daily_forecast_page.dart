@@ -142,6 +142,9 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                           child: InkWell(
                             onTap: FirebaseAuth.instance.currentUser == null
                                 ? () {
+                                    ref
+                                        .read(interstitialAdProvider.notifier)
+                                        .showAd();
                                     infoAuthAlertWidget(
                                         context,
                                         "Please kindly login or create an account to see more forecast details",

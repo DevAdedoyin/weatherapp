@@ -475,9 +475,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 return InkWell(
                                   onTap: () {
                                     if (currentUser == null) {
+                                      ref.read(interstitialAdProvider.notifier).showAd();
                                       infoAuthAlertWidget(
                                           context,
-                                          "Please kindly login or create an account to see more details",
+                                          "Please kindly login or create an account to see more details.",
                                           "LOGIN REQUIRED", onTap: () {
                                         context.go(AppRoutes.login);
                                       });
