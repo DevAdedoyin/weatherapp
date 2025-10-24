@@ -19,8 +19,7 @@ class BannerAdNotifier extends StateNotifier<BannerAd?> {
 
   void _loadAd() {
     final banner = BannerAd(
-      adUnitId:
-      testAdUnitId!,
+      adUnitId: testAdUnitId!,
       // Platform.isAndroid ? adUnitId! : adUnitIdIOS!,
       size: AdSize.banner,
       request: const AdRequest(),
@@ -87,17 +86,42 @@ final forecastDetailBannerAdProvider =
   return BannerAdNotifier();
 });
 
+final forecastDetail2BannerAdProvider =
+    StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
+  return BannerAdNotifier();
+});
+
 final settingsBannerAdProvider =
     StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
   return BannerAdNotifier();
 });
 
 final tipsBannerAdProvider =
-StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
+    StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
   return BannerAdNotifier();
 });
 
 final weatherFactsBannerAdProvider =
-StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
+    StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
+  return BannerAdNotifier();
+});
+
+final temperatureUnitBannerAdProvider =
+    StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
+  return BannerAdNotifier();
+});
+
+final contactSupportBannerAdProvider =
+    StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
+  return BannerAdNotifier();
+});
+
+final shareAppBannerAdProvider =
+    StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
+  return BannerAdNotifier();
+});
+
+final exploreMoreAppBannerAdProvider =
+    StateNotifierProvider<BannerAdNotifier, BannerAd?>((ref) {
   return BannerAdNotifier();
 });

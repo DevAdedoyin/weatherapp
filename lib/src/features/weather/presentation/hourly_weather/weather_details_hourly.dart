@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:weatherapp/src/constants/app_colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:weatherapp/src/utils/weather_icon_utils.dart';
@@ -98,7 +99,7 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
                     "",
                     // hourlyWeatherState.dewPoint!,
                     hourlyWeatherState.visibility!,
-                   "${hourlyWeatherState.windSpeed!}m/s",
+                    "${hourlyWeatherState.windSpeed!}m/s",
                     hourlyWeatherState.windDegree!,
                     hourlyWeatherState.windGust!,
                   ];
@@ -123,20 +124,30 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
                       ),
                       title: Text(
                         weatherTitles[pos],
-                        style: textTheme.bodyMedium,
+                        style: GoogleFonts.acme(
+                            fontSize: 16, fontWeight: FontWeight.w700),
                       ),
                       // subtitle: Text("data"),
                       trailing: pos == 2
                           ? FutureBuilder<String>(
-                        future: TemperatureConverter.formatWithPrefs(
-                          double.tryParse(hourlyWeatherState.dewPoint!) ?? 0,
-                        ),
-                        builder: (context, snapshot) {
-                          if (!snapshot.hasData) return const SizedBox.shrink();
-                          return Text(snapshot.data!, style: textTheme.bodySmall);
-                        },
-                      )
-                          : Text(details[pos], style: textTheme.bodySmall),
+                              future: TemperatureConverter.formatWithPrefs(
+                                double.tryParse(hourlyWeatherState.dewPoint!) ??
+                                    0,
+                              ),
+                              builder: (context, snapshot) {
+                                if (!snapshot.hasData)
+                                  return const SizedBox.shrink();
+                                return Text(
+                                  snapshot.data!,
+                                  style: GoogleFonts.acme(
+                                      fontSize: 14.5,
+                                      fontWeight: FontWeight.w700),
+                                );
+                              },
+                            )
+                          : Text(details[pos],
+                              style: GoogleFonts.acme(
+                                  fontSize: 14.5, fontWeight: FontWeight.w700)),
                     ),
                   );
                 },

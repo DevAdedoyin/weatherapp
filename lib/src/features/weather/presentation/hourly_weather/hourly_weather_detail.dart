@@ -44,7 +44,10 @@ class _HourlyWeatherDetailsScreenState
             children: [
               Text(
                 hourlyWeatherState.address,
-                style: textTheme.bodyLarge,
+                style: GoogleFonts.acme(
+                    color: isDarkMode ? Colors.white : Colors.black,
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold),
               ),
               Container(
                 decoration: BoxDecoration(
@@ -96,7 +99,8 @@ class _HourlyWeatherDetailsScreenState
                 verticalGap(size.height * 0.02),
                 Text(
                   "Weather Report",
-                  style: textTheme.bodyMedium,
+                  style: GoogleFonts.acme(
+                      fontSize: 17, fontWeight: FontWeight.w700),
                 ),
                 verticalGap(size.height * 0.005),
                 SizedBox(
@@ -181,7 +185,7 @@ class _HourlyWeatherDetailsScreenState
                         child: Text(
                           hourlyWeatherState.desctiption!,
                           textAlign: TextAlign.center,
-                          style: GoogleFonts.roboto(
+                          style: GoogleFonts.acme(
                               fontSize: 30, fontWeight: FontWeight.w700),
                         ),
                       ),
@@ -191,8 +195,8 @@ class _HourlyWeatherDetailsScreenState
                 verticalGap(20),
                 if (bannerAd != null)
                   SizedBox(
-                    height: bannerAd.size.height.toDouble(),
-                    width: bannerAd.size.width.toDouble(),
+                    height: size.height * 0.10,
+                    width: size.width * 0.9,
                     child: AdWidget(ad: bannerAd),
                   ),
                 const WeatherDetailsHourly()

@@ -18,6 +18,7 @@ import "package:weatherapp/src/routing/go_router_provider.dart";
 
 import "../../../../themes/theme_notifier.dart";
 import "../../../ads/data/repositories/banner_repository.dart";
+import "../../../ads/data/repositories/interstital_repository.dart";
 import "../../../ratings.dart";
 import "../../data/repositories/switch.dart";
 
@@ -87,8 +88,10 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             verticalGap(10),
             if (bannerAd != null)
               SizedBox(
-                height: bannerAd.size.height.toDouble(),
-                width: size.width * 0.89,
+                height: user?.email == null
+                    ? size.height * 0.10
+                    : bannerAd.size.height.toDouble(),
+                width: size.width * 0.90,
                 child: AdWidget(ad: bannerAd),
               ),
             verticalGap(10),
@@ -114,9 +117,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 ),
               ),
             ),
-            user == null
-                ? SizedBox()
-                :   verticalGap(10),
+            user == null ? SizedBox() : verticalGap(10),
             user == null
                 ? SizedBox()
                 : Container(
@@ -234,8 +235,32 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                       value: isDarkMode,
                       onChanged: (val) {
                         themeNotifier.toggleTheme();
+                        ref.read(interstitialAdProvider.notifier).showAd();
                       },
                     )),
+              ),
+            ),
+            verticalGap(10),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 15),
+              child: Card(
+                color: isDarkMode
+                    ? AppColors.cardDarkModeColor
+                    : AppColors.cardLightModeColor,
+                child: ListTile(
+                  leading: Icon(Icons.phone_iphone,
+                      color: isDarkMode ? Colors.red : Colors.blue),
+                  title: Text(
+                    "Explore More Apps",
+                    style: textTheme.bodyMedium,
+                  ),
+                  trailing: IconButton(
+                    onPressed: () {
+                      goRouter.push(AppRoutes.moreApps);
+                    },
+                    icon: const Icon(Icons.arrow_forward_rounded),
+                  ),
+                ),
               ),
             ),
             verticalGap(10),

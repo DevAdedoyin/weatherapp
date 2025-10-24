@@ -33,6 +33,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
     final userCurrentAddress_ = ref.watch(userCurrentAddress);
     Size size = MediaQuery.of(context).size;
     final bannerAd = ref.watch(forecastDetailBannerAdProvider);
+    final banner2Ad = ref.watch(forecastDetail2BannerAdProvider);
     TextTheme textTheme = Theme.of(context).textTheme;
 
     final daily = [
@@ -149,8 +150,9 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                     child: Padding(
                       padding:
                           const EdgeInsets.only(top: 7, left: 10, right: 10),
-                      child:
-                          Text("Weather Summary", style: textTheme.bodyMedium),
+                      child: Text("Weather Summary",
+                          style: GoogleFonts.acme(
+                              fontSize: 16, fontWeight: FontWeight.w600)),
                     ),
                   ),
                   SizedBox(
@@ -179,7 +181,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                   if (bannerAd != null)
                     Container(
                       alignment: Alignment.center,
-                      height: bannerAd.size.height.toDouble(),
+                      height: size.height * 0.20,
                       width: double.maxFinite,
                       child: AdWidget(ad: bannerAd),
                     ),
@@ -243,7 +245,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                           child: Text(
                             dailyWeather.weather.description,
                             textAlign: TextAlign.center,
-                            style: GoogleFonts.roboto(
+                            style: GoogleFonts.acme(
                                 fontSize: 28, fontWeight: FontWeight.w700),
                           ),
                         ),
@@ -284,7 +286,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                   AnimatedContainer(
                     duration: const Duration(milliseconds: 500),
                     height: isTempContainerOpen
-                        ? size.height * 0.47
+                        ? size.height * 0.50
                         : size.height * 0.10,
                     // color: AppColors.cardBgColor,
                     child: ListView.builder(
@@ -344,6 +346,13 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                           );
                         }),
                   ),
+                  if (banner2Ad != null)
+                    Container(
+                      alignment: Alignment.center,
+                      height: size.height * 0.10,
+                      width: double.maxFinite,
+                      child: AdWidget(ad: banner2Ad),
+                    ),
                   verticalGap(15),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -379,7 +388,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                   ),
                   AnimatedContainer(
                     height: isDailyOtherContainerOpen
-                        ? size.height * 0.55
+                        ? size.height * 0.60
                         : size.height * 0.15,
                     duration: const Duration(milliseconds: 500),
                     child: GridView.builder(

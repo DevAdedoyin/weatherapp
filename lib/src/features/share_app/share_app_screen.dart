@@ -1,8 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:weatherapp/src/features/share_app/share_app.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ShareAppScreen extends StatelessWidget {
+import '../ads/data/repositories/banner_repository.dart';
+
+class ShareAppScreen extends ConsumerWidget {
   final String phoneNumber = '+447300850614';
   final String googleFormUrl = 'https://forms.gle/HiQEtA4QKxJGkD6H8';
   final String contactWebUrl =
@@ -11,8 +16,11 @@ class ShareAppScreen extends StatelessWidget {
   const ShareAppScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final bannerAd = ref.watch(shareAppBannerAdProvider);
+    // final user = FirebaseAuth.instance.currentUser;
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -66,6 +74,13 @@ class ShareAppScreen extends StatelessWidget {
                   onTap: () => ShareApp.shareApp(context, os: "Android"),
                 ),
               ),
+              SizedBox(height: 16),
+              if (bannerAd != null)
+                SizedBox(
+                  height: size.height * 0.15,
+                  width: size.width * 0.90,
+                  child: AdWidget(ad: bannerAd),
+                ),
             ],
           ),
         ),

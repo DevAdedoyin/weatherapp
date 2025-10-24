@@ -235,8 +235,10 @@ class _SearchPageState extends ConsumerState<SearchPage> {
             verticalGap(5),
             if (bannerAd != null)
               SizedBox(
-                height: bannerAd.size.height.toDouble(),
-                width: size.width * 0.89,
+                height: user?.email == null
+                    ? size.height * 0.10
+                    : bannerAd.size.height.toDouble(),
+                width: size.width * 0.95,
                 child: AdWidget(ad: bannerAd),
               ),
             verticalGap(10),
@@ -285,12 +287,12 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                       ),
                       title: Text(
                         e.cityNames,
-                        style: textTheme.bodyMedium,
+                        style: GoogleFonts.acme(
+                            fontSize: 16, fontWeight: FontWeight.w600),
                       ),
-                      trailing: Text(
-                        e.continent,
-                        style: textTheme.bodySmall,
-                      ),
+                      trailing: Text(e.continent,
+                          style: GoogleFonts.acme(
+                              fontSize: 14.5, fontWeight: FontWeight.w500)),
                     ),
                   ),
                 ),
@@ -320,16 +322,16 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                       ),
                       title: Text(
                         e.cityNames,
-                        style: textTheme.bodyMedium,
+                        style: GoogleFonts.acme(
+                            fontSize: 16, fontWeight: FontWeight.w600),
                       ),
-                      trailing: Text(
-                        e.continent,
-                        style: textTheme.bodySmall,
-                      ),
+                      trailing: Text(e.continent,
+                          style: GoogleFonts.acme(
+                              fontSize: 14.5, fontWeight: FontWeight.w500)),
                     ),
                   ),
                 ),
-              )
+              ),
           ],
         ),
       ),

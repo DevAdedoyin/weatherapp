@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:weatherapp/src/common/gaps/sized_box.dart';
+import '../../ads/data/repositories/banner_repository.dart';
 import '../data/temperature_data.dart'; // contains TemperatureConverter + TempUnit
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TemperatureScaleScreen extends StatefulWidget {
+class TemperatureScaleScreen extends ConsumerStatefulWidget {
   const TemperatureScaleScreen({super.key});
 
   @override
-  State<StatefulWidget> createState() => _TemperatureScaleScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _TemperatureScaleScreenState();
 }
 
-class _TemperatureScaleScreenState extends State<TemperatureScaleScreen> {
+class _TemperatureScaleScreenState extends ConsumerState<TemperatureScaleScreen> {
   TempUnit _selectedUnit = TempUnit.celsius;
 
   @override
@@ -56,6 +60,8 @@ class _TemperatureScaleScreenState extends State<TemperatureScaleScreen> {
   @override
   Widget build(BuildContext context) {
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final bannerAd = ref.watch(temperatureUnitBannerAdProvider);
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -80,6 +86,14 @@ class _TemperatureScaleScreenState extends State<TemperatureScaleScreen> {
               _buildUnitCard("Celsius (°C)", TempUnit.celsius),
               _buildUnitCard("Fahrenheit (°F)", TempUnit.fahrenheit),
               _buildUnitCard("Kelvin (K)", TempUnit.kelvin),
+              verticalGap(20),
+              if (bannerAd != null)
+                SizedBox(
+                  height: size.height * 0.20,
+                  width: size.width * 0.9,
+                  child: AdWidget(ad: bannerAd),
+                ),
+              verticalGap(10),
             ],
           ),
         ),

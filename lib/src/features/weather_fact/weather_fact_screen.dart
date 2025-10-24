@@ -88,7 +88,9 @@ class _WeatherFactScreenState extends ConsumerState<WeatherFactScreen> {
             verticalGap(size.height * 0.015),
             if (bannerAd != null)
               SizedBox(
-                height: bannerAd.size.height.toDouble(),
+                height: user?.email == null
+                    ? size.height * 0.10
+                    : bannerAd.size.height.toDouble(),
                 width: size.width * 0.89,
                 child: AdWidget(ad: bannerAd),
               ),

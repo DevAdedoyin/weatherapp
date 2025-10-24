@@ -122,7 +122,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                             // textAlign: TextAlign.center,
                             style: GoogleFonts.acme(
                                 color: isDarkMode ? Colors.white : Colors.black,
-                                fontSize: 16,
+                                fontSize: 17,
                                 fontWeight: FontWeight.bold),
                           ),
                           verticalGap(1),
@@ -239,8 +239,8 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                               child: Text(
                                 data.currentWeatherModel.weather.description,
                                 textAlign: TextAlign.center,
-                                style: GoogleFonts.roboto(
-                                    fontSize: 30, fontWeight: FontWeight.w700),
+                                style: GoogleFonts.acme(
+                                    fontSize: 28, fontWeight: FontWeight.w700),
                               ),
                             ),
                           ],
@@ -253,8 +253,8 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                           children: [
                             verticalGap(20),
                             SizedBox(
-                              height: bannerAd.size.height.toDouble(),
-                              width: size.width * 0.89,
+                              height: size.height * 0.10,
+                              width: size.width * 0.9,
                               child: AdWidget(ad: bannerAd),
                             ),
                           ],

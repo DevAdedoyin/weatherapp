@@ -1,5 +1,6 @@
 class AppRoutes {
   static const String root = 'root';
+
   // static const String onboarding = '/onboarding';
   static const String newOnboarding = '/newOnboarding';
   static const String login = '/login';
@@ -17,4 +18,5 @@ class AppRoutes {
   static const String shareApp = '/shareApp';
   static const String temperatureScale = '/temperatureScale';
   static const String weatherFact = '/weatherFact';
+  static const String moreApps = '/moreApps';
 }

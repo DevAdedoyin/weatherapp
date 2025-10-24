@@ -49,12 +49,11 @@ class _HomePageState extends ConsumerState<HomePage> {
     addWeatherFacts();
     getAddress();
 
-    AdDisplayCounter.addDisplayCounter(ref.read(interstitialAdProvider.notifier));
+    AdDisplayCounter.addDisplayCounter(
+        ref.read(interstitialAdProvider.notifier));
     // ref.read(userCurrentAddress.notifier).state = address!;
     // ref.read(isFromSearchScreen.notifier).state = false;
   }
-
-
 
   String getDateTime() {
     var now = DateTime.now();
@@ -100,7 +99,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     ref.watch(weatherId);
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     TextTheme textTheme = Theme.of(context).textTheme;
-    print("Size ${size.height}");
+    // print("Size ${size.height}");
 
     final user = FirebaseAuth.instance.currentUser;
 
@@ -278,7 +277,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                           child: Text(
                             data.currentWeatherModel.weather.description,
                             textAlign: TextAlign.center,
-                            style: GoogleFonts.roboto(
+                            style: GoogleFonts.acme(
                                 fontSize: 28, fontWeight: FontWeight.w700),
                           ),
                         ),
@@ -293,7 +292,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                         verticalGap(20),
                         SizedBox(
                           height: bannerAd.size.height.toDouble(),
-                          width: size.width * 0.89,
+                          width: size.width * 0.90,
                           child: AdWidget(ad: bannerAd),
                         ),
                       ],
@@ -432,8 +431,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                       children: [
                         verticalGap(1),
                         SizedBox(
-                          height: banner2Ad.size.height.toDouble(),
-                          width: size.width * 0.89,
+                          height: size.height * 0.10,
+                          width: size.width * 0.90,
                           child: AdWidget(ad: banner2Ad),
                         ),
                       ],
@@ -475,7 +474,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 return InkWell(
                                   onTap: () {
                                     if (currentUser == null) {
-                                      ref.read(interstitialAdProvider.notifier).showAd();
+                                      ref
+                                          .read(interstitialAdProvider.notifier)
+                                          .showAd();
                                       infoAuthAlertWidget(
                                           context,
                                           "Please kindly login or create an account to see more details.",

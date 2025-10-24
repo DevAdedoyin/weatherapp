@@ -59,12 +59,15 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                   fontSize: 20,
                   fontWeight: FontWeight.bold),
             )),
-        Text("Accurate Weather Forecast", style: textTheme.bodyMedium),
+        Text("Accurate Weather Forecast",
+            style: GoogleFonts.acme(fontSize: 16, fontWeight: FontWeight.w600)),
         verticalGap(10),
         if (bannerAd != null)
           SizedBox(
-            height: bannerAd.size.height.toDouble(),
-            width: size.width * 0.89,
+            height: user?.email == null
+                ? size.height * 0.10
+                : bannerAd.size.height.toDouble(),
+            width: size.width * 0.90,
             child: AdWidget(ad: bannerAd),
           ),
         verticalGap(5),
@@ -73,14 +76,14 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return SizedBox(
                 height:
-                    size.height < 650 ? size.height * 0.6 : size.height * 0.65,
+                    size.height < 650 ? size.height * 0.55 : size.height * 0.6,
                 width: double.maxFinite,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const LoadingIndicator(),
-                    verticalGap(10),
+                    verticalGap(5),
                     const Text("Loading your weather data")
                   ],
                 ),
@@ -132,7 +135,8 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                         Text(
                           formattedDate,
                           textAlign: TextAlign.start,
-                          style: textTheme.titleMedium,
+                          style: GoogleFonts.acme(
+                              fontSize: 17, fontWeight: FontWeight.w600),
                         ),
                         Card(
                           // elevation: 3,
@@ -205,7 +209,10 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                                   }
                                   return Text(
                                     snapshot.data!,
-                                    style: textTheme.bodyMedium,
+                                    style: GoogleFonts.acme(
+                                        fontSize: 19,
+                                        fontWeight: FontWeight.w900,
+                                        ),
                                   );
                                 },
                               ),

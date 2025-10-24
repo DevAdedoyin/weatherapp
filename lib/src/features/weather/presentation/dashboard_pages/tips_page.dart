@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,6 +22,7 @@ class WeatherTipsScreen extends ConsumerWidget {
     Size size = MediaQuery.of(context).size;
     final bannerAd = ref.watch(tipsBannerAdProvider);
     TextTheme textTheme = Theme.of(context).textTheme;
+    final user = FirebaseAuth.instance.currentUser;
     return Scaffold(
       // extendBodyBehindAppBar: true,
       // appBar: AppBar(
@@ -54,8 +56,10 @@ class WeatherTipsScreen extends ConsumerWidget {
             verticalGap(10),
             if (bannerAd != null)
               SizedBox(
-                height: bannerAd.size.height.toDouble(),
-                width: size.width * 0.89,
+                height: user?.email == null
+                    ? size.height * 0.10
+                    : bannerAd.size.height.toDouble(),
+                width: size.width * 0.90,
                 child: AdWidget(ad: bannerAd),
               ),
             verticalGap(5),
@@ -127,8 +131,8 @@ class WeatherTipsScreen extends ConsumerWidget {
                 const SizedBox(width: 10),
                 Text(
                   title,
-                  style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.bold),
+                  style: GoogleFonts.acme(
+                      fontSize: 17, fontWeight: FontWeight.w600),
                 ),
               ],
             ),
