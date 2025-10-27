@@ -5,6 +5,7 @@ import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
+import "package:google_fonts/google_fonts.dart";
 import "package:google_mobile_ads/google_mobile_ads.dart";
 import "package:in_app_review/in_app_review.dart";
 import "package:shared_preferences/shared_preferences.dart";
@@ -49,7 +50,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
 
     return SingleChildScrollView(
       child: SizedBox(
-        height: user == null ? size.height : null,
+        // height: user == null ? size.height : null,
         child: Column(
           children: [
             verticalGap(size.height * 0.08),
@@ -453,7 +454,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                     ),
                   ),
             user == null ? verticalGap(5) : verticalGap(30),
-            Text("App Version: $appVersion"),
+            Text("App Version: $appVersion", style: GoogleFonts.acme(),),
           ],
         ),
       ),
