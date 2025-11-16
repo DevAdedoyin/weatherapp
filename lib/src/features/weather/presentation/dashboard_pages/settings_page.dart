@@ -20,6 +20,7 @@ import "package:weatherapp/src/routing/go_router_provider.dart";
 import "../../../../themes/theme_notifier.dart";
 import "../../../ads/data/repositories/banner_repository.dart";
 import "../../../ads/data/repositories/interstital_repository.dart";
+import "../../../notification/providers.dart";
 import "../../../ratings.dart";
 import "../../data/repositories/switch.dart";
 
@@ -45,6 +46,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     TextTheme textTheme = Theme.of(context).textTheme;
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     bool isLightMode = ref.watch(switchModes);
+    bool notificationState_ = ref.watch(notificationState);
     final bannerAd = ref.watch(settingsBannerAdProvider);
     final themeNotifier = ref.read(themeNotifierProvider.notifier);
 
@@ -89,9 +91,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             verticalGap(10),
             if (bannerAd != null)
               SizedBox(
-                height: user?.email == null
-                    ? size.height * 0.10
-                    : bannerAd.size.height.toDouble(),
+                height: bannerAd.size.height.toDouble(),
                 width: size.width * 0.90,
                 child: AdWidget(ad: bannerAd),
               ),
@@ -106,7 +106,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                   leading: Icon(Icons.thermostat,
                       color: isDarkMode ? Colors.red : Colors.blue),
                   title: Text(
-                    "Temperature Unit",
+                    "Temperature unit",
                     style: textTheme.bodyMedium,
                   ),
                   trailing: IconButton(
@@ -155,7 +155,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                   leading: Icon(Icons.rate_review,
                       color: isDarkMode ? Colors.red : Colors.blue),
                   title: Text(
-                    "Rate Us",
+                    "Rate us",
                     style: textTheme.bodyMedium,
                   ),
                   trailing: IconButton(
@@ -182,7 +182,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                   leading: Icon(Icons.support_agent,
                       color: isDarkMode ? Colors.red : Colors.blue),
                   title: Text(
-                    "Contact Us",
+                    "Contact us",
                     style: textTheme.bodyMedium,
                   ),
                   trailing: IconButton(
@@ -205,7 +205,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                   leading: Icon(Icons.share,
                       color: isDarkMode ? Colors.red : Colors.blue),
                   title: Text(
-                    "Share App",
+                    "Share app",
                     style: textTheme.bodyMedium,
                   ),
                   trailing: IconButton(
@@ -215,6 +215,61 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                     icon: const Icon(Icons.arrow_forward_rounded),
                   ),
                 ),
+              ),
+            ),
+            verticalGap(10),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 15),
+              child: Card(
+                // elevation: 3,
+                color: isDarkMode
+                    ? AppColors.cardDarkModeColor
+                    : AppColors.cardLightModeColor,
+                child: ListTile(
+                    leading: Icon(Icons.notifications,
+                        color: isDarkMode ? Colors.red : Colors.blue),
+                    title: Text(
+                      "Notification",
+                      style: textTheme.bodyMedium,
+                    ),
+                    trailing: Switch(
+                      value: notificationState_,
+                      onChanged: (val) {
+                        // themeNotifier.toggleTheme();
+                        // ref.read(interstitialAdProvider.notifier).showAd();
+                        if (val) {
+                          setupFCM();
+
+                          ref.read(notificationState.notifier).state = val;
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor: Colors.green,
+                              content: Text(
+                                "Notifications have been turned on",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              duration: Duration(seconds: 3),
+                            ),
+                          );
+                        } else {
+                          disableFCM();
+
+                          ref.read(notificationState.notifier).state = val;
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor: Colors.red,
+                              content: Text(
+                                "Notifications have been turned off",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              duration: Duration(seconds: 3),
+                            ),
+                          );
+                        }
+                      },
+                    )),
               ),
             ),
             verticalGap(10),
@@ -252,7 +307,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                   leading: Icon(Icons.phone_iphone,
                       color: isDarkMode ? Colors.red : Colors.blue),
                   title: Text(
-                    "Explore More Apps",
+                    "Explore more apps",
                     style: textTheme.bodyMedium,
                   ),
                   trailing: IconButton(
@@ -454,7 +509,10 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                     ),
                   ),
             user == null ? verticalGap(5) : verticalGap(30),
-            Text("App Version: $appVersion", style: GoogleFonts.acme(),),
+            Text(
+              "App Version: $appVersion",
+              style: GoogleFonts.acme(),
+            ),
           ],
         ),
       ),

@@ -10,6 +10,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:weatherapp/src/features/notification/background_handler.dart';
 import 'package:weatherapp/src/features/notification/providers.dart';
+import 'package:weatherapp/src/features/onboarding/launch_counter.dart';
 import 'package:weatherapp/src/routing/app_routes.dart';
 import 'package:weatherapp/src/routing/go_router_provider.dart';
 import 'package:weatherapp/src/themes/theme.dart';
@@ -42,12 +43,6 @@ class WeatherApp extends ConsumerStatefulWidget {
 }
 
 class _WeatherAppState extends ConsumerState<WeatherApp> {
-  @override
-  void initState() {
-    super.initState();
-    setupFCM();
-  }
-
   @override
   Widget build(BuildContext context) {
     ThemeManager themeManager = ThemeManager();

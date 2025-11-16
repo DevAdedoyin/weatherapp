@@ -5,6 +5,9 @@ import 'package:weatherapp/src/constants/app_colors.dart';
 import 'package:weatherapp/src/features/onboarding/onboarding/onboarding_items.dart';
 import 'package:weatherapp/src/routing/app_routes.dart';
 
+import '../../notification/providers.dart';
+import '../launch_counter.dart';
+
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
 
@@ -20,6 +23,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       .map((onboardingBody) =>
           PageViewModel(title: "", bodyWidget: onboardingBody))
       .toList();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future.delayed(Duration(milliseconds: 50), () async {
+      int launchNumber = await LaunchCounter.launchCounter();
+      if (launchNumber < 1) {
+        setupFCM();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
