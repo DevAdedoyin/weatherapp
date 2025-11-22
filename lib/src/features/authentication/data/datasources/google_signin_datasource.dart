@@ -7,6 +7,8 @@ import 'package:weatherapp/src/common/widgets/auth_widgets/failed_alert.dart';
 import 'package:weatherapp/src/common/widgets/auth_widgets/success_alert.dart';
 import 'package:weatherapp/src/routing/app_routes.dart';
 
+import '../../../../routing/go_router_provider.dart';
+
 Future<dynamic> signInWithGoogle({BuildContext? context}) async {
   try {
     FirebaseAuth auth = FirebaseAuth.instance;
@@ -39,11 +41,13 @@ Enjoy top notch weather forecast!
 Thank you.""",
         "Google Sign-in Successful");
 
-    context.go(AppRoutes.userLocatorPage);
+    Future.delayed(const Duration(seconds: 2),
+        () => GoRouter.of(context).go(AppRoutes.userLocatorPage));
     return await FirebaseAuth.instance.signInWithCredential(credential);
   } on Exception catch (e) {
     // TODO
-    failedAuthAlertWidget(context!, "Google sign-in failed. Please, try again!", "Authentication Failed");
+    failedAuthAlertWidget(context!, "Google sign-in failed. Please, try again!",
+        "Authentication Failed");
   }
 }
 

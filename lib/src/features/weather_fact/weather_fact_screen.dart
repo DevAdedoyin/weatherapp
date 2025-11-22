@@ -12,6 +12,7 @@ import 'package:weatherapp/src/constants/app_colors.dart';
 import 'package:weatherapp/src/features/ads/data/repositories/banner_repository.dart';
 import 'package:weatherapp/src/routing/go_router_provider.dart';
 
+import '../ads/ad_counter.dart';
 import '../ads/data/repositories/interstital_repository.dart';
 
 class WeatherFactScreen extends ConsumerStatefulWidget {
@@ -29,7 +30,9 @@ class _WeatherFactScreenState extends ConsumerState<WeatherFactScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    ref.read(interstitialAdProvider.notifier).showAd();
+    AdDisplayCounter.addDisplayCounter(
+        ref.read(interstitialAdProvider.notifier));
+    ref.read(weatherFactsBannerAdProvider.notifier).loadAd();
   }
 
   @override
@@ -88,10 +91,8 @@ class _WeatherFactScreenState extends ConsumerState<WeatherFactScreen> {
             verticalGap(size.height * 0.015),
             if (bannerAd != null)
               SizedBox(
-                height: user?.email == null
-                    ? size.height * 0.10
-                    : bannerAd.size.height.toDouble(),
-                width: size.width * 0.89,
+                height: bannerAd.size.height.toDouble(),
+                width: size.width * 0.9,
                 child: AdWidget(ad: bannerAd),
               ),
             verticalGap(size.height * 0.013),

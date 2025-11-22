@@ -67,6 +67,14 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    ref.read(searchDetailBannerAdProvider.notifier).loadAd();
+    ref.read(searchDetail2BannerAdProvider.notifier).loadAd();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     TextTheme textTheme = Theme.of(context).textTheme;
@@ -253,7 +261,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                           children: [
                             verticalGap(20),
                             SizedBox(
-                              height: size.height * 0.10,
+                              height: bannerAd.size.height.toDouble(),
                               width: size.width * 0.9,
                               child: AdWidget(ad: bannerAd),
                             ),

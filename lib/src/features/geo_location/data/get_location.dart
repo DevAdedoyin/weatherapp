@@ -4,11 +4,12 @@ import 'package:location_geocoder/location_geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weatherapp/src/features/geo_location/repositories/address_repo.dart';
+import 'package:weatherapp/src/features/weather/data/repositories/bottom_nav_state.dart';
 import 'package:weatherapp/src/routing/app_routes.dart';
 import 'package:weatherapp/src/routing/go_router_provider.dart';
 
 class GenerateWeatherLocation {
-  static void getLocation() async {
+  static void getLocation(WidgetRef ref) async {
     // Obtain shared preferences.
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -45,6 +46,7 @@ class GenerateWeatherLocation {
     await prefs.setString('address',
         "${address.first.thoroughfare ?? ''}, ${address.first.subAdminArea ?? ''}");
 
+    ref.read(bottomNavState.notifier).state = 0;
     goRouter.go(AppRoutes.dashboard);
   }
 

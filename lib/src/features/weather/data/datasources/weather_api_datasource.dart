@@ -33,7 +33,7 @@ class WeatherApiDataSource {
     // Decode the JSON response body
     final responseBody = jsonDecode(response.body);
 
-    // print(responseBody);
+    print(responseBody);
     // print(response.statusCode);
     // Check if the response status code is 200 (OK)
     if (response.statusCode == 200) {

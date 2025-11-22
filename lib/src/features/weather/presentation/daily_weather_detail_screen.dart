@@ -28,6 +28,14 @@ class DailyWeatherDetail extends ConsumerStatefulWidget {
 
 class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    ref.read(forecastDetailBannerAdProvider.notifier).loadAd();
+    ref.read(forecastDetail2BannerAdProvider.notifier).loadAd();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final dailyWeather = ref.watch(dailyWeatherProvider);
     final userCurrentAddress_ = ref.watch(userCurrentAddress);
@@ -181,7 +189,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                   if (bannerAd != null)
                     Container(
                       alignment: Alignment.center,
-                      height: size.height * 0.20,
+                      height: bannerAd.size.height.toDouble(),
                       width: double.maxFinite,
                       child: AdWidget(ad: bannerAd),
                     ),
@@ -349,7 +357,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                   if (banner2Ad != null)
                     Container(
                       alignment: Alignment.center,
-                      height: size.height * 0.10,
+                      height: banner2Ad.size.height.toDouble(),
                       width: double.maxFinite,
                       child: AdWidget(ad: banner2Ad),
                     ),

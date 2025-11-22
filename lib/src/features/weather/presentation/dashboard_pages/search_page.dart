@@ -13,6 +13,7 @@ import "package:weatherapp/src/features/weather/data/repositories/search_city_re
 import "package:weatherapp/src/features/weather/data/repositories/search_suggestion_data.dart";
 import "package:weatherapp/src/routing/app_routes.dart";
 
+import "../../../ads/ad_counter.dart";
 import "../../../ads/data/repositories/banner_repository.dart";
 import "../../../ads/data/repositories/interstital_repository.dart";
 
@@ -60,6 +61,8 @@ class _SearchPageState extends ConsumerState<SearchPage> {
     // TODO: implement initState
     super.initState();
     uniqueCityData = SearchSuggestionModel.listOfCityData;
+
+    ref.read(searchBannerAdProvider.notifier).loadAd();
   }
 
   @override
@@ -232,12 +235,10 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                 },
               ),
             ),
-            verticalGap(5),
+            verticalGap(12),
             if (bannerAd != null)
               SizedBox(
-                height: user?.email == null
-                    ? size.height * 0.10
-                    : bannerAd.size.height.toDouble(),
+                height: bannerAd.size.height.toDouble(),
                 width: size.width * 0.95,
                 child: AdWidget(ad: bannerAd),
               ),
@@ -250,7 +251,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                 textAlign: TextAlign.start,
                 style: GoogleFonts.aBeeZee(
                     color: isDarkMode ? Colors.white : Colors.black,
-                    fontSize: 18,
+                    fontSize: 17,
                     fontWeight: FontWeight.bold),
               ),
             ),
@@ -268,7 +269,8 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                     splashColor: AppColors.cardBgColor,
                     borderRadius: BorderRadius.circular(20),
                     onTap: () {
-                      ref.read(interstitialAdProvider.notifier).showAd();
+                      AdDisplayCounter.addDisplayCounter(
+                          ref.read(interstitialAdProvider.notifier));
                       infoAuthAlertWidget(
                           context,
                           "Please kindly login or create an account to see more details",
@@ -313,7 +315,8 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                       ref.read(searchCity.notifier).state["city"] = e.cityNames;
 
                       context.push(AppRoutes.searchCityWeatherDetails);
-                      ref.read(interstitialAdProvider.notifier).showAd();
+                      AdDisplayCounter.addDisplayCounter(
+                          ref.read(interstitialAdProvider.notifier));
                     },
                     child: ListTile(
                       leading: Icon(

@@ -71,6 +71,7 @@ dependencies:
   package_info_plus: ^8.3.1
   share_plus: ^11.1.0
   firebase_database: ^11.3.10
+  flutter_animated_dialog: ^2.0.1
 
 dev_dependencies:
   flutter_test:

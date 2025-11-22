@@ -20,6 +20,7 @@ class WeatherTipsScreen extends ConsumerWidget {
         ref.read(weatherId.notifier).state);
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     Size size = MediaQuery.of(context).size;
+    ref.read(tipsBannerAdProvider.notifier).loadAd();
     final bannerAd = ref.watch(tipsBannerAdProvider);
     TextTheme textTheme = Theme.of(context).textTheme;
     final user = FirebaseAuth.instance.currentUser;
@@ -56,9 +57,7 @@ class WeatherTipsScreen extends ConsumerWidget {
             verticalGap(10),
             if (bannerAd != null)
               SizedBox(
-                height: user?.email == null
-                    ? size.height * 0.10
-                    : bannerAd.size.height.toDouble(),
+                height: bannerAd.size.height.toDouble(),
                 width: size.width * 0.90,
                 child: AdWidget(ad: bannerAd),
               ),

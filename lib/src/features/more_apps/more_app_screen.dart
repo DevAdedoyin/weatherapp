@@ -176,12 +176,12 @@ class MoreAppScreen extends ConsumerWidget {
               ),
             ),
             SizedBox(height: 16),
-            if (bannerAd != null)
-              SizedBox(
-                height: size.height * 0.15,
-                width: size.width * 0.90,
-                child: AdWidget(ad: bannerAd),
-              ),
+            // if (bannerAd != null)
+            //   SizedBox(
+            //     height: size.height * 0.15,
+            //     width: size.width * 0.90,
+            //     child: AdWidget(ad: bannerAd),
+            //   ),
           ],
         ),
       ),

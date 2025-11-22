@@ -18,7 +18,7 @@ class _UserLocationState extends ConsumerState<UserLocation> {
   @override
   void initState() {
     // TODO: implement initState
-    GenerateWeatherLocation.getLocation();
+    GenerateWeatherLocation.getLocation(ref);
     super.initState();
   }
 
@@ -118,7 +118,7 @@ class _UserLocationState extends ConsumerState<UserLocation> {
                   width: size.width * 0.8,
                   child: ElevatedButton(
                     onPressed: () {
-                      GenerateWeatherLocation.getLocation();
+                      GenerateWeatherLocation.getLocation(ref);
                     },
                     style: ButtonStyle(
                         elevation: const WidgetStatePropertyAll(1),

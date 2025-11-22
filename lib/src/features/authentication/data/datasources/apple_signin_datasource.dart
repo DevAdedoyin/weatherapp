@@ -48,6 +48,8 @@ Enjoy top notch weather forecast!
         "Apple Sign-in Successful",
       );
 
+      goRouter.pop();
+
       Future.delayed(const Duration(seconds: 2),
           () => GoRouter.of(context).go(AppRoutes.userLocatorPage));
 

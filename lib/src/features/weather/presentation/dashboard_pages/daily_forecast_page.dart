@@ -37,6 +37,7 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
     super.initState();
     AdDisplayCounter.addDisplayCounter(
         ref.read(interstitialAdProvider.notifier));
+    ref.read(forecastBannerAdProvider.notifier).loadAd();
   }
 
   @override
@@ -64,9 +65,7 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
         verticalGap(10),
         if (bannerAd != null)
           SizedBox(
-            height: user?.email == null
-                ? size.height * 0.10
-                : bannerAd.size.height.toDouble(),
+            height: bannerAd.size.height.toDouble(),
             width: size.width * 0.90,
             child: AdWidget(ad: bannerAd),
           ),
@@ -146,9 +145,8 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                           child: InkWell(
                             onTap: FirebaseAuth.instance.currentUser == null
                                 ? () {
-                                    ref
-                                        .read(interstitialAdProvider.notifier)
-                                        .showAd();
+                                    AdDisplayCounter.addDisplayCounter(ref
+                                        .read(interstitialAdProvider.notifier));
                                     infoAuthAlertWidget(
                                         context,
                                         "Please kindly login or create an account to see more forecast details",
@@ -210,9 +208,9 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                                   return Text(
                                     snapshot.data!,
                                     style: GoogleFonts.acme(
-                                        fontSize: 19,
-                                        fontWeight: FontWeight.w900,
-                                        ),
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.w900,
+                                    ),
                                   );
                                 },
                               ),

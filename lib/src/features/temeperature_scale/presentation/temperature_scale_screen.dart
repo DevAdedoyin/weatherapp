@@ -9,16 +9,19 @@ class TemperatureScaleScreen extends ConsumerStatefulWidget {
   const TemperatureScaleScreen({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _TemperatureScaleScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _TemperatureScaleScreenState();
 }
 
-class _TemperatureScaleScreenState extends ConsumerState<TemperatureScaleScreen> {
+class _TemperatureScaleScreenState
+    extends ConsumerState<TemperatureScaleScreen> {
   TempUnit _selectedUnit = TempUnit.celsius;
 
   @override
   void initState() {
     super.initState();
     _loadUnit();
+    ref.read(temperatureUnitBannerAdProvider.notifier).loadAd();
   }
 
   Future<void> _loadUnit() async {
@@ -89,7 +92,7 @@ class _TemperatureScaleScreenState extends ConsumerState<TemperatureScaleScreen>
               verticalGap(20),
               if (bannerAd != null)
                 SizedBox(
-                  height: size.height * 0.20,
+                  height: size.height * 0.25,
                   width: size.width * 0.9,
                   child: AdWidget(ad: bannerAd),
                 ),

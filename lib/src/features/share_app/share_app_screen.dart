@@ -18,6 +18,7 @@ class ShareAppScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    ref.read(shareAppBannerAdProvider.notifier).loadAd();
     final bannerAd = ref.watch(shareAppBannerAdProvider);
     // final user = FirebaseAuth.instance.currentUser;
     Size size = MediaQuery.of(context).size;
@@ -77,7 +78,7 @@ class ShareAppScreen extends ConsumerWidget {
               SizedBox(height: 16),
               if (bannerAd != null)
                 SizedBox(
-                  height: size.height * 0.15,
+                  height: size.height * 0.25,
                   width: size.width * 0.90,
                   child: AdWidget(ad: bannerAd),
                 ),

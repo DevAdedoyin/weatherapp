@@ -13,7 +13,9 @@ import "package:weatherapp/src/common/gaps/sized_box.dart";
 import "package:weatherapp/src/constants/app_colors.dart";
 import "package:weatherapp/src/features/app_update_notification/check_updates.dart";
 import "package:weatherapp/src/features/authentication/data/datasources/auth_datasource.dart";
+import "package:weatherapp/src/features/authentication/presentation/third_party_auth.dart";
 import "package:weatherapp/src/features/share_app/share_app.dart";
+import "package:weatherapp/src/features/weather/data/repositories/bottom_nav_state.dart";
 import "package:weatherapp/src/routing/app_routes.dart";
 import "package:weatherapp/src/routing/go_router_provider.dart";
 
@@ -38,6 +40,14 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    ref.read(settingsBannerAdProvider.notifier).loadAd();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+
+    super.dispose();
   }
 
   @override
@@ -95,6 +105,33 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 width: size.width * 0.90,
                 child: AdWidget(ad: bannerAd),
               ),
+            verticalGap(user == null ? 20 : 10),
+            if (user == null) ThirdPartyAuthWidgets(),
+            verticalGap(10),
+            user == null
+                ? Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Card(
+                      color: isDarkMode
+                          ? AppColors.cardDarkModeColor
+                          : AppColors.cardLightModeColor,
+                      child: ListTile(
+                        leading: Icon(Icons.login,
+                            color: isDarkMode ? Colors.red : Colors.blue),
+                        title: Text(
+                          "Login / Create account",
+                          style: textTheme.bodyMedium,
+                        ),
+                        trailing: IconButton(
+                          onPressed: () {
+                            goRouter.go(AppRoutes.login);
+                          },
+                          icon: const Icon(Icons.arrow_forward_rounded),
+                        ),
+                      ),
+                    ),
+                  )
+                : SizedBox(),
             verticalGap(10),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 15),

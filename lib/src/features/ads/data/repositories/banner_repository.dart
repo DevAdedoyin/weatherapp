@@ -6,9 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class BannerAdNotifier extends StateNotifier<BannerAd?> {
-  BannerAdNotifier() : super(null) {
-    _loadAd();
-  }
+  BannerAdNotifier() : super(null);
 
   // PRODUCTION
   final adUnitId = dotenv.env["BANNER_AD_UNIT_ANDROID"];
@@ -17,11 +15,10 @@ class BannerAdNotifier extends StateNotifier<BannerAd?> {
   // DEVELOPMENT
   final testAdUnitId = dotenv.env["SAMPLE_BANNER_ID_ANDROID"];
 
-  void _loadAd() {
+  void loadAd() {
     final banner = BannerAd(
-      adUnitId:
-          testAdUnitId!,
-          // Platform.isAndroid ? adUnitId! : adUnitIdIOS!,
+      adUnitId: testAdUnitId!,
+      // Platform.isAndroid ? adUnitId! : adUnitIdIOS!,
       size: AdSize.banner,
       request: const AdRequest(),
       listener: BannerAdListener(

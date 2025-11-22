@@ -24,8 +24,15 @@ class HourlyWeatherDetailsScreen extends ConsumerStatefulWidget {
 class _HourlyWeatherDetailsScreenState
     extends ConsumerState<HourlyWeatherDetailsScreen> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    ref.read(bannerHourlyAdProvider.notifier).loadAd();
+  }
+  @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
+
     final bannerAd = ref.watch(bannerHourlyAdProvider);
     Size size = MediaQuery.of(context).size;
     final hourlyWeatherState = ref.watch(hourlyWeatherDetails);
@@ -195,7 +202,7 @@ class _HourlyWeatherDetailsScreenState
                 verticalGap(20),
                 if (bannerAd != null)
                   SizedBox(
-                    height: size.height * 0.10,
+                    height: bannerAd.size.height.toDouble(),
                     width: size.width * 0.9,
                     child: AdWidget(ad: bannerAd),
                   ),
