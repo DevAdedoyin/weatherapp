@@ -32,7 +32,7 @@ class _WeatherFactScreenState extends ConsumerState<WeatherFactScreen> {
     super.initState();
     AdDisplayCounter.addDisplayCounter(
         ref.read(interstitialAdProvider.notifier));
-    ref.read(weatherFactsBannerAdProvider.notifier).loadAd();
+    // ref.read(weatherFactsBannerAdProvider.notifier).loadAd();
   }
 
   @override

@@ -62,7 +62,9 @@ class _SearchPageState extends ConsumerState<SearchPage> {
     super.initState();
     uniqueCityData = SearchSuggestionModel.listOfCityData;
 
-    ref.read(searchBannerAdProvider.notifier).loadAd();
+    // TODO NOTE
+    // In the future to load ad banners uncomment this code
+    // ref.read(searchBannerAdProvider.notifier).loadAd();
   }
 
   @override
@@ -103,8 +105,10 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                 itemBuilder: (_, position) {
                   return GestureDetector(
                     onTap: () {
+                      AdDisplayCounter.addDisplayCounter(
+                          ref.read(interstitialAdProvider.notifier));
                       if (user == null) {
-                        ref.read(interstitialAdProvider.notifier).showAd();
+
                         infoAuthAlertWidget(
                             context,
                             "Please kindly login or create and account to search for weather data of any location of your choice.",
@@ -125,7 +129,6 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                             uniqueCityData[position].cityNames;
 
                         context.push(AppRoutes.searchCityWeatherDetails);
-                        ref.read(interstitialAdProvider.notifier).showAd();
                       }
                     },
                     child: Card(
@@ -177,10 +180,9 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                             // horizontalGap(2),
                             InkWell(
                                 onTap: () {
+                                  AdDisplayCounter.addDisplayCounter(ref
+                                      .read(interstitialAdProvider.notifier));
                                   if (user == null) {
-                                    ref
-                                        .read(interstitialAdProvider.notifier)
-                                        .showAd();
                                     infoAuthAlertWidget(
                                         context,
                                         "Please kindly login or create an account to search for weather data of any location of your choice.",
@@ -189,15 +191,12 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                                     });
                                   } else {
                                     ref
-                                        .read(interstitialAdProvider.notifier)
-                                        .showAd();
-                                    ref
                                         .read(searchCity.notifier)
                                         .state["city"] = textController.text;
 
-                                    ref
-                                        .read(interstitialAdProvider.notifier)
-                                        .showAd();
+                                    // ref
+                                    //     .read(interstitialAdProvider.notifier)
+                                    //     .showAd();
 
                                     context.push(
                                         AppRoutes.searchCityWeatherDetails);

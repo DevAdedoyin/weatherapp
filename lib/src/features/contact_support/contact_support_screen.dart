@@ -38,7 +38,7 @@ class ContactSupportPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    ref.read(contactSupportBannerAdProvider.notifier).loadAd();
+    // ref.read(contactSupportBannerAdProvider.notifier).loadAd();
     final bannerAd = ref.watch(contactSupportBannerAdProvider);
     // final user = FirebaseAuth.instance.currentUser;
     Size size = MediaQuery.of(context).size;

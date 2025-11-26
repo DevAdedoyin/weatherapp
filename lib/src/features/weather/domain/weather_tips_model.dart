@@ -39,7 +39,7 @@ class WeatherTipsHelper {
         "Keep an emergency flashlight ready for power outages."
       ],
       "home_commute": [
-        "Avoid unnecessary driving; roads may flood quickly.",
+        "Avoiid unnecessary driving; roads may flood quickly.",
         "Charge devices in case the storm cuts power.",
         "Secure outdoor items (plants, bins, furniture) from strong winds."
       ]
@@ -240,19 +240,19 @@ class WeatherTipsHelper {
 class WeatherImages {
   static String weatherImages(double wId) {
     return wId >= 200 && wId <= 232
-        ? "assets/images/thunderstorm.png"
+        ? "assets/images/thunderstormgif.gif"
         : wId >= 300 && wId <= 321
-            ? "assets/images/drizzle.png"
+            ? "assets/images/drizzle.gif"
             : wId >= 500 && wId <= 531
-                ? "assets/images/rain.png"
+                ? "assets/images/raining.gif"
                 : wId >= 600 && wId <= 622
-                    ? "assets/images/snow.png"
+                    ? "assets/images/snow.gif"
                     : wId >= 701 && wId <= 781
-                        ? "assets/images/fog.png"
+                        ? "assets/images/atmosphere.gif"
                         : wId == 800
-                            ? "assets/images/clear_sky.png"
+                            ? "assets/images/clearskygif.gif"
                             : wId >= 801 && wId <= 804
-                                ? "assets/images/clouds.png"
-                                : "assets/images/wId.png";
+                                ? "assets/images/clouds.gif"
+                                : "assets/images/wId.gif";
   }
 }

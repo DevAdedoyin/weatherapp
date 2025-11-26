@@ -19,6 +19,9 @@ import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/tip
 import 'package:weatherapp/src/routing/app_routes.dart';
 import 'package:weatherapp/src/routing/go_router_provider.dart';
 
+import '../../../ads/ad_counter.dart';
+import '../../../ads/data/repositories/interstital_repository.dart';
+
 class Dashboard extends ConsumerStatefulWidget {
   const Dashboard({super.key});
 
@@ -69,6 +72,8 @@ class _DashboardState extends ConsumerState<Dashboard> {
           } else {
             AppRatings.requestReview();
           }
+          AdDisplayCounter.addDisplayCounter(
+              ref.read(interstitialAdProvider.notifier));
           goRouter.push(AppRoutes.weatherFact);
         },
         child: Icon(
@@ -234,17 +239,17 @@ class _DashboardState extends ConsumerState<Dashboard> {
               // isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
               icon: currentIndex == 3
                   ? Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white54.withOpacity(0.15),
-                      borderRadius: BorderRadius.circular(20)),
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 7, vertical: 7),
-                  child: const Icon(Icons.lightbulb))
+                      decoration: BoxDecoration(
+                          color: Colors.white54.withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(20)),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 7, vertical: 7),
+                      child: const Icon(Icons.lightbulb))
                   : Icon(
-                Icons.lightbulb,
-                color: isDarkMode ? Colors.white60 : Colors.black87,
-                size: 30,
-              ),
+                      Icons.lightbulb,
+                      color: isDarkMode ? Colors.white60 : Colors.black87,
+                      size: 30,
+                    ),
               label: "Tips"),
           BottomNavigationBarItem(
               backgroundColor: Colors.transparent,

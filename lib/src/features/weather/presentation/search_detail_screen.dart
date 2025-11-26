@@ -70,8 +70,8 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    ref.read(searchDetailBannerAdProvider.notifier).loadAd();
-    ref.read(searchDetail2BannerAdProvider.notifier).loadAd();
+    // ref.read(searchDetailBannerAdProvider.notifier).loadAd();
+    // ref.read(searchDetail2BannerAdProvider.notifier).loadAd();
   }
 
   @override
@@ -180,7 +180,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                             // alignment: Alignment.bottomCenter,
                             // height: size.width * 0.30,
                             // width: size.width * 0.30,
-                            fit: BoxFit.contain,
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
@@ -272,7 +272,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                       child: Container(
                         width: double.maxFinite,
                         margin: const EdgeInsets.symmetric(
-                            horizontal: 18, vertical: 25),
+                            horizontal: 18, vertical: 20),
                         child: Card(
                           color: isDarkMode
                               ? AppColors.cardDarkModeColor
@@ -385,8 +385,9 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                                   .currentWeatherModel
                                                   .dewPoint),
                                           builder: (context, snapshot) {
-                                            if (!snapshot.hasData)
+                                            if (!snapshot.hasData) {
                                               return const SizedBox();
+                                            }
                                             return Text(
                                               snapshot.data!,
                                               style: textTheme.bodySmall,
@@ -481,10 +482,10 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
 
                                         context.push(
                                             AppRoutes.hourlyWeatherDetails);
-                                        ref
-                                            .read(
-                                                interstitialAdProvider.notifier)
-                                            .showAd();
+                                        // ref
+                                        //     .read(
+                                        //         interstitialAdProvider.notifier)
+                                        //     .showAd();
                                       },
                                       borderRadius: BorderRadius.circular(15),
                                       radius: 0.5,
@@ -537,9 +538,13 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             50)),
-                                                child: Image.network(
-                                                  WeatherIcon.weatherIcon(
-                                                    data_.weather.icon,
+                                                child: Hero(
+                                                  tag:
+                                                  "weather-image-$position",
+                                                  child: Image.network(
+                                                    WeatherIcon.weatherIcon(
+                                                      data_.weather.icon,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
@@ -548,8 +553,9 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                                     .formatWithPrefs(
                                                         data_.temp),
                                                 builder: (context, snapshot) {
-                                                  if (!snapshot.hasData)
+                                                  if (!snapshot.hasData) {
                                                     return const SizedBox();
+                                                  }
                                                   return Text(
                                                     snapshot.data!,
                                                     style: GoogleFonts.roboto(
@@ -675,14 +681,10 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             50)),
-                                                child: Hero(
-                                                  tag:
-                                                      "weather-image-$position",
-                                                  child: Image.network(
-                                                    WeatherIcon.weatherIcon(
-                                                      // "",
-                                                      data_.weather.icon,
-                                                    ),
+                                                child: Image.network(
+                                                  WeatherIcon.weatherIcon(
+                                                    // "",
+                                                    data_.weather.icon,
                                                   ),
                                                 ),
                                               ),

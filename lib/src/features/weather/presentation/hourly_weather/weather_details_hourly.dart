@@ -5,6 +5,7 @@ import 'package:weatherapp/src/constants/app_colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:weatherapp/src/utils/weather_icon_utils.dart';
 
+import '../../../ads/ad_counter.dart';
 import '../../../ads/data/repositories/interstital_repository.dart';
 import '../../../temeperature_scale/data/temperature_data.dart';
 import '../../data/repositories/hourly_weather_detail.dart';
@@ -64,7 +65,10 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
                           ref.read(openWeatherDetails.notifier).state
                               ? false
                               : true;
-                      ref.read(interstitialAdProvider.notifier).showAd();
+                      // TODO IF ADD IS NEEDED IN THE FUTURE
+                      // ref.read(interstitialAdProvider.notifier).showAd();
+                      AdDisplayCounter.addDisplayCounter(
+                          ref.read(interstitialAdProvider.notifier));
                     },
                     child: Card(
                       elevation: 3,
@@ -88,7 +92,7 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
           AnimatedContainer(
             duration: const Duration(milliseconds: 1200),
             curve: Curves.easeIn,
-            height: isOpen ? size.height * 0.65 : size.height * 0.30,
+            height: isOpen ? size.height * 0.70 : size.height * 0.40,
             child: ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 padding: EdgeInsets.zero,

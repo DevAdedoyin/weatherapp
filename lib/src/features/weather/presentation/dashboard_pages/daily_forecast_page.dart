@@ -37,7 +37,9 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
     super.initState();
     AdDisplayCounter.addDisplayCounter(
         ref.read(interstitialAdProvider.notifier));
-    ref.read(forecastBannerAdProvider.notifier).loadAd();
+    // TODO NOTE
+    // In the future to load ad banners uncomment this code
+    // ref.read(forecastBannerAdProvider.notifier).loadAd();
   }
 
   @override
@@ -176,9 +178,9 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                                         .state = dailyDetail;
 
                                     context.push(AppRoutes.dailyDetails);
-                                    ref
-                                        .read(interstitialAdProvider.notifier)
-                                        .showAd();
+                                    // ref
+                                    //     .read(interstitialAdProvider.notifier)
+                                    //     .showAd();
                                   },
                             radius: 0.5,
                             borderRadius: BorderRadius.circular(10),

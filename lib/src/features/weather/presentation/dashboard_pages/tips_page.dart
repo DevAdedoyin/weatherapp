@@ -20,7 +20,9 @@ class WeatherTipsScreen extends ConsumerWidget {
         ref.read(weatherId.notifier).state);
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     Size size = MediaQuery.of(context).size;
-    ref.read(tipsBannerAdProvider.notifier).loadAd();
+    // TODO NOTE
+    // In the future to load ad banners uncomment this code
+    // ref.read(tipsBannerAdProvider.notifier).loadAd();
     final bannerAd = ref.watch(tipsBannerAdProvider);
     TextTheme textTheme = Theme.of(context).textTheme;
     final user = FirebaseAuth.instance.currentUser;
@@ -51,7 +53,7 @@ class WeatherTipsScreen extends ConsumerWidget {
               "Weather Tips",
               style: GoogleFonts.aboreto(
                   color: Colors.white,
-                  fontSize: 20,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold),
             ),
             verticalGap(10),

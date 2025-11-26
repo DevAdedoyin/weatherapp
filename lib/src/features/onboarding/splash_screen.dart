@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
         _visible = true;
       });
       Future.delayed(
-        const Duration(milliseconds: 5000),
+        const Duration(milliseconds: 3000),
         () async {
           if (FirebaseAuth.instance.currentUser == null) {
             int launchNumber = await LaunchCounter.launchCounter();

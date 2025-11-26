@@ -31,8 +31,8 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    ref.read(forecastDetailBannerAdProvider.notifier).loadAd();
-    ref.read(forecastDetail2BannerAdProvider.notifier).loadAd();
+    // ref.read(forecastDetailBannerAdProvider.notifier).loadAd();
+    // ref.read(forecastDetail2BannerAdProvider.notifier).loadAd();
   }
 
   @override
@@ -273,7 +273,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                                         .state
                                     ? false
                                     : true;
-                            ref.read(interstitialAdProvider.notifier).showAd();
+                            // ref.read(interstitialAdProvider.notifier).showAd();
                           },
                           borderRadius: BorderRadius.circular(20),
                           child: Card(
@@ -376,7 +376,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                                     .state
                                 ? false
                                 : true;
-                            ref.read(interstitialAdProvider.notifier).showAd();
+                            // ref.read(interstitialAdProvider.notifier).showAd();
                           },
                           borderRadius: BorderRadius.circular(20),
                           child: Card(

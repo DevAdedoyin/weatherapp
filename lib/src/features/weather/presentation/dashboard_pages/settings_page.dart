@@ -40,7 +40,10 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    ref.read(settingsBannerAdProvider.notifier).loadAd();
+
+    // TODO NOTE
+    // In the future to load ad banners uncomment this code
+    // ref.read(settingsBannerAdProvider.notifier).loadAd();
   }
 
   @override

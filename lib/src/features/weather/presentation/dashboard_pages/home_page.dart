@@ -54,8 +54,10 @@ class _HomePageState extends ConsumerState<HomePage> {
     // ref.read(userCurrentAddress.notifier).state = address!;
     // ref.read(isFromSearchScreen.notifier).state = false;
 
-    ref.read(bannerAdProvider.notifier).loadAd();
-    ref.read(banner2AdProvider.notifier).loadAd();
+    // TODO NOTE
+    // In the future to load ad banners uncomment this code
+    // ref.read(bannerAdProvider.notifier).loadAd();
+    // ref.read(banner2AdProvider.notifier).loadAd();
   }
 
   String getDateTime() {
@@ -216,7 +218,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                         // alignment: Alignment.bottomCenter,
                         // height: size.width * 0.20,
                         // width: size.width * 0.20,
-                        fit: BoxFit.contain,
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
@@ -476,9 +478,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 return InkWell(
                                   onTap: () {
                                     if (currentUser == null) {
-                                      ref
-                                          .read(interstitialAdProvider.notifier)
-                                          .showAd();
+                                      AdDisplayCounter.addDisplayCounter(
+                                          ref.read(
+                                              interstitialAdProvider.notifier));
                                       infoAuthAlertWidget(
                                           context,
                                           "Please kindly login or create an account to see more details.",

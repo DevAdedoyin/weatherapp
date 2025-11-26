@@ -21,7 +21,7 @@ class _TemperatureScaleScreenState
   void initState() {
     super.initState();
     _loadUnit();
-    ref.read(temperatureUnitBannerAdProvider.notifier).loadAd();
+    // ref.read(temperatureUnitBannerAdProvider.notifier).loadAd();
   }
 
   Future<void> _loadUnit() async {
