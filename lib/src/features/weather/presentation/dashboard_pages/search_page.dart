@@ -64,7 +64,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
 
     // TODO NOTE
     // In the future to load ad banners uncomment this code
-    // ref.read(searchBannerAdProvider.notifier).loadAd();
+    ref.read(searchBannerAdProvider.notifier).loadAd();
   }
 
   @override

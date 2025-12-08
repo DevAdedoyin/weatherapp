@@ -21,6 +21,7 @@ import 'package:weatherapp/src/features/weather/domain/weather_model.dart';
 import 'package:weatherapp/src/routing/app_routes.dart';
 import 'package:weatherapp/src/utils/weather_icon_utils.dart';
 
+import '../../ads/ad_counter.dart';
 import '../../ads/data/repositories/banner_repository.dart';
 import '../../ads/data/repositories/interstital_repository.dart';
 import '../../temeperature_scale/data/temperature_data.dart';
@@ -70,8 +71,8 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // ref.read(searchDetailBannerAdProvider.notifier).loadAd();
-    // ref.read(searchDetail2BannerAdProvider.notifier).loadAd();
+    ref.read(searchDetailBannerAdProvider.notifier).loadAd();
+    ref.read(searchDetail2BannerAdProvider.notifier).loadAd();
   }
 
   @override
@@ -479,7 +480,9 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
 
                                         hourlyState.address =
                                             userSearchedAddress;
-
+                                        AdDisplayCounter.addDisplayCounter(
+                                            ref.read(interstitialAdProvider
+                                                .notifier));
                                         context.push(
                                             AppRoutes.hourlyWeatherDetails);
                                         // ref
@@ -540,7 +543,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                                             50)),
                                                 child: Hero(
                                                   tag:
-                                                  "weather-image-$position",
+                                                      "weather-image-$position",
                                                   child: Image.network(
                                                     WeatherIcon.weatherIcon(
                                                       data_.weather.icon,

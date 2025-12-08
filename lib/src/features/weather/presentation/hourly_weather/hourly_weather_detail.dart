@@ -27,7 +27,7 @@ class _HourlyWeatherDetailsScreenState
   void initState() {
     // TODO: implement initState
     super.initState();
-    // ref.read(bannerHourlyAdProvider.notifier).loadAd();
+    ref.read(bannerHourlyAdProvider.notifier).loadAd();
   }
   @override
   Widget build(BuildContext context) {

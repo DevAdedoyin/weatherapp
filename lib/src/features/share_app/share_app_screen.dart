@@ -5,7 +5,9 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:weatherapp/src/features/share_app/share_app.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../ads/ad_counter.dart';
 import '../ads/data/repositories/banner_repository.dart';
+import '../ads/data/repositories/interstital_repository.dart';
 
 class ShareAppScreen extends ConsumerWidget {
   final String phoneNumber = '+447300850614';
@@ -18,7 +20,7 @@ class ShareAppScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    // ref.read(shareAppBannerAdProvider.notifier).loadAd();
+    ref.read(shareAppBannerAdProvider.notifier).loadAd();
     final bannerAd = ref.watch(shareAppBannerAdProvider);
     // final user = FirebaseAuth.instance.currentUser;
     Size size = MediaQuery.of(context).size;
@@ -59,7 +61,11 @@ class ShareAppScreen extends ConsumerWidget {
                   title: Text('Share for Iphone'),
                   trailing: Icon(Icons.share),
                   subtitle: Text("Tap to share to Iphone users."),
-                  onTap: () => ShareApp.shareApp(context, os: "iOS"),
+                  onTap: () {
+                    AdDisplayCounter.addDisplayCounter(
+                        ref.read(interstitialAdProvider.notifier));
+                    ShareApp.shareApp(context, os: "iOS");
+                  },
                 ),
               ),
               SizedBox(height: 16),
@@ -72,7 +78,11 @@ class ShareAppScreen extends ConsumerWidget {
                   title: Text('Share for Android'),
                   trailing: Icon(Icons.share),
                   subtitle: Text('Tap to share to Android users.'),
-                  onTap: () => ShareApp.shareApp(context, os: "Android"),
+                  onTap: () {
+                    AdDisplayCounter.addDisplayCounter(
+                        ref.read(interstitialAdProvider.notifier));
+                    ShareApp.shareApp(context, os: "Android");
+                  },
                 ),
               ),
               SizedBox(height: 16),

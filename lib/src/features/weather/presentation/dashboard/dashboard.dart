@@ -239,17 +239,17 @@ class _DashboardState extends ConsumerState<Dashboard> {
               // isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
               icon: currentIndex == 3
                   ? Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white54.withOpacity(0.15),
-                          borderRadius: BorderRadius.circular(20)),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 7, vertical: 7),
-                      child: const Icon(Icons.lightbulb))
+                  decoration: BoxDecoration(
+                      color: Colors.white54.withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(20)),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 7, vertical: 7),
+                  child: const Icon(Icons.lightbulb))
                   : Icon(
-                      Icons.lightbulb,
-                      color: isDarkMode ? Colors.white60 : Colors.black87,
-                      size: 30,
-                    ),
+                Icons.lightbulb,
+                color: isDarkMode ? Colors.white60 : Colors.black87,
+                size: 30,
+              ),
               label: "Tips"),
           BottomNavigationBarItem(
               backgroundColor: Colors.transparent,

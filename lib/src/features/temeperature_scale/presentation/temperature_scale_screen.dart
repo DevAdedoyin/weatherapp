@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:weatherapp/src/common/gaps/sized_box.dart';
+import '../../ads/ad_counter.dart';
 import '../../ads/data/repositories/banner_repository.dart';
+import '../../ads/data/repositories/interstital_repository.dart';
 import '../data/temperature_data.dart'; // contains TemperatureConverter + TempUnit
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -21,7 +23,7 @@ class _TemperatureScaleScreenState
   void initState() {
     super.initState();
     _loadUnit();
-    // ref.read(temperatureUnitBannerAdProvider.notifier).loadAd();
+    ref.read(temperatureUnitBannerAdProvider.notifier).loadAd();
   }
 
   Future<void> _loadUnit() async {
@@ -53,6 +55,9 @@ class _TemperatureScaleScreenState
         groupValue: _selectedUnit,
         activeColor: Colors.white,
         onChanged: (value) async {
+          AdDisplayCounter.addDisplayCounter(
+              ref.read(
+                  interstitialAdProvider.notifier));
           setState(() => _selectedUnit = value!);
           await TemperatureConverter.saveUnit(value!);
         },

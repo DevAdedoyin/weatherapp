@@ -22,7 +22,7 @@ class WeatherTipsScreen extends ConsumerWidget {
     Size size = MediaQuery.of(context).size;
     // TODO NOTE
     // In the future to load ad banners uncomment this code
-    // ref.read(tipsBannerAdProvider.notifier).loadAd();
+    ref.read(tipsBannerAdProvider.notifier).loadAd();
     final bannerAd = ref.watch(tipsBannerAdProvider);
     TextTheme textTheme = Theme.of(context).textTheme;
     final user = FirebaseAuth.instance.currentUser;

@@ -14,6 +14,7 @@ import 'package:weatherapp/src/features/weather/data/repositories/daily_detail_r
 import 'package:weatherapp/src/features/weather/data/repositories/search_city_repo.dart';
 import 'package:weatherapp/src/utils/weather_icon_utils.dart';
 
+import '../../ads/ad_counter.dart';
 import '../../ads/data/repositories/banner_repository.dart';
 import '../../ads/data/repositories/interstital_repository.dart';
 import '../../temeperature_scale/data/temperature_data.dart';
@@ -31,8 +32,8 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // ref.read(forecastDetailBannerAdProvider.notifier).loadAd();
-    // ref.read(forecastDetail2BannerAdProvider.notifier).loadAd();
+    ref.read(forecastDetailBannerAdProvider.notifier).loadAd();
+    ref.read(forecastDetail2BannerAdProvider.notifier).loadAd();
   }
 
   @override
@@ -273,7 +274,8 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                                         .state
                                     ? false
                                     : true;
-                            // ref.read(interstitialAdProvider.notifier).showAd();
+                            AdDisplayCounter.addDisplayCounter(
+                                ref.read(interstitialAdProvider.notifier));
                           },
                           borderRadius: BorderRadius.circular(20),
                           child: Card(
@@ -376,7 +378,8 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                                     .state
                                 ? false
                                 : true;
-                            // ref.read(interstitialAdProvider.notifier).showAd();
+                            AdDisplayCounter.addDisplayCounter(
+                                ref.read(interstitialAdProvider.notifier));
                           },
                           borderRadius: BorderRadius.circular(20),
                           child: Card(

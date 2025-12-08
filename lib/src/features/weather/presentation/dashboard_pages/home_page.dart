@@ -165,21 +165,24 @@ class _HomePageState extends ConsumerState<HomePage> {
                     ],
                   ),
                   actions: [
-                    FirebaseAuth.instance.currentUser == null
-                        ? IconButton(
-                            onPressed: () {
-                              context.go(AppRoutes.userLocatorPage);
-                            },
-                            icon: Icon(
-                              Icons.refresh,
-                            ))
-                        : Container(
-                            margin: const EdgeInsets.only(right: 15),
-                            child: Text(
-                              name,
-                              style: textTheme.titleSmall,
-                            ),
-                          )
+                    // FirebaseAuth.instance.currentUser == null
+                    //     ?
+                    IconButton(
+                        onPressed: () {
+                          context.go(AppRoutes.userLocatorPage);
+                        },
+                        icon: Icon(
+                          Icons.edit_location,
+                          color: isDarkMode ? Colors.red : Colors.white,
+                          size: 30,
+                        ))
+                    // : Container(
+                    //     margin: const EdgeInsets.only(right: 15),
+                    //     child: Text(
+                    //       name,
+                    //       style: textTheme.titleSmall,
+                    //     ),
+                    //   )
                   ],
                   snap: false,
                   floating: true,
@@ -527,11 +530,11 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       hourlyState.position = position;
                                       hourlyState.isFromSearch = false;
                                       hourlyState.address = address!;
-                                      context
-                                          .push(AppRoutes.hourlyWeatherDetails);
                                       AdDisplayCounter.addDisplayCounter(
                                           ref.read(
                                               interstitialAdProvider.notifier));
+                                      context
+                                          .push(AppRoutes.hourlyWeatherDetails);
                                     }
                                   },
                                   borderRadius: BorderRadius.circular(15),

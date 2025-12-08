@@ -20,6 +20,7 @@ import "package:weatherapp/src/routing/app_routes.dart";
 import "package:weatherapp/src/routing/go_router_provider.dart";
 
 import "../../../../themes/theme_notifier.dart";
+import "../../../ads/ad_counter.dart";
 import "../../../ads/data/repositories/banner_repository.dart";
 import "../../../ads/data/repositories/interstital_repository.dart";
 import "../../../notification/providers.dart";
@@ -43,7 +44,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
 
     // TODO NOTE
     // In the future to load ad banners uncomment this code
-    // ref.read(settingsBannerAdProvider.notifier).loadAd();
+    ref.read(settingsBannerAdProvider.notifier).loadAd();
   }
 
   @override
@@ -96,7 +97,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                       ),
                     ),
             ),
-            verticalGap(10),
+            verticalGap(5),
             Text(
               user?.displayName ?? '',
               style: textTheme.headlineMedium,
@@ -151,6 +152,9 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                   ),
                   trailing: IconButton(
                     onPressed: () {
+                      AdDisplayCounter.addDisplayCounter(
+                          ref.read(
+                              interstitialAdProvider.notifier));
                       goRouter.push(AppRoutes.temperatureScale);
                     },
                     icon: const Icon(Icons.arrow_forward_rounded),
@@ -277,6 +281,9 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                       onChanged: (val) {
                         // themeNotifier.toggleTheme();
                         // ref.read(interstitialAdProvider.notifier).showAd();
+                        AdDisplayCounter.addDisplayCounter(
+                            ref.read(
+                                interstitialAdProvider.notifier));
                         if (val) {
                           setupFCM();
 
@@ -331,7 +338,9 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                       value: isDarkMode,
                       onChanged: (val) {
                         themeNotifier.toggleTheme();
-                        ref.read(interstitialAdProvider.notifier).showAd();
+                        AdDisplayCounter.addDisplayCounter(
+                            ref.read(
+                                interstitialAdProvider.notifier));
                       },
                     )),
               ),
