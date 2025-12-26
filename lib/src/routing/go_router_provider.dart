@@ -19,7 +19,7 @@ import 'package:weatherapp/src/features/weather/presentation/daily_weather_detai
 import 'package:weatherapp/src/features/weather/presentation/dashboard/dashboard.dart';
 import 'package:weatherapp/src/features/weather/presentation/hourly_weather/hourly_weather_detail.dart';
 import 'package:weatherapp/src/features/weather/presentation/search_detail_screen.dart';
-import 'package:weatherapp/src/features/weather/presentation/weather_tips.dart';
+// import 'package:weatherapp/src/features/weather/presentation/weather_tips.dart';
 import 'package:weatherapp/src/features/weather_fact/weather_fact_screen.dart';
 import 'package:weatherapp/src/routing/app_routes.dart';
 import 'package:weatherapp/src/routing/route_error_screen.dart';

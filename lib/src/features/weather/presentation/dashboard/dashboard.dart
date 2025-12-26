@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:check_app_version/components/dialogs/app_version_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,6 +12,7 @@ import 'package:weatherapp/src/constants/app_colors.dart';
 import 'package:weatherapp/src/features/app_update_notification/check_updates.dart';
 import 'package:weatherapp/src/features/ratings.dart';
 import 'package:weatherapp/src/features/weather/data/repositories/bottom_nav_state.dart';
+import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/air_quality.dart';
 import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/daily_forecast_page.dart';
 import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/home_page.dart';
 import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/search_page.dart';
@@ -34,9 +36,9 @@ class _DashboardState extends ConsumerState<Dashboard> {
 
   static const List<Widget> _pages = [
     HomePage(),
-    SearchPage(),
+    AirQuality(),
     DailyForecastPage(),
-    WeatherTipsScreen(),
+    SearchPage(),
     SettingsPage()
   ];
 
@@ -192,13 +194,13 @@ class _DashboardState extends ConsumerState<Dashboard> {
                         borderRadius: BorderRadius.circular(20)),
                     padding:
                         const EdgeInsets.symmetric(horizontal: 7, vertical: 7),
-                    child: const Icon(Icons.home_filled))
+                    child: const Icon(CupertinoIcons.cloud_moon_bolt_fill))
                 : Icon(
-                    Icons.home_filled,
+                    Icons.cloud,
                     color: isDarkMode ? Colors.white60 : Colors.black87,
                     size: 30,
                   ),
-            label: "Home",
+            label: "Today",
           ),
           BottomNavigationBarItem(
               backgroundColor: Colors.transparent,
@@ -210,13 +212,13 @@ class _DashboardState extends ConsumerState<Dashboard> {
                           borderRadius: BorderRadius.circular(20)),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 7, vertical: 7),
-                      child: const Icon(Icons.search))
+                      child: const Icon(CupertinoIcons.wind_snow))
                   : Icon(
-                      Icons.search,
+                      Icons.air,
                       color: isDarkMode ? Colors.white60 : Colors.black87,
                       size: 30,
                     ),
-              label: "Search"),
+              label: "Air Quality"),
           BottomNavigationBarItem(
               backgroundColor: Colors.transparent,
               // isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
@@ -227,30 +229,30 @@ class _DashboardState extends ConsumerState<Dashboard> {
                           borderRadius: BorderRadius.circular(20)),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 7, vertical: 7),
-                      child: const Icon(Icons.wb_cloudy))
+                      child: const Icon(CupertinoIcons.calendar))
                   : Icon(
-                      Icons.wb_cloudy,
+                      Icons.calendar_month,
                       color: isDarkMode ? Colors.white60 : Colors.black87,
                       size: 30,
                     ),
-              label: "Forecast"),
+              label: currentUser == null ? "5 Days" : "7 Days"),
           BottomNavigationBarItem(
               backgroundColor: Colors.transparent,
               // isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
               icon: currentIndex == 3
                   ? Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white54.withOpacity(0.15),
-                      borderRadius: BorderRadius.circular(20)),
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 7, vertical: 7),
-                  child: const Icon(Icons.lightbulb))
+                      decoration: BoxDecoration(
+                          color: Colors.white54.withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(20)),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 7, vertical: 7),
+                      child: const Icon(CupertinoIcons.doc_text_search))
                   : Icon(
-                Icons.lightbulb,
-                color: isDarkMode ? Colors.white60 : Colors.black87,
-                size: 30,
-              ),
-              label: "Tips"),
+                      Icons.search,
+                      color: isDarkMode ? Colors.white60 : Colors.black87,
+                      size: 30,
+                    ),
+              label: "Search"),
           BottomNavigationBarItem(
               backgroundColor: Colors.transparent,
               // isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
@@ -261,7 +263,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
                           borderRadius: BorderRadius.circular(20)),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 7, vertical: 7),
-                      child: const Icon(Icons.settings))
+                      child: const Icon(CupertinoIcons.settings_solid))
                   : Icon(
                       Icons.settings,
                       color: isDarkMode ? Colors.white60 : Colors.black87,

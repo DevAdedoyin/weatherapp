@@ -146,7 +146,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                   );
                 },
                 inputDecoration: InputDecoration(
-                    hintText: 'Search location name...',
+                    hintText: 'Search city or location...',
                     isCollapsed: true,
                     contentPadding: const EdgeInsets.symmetric(
                         horizontal: 10, vertical: 15),

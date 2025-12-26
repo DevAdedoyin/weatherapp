@@ -1,4 +1,5 @@
 import "package:firebase_auth/firebase_auth.dart";
+import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
@@ -20,6 +21,7 @@ import "package:weatherapp/src/features/weather/data/repositories/weather_tips.d
 import "package:weatherapp/src/features/weather/domain/weather_model.dart";
 import "package:weatherapp/src/common/loading_indicator.dart";
 import "package:weatherapp/src/features/weather/domain/weather_tips_model.dart";
+import "package:weatherapp/src/features/weather/presentation/weather_tips_card.dart";
 import "package:weatherapp/src/routing/app_routes.dart";
 import "package:weatherapp/src/utils/weather_icon_utils.dart";
 import 'package:intl/intl.dart';
@@ -106,6 +108,9 @@ class _HomePageState extends ConsumerState<HomePage> {
     TextTheme textTheme = Theme.of(context).textTheme;
     // print("Size ${size.height}");
 
+    final tips = WeatherTipsHelper.getAllTipsForWeather(
+        ref.read(weatherId.notifier).state);
+
     final user = FirebaseAuth.instance.currentUser;
 
     final name =
@@ -143,7 +148,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                         "$address",
                         // textAlign: TextAlign.center,
                         style: GoogleFonts.acme(
-                            color: isDarkMode ? Colors.white : Colors.black,
+                            color: isDarkMode
+                                ? Colors.white
+                                : Colors.grey.shade300,
                             fontSize: 16,
                             fontWeight: FontWeight.bold),
                       ),
@@ -308,8 +315,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                 SliverToBoxAdapter(
                   child: Container(
                     width: double.maxFinite,
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 18, vertical: 20),
+                    margin: const EdgeInsets.only(
+                        left: 15, right: 15, top: 15, bottom: 5),
                     child: Card(
                       color: isDarkMode
                           ? AppColors.cardDarkModeColor
@@ -330,12 +337,21 @@ class _HomePageState extends ConsumerState<HomePage> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "Pressure",
+                                      "Dew Point",
                                       style: textTheme.bodyMedium,
                                     ),
-                                    Text(
-                                      "${data.currentWeatherModel.pressure}",
-                                      style: textTheme.bodySmall,
+                                    FutureBuilder<String>(
+                                      future:
+                                          TemperatureConverter.formatWithPrefs(
+                                              data.currentWeatherModel.dewPoint
+                                                  .toDouble()),
+                                      builder: (context, snapshot) {
+                                        if (!snapshot.hasData) {
+                                          return const SizedBox.shrink();
+                                        }
+                                        return Text(snapshot.data!,
+                                            style: textTheme.bodySmall);
+                                      },
                                     ),
                                   ],
                                 ),
@@ -405,21 +421,12 @@ class _HomePageState extends ConsumerState<HomePage> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "Dew Point",
+                                      "Pressure",
                                       style: textTheme.bodyMedium,
                                     ),
-                                    FutureBuilder<String>(
-                                      future:
-                                          TemperatureConverter.formatWithPrefs(
-                                              data.currentWeatherModel.dewPoint
-                                                  .toDouble()),
-                                      builder: (context, snapshot) {
-                                        if (!snapshot.hasData) {
-                                          return const SizedBox.shrink();
-                                        }
-                                        return Text(snapshot.data!,
-                                            style: textTheme.bodySmall);
-                                      },
+                                    Text(
+                                      "${data.currentWeatherModel.pressure}",
+                                      style: textTheme.bodySmall,
                                     ),
                                   ],
                                 ),
@@ -429,6 +436,67 @@ class _HomePageState extends ConsumerState<HomePage> {
                         ],
                       ),
                     ),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: Divider(
+                    color: isDarkMode
+                        ? Colors.grey.shade900
+                        : Colors.grey.shade500,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: Container(
+                    margin:
+                        const EdgeInsets.only(bottom: 5, left: 20, right: 20),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  "Tips",
+                                  style: textTheme.titleMedium,
+                                ),
+                                horizontalGap(7),
+                                Icon(
+                                  Icons.tips_and_updates,
+                                  color: isDarkMode ? Colors.red : Colors.white,
+                                  size: 17,
+                                )
+                              ],
+                            ),
+                            TextButton(
+                                onPressed: () {},
+                                style: ButtonStyle(
+                                    backgroundColor: WidgetStatePropertyAll(
+                                        Colors.transparent)),
+                                child: Text(
+                                  "See more",
+                                  style: GoogleFonts.acme(
+                                      color: isDarkMode
+                                          ? Colors.red
+                                          : Colors.grey.shade50,
+                                      fontSize: 14),
+                                ))
+                          ],
+                        ),
+                        WeatherTipsCard(
+                          title: "👕 Clothing",
+                          image: "assets/images/clothing.jpg",
+                          items: tips.clothing,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: Divider(
+                    color: isDarkMode
+                        ? Colors.grey.shade900
+                        : Colors.grey.shade500,
                   ),
                 ),
                 if (banner2Ad != null && user == null)
@@ -452,9 +520,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
                           child: Text(
-                            user == null ? "Next 5 hours" : 'Next 24 hours',
+                            user == null ? "Next 7 hours" : 'Next 24 hours',
                             style: textTheme.titleMedium,
                           ),
                         ),
@@ -470,7 +538,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                           child: ListView.builder(
                               shrinkWrap: true,
                               itemCount:
-                                  user == null ? 5 : data.hourlyWeather.length,
+                                  user == null ? 7 : data.hourlyWeather.length,
                               scrollDirection: Axis.horizontal,
                               itemBuilder:
                                   (BuildContext context, int position) {

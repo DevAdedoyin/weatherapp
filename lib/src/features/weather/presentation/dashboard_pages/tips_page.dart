@@ -27,17 +27,6 @@ class WeatherTipsScreen extends ConsumerWidget {
     TextTheme textTheme = Theme.of(context).textTheme;
     final user = FirebaseAuth.instance.currentUser;
     return Scaffold(
-      // extendBodyBehindAppBar: true,
-      // appBar: AppBar(
-      //   title: const Text(
-      //     "Weather Tips",
-      //     style: TextStyle(color: Colors.white),
-      //   ),
-      //
-      //   elevation: 0,
-      //   backgroundColor: Colors.transparent,
-      //   // iconTheme: IconThemeData(color: Colors.white),
-      // ),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
