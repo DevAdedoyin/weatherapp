@@ -277,7 +277,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                   }
                                   return Text(
                                     "Feel like: ${snapshot.data}",
-                                    style: textTheme.titleSmall,
+                                    style: GoogleFonts.roboto(
+                                        color: Colors.white70),
                                   );
                                 },
                               ),
@@ -292,7 +293,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                             data.currentWeatherModel.weather.description,
                             textAlign: TextAlign.center,
                             style: GoogleFonts.acme(
-                                fontSize: 28, fontWeight: FontWeight.w700),
+                                fontSize: 28,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white),
                           ),
                         ),
                       ],
@@ -425,7 +428,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       style: textTheme.bodyMedium,
                                     ),
                                     Text(
-                                      "${data.currentWeatherModel.pressure}",
+                                      "${data.currentWeatherModel.pressure} hPa",
                                       style: textTheme.bodySmall,
                                     ),
                                   ],
@@ -439,10 +442,14 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: Divider(
-                    color: isDarkMode
-                        ? Colors.grey.shade900
-                        : Colors.grey.shade500,
+                  child: SizedBox(
+                    child: Divider(
+                      color: isDarkMode
+                          ? Colors.grey.shade900
+                          : Colors.white30,
+                      indent: size.width * 0.05,
+                      endIndent: size.width * 0.05,
+                    ),
                   ),
                 ),
                 SliverToBoxAdapter(
@@ -456,14 +463,19 @@ class _HomePageState extends ConsumerState<HomePage> {
                           children: [
                             Row(
                               children: [
-                                Text(
-                                  "Tips",
-                                  style: textTheme.titleMedium,
-                                ),
+                                Text("Tips",
+                                    style: GoogleFonts.acme(
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w800,
+                                        color: Colors.white70)
+
+                                    // textTheme.titleMedium,
+                                    ),
                                 horizontalGap(7),
                                 Icon(
                                   Icons.tips_and_updates,
-                                  color: isDarkMode ? Colors.red : Colors.white,
+                                  color:
+                                      isDarkMode ? Colors.red : Colors.white70,
                                   size: 17,
                                 )
                               ],
@@ -477,7 +489,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                   "See more",
                                   style: GoogleFonts.acme(
                                       color: isDarkMode
-                                          ? Colors.red
+                                          ? Colors.white70
                                           : Colors.grey.shade50,
                                       fontSize: 14),
                                 ))
@@ -496,7 +508,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                   child: Divider(
                     color: isDarkMode
                         ? Colors.grey.shade900
-                        : Colors.grey.shade500,
+                        : Colors.white30,
+                    endIndent: size.width * 0.05,
+                    indent: size.width * 0.05,
                   ),
                 ),
                 if (banner2Ad != null && user == null)
@@ -522,9 +536,11 @@ class _HomePageState extends ConsumerState<HomePage> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15.0),
                           child: Text(
-                            user == null ? "Next 7 hours" : 'Next 24 hours',
-                            style: textTheme.titleMedium,
-                          ),
+                              user == null ? "Next 7 hours" : 'Next 24 hours',
+                              style: GoogleFonts.acme(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w800,
+                                  color: Colors.white70)),
                         ),
                         verticalGap(8),
                         SizedBox(

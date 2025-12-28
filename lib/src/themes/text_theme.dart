@@ -22,11 +22,11 @@ class AppTextTheme {
 
     // label theme
     bodyLarge: const TextStyle().copyWith(
-        fontSize: 16.2, fontWeight: FontWeight.bold, color: Colors.black),
+        fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
     bodyMedium: const TextStyle().copyWith(
-        fontSize: 15.2, fontWeight: FontWeight.w700, color: Colors.black),
+        fontSize: 15, fontWeight: FontWeight.w700, color: Colors.black),
     bodySmall: const TextStyle().copyWith(
-        fontSize: 13.9, fontWeight: FontWeight.w500, color: Colors.black),
+        fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black),
 
     // label theme
     labelLarge: const TextStyle().copyWith(
@@ -54,11 +54,11 @@ class AppTextTheme {
 
     // label theme
     bodyLarge: const TextStyle().copyWith(
-        fontSize: 16.2, fontWeight: FontWeight.bold, color: Colors.white),
+        fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
     bodyMedium: const TextStyle().copyWith(
-        fontSize: 15.2, fontWeight: FontWeight.w700, color: Colors.white),
+        fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white),
     bodySmall: const TextStyle().copyWith(
-        fontSize: 13.9, fontWeight: FontWeight.w500, color: Colors.white),
+        fontSize: 13, fontWeight: FontWeight.w500, color: Colors.white),
 
     // label theme
     labelLarge: const TextStyle().copyWith(

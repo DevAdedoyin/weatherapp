@@ -173,100 +173,121 @@ class _DashboardState extends ConsumerState<Dashboard> {
           //     :
 
           BottomNavigationBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.blue,
         elevation: 0,
         selectedLabelStyle: TextStyle(
-            color: isDarkMode ? Colors.red : Colors.blue,
+            color: isDarkMode ? Colors.red : Colors.white,
             fontSize: 14,
             fontWeight: FontWeight.bold),
-        selectedItemColor: isDarkMode ? Colors.red : Colors.blue,
+        selectedItemColor: isDarkMode ? Colors.red : Colors.white,
         unselectedItemColor: isDarkMode ? Colors.white : Colors.grey,
         showSelectedLabels: true,
         showUnselectedLabels: false,
         items: [
           BottomNavigationBarItem(
-            backgroundColor: isDarkMode ? Colors.black87 : Colors.white70,
+            backgroundColor: isDarkMode ? Colors.black87 : Colors.blue.shade800,
             // isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
             icon: currentIndex == 0
                 ? Container(
                     decoration: BoxDecoration(
-                        color: Colors.white54.withOpacity(0.15),
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(20)),
                     padding:
                         const EdgeInsets.symmetric(horizontal: 7, vertical: 7),
-                    child: const Icon(CupertinoIcons.cloud_moon_bolt_fill))
+                    child: const Icon(
+                      CupertinoIcons.cloud_moon_bolt_fill,
+                      color: Colors.blue,
+                    ))
                 : Icon(
                     Icons.cloud,
-                    color: isDarkMode ? Colors.white60 : Colors.black87,
+                    color: isDarkMode ? Colors.white60 : Colors.white54,
                     size: 30,
                   ),
+
             label: "Today",
           ),
           BottomNavigationBarItem(
-              backgroundColor: Colors.transparent,
+              backgroundColor:
+                  isDarkMode ? Colors.black87 : Colors.blue.shade800,
+              // backgroundColor: Colors.transparent,
               // isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
               icon: currentIndex == 1
                   ? Container(
                       decoration: BoxDecoration(
-                          color: Colors.white54.withOpacity(0.15),
+                          color: Colors.white,
                           borderRadius: BorderRadius.circular(20)),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 7, vertical: 7),
-                      child: const Icon(CupertinoIcons.wind_snow))
+                      child: const Icon(
+                        CupertinoIcons.wind_snow,
+                        color: Colors.blue,
+                      ))
                   : Icon(
                       Icons.air,
-                      color: isDarkMode ? Colors.white60 : Colors.black87,
+                      color: isDarkMode ? Colors.white60 : Colors.white54,
                       size: 30,
                     ),
               label: "Air Quality"),
           BottomNavigationBarItem(
-              backgroundColor: Colors.transparent,
+              backgroundColor:
+                  isDarkMode ? Colors.black87 : Colors.blue.shade800,
               // isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
               icon: currentIndex == 2
                   ? Container(
                       decoration: BoxDecoration(
-                          color: Colors.white54.withOpacity(0.15),
+                          color: Colors.white,
                           borderRadius: BorderRadius.circular(20)),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 7, vertical: 7),
-                      child: const Icon(CupertinoIcons.calendar))
+                      child: const Icon(
+                        CupertinoIcons.calendar,
+                        color: Colors.blue,
+                      ))
                   : Icon(
                       Icons.calendar_month,
-                      color: isDarkMode ? Colors.white60 : Colors.black87,
+                      color: isDarkMode ? Colors.white60 : Colors.white54,
                       size: 30,
                     ),
               label: currentUser == null ? "5 Days" : "7 Days"),
           BottomNavigationBarItem(
-              backgroundColor: Colors.transparent,
+              backgroundColor:
+                  isDarkMode ? Colors.black87 : Colors.blue.shade800,
               // isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
               icon: currentIndex == 3
                   ? Container(
                       decoration: BoxDecoration(
-                          color: Colors.white54.withOpacity(0.15),
+                          color: Colors.white,
                           borderRadius: BorderRadius.circular(20)),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 7, vertical: 7),
-                      child: const Icon(CupertinoIcons.doc_text_search))
+                      child: const Icon(
+                        CupertinoIcons.doc_text_search,
+                        color: Colors.blue,
+                      ))
                   : Icon(
                       Icons.search,
-                      color: isDarkMode ? Colors.white60 : Colors.black87,
+                      color: isDarkMode ? Colors.white60 : Colors.white54,
                       size: 30,
                     ),
               label: "Search"),
           BottomNavigationBarItem(
-              backgroundColor: Colors.transparent,
+              backgroundColor:
+                  isDarkMode ? Colors.black87 : Colors.blue.shade800,
               // isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
               icon: currentIndex == 4
                   ? Container(
                       decoration: BoxDecoration(
-                          color: Colors.white54.withOpacity(0.15),
+                          color: Colors.white,
                           borderRadius: BorderRadius.circular(20)),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 7, vertical: 7),
-                      child: const Icon(CupertinoIcons.settings_solid))
+                      child: const Icon(
+                        CupertinoIcons.settings_solid,
+                        color: Colors.blue,
+                      ))
                   : Icon(
                       Icons.settings,
-                      color: isDarkMode ? Colors.white60 : Colors.black87,
+                      color: isDarkMode ? Colors.white60 : Colors.white54,
                       size: 30,
                     ),
               label: "Settings"),
