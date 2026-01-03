@@ -51,6 +51,9 @@ class _HomePageState extends ConsumerState<HomePage> {
     // addWeatherFacts();
     getAddress();
 
+    // TODO: NOTE Recommendation Upload To Server
+    // WeatherTipsHelper.uploadRecommendations();
+
     AdDisplayCounter.addDisplayCounter(
         ref.read(interstitialAdProvider.notifier));
     // ref.read(userCurrentAddress.notifier).state = address!;
@@ -222,7 +225,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                         //     :
                         Container(
                       color: Colors.transparent,
-                      child: Image.asset(
+                      child: Image.network(
                         WeatherImages.weatherImages(wId),
                         filterQuality: FilterQuality.high,
                         // alignment: Alignment.bottomCenter,
@@ -442,75 +445,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: SizedBox(
-                    child: Divider(
-                      color: isDarkMode
-                          ? Colors.grey.shade900
-                          : Colors.white30,
-                      indent: size.width * 0.05,
-                      endIndent: size.width * 0.05,
-                    ),
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: Container(
-                    margin:
-                        const EdgeInsets.only(bottom: 5, left: 20, right: 20),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Text("Tips",
-                                    style: GoogleFonts.acme(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w800,
-                                        color: Colors.white70)
-
-                                    // textTheme.titleMedium,
-                                    ),
-                                horizontalGap(7),
-                                Icon(
-                                  Icons.tips_and_updates,
-                                  color:
-                                      isDarkMode ? Colors.red : Colors.white70,
-                                  size: 17,
-                                )
-                              ],
-                            ),
-                            TextButton(
-                                onPressed: () {},
-                                style: ButtonStyle(
-                                    backgroundColor: WidgetStatePropertyAll(
-                                        Colors.transparent)),
-                                child: Text(
-                                  "See more",
-                                  style: GoogleFonts.acme(
-                                      color: isDarkMode
-                                          ? Colors.white70
-                                          : Colors.grey.shade50,
-                                      fontSize: 14),
-                                ))
-                          ],
-                        ),
-                        WeatherTipsCard(
-                          title: "👕 Clothing",
-                          image: "assets/images/clothing.jpg",
-                          items: tips.clothing,
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                SliverToBoxAdapter(
                   child: Divider(
-                    color: isDarkMode
-                        ? Colors.grey.shade900
-                        : Colors.white30,
-                    endIndent: size.width * 0.05,
-                    indent: size.width * 0.05,
+                    color: isDarkMode ? Colors.grey.shade800 : Colors.white30,
+                    endIndent: size.width * 0.04,
+                    indent: size.width * 0.04,
                   ),
                 ),
                 if (banner2Ad != null && user == null)
@@ -529,7 +467,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
                 SliverToBoxAdapter(
                   child: Container(
-                    margin: const EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10, bottom: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -707,6 +645,66 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 );
                               }),
                         ),
+                      ],
+                    ),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    child: Divider(
+                      color: isDarkMode ? Colors.grey.shade800 : Colors.white24,
+                      indent: size.width * 0.04,
+                      endIndent: size.width * 0.04,
+                    ),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: Container(
+                    margin:
+                        const EdgeInsets.only(bottom: 5, left: 20, right: 20),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Text("Recommendations",
+                                    style: GoogleFonts.acme(
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w800,
+                                        color: Colors.white70)
+                                    // textTheme.titleMedium,
+                                    ),
+                                horizontalGap(7),
+                                Icon(
+                                  Icons.tips_and_updates,
+                                  color:
+                                      isDarkMode ? Colors.red : Colors.white70,
+                                  size: 17,
+                                )
+                              ],
+                            ),
+                            TextButton(
+                                onPressed: () {},
+                                style: ButtonStyle(
+                                    backgroundColor: WidgetStatePropertyAll(
+                                        Colors.transparent)),
+                                child: Text(
+                                  "See more",
+                                  style: GoogleFonts.acme(
+                                      color: isDarkMode
+                                          ? Colors.white60
+                                          : Colors.grey.shade50,
+                                      fontSize: 14),
+                                ))
+                          ],
+                        ),
+                        WeatherTipsCard(
+                          title: "👕 Clothing",
+                          image: "assets/images/clothing.jpg",
+                          items: tips.clothing,
+                        )
                       ],
                     ),
                   ),

@@ -133,6 +133,10 @@ class CurrentWeatherModel {
 
     // Use the first element of the weatherData list to create SubWeather
     final weather = SubWeather.fromJson(weatherData);
+    print(weather.description);
+    print(weather.icon);
+    print(weather.id);
+    print(weather.main);
 
     return CurrentWeatherModel(
         dateTime: dateTime as int,

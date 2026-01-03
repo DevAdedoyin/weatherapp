@@ -30,15 +30,20 @@ class HourlyWeatherModel {
   // Factory method to create HourlyWeatherModel from JSON data
   factory HourlyWeatherModel.fromJson(Map<String, dynamic> data) {
     final dateTime = data["dt"] as int;
+    print("date: $dateTime");
     final temp = (data["temp"] as num).toDouble() - 273.15;
     final feelsLike = (data["feels_like"] as num).toDouble() - 273.15;
     final pressure = data["pressure"] as int;
+    print("pressure: $pressure");
     final humidity = data["humidity"] as int;
+    print("Humidity: $humidity");
     final dewPoint = (data["dew_point"] as num).toDouble() - 273.15;
     final windGust = (data["wind_gust"] as num).toDouble();
-    final visibility = data["visibility"] as int;
+    final visibility = data["visibility"] != null ?  (data["visibility"] as int) : 0;
+    print("visibility: $visibility");
     final windSpeed = (data["wind_speed"] as num).toDouble();
     final windDegree = data["wind_deg"] as int;
+    print("windDegree: $windDegree");
     final weatherData = data["weather"][0] as Map<String, dynamic>;
 
     // Use the first element of the weatherData list to create SubWeather

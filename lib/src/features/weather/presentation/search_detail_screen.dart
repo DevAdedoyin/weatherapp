@@ -172,7 +172,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                         ),
                         background: Container(
                           color: Colors.transparent,
-                          child: Image.asset(
+                          child: Image.network(
                             WeatherImages.weatherImages(wId),
                             // WeatherIcon.weatherIcon(
                             //   data.currentWeatherModel.weather.icon,

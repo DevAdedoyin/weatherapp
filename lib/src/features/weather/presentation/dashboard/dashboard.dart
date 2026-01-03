@@ -190,13 +190,13 @@ class _DashboardState extends ConsumerState<Dashboard> {
             icon: currentIndex == 0
                 ? Container(
                     decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: isDarkMode ? Colors.grey.shade300 : Colors.white,
                         borderRadius: BorderRadius.circular(20)),
                     padding:
                         const EdgeInsets.symmetric(horizontal: 7, vertical: 7),
-                    child: const Icon(
+                    child: Icon(
                       CupertinoIcons.cloud_moon_bolt_fill,
-                      color: Colors.blue,
+                      color: isDarkMode ? Colors.red : Colors.blue,
                     ))
                 : Icon(
                     Icons.cloud,
@@ -214,13 +214,14 @@ class _DashboardState extends ConsumerState<Dashboard> {
               icon: currentIndex == 1
                   ? Container(
                       decoration: BoxDecoration(
-                          color: Colors.white,
+                          color:
+                              isDarkMode ? Colors.grey.shade300 : Colors.white,
                           borderRadius: BorderRadius.circular(20)),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 7, vertical: 7),
-                      child: const Icon(
+                      child: Icon(
                         CupertinoIcons.wind_snow,
-                        color: Colors.blue,
+                        color: isDarkMode ? Colors.red : Colors.blue,
                       ))
                   : Icon(
                       Icons.air,
@@ -235,13 +236,14 @@ class _DashboardState extends ConsumerState<Dashboard> {
               icon: currentIndex == 2
                   ? Container(
                       decoration: BoxDecoration(
-                          color: Colors.white,
+                          color:
+                              isDarkMode ? Colors.grey.shade300 : Colors.white,
                           borderRadius: BorderRadius.circular(20)),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 7, vertical: 7),
-                      child: const Icon(
+                      child: Icon(
                         CupertinoIcons.calendar,
-                        color: Colors.blue,
+                        color: isDarkMode ? Colors.red : Colors.blue,
                       ))
                   : Icon(
                       Icons.calendar_month,
@@ -256,13 +258,14 @@ class _DashboardState extends ConsumerState<Dashboard> {
               icon: currentIndex == 3
                   ? Container(
                       decoration: BoxDecoration(
-                          color: Colors.white,
+                          color:
+                              isDarkMode ? Colors.grey.shade300 : Colors.white,
                           borderRadius: BorderRadius.circular(20)),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 7, vertical: 7),
-                      child: const Icon(
+                      child: Icon(
                         CupertinoIcons.doc_text_search,
-                        color: Colors.blue,
+                        color: isDarkMode ? Colors.red : Colors.blue,
                       ))
                   : Icon(
                       Icons.search,
@@ -277,16 +280,17 @@ class _DashboardState extends ConsumerState<Dashboard> {
               icon: currentIndex == 4
                   ? Container(
                       decoration: BoxDecoration(
-                          color: Colors.white,
+                          color:
+                              isDarkMode ? Colors.grey.shade300 : Colors.white,
                           borderRadius: BorderRadius.circular(20)),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 7, vertical: 7),
-                      child: const Icon(
-                        CupertinoIcons.settings_solid,
-                        color: Colors.blue,
+                      child: Icon(
+                        Icons.settings,
+                        color: isDarkMode ? Colors.red : Colors.blue,
                       ))
                   : Icon(
-                      Icons.settings,
+                      CupertinoIcons.settings_solid,
                       color: isDarkMode ? Colors.white60 : Colors.white54,
                       size: 30,
                     ),
