@@ -26,7 +26,7 @@ class _WeatherTipsCardState extends ConsumerState<WeatherTipsCard> {
       color: isDarkMode
           ? AppColors.cardDarkModeColor
           : AppColors.cardLightModeColor,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       // elevation: 1,
       margin: const EdgeInsets.only(bottom: 5),
       child: Padding(
@@ -41,7 +41,10 @@ class _WeatherTipsCardState extends ConsumerState<WeatherTipsCard> {
                 Text(
                   widget.title,
                   style: GoogleFonts.acme(
-                      fontSize: 17, fontWeight: FontWeight.w600),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color:
+                          isDarkMode ? Colors.grey.shade300 : Colors.black87),
                 ),
               ],
             ),
@@ -51,11 +54,21 @@ class _WeatherTipsCardState extends ConsumerState<WeatherTipsCard> {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text("• "),
+                      Text(
+                        "• ",
+                        style: TextStyle(
+                            color: isDarkMode
+                                ? Colors.grey.shade400
+                                : Colors.black87),
+                      ),
                       Expanded(
                         child: Text(
                           tip,
-                          style: const TextStyle(fontSize: 14),
+                          style: TextStyle(
+                              fontSize: 13.8,
+                              color: isDarkMode
+                                  ? Colors.grey.shade300
+                                  : Colors.black87),
                         ),
                       ),
                     ],

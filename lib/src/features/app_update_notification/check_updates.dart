@@ -36,9 +36,9 @@ void checkForUpdates(BuildContext context) async {
         if (!context.mounted) return;
         AppVersionDialog(
           updateButtonColor: isDarkMode ? Colors.red : Colors.blue,
-          backgroundColor: isDarkMode ? Colors.black87 : Colors.white70,
+          backgroundColor: isDarkMode ? Colors.black : Colors.white,
           title: "Update Your App",
-          titleColor: isDarkMode ? Colors.white : Colors.black,
+          titleColor: isDarkMode ? Colors.white70 : Colors.black87,
           context: context,
           jsonUrl:
               'https://raw.githubusercontent.com/DevAdedoyin/weather_monitor_update_file/master/app_version.json',

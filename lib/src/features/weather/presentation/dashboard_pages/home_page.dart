@@ -1,3 +1,5 @@
+import "dart:math";
+
 import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
@@ -21,6 +23,7 @@ import "package:weatherapp/src/features/weather/data/repositories/weather_tips.d
 import "package:weatherapp/src/features/weather/domain/weather_model.dart";
 import "package:weatherapp/src/common/loading_indicator.dart";
 import "package:weatherapp/src/features/weather/domain/weather_tips_model.dart";
+import "package:weatherapp/src/features/weather/presentation/modal_bottoms/recommendation_modal.dart";
 import "package:weatherapp/src/features/weather/presentation/weather_tips_card.dart";
 import "package:weatherapp/src/routing/app_routes.dart";
 import "package:weatherapp/src/utils/weather_icon_utils.dart";
@@ -343,6 +346,19 @@ class _HomePageState extends ConsumerState<HomePage> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
+                                      "Sunrise",
+                                      style: textTheme.bodyMedium,
+                                    ),
+                                    Text(
+                                      formattedSunrise,
+                                      style: textTheme.bodySmall,
+                                    ),
+                                  ],
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
                                       "Dew Point",
                                       style: textTheme.bodyMedium,
                                     ),
@@ -365,19 +381,6 @@ class _HomePageState extends ConsumerState<HomePage> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "Sunrise",
-                                      style: textTheme.bodyMedium,
-                                    ),
-                                    Text(
-                                      formattedSunrise,
-                                      style: textTheme.bodySmall,
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
                                       "Humidity",
                                       style: textTheme.bodyMedium,
                                     ),
@@ -386,7 +389,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       style: textTheme.bodySmall,
                                     ),
                                   ],
-                                )
+                                ),
                               ],
                             ),
                           ),
@@ -401,11 +404,11 @@ class _HomePageState extends ConsumerState<HomePage> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "Wind Speed",
+                                      "Sunset",
                                       style: textTheme.bodyMedium,
                                     ),
                                     Text(
-                                      "${data.currentWeatherModel.windSpeed}m/s",
+                                      formattedSunset,
                                       style: textTheme.bodySmall,
                                     ),
                                   ],
@@ -414,11 +417,11 @@ class _HomePageState extends ConsumerState<HomePage> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "Sunset",
+                                      "Wind Speed",
                                       style: textTheme.bodyMedium,
                                     ),
                                     Text(
-                                      formattedSunset,
+                                      "${data.currentWeatherModel.windSpeed}m/s",
                                       style: textTheme.bodySmall,
                                     ),
                                   ],
@@ -478,7 +481,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                               style: GoogleFonts.acme(
                                   fontSize: 17,
                                   fontWeight: FontWeight.w800,
-                                  color: Colors.white70)),
+                                  color: Colors.white)),
                         ),
                         verticalGap(8),
                         SizedBox(
@@ -673,20 +676,25 @@ class _HomePageState extends ConsumerState<HomePage> {
                                     style: GoogleFonts.acme(
                                         fontSize: 17,
                                         fontWeight: FontWeight.w800,
-                                        color: Colors.white70)
+                                        color: Colors.white)
                                     // textTheme.titleMedium,
                                     ),
                                 horizontalGap(7),
                                 Icon(
                                   Icons.tips_and_updates,
-                                  color:
-                                      isDarkMode ? Colors.red : Colors.white70,
+                                  color: isDarkMode
+                                      ? Colors.red.shade400
+                                      : Colors.white70,
                                   size: 17,
                                 )
                               ],
                             ),
                             TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  showRecommendationsModalBottom(context, ref);
+                                  AdDisplayCounter.addDisplayCounter(ref
+                                      .read(interstitialAdProvider.notifier));
+                                },
                                 style: ButtonStyle(
                                     backgroundColor: WidgetStatePropertyAll(
                                         Colors.transparent)),
@@ -700,10 +708,41 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 ))
                           ],
                         ),
-                        WeatherTipsCard(
-                          title: "👕 Clothing",
-                          image: "assets/images/clothing.jpg",
-                          items: tips.clothing,
+                        FutureBuilder<WeatherTipsCategory>(
+                          future: WeatherTipsHelper.getAllTipsForWeather(
+                              ref.read(weatherId.notifier).state),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const CircularProgressIndicator();
+                            }
+
+                            if (snapshot.hasError) {
+                              return Text(
+                                'Failed to load recommendations',
+                                style: GoogleFonts.acme(color: Colors.white),
+                              );
+                            }
+
+                            if (!snapshot.hasData) {
+                              return const SizedBox.shrink();
+                            }
+
+                            final tips = snapshot.data!;
+                            final clothingTips =
+                                List<String>.from(tips.clothing);
+                            clothingTips.shuffle(Random());
+
+                            final randomThree = clothingTips.length > 3
+                                ? clothingTips.sublist(0, 3)
+                                : clothingTips;
+
+                            return WeatherTipsCard(
+                              title: "👕 Clothing",
+                              image: "assets/images/clothing.jpg",
+                              items: randomThree,
+                            );
+                          },
                         )
                       ],
                     ),
