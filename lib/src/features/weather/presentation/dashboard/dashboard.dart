@@ -20,7 +20,7 @@ import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/set
 import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/tips_page.dart';
 import 'package:weatherapp/src/routing/app_routes.dart';
 import 'package:weatherapp/src/routing/go_router_provider.dart';
-
+import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import '../../../ads/ad_counter.dart';
 import '../../../ads/data/repositories/interstital_repository.dart';
 
@@ -64,26 +64,87 @@ class _DashboardState extends ConsumerState<Dashboard> {
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       // extendBody: true,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(50))),
-        onPressed: () {
-          if (kDebugMode) {
-            AppRatings.forceReview();
-          } else {
-            AppRatings.requestReview();
-          }
-          AdDisplayCounter.addDisplayCounter(
-              ref.read(interstitialAdProvider.notifier));
-          goRouter.push(AppRoutes.weatherFact);
-        },
-        child: Icon(
-          FontAwesomeIcons.book,
-          color: isDarkMode ? Colors.red : Colors.blue,
-          size: 30,
-        ),
-      ),
+      floatingActionButtonLocation:
+          Platform.isAndroid ? ExpandableFab.location : null,
+      floatingActionButton: Platform.isIOS
+          ? FloatingActionButton(
+              backgroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(50))),
+              onPressed: () {
+                if (kDebugMode) {
+                  AppRatings.forceReview();
+                } else {
+                  AppRatings.requestReview();
+                }
+                AdDisplayCounter.addDisplayCounter(
+                    ref.read(interstitialAdProvider.notifier));
+                goRouter.push(AppRoutes.weatherFact);
+              },
+              child: Icon(
+                FontAwesomeIcons.book,
+                color: isDarkMode ? Colors.red : Colors.blue,
+                size: 30,
+              ),
+            )
+          : ExpandableFab(
+              overlayStyle: ExpandableFabOverlayStyle(
+                color: Colors.black.withValues(alpha: 0.5),
+                blur: 5,
+              ),
+              openButtonBuilder: RotateFloatingActionButtonBuilder(
+                child: Icon(
+                  FontAwesomeIcons.bookOpenReader,
+                  color: Colors.white,
+                  size: 30,
+                ),
+                fabSize: ExpandableFabSize.regular,
+                foregroundColor: Colors.white,
+                backgroundColor: isDarkMode ? Colors.red : Colors.blue,
+                shape: const CircleBorder(),
+              ),
+              closeButtonBuilder: DefaultFloatingActionButtonBuilder(
+                child: const Icon(FontAwesomeIcons.close),
+                fabSize: ExpandableFabSize.small,
+                foregroundColor: Colors.white,
+                backgroundColor: isDarkMode ? Colors.red : Colors.blue,
+                shape: const CircleBorder(),
+              ),
+              children: [
+                FloatingActionButton.small(
+                  // shape: const CircleBorder(),
+                  heroTag: null,
+                  backgroundColor: isDarkMode ? Colors.red : Colors.blue,
+                  foregroundColor: Colors.white,
+                  child: const Icon(
+                    FontAwesomeIcons.book,
+                  ),
+                  onPressed: () {
+                    if (kDebugMode) {
+                      AppRatings.forceReview();
+                    } else {
+                      AppRatings.requestReview();
+                    }
+                    AdDisplayCounter.addDisplayCounter(
+                        ref.read(interstitialAdProvider.notifier));
+                    goRouter.push(AppRoutes.weatherFact);
+                  },
+                ),
+                FloatingActionButton.small(
+                  // shape: const CircleBorder(),
+                  heroTag: null,
+                  backgroundColor: isDarkMode ? Colors.red : Colors.blue,
+                  foregroundColor: Colors.white,
+                  child: const Icon(Icons.notifications),
+                  onPressed: () {
+                    AdDisplayCounter.addDisplayCounter(
+                        ref.read(interstitialAdProvider.notifier));
+                    goRouter.push(AppRoutes.notification);
+                  },
+                ),
+              ],
+            ),
+
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(

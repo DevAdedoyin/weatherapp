@@ -19,4 +19,6 @@ class AppRoutes {
   static const String temperatureScale = '/temperatureScale';
   static const String weatherFact = '/weatherFact';
   static const String moreApps = '/moreApps';
+  static const String notification = '/notification';
+  static const String notificationDetails = '/notificationDetails';
 }

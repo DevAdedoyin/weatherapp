@@ -63,14 +63,16 @@ class _WeatherFactScreenState extends ConsumerState<WeatherFactScreen> {
                     goRouter.pop();
                   },
                   icon: Icon(
-                      Platform.isIOS ? Icons.arrow_back_ios : Icons.arrow_back),
+                    Platform.isIOS ? Icons.arrow_back_ios : Icons.arrow_back,
+                    color: Colors.white,
+                  ),
                 ),
                 Expanded(
                   child: Text(
                     "Weather Knowledge Hub",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.aboreto(
-                      color: isDarkMode ? Colors.white : Colors.black,
+                      color: Colors.white,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
@@ -84,6 +86,7 @@ class _WeatherFactScreenState extends ConsumerState<WeatherFactScreen> {
                   : "Top 30 Daily Weather Facts You Should Know",
               textAlign: TextAlign.center,
               style: GoogleFonts.acme(
+                color: Colors.white,
                 fontWeight: FontWeight.normal,
                 fontSize: 15.9,
               ),

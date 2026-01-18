@@ -113,9 +113,9 @@ class WeatherImages {
                     : wId >= 701 && wId <= 781
                         ? "https://res.cloudinary.com/dhfuqqav8/image/upload/v1767269799/Weather%20Monitor/Home%20Description%20Images/atmosphere_xnqnw6.gif"
                         : wId == 800
-                            ? "https://res.cloudinary.com/dhfuqqav8/image/upload/v1767270944/Weather%20Monitor/Home%20Description%20Images/clear_sky_lrsppx.gif"
+                            ? "https://res.cloudinary.com/dhfuqqav8/image/upload/v1767269795/Weather%20Monitor/Home%20Description%20Images/clouds_mbekqb.gif"
                             : wId >= 801 && wId <= 804
-                                ? "https://res.cloudinary.com/dhfuqqav8/image/upload/v1767269795/Weather%20Monitor/Home%20Description%20Images/clouds_mbekqb.gif"
+                                ? "https://res.cloudinary.com/dhfuqqav8/image/upload/v1767269796/Weather%20Monitor/Home%20Description%20Images/wId_f28hd9.gif"
                                 : "https://res.cloudinary.com/dhfuqqav8/image/upload/v1767269796/Weather%20Monitor/Home%20Description%20Images/wId_f28hd9.gif";
   }
 }

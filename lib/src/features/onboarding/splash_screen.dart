@@ -1,20 +1,23 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:weatherapp/src/common/gaps/sized_box.dart';
 import 'package:weatherapp/src/features/onboarding/launch_counter.dart';
 import 'package:weatherapp/src/routing/app_routes.dart';
 import 'package:weatherapp/src/routing/go_router_provider.dart';
 
-class SplashScreen extends StatefulWidget {
+import '../notification/notification_service/notification_service.dart';
+
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends ConsumerState<SplashScreen> {
   var _visible = false;
 
   // final user = FirebaseAuth.instance.currentUser;
@@ -30,10 +33,11 @@ class _SplashScreenState extends State<SplashScreen> {
           if (FirebaseAuth.instance.currentUser == null) {
             int launchNumber = await LaunchCounter.launchCounter();
             if (launchNumber > 1) {
-              Future.delayed(Duration(milliseconds: 100), () => goRouter.go(
-                  AppRoutes.userLocatorPage
-                  // AppRoutes.newOnboarding
-              ));
+              Future.delayed(
+                  Duration(milliseconds: 100),
+                  () => goRouter.go(AppRoutes.userLocatorPage
+                      // AppRoutes.newOnboarding
+                      ));
             } else {
               print(LaunchCounter.launchCounter());
               goRouter.go(AppRoutes.newOnboarding);
@@ -41,8 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
           } else {
             goRouter.go(
                 // AppRoutes.newOnboarding
-                AppRoutes.userLocatorPage
-                );
+                AppRoutes.userLocatorPage);
           }
         },
       );

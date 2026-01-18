@@ -23,7 +23,7 @@ import "../../../../themes/theme_notifier.dart";
 import "../../../ads/ad_counter.dart";
 import "../../../ads/data/repositories/banner_repository.dart";
 import "../../../ads/data/repositories/interstital_repository.dart";
-import "../../../notification/providers.dart";
+import "../../../notification/notification_service/notification_service.dart";
 import "../../../ratings.dart";
 import "../../data/repositories/switch.dart";
 
@@ -153,8 +153,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                   trailing: IconButton(
                     onPressed: () {
                       AdDisplayCounter.addDisplayCounter(
-                          ref.read(
-                              interstitialAdProvider.notifier));
+                          ref.read(interstitialAdProvider.notifier));
                       goRouter.push(AppRoutes.temperatureScale);
                     },
                     icon: const Icon(Icons.arrow_forward_rounded),
@@ -282,10 +281,9 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                         // themeNotifier.toggleTheme();
                         // ref.read(interstitialAdProvider.notifier).showAd();
                         AdDisplayCounter.addDisplayCounter(
-                            ref.read(
-                                interstitialAdProvider.notifier));
+                            ref.read(interstitialAdProvider.notifier));
                         if (val) {
-                          setupFCM();
+                          setupFCM(ref);
 
                           ref.read(notificationState.notifier).state = val;
 
@@ -339,8 +337,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                       onChanged: (val) {
                         themeNotifier.toggleTheme();
                         AdDisplayCounter.addDisplayCounter(
-                            ref.read(
-                                interstitialAdProvider.notifier));
+                            ref.read(interstitialAdProvider.notifier));
                       },
                     )),
               ),

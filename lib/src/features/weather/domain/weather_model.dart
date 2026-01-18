@@ -24,7 +24,7 @@ class WeatherModel {
     final lat = (data['lat'] as num).toDouble();
     final lon = (data['lon'] as num).toDouble();
     final timezone = data['timezone_offset'] as int;
-    print("timezone: $timezone");
+    // print("timezone: $timezone");
     final currentWeatherModel = data['current'] as Map<String, dynamic>;
     final currentWeather = CurrentWeatherModel.fromJson(currentWeatherModel);
 
@@ -114,29 +114,29 @@ class CurrentWeatherModel {
   // Factory method to create CurrentWeatherModel from JSON data
   factory CurrentWeatherModel.fromJson(Map<String, dynamic> data) {
     final dateTime = data["dt"] ?? 0;
-    print("Date: $dateTime");
+    // print("Date: $dateTime");
     final sunrise = data["sunrise"] as int;
-    print("sunrise: $sunrise");
+    // print("sunrise: $sunrise");
     final sunset = data["sunset"] as int;
-    print("sunset: $sunset");
+    // print("sunset: $sunset");
     final temp = (data["temp"] as num).toDouble() - 273.15;
     final feelsLike = (data["feels_like"] as num).toDouble() - 273.15;
     final pressure = data["pressure"] as int;
-    print("pressure: $pressure");
+    // print("pressure: $pressure");
     final humidity = data["humidity"] as int;
-    print("humidity: $humidity");
+    // print("humidity: $humidity");
     final dewPoint = (data["dew_point"] as num).toDouble() - 273.15;
     final windSpeed = (data["wind_speed"] as num).toDouble();
     final windDegree = data["wind_deg"] as int;
-    print("windDegree: $windDegree");
+    // print("windDegree: $windDegree");
     final weatherData = data["weather"][0] as Map<String, dynamic>;
 
     // Use the first element of the weatherData list to create SubWeather
     final weather = SubWeather.fromJson(weatherData);
-    print(weather.description);
-    print(weather.icon);
-    print(weather.id);
-    print(weather.main);
+    // // print(weather.description);
+    // print(weather.icon);
+    // print(weather.id);
+    // print(weather.main);
 
     return CurrentWeatherModel(
         dateTime: dateTime as int,

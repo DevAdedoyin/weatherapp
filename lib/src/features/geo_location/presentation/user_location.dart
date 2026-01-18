@@ -49,8 +49,7 @@ class _UserLocationState extends ConsumerState<UserLocation> {
                       "Let Weather Monitor access your location to give you real-time weather datails on your location.",
                       textAlign: TextAlign.center,
                       style: GoogleFonts.roboto(
-                          fontWeight: FontWeight.bold,
-                          color: isDarkMode ? Colors.white : Colors.black)
+                          fontWeight: FontWeight.bold, color: Colors.white)
                       // textTheme.bodyMedium,
                       ),
                 ),
@@ -102,7 +101,7 @@ class _UserLocationState extends ConsumerState<UserLocation> {
                 Text("Please wait while we fetch your location",
                     style: GoogleFonts.roboto(
                         fontWeight: FontWeight.bold,
-                        color: isDarkMode ? Colors.white : Colors.black)
+                        color: Colors.white)
                     // textTheme.bodySmall,
                     ),
                 SizedBox(

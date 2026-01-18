@@ -6,32 +6,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:weatherapp/src/features/notification/background_handler.dart';
-import 'package:weatherapp/src/features/notification/providers.dart';
-import 'package:weatherapp/src/features/onboarding/launch_counter.dart';
-import 'package:weatherapp/src/routing/app_routes.dart';
+import 'package:weatherapp/src/features/notification/notification_service/notification_service.dart';
 import 'package:weatherapp/src/routing/go_router_provider.dart';
 import 'package:weatherapp/src/themes/theme.dart';
-import 'package:weatherapp/src/themes/theme_constants.dart';
 import 'package:weatherapp/src/themes/theme_manager.dart';
 import 'package:weatherapp/src/themes/theme_notifier.dart';
-
-// import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
-  // FirebaseInitialization.initializeFirebase();
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]);
+
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // Set the background handler
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
+  // Initialize ads
   unawaited(MobileAds.instance.initialize());
 
-  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
   runApp(const ProviderScope(child: WeatherApp()));
 }
 
@@ -44,10 +42,17 @@ class WeatherApp extends ConsumerStatefulWidget {
 
 class _WeatherAppState extends ConsumerState<WeatherApp> {
   @override
+  void initState() {
+    super.initState();
+
+    // Setup FCM after Firebase is initialized
+    Future.microtask(() => setupFCM(ref));
+  }
+
+  @override
   Widget build(BuildContext context) {
-    ThemeManager themeManager = ThemeManager();
-    // final router = ref.watch(goRouterProvider);
     final themeMode = ref.watch(themeNotifierProvider);
+
     return MaterialApp.router(
       routeInformationParser: goRouter.routeInformationParser,
       routeInformationProvider: goRouter.routeInformationProvider,

@@ -6,6 +6,8 @@ import 'package:weatherapp/src/features/authentication/presentation/login.dart';
 import 'package:weatherapp/src/features/authentication/presentation/register.dart';
 import 'package:weatherapp/src/features/geo_location/presentation/user_location.dart';
 import 'package:weatherapp/src/features/more_apps/more_app_screen.dart';
+import 'package:weatherapp/src/features/notification/presentation/notification_details.dart';
+import 'package:weatherapp/src/features/notification/presentation/notification_screen.dart';
 import 'package:weatherapp/src/features/notification/suggestion_screen.dart';
 import 'package:weatherapp/src/features/onboarding/new_onboarding/new_onboarding_screen.dart';
 import 'package:weatherapp/src/features/onboarding/onboarding/onboarding_screen.dart';
@@ -96,6 +98,14 @@ GoRouter goRouter = GoRouter(
     GoRoute(
       path: AppRoutes.moreApps,
       builder: (context, state) => const MoreAppScreen(),
+    ),
+    GoRoute(
+      path: AppRoutes.notification,
+      builder: (context, state) => const NotificationsScreen(),
+    ),
+    GoRoute(
+      path: AppRoutes.notificationDetails,
+      builder: (context, state) => const NotificationDetailsScreen(),
     ),
   ],
   errorBuilder: (context, state) => RouteErrorScreen(
