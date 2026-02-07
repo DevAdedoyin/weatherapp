@@ -12,7 +12,6 @@ import 'package:weatherapp/src/constants/app_colors.dart';
 import 'package:weatherapp/src/features/app_update_notification/check_updates.dart';
 import 'package:weatherapp/src/features/ratings.dart';
 import 'package:weatherapp/src/features/weather/data/repositories/bottom_nav_state.dart';
-import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/air_quality.dart';
 import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/daily_forecast_page.dart';
 import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/home_page.dart';
 import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/search_page.dart';
@@ -21,6 +20,7 @@ import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/tip
 import 'package:weatherapp/src/routing/app_routes.dart';
 import 'package:weatherapp/src/routing/go_router_provider.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
+import '../../../../constants/temp_airquality_countries.dart';
 import '../../../ads/ad_counter.dart';
 import '../../../ads/data/repositories/interstital_repository.dart';
 
@@ -52,6 +52,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       checkForUpdates(context);
     });

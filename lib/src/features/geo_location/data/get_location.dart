@@ -46,6 +46,10 @@ class GenerateWeatherLocation {
     await prefs.setString('address',
         "${address.first.thoroughfare ?? ''}, ${address.first.subAdminArea ?? ''}");
 
+    await prefs.setString("country_name", address.first.countryName!);
+
+    print("COUNTRY: ${address.first.countryName}");
+
     ref.read(bottomNavState.notifier).state = 0;
     goRouter.go(AppRoutes.dashboard);
   }

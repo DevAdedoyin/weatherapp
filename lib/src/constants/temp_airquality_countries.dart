@@ -1,0 +1,128 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+
+final List<String> airQualityCountries = [
+  "United Kingdom",
+  "United States",
+  "Albania",
+  "American Samoa",
+  "Andorra",
+  "Argentina",
+  "Armenia",
+  "Australia",
+  "Austria",
+  "Azerbaijan",
+  "Bahamas",
+  "Bahrain",
+  "Bangladesh",
+  "Belarus",
+  "Belgium",
+  "Bosnia & Herzegovina",
+  "Brazil",
+  "Brunei",
+  "Bulgaria",
+  "Canada",
+  "Chile",
+  "China",
+  "Colombia",
+  "Costa Rica",
+  "Croatia",
+  "Cyprus",
+  "Czechia",
+  "Denmark",
+  "Ecuador",
+  "Egypt",
+  "Estonia",
+  "Ethiopia",
+  "Finland",
+  "France",
+  "Georgia",
+  "Gibraltar",
+  "Greece",
+  "Guam",
+  "Guernsey",
+  "Hong Kong",
+  "Hungary",
+  "India",
+  "Indonesia",
+  "Ireland",
+  "Israel",
+  "Italy",
+  "Japan",
+  "Jersey",
+  "Jordan",
+  "Kenya",
+  "Kuwait",
+  "Latvia",
+  "Liechtenstein",
+  "Lithuania",
+  "Luxembourg",
+  "Malaysia",
+  "Malta",
+  "Mauritius",
+  "Mexico",
+  "Moldova",
+  "Monaco",
+  "Mongolia",
+  "Montenegro",
+  "Morocco",
+  "Nepal",
+  "Netherlands",
+  "New Zealand",
+  "North Macedonia",
+  "Norway",
+  "Pakistan",
+  "Peru",
+  "Philippines",
+  "Poland",
+  "Portugal",
+  "Puerto Rico",
+  "Qatar",
+  "Réunion",
+  "Romania",
+  "Russia",
+  "San Marino",
+  "Saudi Arabia",
+  "Serbia",
+  "Singapore",
+  "Slovakia",
+  "Slovenia",
+  "South Africa",
+  "South Korea",
+  "Spain",
+  "Sri Lanka",
+  "Sweden",
+  "Switzerland",
+  "Taiwan",
+  "Thailand",
+  "Turkey",
+  "Uganda",
+  "Ukraine",
+  "United Arab Emirates",
+  "U.S. Virgin Islands",
+  "Vatican City",
+  "Venezuela",
+  "Vietnam",
+];
+
+Future<void> seedAirQualityCountries() async {
+  final firestore = FirebaseFirestore.instance;
+  final batch = firestore.batch();
+  print("AirQuality1");
+
+  final collection = firestore.collection("air_quality_countries");
+  print("AirQuality2");
+  for (final country in airQualityCountries) {
+    final doc = collection.doc();
+
+    batch.set(doc, {
+      "name": country,
+      "enabled": true,
+      "createdAt": FieldValue.serverTimestamp(),
+    });
+  }
+  print("AirQuality3");
+  await batch.commit();
+  print("AirQuality4");
+  debugPrint("Air quality countries uploaded successfully");
+}
