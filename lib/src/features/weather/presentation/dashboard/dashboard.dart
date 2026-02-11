@@ -7,11 +7,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:weatherapp/src/constants/app_colors.dart';
 import 'package:weatherapp/src/features/app_update_notification/check_updates.dart';
 import 'package:weatherapp/src/features/ratings.dart';
 import 'package:weatherapp/src/features/weather/data/repositories/bottom_nav_state.dart';
+import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/air_quality_page.dart';
 import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/daily_forecast_page.dart';
 import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/home_page.dart';
 import 'package:weatherapp/src/features/weather/presentation/dashboard_pages/search_page.dart';
@@ -23,6 +25,7 @@ import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import '../../../../constants/temp_airquality_countries.dart';
 import '../../../ads/ad_counter.dart';
 import '../../../ads/data/repositories/interstital_repository.dart';
+import '../../data/repositories/air_quality_utility_repo.dart';
 
 class Dashboard extends ConsumerStatefulWidget {
   const Dashboard({super.key});
@@ -34,18 +37,19 @@ class Dashboard extends ConsumerStatefulWidget {
 class _DashboardState extends ConsumerState<Dashboard> {
   final currentUser = FirebaseAuth.instance.currentUser;
 
-  static const List<Widget> _pages = [
+  static const List<Widget> _bottomNavForCountriesWithAirQualityData = [
     HomePage(),
-    // AirQuality(),
+    AirQuality(),
     DailyForecastPage(),
     SearchPage(),
     SettingsPage()
   ];
 
-  static const List<Widget> _unAuthpUserPages = [
+  static const List<Widget> _bottomNavForCountriesWithoutAirQualityData = [
     HomePage(),
-    SearchPage(),
     DailyForecastPage(),
+    SearchPage(),
+    SettingsPage()
   ];
 
   @override
@@ -56,6 +60,24 @@ class _DashboardState extends ConsumerState<Dashboard> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       checkForUpdates(context);
     });
+
+    loadAirQuality();
+  }
+
+  bool showAirQuality = false;
+
+  Future<void> loadAirQuality() async {
+    final countries = await getAirQualityCountries();
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    final String? userCountry = prefs.getString("country_name");
+
+    final normalized = normalizeCountry(userCountry!);
+
+    showAirQuality = countries.contains(normalized);
+
+    setState(() {});
   }
 
   @override
@@ -156,85 +178,13 @@ class _DashboardState extends ConsumerState<Dashboard> {
         ),
         child: SizedBox(
           width: double.maxFinite,
-          child:
-              // currentUser == null
-              // ? _unAuthpUserPages.elementAt(currentIndex)
-              // :
-              _pages.elementAt(currentIndex),
+          child: showAirQuality
+              ? _bottomNavForCountriesWithAirQualityData.elementAt(currentIndex)
+              : _bottomNavForCountriesWithoutAirQualityData
+                  .elementAt(currentIndex),
         ),
       ),
-      bottomNavigationBar:
-          // currentUser == null
-          //     ? BottomNavigationBar(
-          //         backgroundColor:
-          //             isDarkMode ? AppColors.scaffoldBgColor : Colors.white,
-          //         selectedLabelStyle:
-          //             const TextStyle(color: Colors.red, fontSize: 14),
-          //         selectedItemColor: Colors.red,
-          //         unselectedItemColor:
-          //             isDarkMode ? Colors.white : AppColors.scaffoldBgColor,
-          //         showSelectedLabels: true,
-          //         showUnselectedLabels: false,
-          //         items: [
-          //           BottomNavigationBarItem(
-          //             // backgroundColor: AppColors.scaffoldBgColor,
-          //             icon: currentIndex == 0
-          //                 ? Container(
-          //                     decoration: BoxDecoration(
-          //                         color: Colors.white54.withOpacity(0.15),
-          //                         borderRadius: BorderRadius.circular(20)),
-          //                     padding: const EdgeInsets.symmetric(
-          //                         horizontal: 7, vertical: 7),
-          //                     child: const Icon(
-          //                       Icons.home_filled,
-          //                       color: Colors.red,
-          //                     ))
-          //                 : Icon(
-          //                     Icons.home_filled,
-          //                     color: isDarkMode ? Colors.white60 : Colors.black87,
-          //                     size: 30,
-          //                   ),
-          //             label: "Home",
-          //           ),
-          //           BottomNavigationBarItem(
-          //               // backgroundColor: AppColors.scaffoldBgColor,
-          //               icon: currentIndex == 1
-          //                   ? Container(
-          //                       decoration: BoxDecoration(
-          //                           color: Colors.white54.withOpacity(0.15),
-          //                           borderRadius: BorderRadius.circular(20)),
-          //                       padding: const EdgeInsets.symmetric(
-          //                           horizontal: 7, vertical: 7),
-          //                       child: const Icon(Icons.search))
-          //                   : Icon(
-          //                       Icons.search,
-          //                       color: isDarkMode ? Colors.white60 : Colors.black87,
-          //                       size: 30,
-          //                     ),
-          //               label: "Search"),
-          //           BottomNavigationBarItem(
-          //               // backgroundColor: AppColors.scaffoldBgColor,
-          //               icon: currentIndex == 2
-          //                   ? Container(
-          //                       decoration: BoxDecoration(
-          //                           color: Colors.white54.withOpacity(0.15),
-          //                           borderRadius: BorderRadius.circular(20)),
-          //                       padding: const EdgeInsets.symmetric(
-          //                           horizontal: 7, vertical: 7),
-          //                       child: const Icon(Icons.wb_cloudy))
-          //                   : Icon(
-          //                       Icons.wb_cloudy,
-          //                       color: isDarkMode ? Colors.white60 : Colors.black87,
-          //                       size: 30,
-          //                     ),
-          //               label: "Forecast"),
-          //         ],
-          //         currentIndex: currentIndex,
-          //         onTap: (index) => ref.read(bottomNavState.notifier).state = index,
-          //       )
-          //     :
-
-          BottomNavigationBar(
+      bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.blue,
         elevation: 0,
         selectedLabelStyle: TextStyle(
@@ -245,121 +195,215 @@ class _DashboardState extends ConsumerState<Dashboard> {
         unselectedItemColor: isDarkMode ? Colors.white : Colors.grey,
         showSelectedLabels: true,
         showUnselectedLabels: false,
-        items: [
-          BottomNavigationBarItem(
-            backgroundColor: isDarkMode ? Colors.black87 : Colors.blue.shade800,
-            // isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
-            icon: currentIndex == 0
-                ? Container(
-                    decoration: BoxDecoration(
-                        color: isDarkMode ? Colors.grey.shade300 : Colors.white,
-                        borderRadius: BorderRadius.circular(20)),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 7, vertical: 7),
-                    child: Icon(
-                      CupertinoIcons.cloud_moon_bolt_fill,
-                      color: isDarkMode ? Colors.red : Colors.blue,
-                    ))
-                : Icon(
-                    CupertinoIcons.cloud_moon_bolt_fill,
-                    color: isDarkMode ? Colors.white60 : Colors.white54,
-                    size: 30,
-                  ),
-
-            label: "Today",
-          ),
-          // TODO: RETURN BACK AFTER DEPLOYING 4.0.0
-          // BottomNavigationBarItem(
-          //     backgroundColor:
-          //         isDarkMode ? Colors.black87 : Colors.blue.shade800,
-          //     // backgroundColor: Colors.transparent,
-          //     // isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
-          //     icon: currentIndex == 1
-          //         ? Container(
-          //             decoration: BoxDecoration(
-          //                 color:
-          //                     isDarkMode ? Colors.grey.shade300 : Colors.white,
-          //                 borderRadius: BorderRadius.circular(20)),
-          //             padding: const EdgeInsets.symmetric(
-          //                 horizontal: 7, vertical: 7),
-          //             child: Icon(
-          //               CupertinoIcons.wind_snow,
-          //               color: isDarkMode ? Colors.red : Colors.blue,
-          //             ))
-          //         : Icon(
-          //             Icons.air,
-          //             color: isDarkMode ? Colors.white60 : Colors.white54,
-          //             size: 30,
-          //           ),
-          //     label: "Air Quality"),
-          BottomNavigationBarItem(
-              backgroundColor:
-                  isDarkMode ? Colors.black87 : Colors.blue.shade800,
-
-              // isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
-              icon: currentIndex == 1
-                  ? Container(
-                      decoration: BoxDecoration(
-                          color:
-                              isDarkMode ? Colors.grey.shade300 : Colors.white,
-                          borderRadius: BorderRadius.circular(20)),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 7, vertical: 7),
-                      child: Icon(
-                        CupertinoIcons.calendar,
-                        color: isDarkMode ? Colors.red : Colors.blue,
-                      ))
-                  : Icon(
-                      CupertinoIcons.calendar,
-                      color: isDarkMode ? Colors.white60 : Colors.white54,
-                      size: 30,
-                    ),
-              label: currentUser == null ? "5 Days" : "7 Days"),
-          BottomNavigationBarItem(
-              backgroundColor:
-                  isDarkMode ? Colors.black87 : Colors.blue.shade800,
-              // isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
-              icon: currentIndex == 2
-                  ? Container(
-                      decoration: BoxDecoration(
-                          color:
-                              isDarkMode ? Colors.grey.shade300 : Colors.white,
-                          borderRadius: BorderRadius.circular(20)),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 7, vertical: 7),
-                      child: Icon(
-                        CupertinoIcons.doc_text_search,
-                        color: isDarkMode ? Colors.red : Colors.blue,
-                      ))
-                  : Icon(
-                      CupertinoIcons.doc_text_search,
-                      color: isDarkMode ? Colors.white60 : Colors.white54,
-                      size: 30,
-                    ),
-              label: "Search"),
-          BottomNavigationBarItem(
-              backgroundColor:
-                  isDarkMode ? Colors.black87 : Colors.blue.shade800,
-              // isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
-              icon: currentIndex == 3
-                  ? Container(
-                      decoration: BoxDecoration(
-                          color:
-                              isDarkMode ? Colors.grey.shade300 : Colors.white,
-                          borderRadius: BorderRadius.circular(20)),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 7, vertical: 7),
-                      child: Icon(
-                        CupertinoIcons.settings_solid,
-                        color: isDarkMode ? Colors.red : Colors.blue,
-                      ))
-                  : Icon(
-                      CupertinoIcons.settings_solid,
-                      color: isDarkMode ? Colors.white60 : Colors.white54,
-                      size: 30,
-                    ),
-              label: "Settings"),
-        ],
+        items: showAirQuality
+            ? [
+                BottomNavigationBarItem(
+                  backgroundColor:
+                      isDarkMode ? Colors.black87 : Colors.blue.shade800,
+                  icon: currentIndex == 0
+                      ? Container(
+                          decoration: BoxDecoration(
+                              color: isDarkMode
+                                  ? Colors.grey.shade300
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(20)),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 7, vertical: 7),
+                          child: Icon(
+                            CupertinoIcons.cloud_moon_bolt_fill,
+                            color: isDarkMode ? Colors.red : Colors.blue,
+                          ))
+                      : Icon(
+                          CupertinoIcons.cloud_moon_bolt_fill,
+                          color: isDarkMode ? Colors.white60 : Colors.white54,
+                          size: 30,
+                        ),
+                  label: "Today",
+                ),
+                BottomNavigationBarItem(
+                    backgroundColor:
+                        isDarkMode ? Colors.black87 : Colors.blue.shade800,
+                    icon: currentIndex == 1
+                        ? Container(
+                            decoration: BoxDecoration(
+                                color: isDarkMode
+                                    ? Colors.grey.shade300
+                                    : Colors.white,
+                                borderRadius: BorderRadius.circular(20)),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 7, vertical: 7),
+                            child: Icon(
+                              CupertinoIcons.wind,
+                              color: isDarkMode ? Colors.red : Colors.blue,
+                            ))
+                        : Icon(
+                            CupertinoIcons.wind,
+                            color: isDarkMode ? Colors.white60 : Colors.white54,
+                            size: 30,
+                          ),
+                    label: "Air Quality"),
+                BottomNavigationBarItem(
+                    backgroundColor:
+                        isDarkMode ? Colors.black87 : Colors.blue.shade800,
+                    icon: currentIndex == 2
+                        ? Container(
+                            decoration: BoxDecoration(
+                                color: isDarkMode
+                                    ? Colors.grey.shade300
+                                    : Colors.white,
+                                borderRadius: BorderRadius.circular(20)),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 7, vertical: 7),
+                            child: Icon(
+                              CupertinoIcons.calendar,
+                              color: isDarkMode ? Colors.red : Colors.blue,
+                            ))
+                        : Icon(
+                            CupertinoIcons.calendar,
+                            color: isDarkMode ? Colors.white60 : Colors.white54,
+                            size: 30,
+                          ),
+                    label: currentUser == null ? "5 Days" : "7 Days"),
+                BottomNavigationBarItem(
+                    backgroundColor:
+                        isDarkMode ? Colors.black87 : Colors.blue.shade800,
+                    // isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
+                    icon: currentIndex == 3
+                        ? Container(
+                            decoration: BoxDecoration(
+                                color: isDarkMode
+                                    ? Colors.grey.shade300
+                                    : Colors.white,
+                                borderRadius: BorderRadius.circular(20)),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 7, vertical: 7),
+                            child: Icon(
+                              CupertinoIcons.doc_text_search,
+                              color: isDarkMode ? Colors.red : Colors.blue,
+                            ))
+                        : Icon(
+                            CupertinoIcons.doc_text_search,
+                            color: isDarkMode ? Colors.white60 : Colors.white54,
+                            size: 30,
+                          ),
+                    label: "Search"),
+                BottomNavigationBarItem(
+                    backgroundColor:
+                        isDarkMode ? Colors.black87 : Colors.blue.shade800,
+                    // isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
+                    icon: currentIndex == 4
+                        ? Container(
+                            decoration: BoxDecoration(
+                                color: isDarkMode
+                                    ? Colors.grey.shade300
+                                    : Colors.white,
+                                borderRadius: BorderRadius.circular(20)),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 7, vertical: 7),
+                            child: Icon(
+                              CupertinoIcons.settings_solid,
+                              color: isDarkMode ? Colors.red : Colors.blue,
+                            ))
+                        : Icon(
+                            CupertinoIcons.settings_solid,
+                            color: isDarkMode ? Colors.white60 : Colors.white54,
+                            size: 30,
+                          ),
+                    label: "Settings"),
+              ]
+            : [
+                BottomNavigationBarItem(
+                  backgroundColor:
+                      isDarkMode ? Colors.black87 : Colors.blue.shade800,
+                  icon: currentIndex == 0
+                      ? Container(
+                          decoration: BoxDecoration(
+                              color: isDarkMode
+                                  ? Colors.grey.shade300
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(20)),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 7, vertical: 7),
+                          child: Icon(
+                            CupertinoIcons.cloud_moon_bolt_fill,
+                            color: isDarkMode ? Colors.red : Colors.blue,
+                          ))
+                      : Icon(
+                          CupertinoIcons.cloud_moon_bolt_fill,
+                          color: isDarkMode ? Colors.white60 : Colors.white54,
+                          size: 30,
+                        ),
+                  label: "Today",
+                ),
+                BottomNavigationBarItem(
+                    backgroundColor:
+                        isDarkMode ? Colors.black87 : Colors.blue.shade800,
+                    icon: currentIndex == 1
+                        ? Container(
+                            decoration: BoxDecoration(
+                                color: isDarkMode
+                                    ? Colors.grey.shade300
+                                    : Colors.white,
+                                borderRadius: BorderRadius.circular(20)),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 7, vertical: 7),
+                            child: Icon(
+                              CupertinoIcons.calendar,
+                              color: isDarkMode ? Colors.red : Colors.blue,
+                            ))
+                        : Icon(
+                            CupertinoIcons.calendar,
+                            color: isDarkMode ? Colors.white60 : Colors.white54,
+                            size: 30,
+                          ),
+                    label: currentUser == null ? "5 Days" : "7 Days"),
+                BottomNavigationBarItem(
+                    backgroundColor:
+                        isDarkMode ? Colors.black87 : Colors.blue.shade800,
+                    // isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
+                    icon: currentIndex == 2
+                        ? Container(
+                            decoration: BoxDecoration(
+                                color: isDarkMode
+                                    ? Colors.grey.shade300
+                                    : Colors.white,
+                                borderRadius: BorderRadius.circular(20)),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 7, vertical: 7),
+                            child: Icon(
+                              CupertinoIcons.doc_text_search,
+                              color: isDarkMode ? Colors.red : Colors.blue,
+                            ))
+                        : Icon(
+                            CupertinoIcons.doc_text_search,
+                            color: isDarkMode ? Colors.white60 : Colors.white54,
+                            size: 30,
+                          ),
+                    label: "Search"),
+                BottomNavigationBarItem(
+                    backgroundColor:
+                        isDarkMode ? Colors.black87 : Colors.blue.shade800,
+                    // isDarkMode ? AppColors.scaffoldBgColor : Colors.white54,
+                    icon: currentIndex == 3
+                        ? Container(
+                            decoration: BoxDecoration(
+                                color: isDarkMode
+                                    ? Colors.grey.shade300
+                                    : Colors.white,
+                                borderRadius: BorderRadius.circular(20)),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 7, vertical: 7),
+                            child: Icon(
+                              CupertinoIcons.settings_solid,
+                              color: isDarkMode ? Colors.red : Colors.blue,
+                            ))
+                        : Icon(
+                            CupertinoIcons.settings_solid,
+                            color: isDarkMode ? Colors.white60 : Colors.white54,
+                            size: 30,
+                          ),
+                    label: "Settings"),
+              ],
         currentIndex: currentIndex,
         onTap: (index) => ref.read(bottomNavState.notifier).state = index,
       ),

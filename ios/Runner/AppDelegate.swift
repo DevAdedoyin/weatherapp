@@ -35,6 +35,13 @@ import FirebaseMessaging
     // Set messaging delegate
     Messaging.messaging().delegate = self
 
+    if let path = Bundle.main.path(forResource: "Keys", ofType: "plist"),
+       let dict = NSDictionary(contentsOfFile: path),
+       let apiKey = dict["GOOGLE_MAPS_API_KEY"] as? String {
+
+        GMSServices.provideAPIKey(apiKey)
+    }
+
     GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }

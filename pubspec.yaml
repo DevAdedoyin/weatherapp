@@ -74,6 +74,7 @@ dependencies:
   flutter_animated_dialog: ^2.0.1
   flutter_expandable_fab: ^2.5.2
   timeago: ^3.7.1
+  google_maps_flutter: ^2.14.0
 
 dev_dependencies:
   flutter_test:

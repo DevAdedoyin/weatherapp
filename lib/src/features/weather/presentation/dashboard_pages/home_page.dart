@@ -200,8 +200,6 @@ class _HomePageState extends ConsumerState<HomePage> {
                   snap: false,
                   floating: true,
                   pinned: true,
-                  // centerTitle: true,
-                  // backgroundColor: AppColors.accentColor.withOpacity(0.05),
                   elevation: 5,
                   expandedHeight: size.height < 650
                       ? size.height * 0.30
@@ -214,26 +212,11 @@ class _HomePageState extends ConsumerState<HomePage> {
                     titlePadding: const EdgeInsets.symmetric(
                       horizontal: 5,
                     ),
-                    background:
-                        // !isDarkMode
-                        //     ? Container(
-                        //         // color: Colors.black,
-                        //         child: Image.network(
-                        //           WeatherIcon.weatherIcon(
-                        //               data.currentWeatherModel.weather.icon),
-                        //           fit: BoxFit.cover,
-                        //           filterQuality: FilterQuality.high,
-                        //         ),
-                        //       )
-                        //     :
-                        Container(
+                    background: Container(
                       color: Colors.transparent,
                       child: Image.network(
                         WeatherImages.weatherImages(wId),
                         filterQuality: FilterQuality.high,
-                        // alignment: Alignment.bottomCenter,
-                        // height: size.width * 0.20,
-                        // width: size.width * 0.20,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -752,7 +735,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             );
           } else if (!snapshot.hasData &&
               snapshot.connectionState != ConnectionState.waiting) {
-            print("UNABALE DATA: ${snapshot.error}");
+            // print("UNABALE DATA: ${snapshot.error}");
             return SizedBox(
               width: double.maxFinite,
               child: Column(
@@ -761,14 +744,19 @@ class _HomePageState extends ConsumerState<HomePage> {
                 children: [
                   Text(
                     "Unable to fetch data. Please try again.",
-                    style: textTheme.titleSmall,
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                   TextButton.icon(
                     onPressed: () {
                       setState(() {});
                     },
                     icon: const Icon(Icons.refresh),
-                    label: const Text("Refresh"),
+                    label: const Text(
+                      "Refresh",
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
                   )
                 ],
               ),
