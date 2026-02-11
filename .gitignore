@@ -50,3 +50,5 @@ lib/firebase_options.dart
 *firebase_options.dart
 
 ios/Runner/Keys.plist
+
+*Keys.plist
