@@ -2,6 +2,7 @@ import UIKit
 import Flutter
 import FirebaseCore
 import FirebaseMessaging
+import GoogleMaps
 
 @main
 @objc class AppDelegate: FlutterAppDelegate {
@@ -12,6 +13,13 @@ import FirebaseMessaging
 
     // Initialize Firebase
     FirebaseApp.configure()
+
+    if let path = Bundle.main.path(forResource: "Keys", ofType: "plist"),
+        let dict = NSDictionary(contentsOfFile: path),
+        let apiKey = dict["GOOGLE_MAPS_API_KEY"] as? String {
+
+        GMSServices.provideAPIKey(apiKey)
+    }
 
     // Request notification permissions
     if #available(iOS 10.0, *) {
@@ -34,13 +42,6 @@ import FirebaseMessaging
 
     // Set messaging delegate
     Messaging.messaging().delegate = self
-
-    if let path = Bundle.main.path(forResource: "Keys", ofType: "plist"),
-       let dict = NSDictionary(contentsOfFile: path),
-       let apiKey = dict["GOOGLE_MAPS_API_KEY"] as? String {
-
-        GMSServices.provideAPIKey(apiKey)
-    }
 
     GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)

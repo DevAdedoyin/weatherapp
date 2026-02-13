@@ -2,6 +2,7 @@ class AqiIndex {
   final String? code;
   final String? displayName;
   final int? aqi;
+  dynamic color;
   final String? category;
   final String? dominantPollutant;
 
@@ -9,6 +10,7 @@ class AqiIndex {
     this.code,
     this.displayName,
     this.aqi,
+    required this.color,
     this.category,
     this.dominantPollutant,
   });
@@ -20,6 +22,7 @@ class AqiIndex {
       aqi: json['aqi'] as int,
       category: json['category'] as String,
       dominantPollutant: json['dominantPollutant'] as String,
+      color: json["color"],
     );
   }
 }

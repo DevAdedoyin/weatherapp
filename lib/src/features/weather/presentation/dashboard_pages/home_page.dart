@@ -12,12 +12,14 @@ import "package:weatherapp/src/common/gaps/sized_box.dart";
 import "package:weatherapp/src/constants/app_colors.dart";
 import "package:weatherapp/src/features/ads/ad_counter.dart";
 import "package:weatherapp/src/features/geo_location/repositories/address_repo.dart";
+import "package:weatherapp/src/features/weather/data/datasources/air_quality_api.dart";
 
 // import "package:weatherapp/src/features/geo_location/data/get_location.dart";
 import "package:weatherapp/src/features/weather/data/datasources/weather_api_datasource.dart";
 import "package:weatherapp/src/features/weather/data/repositories/hourly_weather_detail.dart";
 import "package:weatherapp/src/features/weather/data/repositories/search_city_repo.dart";
 import "package:weatherapp/src/features/weather/data/repositories/weather_tips.dart";
+import "package:weatherapp/src/features/weather/domain/air_quality_model/air_quality_model.dart";
 
 // import "package:weatherapp/src/features/weather/domain/ho_model.dart";
 import "package:weatherapp/src/features/weather/domain/weather_model.dart";
@@ -26,6 +28,7 @@ import "package:weatherapp/src/features/weather/domain/weather_tips_model.dart";
 import "package:weatherapp/src/features/weather/presentation/modal_bottoms/recommendation_modal.dart";
 import "package:weatherapp/src/features/weather/presentation/weather_tips_card.dart";
 import "package:weatherapp/src/routing/app_routes.dart";
+import "package:weatherapp/src/routing/go_router_provider.dart";
 import "package:weatherapp/src/utils/weather_icon_utils.dart";
 import 'package:intl/intl.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
@@ -35,6 +38,8 @@ import "../../../ads/data/repositories/banner_repository.dart";
 import "../../../ads/data/repositories/interstital_repository.dart";
 import "../../../temeperature_scale/data/temperature_data.dart";
 import "../../../weather_fact/weather_fact_data.dart";
+import "../../data/repositories/air_quality_color.dart";
+import "../modal_bottoms/air_qaulity_modal.dart";
 // import 'package:shimmer/shimmer.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -110,6 +115,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     ref.watch(userCurrentAddress);
     ref.watch(isFromSearchScreen);
     ref.watch(weatherId);
+    final airQualityColor_ = ref.watch(airQualityColor);
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     TextTheme textTheme = Theme.of(context).textTheme;
     // print("Size ${size.height}");
@@ -431,10 +437,161 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: Divider(
-                    color: isDarkMode ? Colors.grey.shade800 : Colors.white30,
-                    endIndent: size.width * 0.04,
-                    indent: size.width * 0.04,
+                  child: SizedBox(
+                    child: Divider(
+                      color: isDarkMode ? Colors.grey.shade800 : Colors.white24,
+                      indent: size.width * 0.04,
+                      endIndent: size.width * 0.04,
+                    ),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding:
+                        EdgeInsets.only(left: 15, right: 15, bottom: 5, top: 5),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Air Quality Index",
+                                style: GoogleFonts.acme(
+                                    color: Colors.white,
+                                    fontSize: 16.5,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              horizontalGap(10),
+                              Icon(CupertinoIcons.wind, color: Colors.white)
+                            ],
+                          ),
+                        ),
+                        // verticalGap(10),
+                        FutureBuilder<AirQualityResponse?>(
+                            future: fetchAirQuality(),
+                            builder: (_, snapAir) {
+                              if (snapAir.hasData &&
+                                  snapAir.connectionState !=
+                                      ConnectionState.waiting) {
+                                return Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          snapAir.data!.indexes.first.category!,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w700),
+                                        ),
+                                        Spacer(),
+                                        TextButton(
+                                          onPressed: () {
+                                            // goRouter.go(
+                                            //     AppRoutes.airQualityTestPage);
+                                            showAirQualityModal(
+                                              snapAir,
+                                              context,
+                                            );
+                                          },
+                                          child: Text(
+                                            "See more",
+                                            style: GoogleFonts.acme(
+                                                color: isDarkMode
+                                                    ? Colors.white60
+                                                    : Colors.grey.shade50,
+                                                fontSize: 14),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    Card(
+                                      elevation: 5,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      child: Container(
+                                        height: size.height * 0.04,
+                                        color: Color.from(
+                                          alpha: 1,
+                                          red: (snapAir.data!.indexes.first
+                                              .color["red"]!) as double,
+                                          green: snapAir.data!.indexes.first
+                                              .color["green"]! as double,
+                                          blue: snapAir.data!.indexes.first
+                                              .color["blue"]! as double,
+                                        ),
+                                      ),
+                                    ),
+                                    verticalGap(8),
+                                    Text(
+                                      snapAir.data!.healthRecommendations!
+                                          .generalPopulation!,
+                                      style: GoogleFonts.roboto(
+                                          fontSize: 13.5,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600),
+                                      textAlign: TextAlign.left,
+                                    )
+                                  ],
+                                );
+                              } else if (!snapshot.hasData &&
+                                  snapshot.connectionState !=
+                                      ConnectionState.waiting) {
+                                return SizedBox(
+                                  width: double.maxFinite,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Unable to fetch data. Please try again.",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      TextButton.icon(
+                                        onPressed: () {
+                                          setState(() {});
+                                        },
+                                        icon: const Icon(Icons.refresh),
+                                        label: const Text(
+                                          "Refresh",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              } else {
+                                return SizedBox(
+                                  width: double.maxFinite,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      verticalGap(10),
+                                      const LinearProgressIndicator(),
+                                    ],
+                                  ),
+                                );
+                              }
+                            })
+                      ],
+                    ),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    child: Divider(
+                      color: isDarkMode ? Colors.grey.shade800 : Colors.white24,
+                      indent: size.width * 0.04,
+                      endIndent: size.width * 0.04,
+                    ),
                   ),
                 ),
                 if (banner2Ad != null && user == null)
@@ -636,12 +793,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: SizedBox(
-                    child: Divider(
-                      color: isDarkMode ? Colors.grey.shade800 : Colors.white24,
-                      indent: size.width * 0.04,
-                      endIndent: size.width * 0.04,
-                    ),
+                  child: Divider(
+                    color: isDarkMode ? Colors.grey.shade800 : Colors.white30,
+                    endIndent: size.width * 0.04,
+                    indent: size.width * 0.04,
                   ),
                 ),
                 SliverToBoxAdapter(

@@ -40,6 +40,11 @@ class GenerateWeatherLocation {
     await prefs.setDouble('lat', position.latitude);
     await prefs.setDouble('lon', position.longitude);
 
+    ref.read(latlngAQIState.notifier).state = {
+      "lat": position.latitude,
+      "lon": position.longitude
+    };
+
     final address = await geocoder.findAddressesFromCoordinates(
         Coordinates(position.latitude, position.longitude));
     // print("${address.first.thoroughfare} ${address.first.subAdminArea!}");
@@ -48,7 +53,7 @@ class GenerateWeatherLocation {
 
     await prefs.setString("country_name", address.first.countryName!);
 
-    print("COUNTRY: ${address.first.countryName}");
+    // print("COUNTRY: ${address.first.countryName}");
 
     ref.read(bottomNavState.notifier).state = 0;
     goRouter.go(AppRoutes.dashboard);
@@ -62,22 +67,6 @@ class GenerateWeatherLocation {
     final apiKey = dotenv.env['REACT_APP_GOOGLE_API_KEY'];
     final LocatitonGeocoder geocoder = LocatitonGeocoder(apiKey!);
 
-    // LocationPermission permission = await Geolocator.checkPermission();
-
-    // if (permission == LocationPermission.deniedForever) {
-    //   return Future.error(
-    //       'Location permissions are permantly denied, we cannot request permissions.');
-    // }
-
-    // if (permission == LocationPermission.denied) {
-    //   permission = await Geolocator.requestPermission();
-    //   if (permission != LocationPermission.whileInUse &&
-    //       permission != LocationPermission.always) {
-    //     return Future.error(
-    //         'Location permissions are denied (actual value: $permission).');
-    //   }
-    // }
-
     final storedAddress = await geocoder.findAddressesFromQuery(location);
 
     // print(storedAddress.first.coordinates);
@@ -85,14 +74,6 @@ class GenerateWeatherLocation {
 
     final lat = coords.latitude;
     final lon = coords.longitude;
-
-    // Position position = await Geolocator.getCurrentPosition(
-    //     desiredAccuracy: LocationAccuracy.high);
-
-    // print("searchedLat $lat");
-    // print("searchedLon $lon");
-    // await prefs.setDouble('searchedLat', lat!);
-    // await prefs.setDouble('searchedLon', lon!);
 
     // Create a ProviderContainer
     final latlngContainer = ProviderContainer();
@@ -109,15 +90,10 @@ class GenerateWeatherLocation {
 
     String searchALocation = "$location, ${storedAddress.first.countryName!}";
 
-    // final storedAddress =
-    // await geocoder.findAddressesFromCoordinates(Coordinates(lat, lon));
-    // print(
-    //     "USER SEARCHED LOCATION $location ${storedAddress.first.countryName!}");
     await prefs.setString(
         'searchedAddress', "$location, ${storedAddress.first.countryName!}");
 
     return {"lat": lat, "lon": lon, "address": searchALocation};
-    // goRouter.go(AppRoutes.dashboard);
   }
 
   static Future<String?> address() async {
