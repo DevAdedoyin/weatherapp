@@ -46,7 +46,7 @@ class _AirQualityMapState extends ConsumerState<AirQualityMap> {
         dotenv.env['REACT_APP_GOOGLE_API_KEY'] ?? '',
         "US_AQI",
       ),
-      transparency: 0.0,
+      transparency: 0.2,
     );
   }
 
@@ -63,10 +63,11 @@ class _AirQualityMapState extends ConsumerState<AirQualityMap> {
         width: size.width * 0.95,
         height: MediaQuery.of(context).size.height * 0.37,
         child: GoogleMap(
+
           mapType: MapType.normal,
           initialCameraPosition: CameraPosition(
             target: _position!,
-            zoom: 11,
+            zoom: 10,
           ),
           tileOverlays: {_airQualityOverlay},
           onMapCreated: (controller) async {
