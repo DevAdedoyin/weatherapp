@@ -32,7 +32,7 @@ Future<AirQualityResponse?> fetchAirQuality() async {
     ],
     "uaqiColorPalette": "COLOR_PALETTE_UNSPECIFIED",
     "customLocalAqis": [],
-    "universalAqi": true,
+    "universalAqi": false,
     "languageCode": "en"
   });
 

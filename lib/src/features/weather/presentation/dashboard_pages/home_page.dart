@@ -456,10 +456,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "Air Quality Index",
+                                "Air Quality",
                                 style: GoogleFonts.acme(
                                     color: Colors.white,
-                                    fontSize: 16.5,
+                                    fontSize: 17,
                                     fontWeight: FontWeight.w600),
                               ),
                               horizontalGap(10),
@@ -514,12 +514,18 @@ class _HomePageState extends ConsumerState<HomePage> {
                                         height: size.height * 0.04,
                                         color: Color.from(
                                           alpha: 1,
-                                          red: (snapAir.data!.indexes.first
-                                              .color["red"]!) as double,
-                                          green: snapAir.data!.indexes.first
-                                              .color["green"]! as double,
-                                          blue: snapAir.data!.indexes.first
-                                              .color["blue"]! as double,
+                                          red: ((snapAir.data!.indexes.first
+                                                      .color["red"] ??
+                                                  0.0) as num)
+                                              .toDouble(),
+                                          green: ((snapAir.data!.indexes.first
+                                                      .color["green"] ??
+                                                  0.0) as num)
+                                              .toDouble(),
+                                          blue: ((snapAir.data!.indexes.first
+                                                      .color["blue"] ??
+                                                  0.0) as num)
+                                              .toDouble(),
                                         ),
                                       ),
                                     ),
@@ -546,7 +552,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        "Unable to fetch data. Please try again.",
+                                        "Air Quality data is currently unavailable. Please try again.",
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold),

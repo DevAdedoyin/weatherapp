@@ -17,7 +17,7 @@ Future<void> showRecommendationsModalBottom(
 
   showModalBottomSheet<void>(
     context: context,
-    backgroundColor: isDarkMode ? Colors.black87 : Colors.grey ,
+    backgroundColor: isDarkMode ? Colors.black87 : Colors.grey,
     isScrollControlled: true,
     showDragHandle: true,
     useSafeArea: true,
@@ -25,7 +25,11 @@ Future<void> showRecommendationsModalBottom(
       margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: Column(
         children: [
-          Text("Recommendations", style: GoogleFonts.acme(fontSize: 18),),
+          Text(
+            "Recommendations",
+            style:
+                GoogleFonts.aBeeZee(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
           verticalGap(10),
           Expanded(
             child: ListView(

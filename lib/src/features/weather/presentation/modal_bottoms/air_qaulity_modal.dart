@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:weatherapp/src/constants/app_colors.dart';
 import 'package:weatherapp/src/features/weather/domain/air_quality_model/air_quality_model.dart';
 import 'package:weatherapp/src/features/weather/presentation/air_quality_Map.dart';
 
@@ -38,10 +39,10 @@ Future<void> showAirQualityModal(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Air Quality Index",
-                        style: GoogleFonts.acme(
+                        "Air Quality",
+                        style: GoogleFonts.aBeeZee(
                             color: Colors.white,
-                            fontSize: 18,
+                            fontSize: 20,
                             fontWeight: FontWeight.w600),
                       ),
                       horizontalGap(10),
@@ -52,6 +53,42 @@ Future<void> showAirQualityModal(
                 verticalGap(10),
                 AirQualityMap(),
                 verticalGap(20),
+                Row(
+                  children: [
+                    Column(
+                      children: [
+                        Text("Air Quality Scale"),
+                        verticalGap(1),
+                        Text(
+                          snapAir.data!.indexes.first.displayName!,
+                          style:
+                              GoogleFonts.roboto(fontWeight: FontWeight.w400),
+                        )
+                      ],
+                    ),
+                    Spacer(),
+                    Column(
+                      children: [
+                        Text("Air Quality Index"),
+                        verticalGap(1),
+                        Text(
+                          snapAir.data!.indexes.first.aqi!.toString(),
+                          style:
+                              GoogleFonts.roboto(fontWeight: FontWeight.w400),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+                verticalGap(5),
+                SizedBox(
+                  child: Divider(
+                    color: isDarkMode ? Colors.grey.shade800 : Colors.white24,
+                    indent: size.width * 0.001,
+                    endIndent: size.width * 0.001,
+                  ),
+                ),
+                verticalGap(5),
                 Row(
                   children: [
                     Column(
@@ -87,33 +124,133 @@ Future<void> showAirQualityModal(
                     endIndent: size.width * 0.001,
                   ),
                 ),
-                verticalGap(5),
+                verticalGap(10),
                 SizedBox(
                   width: double.maxFinite,
                   child: Text(
                     "Health Recommendations",
-                    textAlign: TextAlign.start,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.aBeeZee(
+                        fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),
+                verticalGap(10),
                 Column(
                     children: List.generate(
                         listOfHealthRecommendationKeys.length, (index) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: double.maxFinite,
-                        child: Text(listOfHealthRecommendationTitles[index]),
-                      ),
-                      Card(
-                        child: ListTile(
-                          leading: Icon(listOfHealthRecommendationIcons[index]),
-                          title: Text(listOfRecommendations[index]),
+                  return Container(
+                    margin: EdgeInsets.only(bottom: 12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: double.maxFinite,
+                          child: Text(listOfHealthRecommendationTitles[index]),
                         ),
-                      )
-                    ],
+                        Card(
+                          elevation: 5,
+                          color: isDarkMode
+                              ? AppColors.cardDarkModeColor
+                              : AppColors.cardLightModeColor,
+                          child: ListTile(
+                            leading: Icon(
+                              listOfHealthRecommendationIcons[index],
+                              color: isDarkMode ? Colors.red : Colors.blue,
+                            ),
+                            title: Text(
+                              listOfRecommendations[index],
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500, fontSize: 14),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   );
                 })),
+                SizedBox(
+                    width: double.maxFinite,
+                    child: Text(
+                      "Possible Pollutants",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.aBeeZee(
+                          fontSize: 20, fontWeight: FontWeight.bold),
+                    )),
+                verticalGap(15),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: List<Widget>.generate(
+                      snapAir.data!.pollutants.length, (index) {
+                    final pollutants = snapAir.data!.pollutants[index];
+                    return Column(
+                      children: [
+                        SizedBox(
+                          width: double.maxFinite,
+                          child: Text(
+                              "${pollutants.fullName} (${pollutants.displayName})"),
+                        ),
+                        Card(
+                          elevation: 5,
+                          color: isDarkMode
+                              ? AppColors.cardDarkModeColor
+                              : AppColors.cardLightModeColor,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Concentration",
+                                ),
+                                Text(
+                                  "${pollutants.concentration!.value} ${pollutants.concentration!.units}",
+                                  softWrap: true,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 14),
+                                ),
+                                SizedBox(
+                                  child: Divider(
+                                    color: isDarkMode
+                                        ? Colors.grey.shade800
+                                        : Colors.white24,
+                                    indent: size.width * 0.001,
+                                    endIndent: size.width * 0.001,
+                                  ),
+                                ),
+                                Text("Sources"),
+                                Text(
+                                  pollutants.additionalInfo!.sources!,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 14),
+                                ),
+                                SizedBox(
+                                  child: Divider(
+                                    color: isDarkMode
+                                        ? Colors.grey.shade800
+                                        : Colors.white24,
+                                    indent: size.width * 0.001,
+                                    endIndent: size.width * 0.001,
+                                  ),
+                                ),
+                                Text("Effects"),
+                                Text(
+                                  pollutants.additionalInfo!.effects!,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 14),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        verticalGap(15)
+                      ],
+                    );
+                  }),
+                )
               ],
             ),
           ),

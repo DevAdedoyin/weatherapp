@@ -44,7 +44,7 @@ class _AirQualityMapState extends ConsumerState<AirQualityMap> {
       tileOverlayId: const TileOverlayId('air_quality_heatmap'),
       tileProvider: AirQualityTileProvider(
         dotenv.env['REACT_APP_GOOGLE_API_KEY'] ?? '',
-        "US_AQI", // Or UAQI_RED_GREEN for different map type
+        "US_AQI",
       ),
       transparency: 0.0,
     );
@@ -57,30 +57,33 @@ class _AirQualityMapState extends ConsumerState<AirQualityMap> {
       return const LoadingIndicator();
     }
 
-    return SizedBox(
-      width: size.width * 0.95,
-      height: MediaQuery.of(context).size.height * 0.38,
-      child: GoogleMap(
-        mapType: MapType.normal,
-        initialCameraPosition: CameraPosition(
-          target: _position!,
-          zoom: 11,
-        ),
-        tileOverlays: {_airQualityOverlay},
-        onMapCreated: (controller) async {
-          if (!_controller.isCompleted) _controller.complete(controller);
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10),
+      child: SizedBox(
+        width: size.width * 0.95,
+        height: MediaQuery.of(context).size.height * 0.37,
+        child: GoogleMap(
+          mapType: MapType.normal,
+          initialCameraPosition: CameraPosition(
+            target: _position!,
+            zoom: 11,
+          ),
+          tileOverlays: {_airQualityOverlay},
+          onMapCreated: (controller) async {
+            if (!_controller.isCompleted) _controller.complete(controller);
 
-          if (!_cameraMoved) {
-            _cameraMoved = true;
-            await controller.animateCamera(
-              CameraUpdate.newCameraPosition(
-                CameraPosition(target: _position!, zoom: 11),
-              ),
-            );
-          }
-        },
-        myLocationEnabled: true,
-        myLocationButtonEnabled: true,
+            if (!_cameraMoved) {
+              _cameraMoved = true;
+              await controller.animateCamera(
+                CameraUpdate.newCameraPosition(
+                  CameraPosition(target: _position!, zoom: 11),
+                ),
+              );
+            }
+          },
+          myLocationEnabled: true,
+          myLocationButtonEnabled: true,
+        ),
       ),
     );
   }
