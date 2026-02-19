@@ -494,12 +494,16 @@ class _HomePageState extends ConsumerState<HomePage> {
                                               context,
                                             );
                                           },
+                                          style: ButtonStyle(
+                                              backgroundColor:
+                                                  WidgetStatePropertyAll(
+                                                      isDarkMode
+                                                          ? Colors.red
+                                                          : Colors.blue)),
                                           child: Text(
                                             "See more",
                                             style: GoogleFonts.acme(
-                                                color: isDarkMode
-                                                    ? Colors.white60
-                                                    : Colors.grey.shade50,
+                                                color: Colors.white,
                                                 fontSize: 14),
                                           ),
                                         )
