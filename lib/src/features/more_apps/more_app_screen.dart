@@ -47,7 +47,7 @@ class MoreAppScreen extends ConsumerWidget {
 
     final bannerAd = ref.watch(exploreMoreAppBannerAdProvider);
     // final user = FirebaseAuth.instance.currentUser;
-    Size size_ = MediaQuery.of(context).size;
+
 
     return Scaffold(
       appBar: AppBar(

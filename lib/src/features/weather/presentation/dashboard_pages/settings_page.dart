@@ -1,6 +1,7 @@
 import "dart:io";
 
 import "package:firebase_auth/firebase_auth.dart";
+import "package:flutter/cupertino.dart";
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -359,6 +360,29 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                   trailing: IconButton(
                     onPressed: () {
                       goRouter.push(AppRoutes.moreApps);
+                    },
+                    icon: const Icon(Icons.arrow_forward_rounded),
+                  ),
+                ),
+              ),
+            ),
+            verticalGap(10),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 15),
+              child: Card(
+                color: isDarkMode
+                    ? AppColors.cardDarkModeColor
+                    : AppColors.cardLightModeColor,
+                child: ListTile(
+                  leading: Icon(Icons.source,
+                      color: isDarkMode ? Colors.red : Colors.blue),
+                  title: Text(
+                    "Data Sources",
+                    style: textTheme.bodyMedium,
+                  ),
+                  trailing: IconButton(
+                    onPressed: () {
+                      goRouter.push(AppRoutes.dataSources);
                     },
                     icon: const Icon(Icons.arrow_forward_rounded),
                   ),

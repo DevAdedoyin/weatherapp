@@ -22,4 +22,5 @@ class AppRoutes {
   static const String notification = '/notification';
   static const String notificationDetails = '/notificationDetails';
   static const String airQualityTestPage = '/airQualityTestPage';
+  static const String dataSources = '/dataSources';
 }

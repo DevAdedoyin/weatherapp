@@ -14,12 +14,12 @@ import 'package:weatherapp/src/features/onboarding/onboarding/onboarding_screen.
 import 'package:weatherapp/src/features/onboarding/splash_screen.dart';
 import 'package:weatherapp/src/features/share_app/share_app_screen.dart';
 import 'package:weatherapp/src/features/temeperature_scale/presentation/temperature_scale_screen.dart';
-import 'package:weatherapp/src/features/weather/presentation/airquality_test_page.dart';
 
 // import 'package:weatherapp/src/features/authentication/presentation/change_pasword_screen.dart';
 import 'package:weatherapp/src/features/weather/presentation/change_pasword_screen.dart';
 import 'package:weatherapp/src/features/weather/presentation/daily_weather_detail_screen.dart';
 import 'package:weatherapp/src/features/weather/presentation/dashboard/dashboard.dart';
+import 'package:weatherapp/src/features/weather/presentation/data_source_screen.dart';
 import 'package:weatherapp/src/features/weather/presentation/hourly_weather/hourly_weather_detail.dart';
 import 'package:weatherapp/src/features/weather/presentation/search_detail_screen.dart';
 
@@ -110,8 +110,8 @@ GoRouter goRouter = GoRouter(
       builder: (context, state) => const NotificationDetailsScreen(),
     ),
     GoRoute(
-      path: AppRoutes.airQualityTestPage,
-      builder: (context, state) => const AirQualityTest(),
+      path: AppRoutes.dataSources,
+      builder: (context, state) => const DataSourceScreen(),
     ),
   ],
   errorBuilder: (context, state) => RouteErrorScreen(
