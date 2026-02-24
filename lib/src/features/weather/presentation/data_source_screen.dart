@@ -44,8 +44,8 @@ class DataSourceScreen extends StatelessWidget {
                 child: ListTile(
                   leading: ClipOval(
                     child: SizedBox(
-                      width: size.height * 0.06,
-                      height: size.height * 0.06,
+                      width: size.height * 0.04,
+                      height: size.height * 0.04,
                       child: Image.network(
                         listOfDataSourceAPI[index].logo,
                         fit: BoxFit.cover,

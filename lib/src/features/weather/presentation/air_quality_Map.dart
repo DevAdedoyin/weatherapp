@@ -167,7 +167,7 @@ class _AirQualityMapState extends ConsumerState<AirQualityMap> {
               },
               initialCameraPosition: CameraPosition(
                 target: _position!,
-                zoom: 11,
+                zoom: 13,
               ),
               tileOverlays: {_airQualityOverlay},
               onMapCreated: (controller) async {
@@ -177,7 +177,7 @@ class _AirQualityMapState extends ConsumerState<AirQualityMap> {
                   _cameraMoved = true;
                   await controller.animateCamera(
                     CameraUpdate.newCameraPosition(
-                      CameraPosition(target: _position!, zoom: 11),
+                      CameraPosition(target: _position!, zoom: 13),
                     ),
                   );
                 }

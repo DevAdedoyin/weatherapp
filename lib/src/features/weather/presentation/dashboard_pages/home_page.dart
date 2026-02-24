@@ -38,7 +38,10 @@ import "../../../ads/data/repositories/banner_repository.dart";
 import "../../../ads/data/repositories/interstital_repository.dart";
 import "../../../temeperature_scale/data/temperature_data.dart";
 import "../../../weather_fact/weather_fact_data.dart";
+import "../../data/repositories/air_quality_cache_provider.dart";
 import "../../data/repositories/air_quality_color.dart";
+import "../../data/repositories/air_quality_country_repo.dart";
+import "../../data/repositories/air_quality_utility_repo.dart";
 import "../modal_bottoms/air_qaulity_modal.dart";
 // import 'package:shimmer/shimmer.dart';
 
@@ -57,20 +60,31 @@ class _HomePageState extends ConsumerState<HomePage> {
     super.initState();
     // TODO: PUSH NEW DATA TO PLAYSTORE
     // addWeatherFacts();
+
+    loadAirQuality();
+
     getAddress();
+
+    Future.microtask(() {
+      ref.read(airQualityProvider);
+    });
 
     // TODO: NOTE Recommendation Upload To Server
     // WeatherTipsHelper.uploadRecommendations();
 
     AdDisplayCounter.addDisplayCounter(
         ref.read(interstitialAdProvider.notifier));
-    // ref.read(userCurrentAddress.notifier).state = address!;
-    // ref.read(isFromSearchScreen.notifier).state = false;
+  }
 
-    // TODO NOTE
-    // In the future to load ad banners uncomment this code
-    // ref.read(bannerAdProvider.notifier).loadAd();
-    // ref.read(banner2AdProvider.notifier).loadAd();
+  Future<void> loadAirQuality() async {
+    final countries = await getAirQualityCountries();
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    final String? userCountry = prefs.getString("country_name");
+
+    final normalized = normalizeCountry(userCountry!);
+    ref.read(showAirQuality.notifier).state = countries.contains(normalized);
   }
 
   String getDateTime() {
@@ -118,6 +132,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     final airQualityColor_ = ref.watch(airQualityColor);
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     TextTheme textTheme = Theme.of(context).textTheme;
+    final airQualityAsync = ref.watch(airQualityProvider);
     // print("Size ${size.height}");
 
     final tips = WeatherTipsHelper.getAllTipsForWeather(
@@ -437,125 +452,151 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: SizedBox(
-                    child: Divider(
-                      color: isDarkMode ? Colors.grey.shade800 : Colors.white24,
-                      indent: size.width * 0.04,
-                      endIndent: size.width * 0.04,
-                    ),
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding:
-                        EdgeInsets.only(left: 15, right: 15, bottom: 5, top: 5),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Air Quality",
-                                style: GoogleFonts.acme(
-                                    color: Colors.white,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              horizontalGap(10),
-                              Icon(CupertinoIcons.wind, color: Colors.white)
-                            ],
+                  child: !ref.read(showAirQuality.notifier).state
+                      ? SizedBox()
+                      : SizedBox(
+                          child: Divider(
+                            color: isDarkMode
+                                ? Colors.grey.shade800
+                                : Colors.white24,
+                            indent: size.width * 0.04,
+                            endIndent: size.width * 0.04,
                           ),
                         ),
-                        // verticalGap(10),
-                        FutureBuilder<AirQualityResponse?>(
-                            future: fetchAirQuality(),
-                            builder: (_, snapAir) {
-                              if (snapAir.hasData &&
-                                  snapAir.connectionState !=
-                                      ConnectionState.waiting) {
-                                return Column(
+                ),
+                SliverToBoxAdapter(
+                  child: !ref.read(showAirQuality.notifier).state
+                      ? SizedBox()
+                      : Padding(
+                          padding: EdgeInsets.only(
+                              left: 15, right: 15, bottom: 5, top: 5),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Row(
-                                      children: [
-                                        Text(
-                                          snapAir.data!.indexes.first.category!,
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w700),
-                                        ),
-                                        Spacer(),
-                                        TextButton(
-                                          onPressed: () {
-                                            // goRouter.go(
-                                            //     AppRoutes.airQualityTestPage);
-                                            showAirQualityModal(
-                                              snapAir,
-                                              context,
-                                            );
-                                          },
-                                          style: ButtonStyle(
+                                    Text(
+                                      "Air Quality",
+                                      style: GoogleFonts.acme(
+                                          color: Colors.white,
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    horizontalGap(10),
+                                    Icon(CupertinoIcons.wind,
+                                        color: Colors.white)
+                                  ],
+                                ),
+                              ),
+                              // verticalGap(10),
+                              airQualityAsync.when(
+                                data: (snapAir) {
+                                  if (snapAir == null) {
+                                    return const SizedBox(
+                                      width: double.maxFinite,
+                                      child: Text(
+                                        "Air Quality data is currently unavailable. Please try again.",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    );
+                                  }
+
+                                  return Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                            snapAir.indexes.first.category
+                                                    .toString() ??
+                                                "",
+                                            style: const TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                          const Spacer(),
+                                          TextButton(
+                                            onPressed: () {
+                                              showAirQualityModal(
+                                                snapAir,
+                                                context,
+                                              );
+                                            },
+                                            style: ButtonStyle(
                                               backgroundColor:
                                                   WidgetStatePropertyAll(
-                                                      isDarkMode
-                                                          ? Colors.red
-                                                          : Colors.blue)),
-                                          child: Text(
-                                            "See more",
-                                            style: GoogleFonts.acme(
-                                                color: Colors.white,
-                                                fontSize: 14),
+                                                Theme.of(context).brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.red
+                                                    : Colors.blue,
+                                              ),
+                                            ),
+                                            child: const Text(
+                                              "See more",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      Card(
+                                        elevation: 5,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: Container(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.04,
+                                          color: Color.from(
+                                            alpha: 1,
+                                            red: ((snapAir.indexes.first
+                                                        .color["red"] ??
+                                                    0.0) as num)
+                                                .toDouble(),
+                                            green: ((snapAir.indexes.first
+                                                        .color["green"] ??
+                                                    0.0) as num)
+                                                .toDouble(),
+                                            blue: ((snapAir.indexes.first
+                                                        .color["blue"] ??
+                                                    0.0) as num)
+                                                .toDouble(),
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                    Card(
-                                      elevation: 5,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: Container(
-                                        height: size.height * 0.04,
-                                        color: Color.from(
-                                          alpha: 1,
-                                          red: ((snapAir.data!.indexes.first
-                                                      .color["red"] ??
-                                                  0.0) as num)
-                                              .toDouble(),
-                                          green: ((snapAir.data!.indexes.first
-                                                      .color["green"] ??
-                                                  0.0) as num)
-                                              .toDouble(),
-                                          blue: ((snapAir.data!.indexes.first
-                                                      .color["blue"] ??
-                                                  0.0) as num)
-                                              .toDouble(),
                                         ),
                                       ),
-                                    ),
-                                    verticalGap(8),
-                                    Text(
-                                      snapAir.data!.healthRecommendations!
-                                          .generalPopulation!,
-                                      style: GoogleFonts.roboto(
-                                          fontSize: 13.5,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w600),
-                                      textAlign: TextAlign.left,
-                                    )
-                                  ],
-                                );
-                              } else if (!snapshot.hasData &&
-                                  snapshot.connectionState !=
-                                      ConnectionState.waiting) {
-                                return SizedBox(
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        snapAir.healthRecommendations
+                                                ?.generalPopulation
+                                                .toString() ??
+                                            "",
+                                        style: const TextStyle(
+                                            fontSize: 13.5,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w600),
+                                        textAlign: TextAlign.left,
+                                      )
+                                    ],
+                                  );
+                                },
+                                loading: () => const SizedBox(
+                                  width: double.maxFinite,
+                                  child: Center(
+                                    child: LinearProgressIndicator(),
+                                  ),
+                                ),
+                                error: (err, _) => SizedBox(
                                   width: double.maxFinite,
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text(
+                                      const Text(
                                         "Air Quality data is currently unavailable. Please try again.",
                                         style: TextStyle(
                                             color: Colors.white,
@@ -563,7 +604,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       ),
                                       TextButton.icon(
                                         onPressed: () {
-                                          setState(() {});
+                                          ref.invalidate(airQualityProvider);
                                         },
                                         icon: const Icon(Icons.refresh),
                                         label: const Text(
@@ -575,25 +616,11 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       ),
                                     ],
                                   ),
-                                );
-                              } else {
-                                return SizedBox(
-                                  width: double.maxFinite,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      verticalGap(10),
-                                      const LinearProgressIndicator(),
-                                    ],
-                                  ),
-                                );
-                              }
-                            })
-                      ],
-                    ),
-                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
                 ),
                 SliverToBoxAdapter(
                   child: SizedBox(

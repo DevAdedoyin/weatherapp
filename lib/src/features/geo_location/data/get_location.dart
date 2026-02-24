@@ -20,7 +20,7 @@ class GenerateWeatherLocation {
 
     if (permission == LocationPermission.deniedForever) {
       return Future.error(
-          'Location permissions are permantly denied, we cannot request permissions.');
+          'Location permissions are permanently denied, we cannot request permissions.');
     }
 
     if (permission == LocationPermission.denied) {
@@ -33,7 +33,7 @@ class GenerateWeatherLocation {
     }
 
     Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+        desiredAccuracy: LocationAccuracy.best);
 
     // print(position.latitude);
     // print(position.longitude);

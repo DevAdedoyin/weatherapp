@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:weatherapp/src/constants/app_colors.dart';
 import 'package:weatherapp/src/features/weather/domain/air_quality_model/air_quality_model.dart';
@@ -8,17 +9,17 @@ import 'package:weatherapp/src/features/weather/presentation/air_quality_Map.dar
 import '../../../../common/gaps/sized_box.dart';
 
 Future<void> showAirQualityModal(
-    AsyncSnapshot<AirQualityResponse?> snapAir, BuildContext context) async {
+    AirQualityResponse snapAir, BuildContext context) async {
   bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
   Size size = MediaQuery.of(context).size;
   List<String> listOfRecommendations = [
-    snapAir.data!.healthRecommendations!.generalPopulation!,
-    snapAir.data!.healthRecommendations!.elderly!,
-    snapAir.data!.healthRecommendations!.lungDiseasePopulation!,
-    snapAir.data!.healthRecommendations!.heartDiseasePopulation!,
-    snapAir.data!.healthRecommendations!.athletes!,
-    snapAir.data!.healthRecommendations!.pregnantWomen!,
-    snapAir.data!.healthRecommendations!.children!,
+    snapAir.healthRecommendations!.generalPopulation!,
+    snapAir.healthRecommendations!.elderly!,
+    snapAir.healthRecommendations!.lungDiseasePopulation!,
+    snapAir.healthRecommendations!.heartDiseasePopulation!,
+    snapAir.healthRecommendations!.athletes!,
+    snapAir.healthRecommendations!.pregnantWomen!,
+    snapAir.healthRecommendations!.children!,
   ];
 
   if (!context.mounted) return;
@@ -60,7 +61,7 @@ Future<void> showAirQualityModal(
                         Text("Air Quality Scale"),
                         verticalGap(1),
                         Text(
-                          snapAir.data!.indexes.first.displayName!,
+                          snapAir.indexes.first.displayName!,
                           style:
                               GoogleFonts.roboto(fontWeight: FontWeight.w400),
                         )
@@ -72,7 +73,7 @@ Future<void> showAirQualityModal(
                         Text("Air Quality Index"),
                         verticalGap(1),
                         Text(
-                          snapAir.data!.indexes.first.aqi!.toString(),
+                          snapAir.indexes.first.aqi!.toString(),
                           style:
                               GoogleFonts.roboto(fontWeight: FontWeight.w400),
                         )
@@ -96,7 +97,7 @@ Future<void> showAirQualityModal(
                         Text("Air Quality Status"),
                         verticalGap(1),
                         Text(
-                          snapAir.data!.indexes.first.category!,
+                          snapAir.indexes.first.category!,
                           style:
                               GoogleFonts.roboto(fontWeight: FontWeight.w400),
                         )
@@ -108,7 +109,7 @@ Future<void> showAirQualityModal(
                         Text("Dominant Pollutant"),
                         verticalGap(1),
                         Text(
-                          snapAir.data!.indexes.first.dominantPollutant!,
+                          snapAir.indexes.first.dominantPollutant!,
                           style:
                               GoogleFonts.roboto(fontWeight: FontWeight.w400),
                         )
@@ -179,9 +180,9 @@ Future<void> showAirQualityModal(
                 verticalGap(15),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: List<Widget>.generate(
-                      snapAir.data!.pollutants.length, (index) {
-                    final pollutants = snapAir.data!.pollutants[index];
+                  children:
+                      List<Widget>.generate(snapAir.pollutants.length, (index) {
+                    final pollutants = snapAir.pollutants[index];
                     return Column(
                       children: [
                         SizedBox(

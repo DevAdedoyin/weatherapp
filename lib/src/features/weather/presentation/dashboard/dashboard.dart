@@ -51,19 +51,6 @@ class _DashboardState extends ConsumerState<Dashboard> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       checkForUpdates(context);
     });
-
-    loadAirQuality();
-  }
-
-  Future<void> loadAirQuality() async {
-    final countries = await getAirQualityCountries();
-
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    final String? userCountry = prefs.getString("country_name");
-
-    final normalized = normalizeCountry(userCountry!);
-    ref.read(showAirQuality.notifier).state = countries.contains(normalized);
   }
 
   @override
