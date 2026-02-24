@@ -152,6 +152,7 @@ class _AirQualityMapState extends ConsumerState<AirQualityMap> {
           children: [
             GoogleMap(
               zoomControlsEnabled: false,
+              zoomGesturesEnabled: false,
               mapType: MapType.normal,
               mapToolbarEnabled: false,
               buildingsEnabled: true,
