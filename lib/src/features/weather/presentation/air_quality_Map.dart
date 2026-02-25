@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:weatherapp/src/common/loading_indicator.dart';
+import 'package:weatherapp/src/constants/app_colors.dart';
 import 'package:weatherapp/src/features/weather/data/repositories/air_quality_tile_provider.dart';
 import 'package:weatherapp/src/features/weather/domain/air_quality_model/air_quality_index_table.dart';
 
@@ -13,7 +14,9 @@ import '../../../common/gaps/sized_box.dart';
 import '../../geo_location/repositories/address_repo.dart';
 
 class AirQualityMap extends ConsumerStatefulWidget {
-  const AirQualityMap({super.key});
+  final String airQualityStatus;
+
+  const AirQualityMap({super.key, required this.airQualityStatus});
 
   @override
   ConsumerState<AirQualityMap> createState() => _AirQualityMapState();
@@ -50,7 +53,7 @@ class _AirQualityMapState extends ConsumerState<AirQualityMap> {
         dotenv.env['REACT_APP_GOOGLE_API_KEY'] ?? '',
         "US_AQI",
       ),
-      transparency: 0.2,
+      transparency: 0.1,
     );
   }
 
@@ -63,6 +66,7 @@ class _AirQualityMapState extends ConsumerState<AirQualityMap> {
           "Know Your AQI Scale",
           textAlign: TextAlign.center,
         ),
+        backgroundColor: isDarkMode ? Colors.black87 : Colors.blue,
         titleTextStyle:
             GoogleFonts.aBeeZee(fontWeight: FontWeight.bold, fontSize: 20),
         contentPadding: EdgeInsets.all(5),
@@ -72,12 +76,16 @@ class _AirQualityMapState extends ConsumerState<AirQualityMap> {
                 itemCount: airQualityIndexChart.length,
                 itemBuilder: (_, index) {
                   return Card(
+                    color: Colors.white10,
                     margin: EdgeInsets.only(bottom: 10, top: 10),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         children: [
-                          Text(airQualityIndexChart[index].airQualityStatus),
+                          Text(
+                            airQualityIndexChart[index].airQualityStatus,
+                            style: TextStyle(color: Colors.white),
+                          ),
                           SizedBox(
                             child: Divider(
                               color: isDarkMode
@@ -91,24 +99,28 @@ class _AirQualityMapState extends ConsumerState<AirQualityMap> {
                             children: [
                               Column(
                                 children: [
-                                  Text("Colour"),
+                                  Text("Colour",
+                                      style: TextStyle(color: Colors.white70)),
                                   verticalGap(1),
                                   Text(
                                     airQualityIndexChart[index].color,
                                     style: GoogleFonts.roboto(
-                                        fontWeight: FontWeight.w400),
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.white),
                                   )
                                 ],
                               ),
                               Spacer(),
                               Column(
                                 children: [
-                                  Text("AQI Range"),
+                                  Text("AQI Range",
+                                      style: TextStyle(color: Colors.white70)),
                                   verticalGap(1),
                                   Text(
                                     airQualityIndexChart[index].indexValue,
                                     style: GoogleFonts.roboto(
-                                        fontWeight: FontWeight.w400),
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.white),
                                   )
                                 ],
                               )
@@ -123,9 +135,12 @@ class _AirQualityMapState extends ConsumerState<AirQualityMap> {
                               color: airQualityIndexChart[index].rgb,
                             ),
                           ),
+                          verticalGap(5),
                           Text(
                             airQualityIndexChart[index].description,
-                            style: TextStyle(fontWeight: FontWeight.w400),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white),
                           )
                         ],
                       ),
@@ -143,6 +158,7 @@ class _AirQualityMapState extends ConsumerState<AirQualityMap> {
       return const LoadingIndicator();
     }
 
+    String airQualityStatus = widget.airQualityStatus;
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: SizedBox(
@@ -160,7 +176,10 @@ class _AirQualityMapState extends ConsumerState<AirQualityMap> {
                 Marker(
                   markerId: const MarkerId("user"),
                   position: _position!,
-                  infoWindow: const InfoWindow(title: "You're somewhere here"),
+                  infoWindow: InfoWindow(
+                      title:
+                          "This location has ${airQualityStatus.toLowerCase()}",
+                      snippet: "You're somewhere here or close"),
                   icon: BitmapDescriptor.defaultMarkerWithHue(
                     BitmapDescriptor.hueAzure,
                   ),
@@ -168,7 +187,7 @@ class _AirQualityMapState extends ConsumerState<AirQualityMap> {
               },
               initialCameraPosition: CameraPosition(
                 target: _position!,
-                zoom: 13,
+                zoom: 11,
               ),
               tileOverlays: {_airQualityOverlay},
               onMapCreated: (controller) async {
@@ -178,7 +197,7 @@ class _AirQualityMapState extends ConsumerState<AirQualityMap> {
                   _cameraMoved = true;
                   await controller.animateCamera(
                     CameraUpdate.newCameraPosition(
-                      CameraPosition(target: _position!, zoom: 13),
+                      CameraPosition(target: _position!, zoom: 11),
                     ),
                   );
                 }
@@ -195,7 +214,10 @@ class _AirQualityMapState extends ConsumerState<AirQualityMap> {
                 onPressed: () {
                   _showAqiInfo(size);
                 },
-                child: const Icon(CupertinoIcons.info),
+                child: const Icon(
+                  CupertinoIcons.info,
+                  color: Colors.white,
+                ),
               ),
             ),
           ],

@@ -25,7 +25,7 @@ Future<void> showAirQualityModal(
   if (!context.mounted) return;
   showModalBottomSheet(
       context: context,
-      backgroundColor: isDarkMode ? Colors.black87 : Colors.grey,
+      backgroundColor: isDarkMode ? Colors.black87 : Colors.blue,
       isScrollControlled: true,
       showDragHandle: true,
       useSafeArea: true,
@@ -52,30 +52,38 @@ Future<void> showAirQualityModal(
                   ),
                 ),
                 verticalGap(10),
-                AirQualityMap(),
+                AirQualityMap(
+                  airQualityStatus: snapAir.indexes.first.category!,
+                ),
                 verticalGap(20),
                 Row(
                   children: [
                     Column(
                       children: [
-                        Text("Air Quality Scale"),
+                        Text(
+                          "Air Quality Scale",
+                          style: TextStyle(color: Colors.white),
+                        ),
                         verticalGap(1),
                         Text(
                           snapAir.indexes.first.displayName!,
-                          style:
-                              GoogleFonts.roboto(fontWeight: FontWeight.w400),
+                          style: GoogleFonts.roboto(
+                              fontWeight: FontWeight.w400, color: Colors.white),
                         )
                       ],
                     ),
                     Spacer(),
                     Column(
                       children: [
-                        Text("Air Quality Index"),
+                        Text(
+                          "Air Quality Index",
+                          style: TextStyle(color: Colors.white),
+                        ),
                         verticalGap(1),
                         Text(
                           snapAir.indexes.first.aqi!.toString(),
-                          style:
-                              GoogleFonts.roboto(fontWeight: FontWeight.w400),
+                          style: GoogleFonts.roboto(
+                              fontWeight: FontWeight.w400, color: Colors.white),
                         )
                       ],
                     )
@@ -84,7 +92,7 @@ Future<void> showAirQualityModal(
                 verticalGap(5),
                 SizedBox(
                   child: Divider(
-                    color: isDarkMode ? Colors.grey.shade800 : Colors.white24,
+                    color: isDarkMode ? Colors.grey.shade800 : Colors.white30,
                     indent: size.width * 0.001,
                     endIndent: size.width * 0.001,
                   ),
@@ -94,24 +102,30 @@ Future<void> showAirQualityModal(
                   children: [
                     Column(
                       children: [
-                        Text("Air Quality Status"),
+                        Text(
+                          "Air Quality Status",
+                          style: TextStyle(color: Colors.white),
+                        ),
                         verticalGap(1),
                         Text(
                           snapAir.indexes.first.category!,
-                          style:
-                              GoogleFonts.roboto(fontWeight: FontWeight.w400),
+                          style: GoogleFonts.roboto(
+                              fontWeight: FontWeight.w400, color: Colors.white),
                         )
                       ],
                     ),
                     Spacer(),
                     Column(
                       children: [
-                        Text("Dominant Pollutant"),
+                        Text(
+                          "Dominant Pollutant",
+                          style: TextStyle(color: Colors.white),
+                        ),
                         verticalGap(1),
                         Text(
                           snapAir.indexes.first.dominantPollutant!,
-                          style:
-                              GoogleFonts.roboto(fontWeight: FontWeight.w400),
+                          style: GoogleFonts.roboto(
+                              fontWeight: FontWeight.w400, color: Colors.white),
                         )
                       ],
                     )
@@ -120,7 +134,7 @@ Future<void> showAirQualityModal(
                 verticalGap(5),
                 SizedBox(
                   child: Divider(
-                    color: isDarkMode ? Colors.grey.shade800 : Colors.white24,
+                    color: isDarkMode ? Colors.grey.shade800 : Colors.white30,
                     indent: size.width * 0.001,
                     endIndent: size.width * 0.001,
                   ),
@@ -132,7 +146,9 @@ Future<void> showAirQualityModal(
                     "Health Recommendations",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.aBeeZee(
-                        fontSize: 20, fontWeight: FontWeight.bold),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
                 ),
                 verticalGap(10),
@@ -146,7 +162,9 @@ Future<void> showAirQualityModal(
                       children: [
                         SizedBox(
                           width: double.maxFinite,
-                          child: Text(listOfHealthRecommendationTitles[index]),
+                          child: Text(listOfHealthRecommendationTitles[index],
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 16)),
                         ),
                         Card(
                           elevation: 5,
@@ -161,7 +179,7 @@ Future<void> showAirQualityModal(
                             title: Text(
                               listOfRecommendations[index],
                               style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 14),
+                                  fontWeight: FontWeight.w600, fontSize: 14.5),
                             ),
                           ),
                         )
@@ -175,9 +193,11 @@ Future<void> showAirQualityModal(
                       "Possible Pollutants",
                       textAlign: TextAlign.center,
                       style: GoogleFonts.aBeeZee(
-                          fontSize: 20, fontWeight: FontWeight.bold),
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
                     )),
-                verticalGap(15),
+                verticalGap(10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children:
@@ -188,7 +208,9 @@ Future<void> showAirQualityModal(
                         SizedBox(
                           width: double.maxFinite,
                           child: Text(
-                              "${pollutants.fullName} (${pollutants.displayName})"),
+                              "${pollutants.fullName} (${pollutants.displayName})",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 16)),
                         ),
                         Card(
                           elevation: 5,
@@ -209,13 +231,13 @@ Future<void> showAirQualityModal(
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                       fontWeight: FontWeight.w500,
-                                      fontSize: 14),
+                                      fontSize: 14.5),
                                 ),
                                 SizedBox(
                                   child: Divider(
                                     color: isDarkMode
                                         ? Colors.grey.shade800
-                                        : Colors.white24,
+                                        : Colors.black26,
                                     indent: size.width * 0.001,
                                     endIndent: size.width * 0.001,
                                   ),
@@ -225,13 +247,13 @@ Future<void> showAirQualityModal(
                                   pollutants.additionalInfo!.sources!,
                                   style: TextStyle(
                                       fontWeight: FontWeight.w500,
-                                      fontSize: 14),
+                                      fontSize: 14.5),
                                 ),
                                 SizedBox(
                                   child: Divider(
                                     color: isDarkMode
                                         ? Colors.grey.shade800
-                                        : Colors.white24,
+                                        : Colors.black26,
                                     indent: size.width * 0.001,
                                     endIndent: size.width * 0.001,
                                   ),
@@ -241,7 +263,7 @@ Future<void> showAirQualityModal(
                                   pollutants.additionalInfo!.effects!,
                                   style: TextStyle(
                                       fontWeight: FontWeight.w500,
-                                      fontSize: 14),
+                                      fontSize: 14.5),
                                 )
                               ],
                             ),

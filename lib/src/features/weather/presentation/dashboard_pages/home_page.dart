@@ -517,29 +517,35 @@ class _HomePageState extends ConsumerState<HomePage> {
                                                 fontWeight: FontWeight.w700),
                                           ),
                                           const Spacer(),
-                                          TextButton(
-                                            onPressed: () {
-                                              showAirQualityModal(
-                                                snapAir,
-                                                context,
-                                              );
-                                            },
-                                            style: ButtonStyle(
-                                              backgroundColor:
-                                                  WidgetStatePropertyAll(
-                                                Theme.of(context).brightness ==
-                                                        Brightness.dark
-                                                    ? Colors.red
-                                                    : Colors.blue,
+                                          ClipRRect(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(5)),
+                                            child: InkWell(
+                                              onTap: () {
+                                                showAirQualityModal(
+                                                  snapAir,
+                                                  context,
+                                                );
+                                              },
+                                              child: Container(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 10, vertical: 4),
+                                                decoration: BoxDecoration(
+                                                  color: Theme.of(context)
+                                                              .brightness ==
+                                                          Brightness.dark
+                                                      ? Colors.red
+                                                      : Colors.blue,
+                                                ),
+                                                child: const Text(
+                                                  "See more",
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 14),
+                                                ),
                                               ),
                                             ),
-                                            child: const Text(
-                                              "See more",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 14),
-                                            ),
-                                          )
+                                          ),
                                         ],
                                       ),
                                       Card(

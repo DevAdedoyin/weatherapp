@@ -30,7 +30,7 @@ Future<AirQualityResponse?> fetchAirQuality() async {
       "LOCAL_AQI",
       "POLLUTANT_ADDITIONAL_INFO"
     ],
-    "uaqiColorPalette": "COLOR_PALETTE_UNSPECIFIED",
+    "uaqiColorPalette": "INDIGO_PERSIAN_DARK",
     "customLocalAqis": [],
     "universalAqi": false,
     "languageCode": "en"
