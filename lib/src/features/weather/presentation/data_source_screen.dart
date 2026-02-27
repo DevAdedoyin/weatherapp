@@ -13,7 +13,7 @@ class DataSourceScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Data Sources',
-          style: GoogleFonts.permanentMarker(color: Colors.white, fontSize: 20),
+          style: GoogleFonts.aBeeZee(color: Colors.white, fontSize: 20),
         ),
         iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: isDarkMode ? Colors.red : Colors.blue,

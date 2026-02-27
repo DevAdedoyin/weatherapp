@@ -46,11 +46,8 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
         iconTheme: const IconThemeData(
           color: Colors.white,
         ),
-        title: const Text("Change password",
-            style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
-                fontSize: 19)),
+        title: Text("Change password",
+            style: GoogleFonts.aBeeZee(color: Colors.white, fontSize: 20)),
         backgroundColor: isDarkMode ? Colors.red : Colors.blue,
       ),
       body: SingleChildScrollView(

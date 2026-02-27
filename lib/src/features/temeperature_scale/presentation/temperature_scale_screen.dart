@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:weatherapp/src/common/gaps/sized_box.dart';
 import '../../ads/ad_counter.dart';
@@ -56,8 +57,7 @@ class _TemperatureScaleScreenState
         activeColor: Colors.white,
         onChanged: (value) async {
           AdDisplayCounter.addDisplayCounter(
-              ref.read(
-                  interstitialAdProvider.notifier));
+              ref.read(interstitialAdProvider.notifier));
           setState(() => _selectedUnit = value!);
           await TemperatureConverter.saveUnit(value!);
         },
@@ -74,7 +74,7 @@ class _TemperatureScaleScreenState
       appBar: AppBar(
         title: Text(
           "Temperature Unit",
-          style: TextStyle(color: Colors.white),
+          style: GoogleFonts.aBeeZee(color: Colors.white, fontSize: 20),
         ),
         iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: isDarkMode ? Colors.red : Colors.blue,

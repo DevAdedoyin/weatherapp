@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:weatherapp/src/features/share_app/share_app.dart';
@@ -28,7 +29,7 @@ class ShareAppScreen extends ConsumerWidget {
       appBar: AppBar(
         title: Text(
           'Share App',
-          style: TextStyle(color: Colors.white),
+          style: GoogleFonts.aBeeZee(color: Colors.white, fontSize: 20),
         ),
         iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: isDarkMode ? Colors.red : Colors.blue,

@@ -53,7 +53,7 @@ class MoreAppScreen extends ConsumerWidget {
       appBar: AppBar(
         title: Text(
           'Our App Collection',
-          style: GoogleFonts.permanentMarker(color: Colors.white, fontSize: 20),
+          style: GoogleFonts.aBeeZee(color: Colors.white, fontSize: 20),
         ),
         iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: isDarkMode ? Colors.red : Colors.blue,

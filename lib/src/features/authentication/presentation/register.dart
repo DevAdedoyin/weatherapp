@@ -75,18 +75,21 @@ class RegisterScreen extends StatelessWidget {
                                 text: "Registered already? ",
                                 style: GoogleFonts.roboto(
                                     fontSize: 15,
-                                    color:
-                                    isDarkMode ? Colors.white : Colors.black,
+                                    color: isDarkMode
+                                        ? Colors.white
+                                        : Colors.black,
                                     fontWeight: FontWeight.w800)
                                 // textTheme.titleSmall
-                            ),
+                                ),
                             TextSpan(
                               text: "Sign In here",
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () => context.push(AppRoutes.login),
                               style: GoogleFonts.robotoSlab(
                                   fontSize: 15,
-                                  color: isDarkMode ? Colors.red : Colors.blue[900],
+                                  color: isDarkMode
+                                      ? Colors.red
+                                      : Colors.blue[900],
                                   fontWeight: FontWeight.bold),
                             )
                           ]),

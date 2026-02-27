@@ -74,6 +74,8 @@ class _HomePageState extends ConsumerState<HomePage> {
 
     AdDisplayCounter.addDisplayCounter(
         ref.read(interstitialAdProvider.notifier));
+    ref.read(bannerAdProvider.notifier).loadAd();
+    ref.read(banner2AdProvider.notifier).loadAd();
   }
 
   Future<void> loadAirQuality() async {
@@ -529,7 +531,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                               },
                                               child: Container(
                                                 padding: EdgeInsets.symmetric(
-                                                    horizontal: 10, vertical: 4),
+                                                    horizontal: 10,
+                                                    vertical: 4),
                                                 decoration: BoxDecoration(
                                                   color: Theme.of(context)
                                                               .brightness ==
@@ -637,20 +640,6 @@ class _HomePageState extends ConsumerState<HomePage> {
                     ),
                   ),
                 ),
-                if (banner2Ad != null && user == null)
-                  // if (banner2Ad != null)
-                  SliverToBoxAdapter(
-                    child: Column(
-                      children: [
-                        verticalGap(1),
-                        SizedBox(
-                          height: bannerAd?.size.height.toDouble(),
-                          width: size.width * 0.90,
-                          child: AdWidget(ad: banner2Ad),
-                        ),
-                      ],
-                    ),
-                  ),
                 SliverToBoxAdapter(
                   child: Container(
                     margin: const EdgeInsets.only(top: 10, bottom: 10),
@@ -835,13 +824,28 @@ class _HomePageState extends ConsumerState<HomePage> {
                     ),
                   ),
                 ),
-                SliverToBoxAdapter(
-                  child: Divider(
-                    color: isDarkMode ? Colors.grey.shade800 : Colors.white30,
-                    endIndent: size.width * 0.04,
-                    indent: size.width * 0.04,
+                if (user != null)
+                  SliverToBoxAdapter(
+                    child: Divider(
+                      color: isDarkMode ? Colors.grey.shade800 : Colors.white30,
+                      endIndent: size.width * 0.04,
+                      indent: size.width * 0.04,
+                    ),
+                  )
+                else if (banner2Ad != null && user == null)
+                  // if (banner2Ad != null)
+                  SliverToBoxAdapter(
+                    child: Column(
+                      children: [
+                        verticalGap(1),
+                        SizedBox(
+                          height: bannerAd?.size.height.toDouble(),
+                          width: size.width * 0.90,
+                          child: AdWidget(ad: banner2Ad),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
                 SliverToBoxAdapter(
                   child: Container(
                     margin:

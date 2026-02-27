@@ -53,7 +53,7 @@ class _AirQualityMapState extends ConsumerState<AirQualityMap> {
         dotenv.env['REACT_APP_GOOGLE_API_KEY'] ?? '',
         "US_AQI",
       ),
-      transparency: 0.1,
+      transparency: 0.2,
     );
   }
 
@@ -187,7 +187,7 @@ class _AirQualityMapState extends ConsumerState<AirQualityMap> {
               },
               initialCameraPosition: CameraPosition(
                 target: _position!,
-                zoom: 11,
+                zoom: 8,
               ),
               tileOverlays: {_airQualityOverlay},
               onMapCreated: (controller) async {
@@ -197,7 +197,7 @@ class _AirQualityMapState extends ConsumerState<AirQualityMap> {
                   _cameraMoved = true;
                   await controller.animateCamera(
                     CameraUpdate.newCameraPosition(
-                      CameraPosition(target: _position!, zoom: 11),
+                      CameraPosition(target: _position!, zoom: 8),
                     ),
                   );
                 }
