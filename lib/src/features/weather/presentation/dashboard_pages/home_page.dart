@@ -73,7 +73,8 @@ class _HomePageState extends ConsumerState<HomePage> {
     // WeatherTipsHelper.uploadRecommendations();
 
     AdDisplayCounter.addDisplayCounter(
-        ref.read(interstitialAdProvider.notifier));
+        ref.read(interstitialAdProvider.notifier),
+        adPoint: 2.0);
     ref.read(bannerAdProvider.notifier).loadAd();
     ref.read(banner2AdProvider.notifier).loadAd();
   }
@@ -524,6 +525,12 @@ class _HomePageState extends ConsumerState<HomePage> {
                                                 Radius.circular(5)),
                                             child: InkWell(
                                               onTap: () {
+                                                AdDisplayCounter
+                                                    .addDisplayCounter(
+                                                        ref.read(
+                                                            interstitialAdProvider
+                                                                .notifier),
+                                                        adPoint: 2.0);
                                                 showAirQualityModal(
                                                   snapAir,
                                                   context,
@@ -680,7 +687,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                     if (currentUser == null) {
                                       AdDisplayCounter.addDisplayCounter(
                                           ref.read(
-                                              interstitialAdProvider.notifier));
+                                              interstitialAdProvider.notifier),
+                                          adPoint: 1.0);
                                       infoAuthAlertWidget(
                                           context,
                                           "Please kindly login or create an account to see more details.",
@@ -729,7 +737,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       hourlyState.address = address!;
                                       AdDisplayCounter.addDisplayCounter(
                                           ref.read(
-                                              interstitialAdProvider.notifier));
+                                              interstitialAdProvider.notifier),
+                                          adPoint: 1.0);
                                       context
                                           .push(AppRoutes.hourlyWeatherDetails);
                                     }
@@ -877,8 +886,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                             TextButton(
                                 onPressed: () {
                                   showRecommendationsModalBottom(context, ref);
-                                  AdDisplayCounter.addDisplayCounter(ref
-                                      .read(interstitialAdProvider.notifier));
+                                  AdDisplayCounter.addDisplayCounter(
+                                      ref.read(interstitialAdProvider.notifier),
+                                      adPoint: 1.0);
                                 },
                                 style: ButtonStyle(
                                     backgroundColor: WidgetStatePropertyAll(

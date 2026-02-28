@@ -36,7 +36,8 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
     // TODO: implement initState
     super.initState();
     AdDisplayCounter.addDisplayCounter(
-        ref.read(interstitialAdProvider.notifier));
+        ref.read(interstitialAdProvider.notifier),
+        adPoint: 1.5);
     // TODO NOTE
     // In the future to load ad banners uncomment this code
     ref.read(forecastBannerAdProvider.notifier).loadAd();
@@ -147,8 +148,10 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                           child: InkWell(
                             onTap: FirebaseAuth.instance.currentUser == null
                                 ? () {
-                                    AdDisplayCounter.addDisplayCounter(ref
-                                        .read(interstitialAdProvider.notifier));
+                                    AdDisplayCounter.addDisplayCounter(
+                                        ref.read(
+                                            interstitialAdProvider.notifier),
+                                        adPoint: 2.0);
                                     infoAuthAlertWidget(
                                         context,
                                         "Please kindly login or create an account to see more forecast details",

@@ -11,6 +11,8 @@ import 'package:weatherapp/src/features/weather/data/repositories/air_quality_ti
 import 'package:weatherapp/src/features/weather/domain/air_quality_model/air_quality_index_table.dart';
 
 import '../../../common/gaps/sized_box.dart';
+import '../../ads/ad_counter.dart';
+import '../../ads/data/repositories/interstital_repository.dart';
 import '../../geo_location/repositories/address_repo.dart';
 
 class AirQualityMap extends ConsumerStatefulWidget {
@@ -212,6 +214,9 @@ class _AirQualityMapState extends ConsumerState<AirQualityMap> {
                 backgroundColor: Colors.blue,
                 heroTag: "aqiInfo",
                 onPressed: () {
+                  AdDisplayCounter.addDisplayCounter(
+                      ref.read(interstitialAdProvider.notifier),
+                      adPoint: 1.0);
                   _showAqiInfo(size);
                 },
                 child: const Icon(

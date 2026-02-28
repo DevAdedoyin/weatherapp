@@ -43,6 +43,10 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     // TODO: implement initState
     super.initState();
 
+    AdDisplayCounter.addDisplayCounter(
+        ref.read(interstitialAdProvider.notifier),
+        adPoint: 1.0);
+
     // TODO NOTE
     // In the future to load ad banners uncomment this code
     ref.read(settingsBannerAdProvider.notifier).loadAd();

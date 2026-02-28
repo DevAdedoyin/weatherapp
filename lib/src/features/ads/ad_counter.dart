@@ -3,28 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AdDisplayCounter {
-  static void addDisplayCounter(showAd) async {
+  static void addDisplayCounter(showAd, {double adPoint = 0.5}) async {
     SharedPreferences counter = await SharedPreferences.getInstance();
 
-    int? adNoDisplayCount = counter.getInt("adNoDisplayCount") ?? 0;
+    double? adNoDisplayCount = counter.getDouble("adNoDisplayCount") ?? adPoint;
 
-    int? adNoDisplayCount_ = adNoDisplayCount + 1;
-    // print("AD COUNT $adNoDisplayCount");
+    double? adNoDisplayCount_ = adNoDisplayCount + adPoint;
+    print("AD COUNT $adNoDisplayCount");
     // print(FirebaseAuth.instance.currentUser?.email);
 
     if (FirebaseAuth.instance.currentUser?.email != null) {
-      if (adNoDisplayCount_ < 10) {
-        counter.setInt("adNoDisplayCount", adNoDisplayCount_);
+      if (adNoDisplayCount_ < 10.0) {
+        counter.setDouble("adNoDisplayCount", adNoDisplayCount_);
       } else {
         showAd.showAd();
-        counter.setInt("adNoDisplayCount", 0);
+        counter.setDouble("adNoDisplayCount", 0);
       }
     } else {
-      if (adNoDisplayCount_ < 7) {
-        counter.setInt("adNoDisplayCount", adNoDisplayCount_);
+      if (adNoDisplayCount_ < 7.0) {
+        counter.setDouble("adNoDisplayCount", adNoDisplayCount_);
       } else {
         showAd.showAd();
-        counter.setInt("adNoDisplayCount", 0);
+        counter.setDouble("adNoDisplayCount", 0);
       }
     }
   }

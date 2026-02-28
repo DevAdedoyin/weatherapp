@@ -17,8 +17,9 @@ class BannerAdNotifier extends StateNotifier<BannerAd?> {
 
   void loadAd() {
     final banner = BannerAd(
-      adUnitId: testAdUnitId!,
-      // Platform.isAndroid ? adUnitId! : adUnitIdIOS!,
+      adUnitId:
+          // testAdUnitId!,
+          Platform.isAndroid ? adUnitId! : adUnitIdIOS!,
       size: AdSize.banner,
       request: const AdRequest(),
       listener: BannerAdListener(
