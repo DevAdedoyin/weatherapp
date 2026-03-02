@@ -52,3 +52,4 @@ lib/firebase_options.dart
 ios/Runner/Keys.plist
 
 *Keys.plist
+*AndroidManifest.xml
