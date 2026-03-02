@@ -1,11 +1,16 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../domain/air_quality_model/air_quality_model.dart';
 
 Future<AirQualityResponse?> fetchAirQuality() async {
-  final apiKey = dotenv.env['REACT_APP_GOOGLE_API_KEY'];
+  final androidGoogleMapsApiKey = dotenv.env['GOOGLE_CLOUD_KEY_ANDROID'];
+  final iOSGoogleMapsApiKey = dotenv.env['GOOGLE_CLOUD_KEY_IOS'];
+
+  final apiKey =
+      Platform.isAndroid ? androidGoogleMapsApiKey : iOSGoogleMapsApiKey;
 
   final url = Uri.parse(
     'https://airquality.googleapis.com/v1/currentConditions:lookup?key=$apiKey',

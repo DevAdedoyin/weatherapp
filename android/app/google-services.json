@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "161410344201",
+    "firebase_url": "https://weather-monitor-70793-default-rtdb.firebaseio.com",
     "project_id": "weather-monitor-70793",
     "storage_bucket": "weather-monitor-70793.firebasestorage.app"
   },

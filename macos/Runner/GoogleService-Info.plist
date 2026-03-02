@@ -32,5 +32,7 @@
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:161410344201:ios:776bba7b1ec3854d0cdfd8</string>
+	<key>DATABASE_URL</key>
+	<string>https://weather-monitor-70793-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>

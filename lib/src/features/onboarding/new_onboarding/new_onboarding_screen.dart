@@ -96,7 +96,7 @@ class _NewOnboardingScreenState extends ConsumerState<NewOnboardingScreen> {
               textColor: isDarkMode ? Colors.black : Colors.white,
               onPress: () {
                 if (currentIndex == 3) {
-                  goRouter.go(AppRoutes.login);
+                  goRouter.go(AppRoutes.userLocatorPage);
                 }
                 ref.read(currentPage.notifier).state++;
                 pageController.animateToPage(

@@ -18,6 +18,9 @@ dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
 }
 
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
 android {
     namespace = "com.weathermonitor.weatherapp"
     compileSdk = 36
@@ -43,7 +46,9 @@ android {
         targetSdk = 36
         versionCode = flutter.versionCode
         versionName = flutter.versionName
-        manifestPlaceholders = [MAPS_API_KEY: project.properties["MAPS_API_KEY"] ?: ""]
+        manifestPlaceholders = [
+                MAPS_API_KEY: localProperties.getProperty("MAPS_API_KEY")
+        ]
     }
     signingConfigs {
         release {

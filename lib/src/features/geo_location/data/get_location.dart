@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:location_geocoder/location_geocoder.dart';
@@ -12,8 +14,13 @@ class GenerateWeatherLocation {
   static void getLocation(WidgetRef ref) async {
     // Obtain shared preferences.
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final androidGoogleMapsApiKey = dotenv.env['GOOGLE_CLOUD_KEY_ANDROID'];
+    final iOSGoogleMapsApiKey = dotenv.env['GOOGLE_CLOUD_KEY_IOS'];
 
-    final apiKey = dotenv.env['REACT_APP_GOOGLE_API_KEY'];
+    final apiKey =
+        Platform.isAndroid ? androidGoogleMapsApiKey : iOSGoogleMapsApiKey;
+
+    // final apiKey = dotenv.env['REACT_APP_GOOGLE_API_KEY'];
     final LocatitonGeocoder geocoder = LocatitonGeocoder(apiKey!);
 
     LocationPermission permission = await Geolocator.checkPermission();
@@ -64,7 +71,13 @@ class GenerateWeatherLocation {
     // Obtain shared preferences.
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    final apiKey = dotenv.env['REACT_APP_GOOGLE_API_KEY'];
+    final androidGoogleMapsApiKey = dotenv.env['GOOGLE_CLOUD_KEY_ANDROID'];
+    final iOSGoogleMapsApiKey = dotenv.env['GOOGLE_CLOUD_KEY_IOS'];
+
+    final apiKey =
+        Platform.isAndroid ? androidGoogleMapsApiKey : iOSGoogleMapsApiKey;
+
+    // final apiKey = dotenv.env['REACT_APP_GOOGLE_API_KEY'];
     final LocatitonGeocoder geocoder = LocatitonGeocoder(apiKey!);
 
     final storedAddress = await geocoder.findAddressesFromQuery(location);
