@@ -111,7 +111,10 @@ class _WeatherFactScreenState extends ConsumerState<WeatherFactScreen> {
                         children: [
                           CircularProgressIndicator(),
                           verticalGap(10),
-                          Text("Loading Facts...")
+                          Text(
+                            "Loading Facts...",
+                            style: TextStyle(color: Colors.white),
+                          )
                         ],
                       ),
                     ),

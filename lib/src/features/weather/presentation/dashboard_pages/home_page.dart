@@ -29,6 +29,7 @@ import "package:weatherapp/src/features/weather/presentation/modal_bottoms/recom
 import "package:weatherapp/src/features/weather/presentation/weather_tips_card.dart";
 import "package:weatherapp/src/routing/app_routes.dart";
 import "package:weatherapp/src/routing/go_router_provider.dart";
+import "package:weatherapp/src/utils/daily_limit_checker.dart";
 import "package:weatherapp/src/utils/weather_icon_utils.dart";
 import 'package:intl/intl.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
@@ -481,7 +482,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                   children: [
                                     Text(
                                       "Air Quality",
-                                      style: GoogleFonts.acme(
+                                      style: GoogleFonts.aBeeZee(
                                           color: Colors.white,
                                           fontSize: 17,
                                           fontWeight: FontWeight.w600),
@@ -524,17 +525,47 @@ class _HomePageState extends ConsumerState<HomePage> {
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(5)),
                                             child: InkWell(
-                                              onTap: () {
-                                                AdDisplayCounter
-                                                    .addDisplayCounter(
-                                                        ref.read(
-                                                            interstitialAdProvider
-                                                                .notifier),
-                                                        adPoint: 2.0);
-                                                showAirQualityModal(
-                                                  snapAir,
-                                                  context,
-                                                );
+                                              onTap: () async {
+                                                bool isDailyLimitReached =
+                                                    await DailyLimitChecker
+                                                        .checkDailyLimit();
+                                                if (currentUser == null &&
+                                                    isDailyLimitReached) {
+                                                  AdDisplayCounter
+                                                      .addDisplayCounter(
+                                                          ref.read(
+                                                              interstitialAdProvider
+                                                                  .notifier),
+                                                          adPoint: 3.0);
+                                                  infoAuthAlertWidget(
+                                                      context,
+                                                      "Please kindly login or create an account to see more details.",
+                                                      "DAILY LIMIT REACHED",
+                                                      onTap: () {
+                                                    context.go(AppRoutes.login);
+                                                  });
+                                                } else {
+                                                  if (user == null) {
+                                                    AdDisplayCounter
+                                                        .addDisplayCounter(
+                                                            ref.read(
+                                                                interstitialAdProvider
+                                                                    .notifier),
+                                                            adPoint: 3.5);
+                                                  } else {
+                                                    AdDisplayCounter
+                                                        .addDisplayCounter(
+                                                            ref.read(
+                                                                interstitialAdProvider
+                                                                    .notifier),
+                                                            adPoint: 2.0);
+                                                  }
+
+                                                  showAirQualityModal(
+                                                    snapAir,
+                                                    context,
+                                                  );
+                                                }
                                               },
                                               child: Container(
                                                 padding: EdgeInsets.symmetric(
@@ -683,16 +714,20 @@ class _HomePageState extends ConsumerState<HomePage> {
                                     DateTime.fromMillisecondsSinceEpoch(
                                         data_.dateTime.toInt() * 1000));
                                 return InkWell(
-                                  onTap: () {
-                                    if (currentUser == null) {
+                                  onTap: () async {
+                                    bool isDailyLimitReached =
+                                        await DailyLimitChecker
+                                            .checkDailyLimit();
+                                    if (currentUser == null &&
+                                        isDailyLimitReached) {
                                       AdDisplayCounter.addDisplayCounter(
                                           ref.read(
                                               interstitialAdProvider.notifier),
-                                          adPoint: 1.0);
+                                          adPoint: 2);
                                       infoAuthAlertWidget(
                                           context,
                                           "Please kindly login or create an account to see more details.",
-                                          "LOGIN REQUIRED", onTap: () {
+                                          "DAILY LIMIT REACHED", onTap: () {
                                         context.go(AppRoutes.login);
                                       });
                                     } else {
@@ -735,11 +770,18 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       hourlyState.position = position;
                                       hourlyState.isFromSearch = false;
                                       hourlyState.address = address!;
-                                      AdDisplayCounter.addDisplayCounter(
-                                          ref.read(
-                                              interstitialAdProvider.notifier),
-                                          adPoint: 1.0);
-                                      context
+                                      if (user == null) {
+                                        AdDisplayCounter.addDisplayCounter(
+                                            ref.read(interstitialAdProvider
+                                                .notifier),
+                                            adPoint: 2.0);
+                                      } else {
+                                        AdDisplayCounter.addDisplayCounter(
+                                            ref.read(interstitialAdProvider
+                                                .notifier),
+                                            adPoint: 1.0);
+                                      }
+                                      goRouter
                                           .push(AppRoutes.hourlyWeatherDetails);
                                     }
                                   },
@@ -982,7 +1024,11 @@ class _HomePageState extends ConsumerState<HomePage> {
                 children: [
                   const LoadingIndicator(),
                   verticalGap(10),
-                  const Text("Loading your weather data")
+                  Text("Loading your weather data",
+                      style: GoogleFonts.acme(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white70))
                 ],
               ),
             );

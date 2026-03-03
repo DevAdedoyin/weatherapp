@@ -114,7 +114,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                   Text(
                     userCurrentAddress_,
                     style: GoogleFonts.acme(
-                        color: isDarkMode ? Colors.white : Colors.black,
+                        color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.bold),
                     textAlign: TextAlign.start,
@@ -122,7 +122,7 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                   Text(
                     dailyWeather.dateTime,
                     textAlign: TextAlign.start,
-                    style: textTheme.titleSmall,
+                    style: TextStyle(color: Colors.white70, fontSize: 13),
                   ),
                   verticalGap(10),
                   Align(
@@ -239,8 +239,11 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                                   if (!snapshot.hasData) {
                                     return const SizedBox.shrink();
                                   }
-                                  return Text("Feel like: ${snapshot.data}",
-                                      style: textTheme.titleSmall);
+                                  return Text(
+                                    "Feel like: ${snapshot.data}",
+                                    style: TextStyle(
+                                        color: Colors.white70, fontSize: 13),
+                                  );
                                 },
                               ),
                             ],
@@ -255,7 +258,9 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                             dailyWeather.weather.description,
                             textAlign: TextAlign.center,
                             style: GoogleFonts.acme(
-                                fontSize: 28, fontWeight: FontWeight.w700),
+                                color: Colors.white,
+                                fontSize: 28,
+                                fontWeight: FontWeight.w700),
                           ),
                         ),
                       ],
@@ -265,7 +270,8 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Temperature", style: textTheme.bodyMedium),
+                      Text("Temperature",
+                          style: GoogleFonts.aBeeZee(color: Colors.white)),
                       InkWell(
                           onTap: () {
                             ref.read(isDailyContainerTempOpen.notifier).state =
@@ -367,7 +373,8 @@ class _DailyWeatherDetailState extends ConsumerState<DailyWeatherDetail> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Other details", style: textTheme.bodyMedium),
+                      Text("Other details",
+                          style: GoogleFonts.aBeeZee(color: Colors.white)),
                       InkWell(
                           onTap: () {
                             ref

@@ -29,6 +29,7 @@ class _HourlyWeatherDetailsScreenState
     super.initState();
     ref.read(bannerHourlyAdProvider.notifier).loadAd();
   }
+
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
@@ -42,6 +43,7 @@ class _HourlyWeatherDetailsScreenState
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Container(
@@ -52,7 +54,7 @@ class _HourlyWeatherDetailsScreenState
               Text(
                 hourlyWeatherState.address,
                 style: GoogleFonts.acme(
-                    color: isDarkMode ? Colors.white : Colors.black,
+                    color: Colors.white,
                     fontSize: 17,
                     fontWeight: FontWeight.bold),
               ),
@@ -107,7 +109,9 @@ class _HourlyWeatherDetailsScreenState
                 Text(
                   "Weather Report",
                   style: GoogleFonts.acme(
-                      fontSize: 17, fontWeight: FontWeight.w700),
+                      color: Colors.white,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700),
                 ),
                 verticalGap(size.height * 0.005),
                 SizedBox(
@@ -178,7 +182,7 @@ class _HourlyWeatherDetailsScreenState
                                 }
                                 return Text(
                                   "Feel like: ${snapshot.data}",
-                                  style: textTheme.titleSmall,
+                                  style: TextStyle(color: Colors.white70),
                                 );
                               },
                             ),
@@ -193,7 +197,9 @@ class _HourlyWeatherDetailsScreenState
                           hourlyWeatherState.desctiption!,
                           textAlign: TextAlign.center,
                           style: GoogleFonts.acme(
-                              fontSize: 30, fontWeight: FontWeight.w700),
+                              color: Colors.white,
+                              fontSize: 30,
+                              fontWeight: FontWeight.w700),
                         ),
                       ),
                     ],

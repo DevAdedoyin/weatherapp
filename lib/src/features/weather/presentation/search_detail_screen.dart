@@ -122,6 +122,8 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                     SliverAppBar(
                       backgroundColor: Colors.transparent,
                       automaticallyImplyLeading: true,
+                      iconTheme: IconThemeData(color: Colors.white),
+
                       title: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -130,7 +132,7 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                             userSearchedAddress,
                             // textAlign: TextAlign.center,
                             style: GoogleFonts.acme(
-                                color: isDarkMode ? Colors.white : Colors.black,
+                                color: Colors.white,
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -234,7 +236,10 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                         return const SizedBox();
                                       return Text(
                                         "Feel like: ${snapshot.data!}",
-                                        style: textTheme.titleSmall,
+                                        style: GoogleFonts.roboto(
+                                            fontSize: 13,
+                                            color: Colors.white70,
+                                            fontWeight: FontWeight.w600),
                                       );
                                     },
                                   ),
@@ -249,7 +254,9 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                 data.currentWeatherModel.weather.description,
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.acme(
-                                    fontSize: 28, fontWeight: FontWeight.w700),
+                                    color: Colors.white,
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.w700),
                               ),
                             ),
                           ],
@@ -416,7 +423,8 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                                   const EdgeInsets.symmetric(horizontal: 20.0),
                               child: Text(
                                 'Next 24 hours',
-                                style: textTheme.titleMedium,
+                                style: GoogleFonts.aBeeZee(
+                                    color: Colors.white, fontSize: 16),
                               ),
                             ),
                             verticalGap(10),
@@ -605,10 +613,11 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20.0),
-                              child: Text(
-                                'Next 7 Days',
-                                style: textTheme.titleMedium,
-                              ),
+                              child: Text('Next 7 Days',
+                                  style: GoogleFonts.aBeeZee(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold)),
                             ),
                             verticalGap(7),
                             SizedBox(
@@ -733,14 +742,15 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                     children: [
                       Text(
                         "Unable to fetch data. Please try again.",
-                        style: textTheme.titleSmall,
+                        style: GoogleFonts.aBeeZee(color: Colors.white),
                       ),
                       TextButton.icon(
                         onPressed: () {
                           setState(() {});
                         },
                         icon: const Icon(Icons.refresh),
-                        label: const Text("Refresh"),
+                        label: Text("Refresh",
+                            style: GoogleFonts.aBeeZee(color: Colors.white70)),
                       )
                     ],
                   ),
@@ -754,7 +764,10 @@ class _SearchDetailScreenState extends ConsumerState<SearchDetailScreen> {
                     children: [
                       const LoadingIndicator(),
                       verticalGap(10),
-                      Text("Loading weather data for ${searchedCity['city']}")
+                      Text(
+                        "Loading weather data for ${searchedCity['city']}",
+                        style: GoogleFonts.aBeeZee(color: Colors.white),
+                      )
                     ],
                   ),
                 );

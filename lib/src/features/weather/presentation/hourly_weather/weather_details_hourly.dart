@@ -57,7 +57,7 @@ class _WeatherDetailsHourlyState extends ConsumerState<WeatherDetailsHourly> {
               children: [
                 Text(
                   "Other details",
-                  style: textTheme.titleMedium,
+                    style: GoogleFonts.aBeeZee(color: Colors.white)
                 ),
                 InkWell(
                     onTap: () {

@@ -13,14 +13,14 @@ class AdDisplayCounter {
     // print(FirebaseAuth.instance.currentUser?.email);
 
     if (FirebaseAuth.instance.currentUser?.email != null) {
-      if (adNoDisplayCount_ < 10.0) {
+      if (adNoDisplayCount_ < 12.0) {
         counter.setDouble("adNoDisplayCount", adNoDisplayCount_);
       } else {
         showAd.showAd();
         counter.setDouble("adNoDisplayCount", 0);
       }
     } else {
-      if (adNoDisplayCount_ < 7.0) {
+      if (adNoDisplayCount_ < 8.0) {
         counter.setDouble("adNoDisplayCount", adNoDisplayCount_);
       } else {
         showAd.showAd();

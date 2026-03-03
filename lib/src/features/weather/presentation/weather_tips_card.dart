@@ -40,9 +40,9 @@ class _WeatherTipsCardState extends ConsumerState<WeatherTipsCard> {
                 // const SizedBox(width: 10),
                 Text(
                   widget.title,
-                  style: GoogleFonts.acme(
+                  style: GoogleFonts.aBeeZee(
                       fontSize: 16,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w700,
                       color:
                           isDarkMode ? Colors.grey.shade300 : Colors.black87),
                 ),
@@ -59,7 +59,7 @@ class _WeatherTipsCardState extends ConsumerState<WeatherTipsCard> {
                         style: TextStyle(
                             color: isDarkMode
                                 ? Colors.grey.shade400
-                                : Colors.black87),
+                                : Colors.black87, fontSize: 14),
                       ),
                       Expanded(
                         child: Text(

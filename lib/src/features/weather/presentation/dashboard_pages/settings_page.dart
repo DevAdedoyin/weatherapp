@@ -585,7 +585,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             user == null ? verticalGap(5) : verticalGap(30),
             Text(
               "App Version: $appVersion",
-              style: GoogleFonts.acme(),
+              style: GoogleFonts.aBeeZee(color: Colors.white),
             ),
           ],
         ),

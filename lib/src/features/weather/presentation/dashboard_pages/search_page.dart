@@ -12,7 +12,9 @@ import "package:weatherapp/src/constants/app_colors.dart";
 import "package:weatherapp/src/features/weather/data/repositories/search_city_repo.dart";
 import "package:weatherapp/src/features/weather/data/repositories/search_suggestion_data.dart";
 import "package:weatherapp/src/routing/app_routes.dart";
+import "package:weatherapp/src/routing/go_router_provider.dart";
 
+import "../../../../utils/daily_limit_checker.dart";
 import "../../../ads/ad_counter.dart";
 import "../../../ads/data/repositories/banner_repository.dart";
 import "../../../ads/data/repositories/interstital_repository.dart";
@@ -116,7 +118,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                         infoAuthAlertWidget(
                             context,
                             "Please kindly login or create and account to search for weather data of any location of your choice.",
-                            "LOGIN REQUIRED", onTap: () {
+                            "DAILY LIMIT REACHED", onTap: () {
                           context.go(AppRoutes.login);
                         });
                       } else {
@@ -155,10 +157,11 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                     contentPadding: const EdgeInsets.symmetric(
                         horizontal: 10, vertical: 15),
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                            color: isDarkMode ? Colors.red : Colors.blue,
-                            style: BorderStyle.solid)),
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                          color: isDarkMode ? Colors.red : Colors.blue,
+                          style: BorderStyle.solid),
+                    ),
                     disabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: isDarkMode ? Colors.red : Colors.blue,
@@ -167,7 +170,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                     hintStyle: GoogleFonts.roboto(
                       fontWeight: FontWeight.normal,
                       fontSize: 17,
-                      color: isDarkMode ? Colors.grey[500] : Colors.black54,
+                      color: Colors.white70,
                       fontStyle: FontStyle.italic,
                     ),
                     suffixIcon: SizedBox(
@@ -183,28 +186,40 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                             ),
                             // horizontalGap(2),
                             InkWell(
-                                onTap: () {
-                                  AdDisplayCounter.addDisplayCounter(
-                                      ref.read(interstitialAdProvider.notifier),
-                                      adPoint: 2.0);
-                                  if (user == null) {
+                                onTap: () async {
+                                  bool isDailyLimitReached =
+                                      await DailyLimitChecker.checkDailyLimit();
+                                  if (user == null && isDailyLimitReached) {
+                                    AdDisplayCounter.addDisplayCounter(
+                                        ref.read(
+                                            interstitialAdProvider.notifier),
+                                        adPoint: 2.5);
                                     infoAuthAlertWidget(
                                         context,
                                         "Please kindly login or create an account to search for weather data of any location of your choice.",
-                                        "LOGIN REQUIRED", onTap: () {
+                                        "DAILY LIMIT REACHED", onTap: () {
                                       context.go(AppRoutes.login);
                                     });
                                   } else {
+                                    if (user == null) {
+                                      AdDisplayCounter.addDisplayCounter(
+                                          ref.read(
+                                              interstitialAdProvider.notifier),
+                                          adPoint: 3.5);
+                                    } else {
+                                      AdDisplayCounter.addDisplayCounter(
+                                          ref.read(
+                                              interstitialAdProvider.notifier),
+                                          adPoint: 2.0);
+                                    }
                                     ref
                                         .read(searchCity.notifier)
                                         .state["city"] = textController.text;
-
+                                    goRouter.push(
+                                        AppRoutes.searchCityWeatherDetails);
                                     // ref
                                     //     .read(interstitialAdProvider.notifier)
                                     //     .showAd();
-
-                                    context.push(
-                                        AppRoutes.searchCityWeatherDetails);
                                   }
                                 },
                                 splashColor: AppColors.thirdPartyIconBGColor,
@@ -212,7 +227,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                                 radius: 20,
                                 child: Icon(
                                   Icons.arrow_forward,
-                                  color: isDarkMode ? Colors.red : Colors.blue,
+                                  color: isDarkMode ? Colors.red : Colors.white,
                                 )),
                           ],
                         )),
@@ -222,7 +237,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                         },
                         child: Icon(
                           Icons.search,
-                          color: isDarkMode ? Colors.red : Colors.blue,
+                          color: isDarkMode ? Colors.red : Colors.white,
                         ))),
                 textController: textController,
                 suggestions: uniqueCityData,
@@ -254,7 +269,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                 "Popular places",
                 textAlign: TextAlign.start,
                 style: GoogleFonts.aBeeZee(
-                    color: isDarkMode ? Colors.white : Colors.black,
+                    color: Colors.white,
                     fontSize: 17,
                     fontWeight: FontWeight.bold),
               ),
@@ -272,20 +287,35 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                   child: InkWell(
                     splashColor: AppColors.cardBgColor,
                     borderRadius: BorderRadius.circular(20),
-                    onTap: () {
-                      AdDisplayCounter.addDisplayCounter(
-                          ref.read(interstitialAdProvider.notifier),
-                          adPoint: 2.0);
-                      infoAuthAlertWidget(
-                          context,
-                          "Please kindly login or create an account to see more details",
-                          "LOGIN REQUIRED", onTap: () {
-                        context.go(AppRoutes.login);
-                      });
+                    onTap: () async {
+                      bool isDailyLimitReached =
+                          await DailyLimitChecker.checkDailyLimit();
+                      if (user == null && isDailyLimitReached) {
+                        AdDisplayCounter.addDisplayCounter(
+                            ref.read(interstitialAdProvider.notifier),
+                            adPoint: 2.5);
+                        infoAuthAlertWidget(
+                            context,
+                            "Please kindly login or create an account to see more details",
+                            "DAILY LIMIT REACHED", onTap: () {
+                          context.go(AppRoutes.login);
+                        });
+                      } else {
+                        if (user == null) {
+                          AdDisplayCounter.addDisplayCounter(
+                              ref.read(interstitialAdProvider.notifier),
+                              adPoint: 3.5);
+                        } else {
+                          AdDisplayCounter.addDisplayCounter(
+                              ref.read(interstitialAdProvider.notifier),
+                              adPoint: 2.0);
+                        }
 
-                      // ref.read(searchCity.notifier).state["city"] = e.cityNames;
-                      //
-                      // context.push(AppRoutes.searchCityWeatherDetails);
+                        ref.read(searchCity.notifier).state["city"] =
+                            e.cityNames;
+
+                        goRouter.push(AppRoutes.searchCityWeatherDetails);
+                      }
                     },
                     child: ListTile(
                       leading: Icon(
@@ -331,8 +361,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                       ),
                       title: Text(
                         e.cityNames,
-                        style: GoogleFonts.acme(
-                            fontSize: 16, fontWeight: FontWeight.w600),
+                        style: textTheme.bodyMedium,
                       ),
                       trailing: Text(e.continent,
                           style: GoogleFonts.acme(

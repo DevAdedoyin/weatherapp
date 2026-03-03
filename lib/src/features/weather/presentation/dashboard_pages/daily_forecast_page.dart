@@ -17,6 +17,7 @@ import "package:weatherapp/src/routing/app_routes.dart";
 import "package:weatherapp/src/utils/weather_icon_utils.dart";
 
 import "../../../../common/widgets/auth_widgets/info_alert.dart";
+import "../../../../utils/daily_limit_checker.dart";
 import "../../../ads/ad_counter.dart";
 import "../../../ads/data/repositories/banner_repository.dart";
 import "../../../ads/data/repositories/interstital_repository.dart";
@@ -64,7 +65,10 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                   fontWeight: FontWeight.bold),
             )),
         Text("Accurate Weather Forecast",
-            style: GoogleFonts.acme(fontSize: 16, fontWeight: FontWeight.w600)),
+            style: GoogleFonts.acme(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: Colors.white70)),
         verticalGap(10),
         if (bannerAd != null)
           SizedBox(
@@ -86,7 +90,11 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                   children: [
                     const LoadingIndicator(),
                     verticalGap(5),
-                    const Text("Loading your weather data")
+                    Text("Loading your weather data",
+                        style: GoogleFonts.acme(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white70))
                   ],
                 ),
               );
@@ -100,16 +108,19 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      "Unable to fetch data. Please try again.",
-                      style: textTheme.titleSmall,
-                    ),
+                    Text("Unable to fetch data. Please try again.",
+                        style: GoogleFonts.acme(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white)),
                     TextButton.icon(
                       onPressed: () {
                         setState(() {});
                       },
                       icon: const Icon(Icons.refresh),
-                      label: const Text("Refresh"),
+                      label: const Text(
+                        "Refresh",
+                      ),
                     )
                   ],
                 ),
@@ -138,7 +149,9 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                           formattedDate,
                           textAlign: TextAlign.start,
                           style: GoogleFonts.acme(
-                              fontSize: 17, fontWeight: FontWeight.w600),
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white),
                         ),
                         Card(
                           // elevation: 3,
@@ -146,44 +159,53 @@ class _DailyForecastPageState extends ConsumerState<DailyForecastPage> {
                               ? AppColors.cardDarkModeColor
                               : AppColors.cardLightModeColor,
                           child: InkWell(
-                            onTap: FirebaseAuth.instance.currentUser == null
-                                ? () {
-                                    AdDisplayCounter.addDisplayCounter(
-                                        ref.read(
-                                            interstitialAdProvider.notifier),
-                                        adPoint: 2.0);
-                                    infoAuthAlertWidget(
-                                        context,
-                                        "Please kindly login or create an account to see more forecast details",
-                                        "LOGIN REQUIRED", onTap: () {
-                                      context.go(AppRoutes.login);
-                                    });
-                                  }
-                                : () {
-                                    final dailyDetail = DailyDetailModel(
-                                        dateTime: formattedDate,
-                                        temp: currData.temp,
-                                        feelsLike: currData.feelsLike,
-                                        pressure: currData.pressure,
-                                        moonrise: currData.moonrise,
-                                        moonset: currData.moonset,
-                                        summary: currData.summary,
-                                        sunrise: currData.sunrise,
-                                        sunset: currData.sunset,
-                                        humidity: currData.humidity,
-                                        dewPoint: currData.dewPoint,
-                                        windSpeed: currData.windSpeed,
-                                        windDegree: currData.windDegree,
-                                        weather: currData.weather);
+                            onTap: () async {
+                              bool isDailyLimitReached =
+                                  await DailyLimitChecker.checkDailyLimit();
+                              if (FirebaseAuth.instance.currentUser == null &&
+                                  isDailyLimitReached) {
+                                AdDisplayCounter.addDisplayCounter(
+                                    ref.read(interstitialAdProvider.notifier),
+                                    adPoint: 2);
+                                infoAuthAlertWidget(
+                                    context,
+                                    "Please kindly login or create an account to see more details.",
+                                    "Daily Limit Reached", onTap: () {
+                                  context.go(AppRoutes.login);
+                                });
+                              } else {
+                                final dailyDetail = DailyDetailModel(
+                                    dateTime: formattedDate,
+                                    temp: currData.temp,
+                                    feelsLike: currData.feelsLike,
+                                    pressure: currData.pressure,
+                                    moonrise: currData.moonrise,
+                                    moonset: currData.moonset,
+                                    summary: currData.summary,
+                                    sunrise: currData.sunrise,
+                                    sunset: currData.sunset,
+                                    humidity: currData.humidity,
+                                    dewPoint: currData.dewPoint,
+                                    windSpeed: currData.windSpeed,
+                                    windDegree: currData.windDegree,
+                                    weather: currData.weather);
 
-                                    ref
-                                        .read(dailyWeatherProvider.notifier)
-                                        .state = dailyDetail;
+                                ref.read(dailyWeatherProvider.notifier).state =
+                                    dailyDetail;
 
-                                    context.push(AppRoutes.dailyDetails);
-                                    AdDisplayCounter.addDisplayCounter(ref
-                                        .read(interstitialAdProvider.notifier));
-                                  },
+                                if (FirebaseAuth.instance.currentUser == null) {
+                                  AdDisplayCounter.addDisplayCounter(
+                                      ref.read(interstitialAdProvider.notifier),
+                                      adPoint: 2);
+                                } else {
+                                  AdDisplayCounter.addDisplayCounter(
+                                      ref.read(interstitialAdProvider.notifier),
+                                      adPoint: 1.5);
+                                }
+
+                                context.push(AppRoutes.dailyDetails);
+                              }
+                            },
                             radius: 0.5,
                             borderRadius: BorderRadius.circular(10),
                             child: ListTile(
